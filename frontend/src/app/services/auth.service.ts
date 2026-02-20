@@ -270,15 +270,15 @@ export class AuthService {
         return this.http.get(`${this.adminApiUrl}/users`, { headers: this.getAuthHeaders() });
     }
 
-    updateUser(id: number, data: any): Observable<any> {
+    updateUser(id: number | string, data: any): Observable<any> {
         return this.http.put(`${this.adminApiUrl}/users/${id}`, data, { headers: this.getAuthHeaders() });
     }
 
-    deleteUser(id: number): Observable<any> {
+    deleteUser(id: number | string): Observable<any> {
         return this.http.delete(`${this.adminApiUrl}/users/${id}`, { headers: this.getAuthHeaders() });
     }
 
-    toggleAdmin(id: number, is_admin: boolean): Observable<any> {
+    toggleAdmin(id: number | string, is_admin: boolean): Observable<any> {
         return this.http.put(`${this.adminApiUrl}/users/${id}/admin`, { is_admin }, { headers: this.getAuthHeaders() });
     }
 }
