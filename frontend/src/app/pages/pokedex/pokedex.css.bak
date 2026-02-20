@@ -1,0 +1,338 @@
+    .pokedex-container {
+        padding: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .add-pokemon-section {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    input[type="text"] {
+        flex: 1;
+        padding: 8px;
+    }
+
+    button {
+        padding: 8px 15px;
+        cursor: pointer;
+    }
+
+    .preview-card {
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 8px;
+        background: white;
+        display: inline-block;
+    }
+
+    .add-btn {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .region-section {
+        margin-bottom: 30px;
+    }
+
+    .region-header {
+        color: #ffcb05;
+        border-bottom: 2px solid #ffcb05;
+        padding-bottom: 5px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        user-select: none;
+    }
+
+    .region-header:hover {
+        color: #e6b800;
+        border-bottom-color: #e6b800;
+    }
+
+    .toggle-icon {
+        margin-right: 10px;
+        font-size: 0.8em;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        margin-top: 10px;
+    }
+
+    .pokemon-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 900px;
+    }
+
+    .pokemon-table th {
+        background-color: #ffcb05;
+        padding: 10px;
+        text-align: center;
+        font-weight: bold;
+        position: sticky;
+        top: 0;
+        white-space: nowrap;
+        border-left: 1px solid #e6b800;
+    }
+
+    .pokemon-table th:first-child {
+        border-left: none;
+    }
+
+    .pokemon-table td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        border-left: 1px solid #eee;
+        text-align: center;
+    }
+
+    .pokemon-table td:first-child {
+        border-left: none;
+    }
+
+    .pokemon-table td:nth-child(2) {
+        text-align: left;
+    }
+
+    .pokemon-table tr:hover {
+        background-color: #f9f9f9;
+    }
+
+    .pokemon-img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .count-row th {
+        background-color: #f39c12;
+        font-size: 0.9rem;
+        font-weight: normal;
+        font-style: italic;
+        text-align: center;
+        border-left: 1px solid #d68910;
+    }
+
+    input[type="checkbox"] {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+    }
+
+    .empty-region {
+        color: #999;
+        font-style: italic;
+    }
+
+    .check-cell {
+        position: relative;
+        white-space: nowrap;
+    }
+
+    .trade-icon {
+        position: absolute;
+        top: 2px;
+        right: 5px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        /* Default state (gray/inactive) */
+        color: transparent;
+        text-shadow: 0 0 0 #ccc;
+    }
+
+    .trade-icon:hover {
+        transform: scale(1.1);
+        text-shadow: 0 0 0 #999;
+    }
+
+    .trade-icon.active-normal {
+        color: transparent;
+        text-shadow: 0 0 0 #28a745;
+        opacity: 1;
+    }
+
+    .trade-icon.active-special {
+        color: transparent;
+        text-shadow: 0 0 0 #fd7e14;
+        opacity: 1;
+    }
+
+    .trade-icon.inactive {
+        color: transparent;
+        text-shadow: 0 0 0 #dc3545;
+        opacity: 1;
+        cursor: not-allowed;
+    }
+
+    .trade-icon.inactive-gray {
+        color: transparent;
+        text-shadow: 0 0 0 #ccc;
+        opacity: 1;
+    }
+
+    .trade-icon.inactive:hover {
+        transform: none;
+        text-shadow: 0 0 0 #dc3545;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: white;
+        margin: 2px;
+        white-space: nowrap;
+    }
+
+    .badge-classification {
+        background: #3498db;
+    }
+
+    .badge-region {
+        background: #27ae60;
+    }
+
+    .badge-type {
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    .filters-section {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .filters-section h3 {
+        margin: 0 0 15px 0;
+        color: #333;
+    }
+
+    .filters-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        align-items: end;
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .filter-group label {
+        font-weight: 600;
+        color: #555;
+        font-size: 0.9rem;
+    }
+
+    .filter-group select {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        background: white;
+        cursor: pointer;
+    }
+
+    .filter-group select:focus {
+        outline: none;
+        border-color: #3498db;
+    }
+
+    .filter-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .clear-btn {
+        padding: 8px 16px;
+        background: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .clear-btn:hover {
+        background: #c0392b;
+    }
+
+    .results-count {
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 600;
+    }
+
+    .trade-legend {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        padding: 10px 15px;
+        background: #f8f9fa;
+        border-radius: 6px;
+        margin-top: 15px;
+        font-size: 0.85rem;
+    }
+
+    .legend-title {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: #666;
+    }
+
+    .legend-item .trade-icon {
+        position: static;
+        font-size: 1rem;
+    }
+
+    .show-more-container {
+        text-align: center;
+        padding: 15px;
+        background: #f9f9f9;
+        border-top: 1px solid #eee;
+    }
+
+    .show-more-btn {
+        padding: 10px 20px;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.2s ease;
+    }
+
+    .show-more-btn:hover {
+        background: #2980b9;
+    }

@@ -1,0 +1,60 @@
+services:
+  frontend:
+    container_name: pokedec-dev-frontend
+    build: ./frontend
+    ports:
+      - "8081:80"
+    volumes:
+      - ./frontend/public/images:/usr/share/nginx/html/images:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    container_name: pokedec-dev-backend
+    build:
+      context: ./backend
+      args:
+        INSTALL_SSH_TOOLS: "true" # Enable SSH tools for DEV
+    # Port 3000 is only accessible via nginx proxy
+    expose:
+      - "3000"
+    volumes:
+      - ./backend:/app
+      - ./deploy:/app/deploy
+      - /app/node_modules
+      # Deployment mounts
+      - ./deploy:/deployment/deploy
+      - ./frontend:/deployment/frontend
+      - ./nginx:/deployment/nginx
+      - ./.env.synology:/deployment/.env.synology
+      - /Users/eugenio/.ssh:/root/.ssh:ro
+      - ./frontend/public/images:/frontend/public/images
+    env_file:
+      - .env.local
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - APP_ENV=DEV # Explicitly set DEV environment
+      - APP_VERSION=V2026.02.20.1 # DEV version
+      - PROD_DB_HOST=192.168.1.199
+      - PROD_DB_PORT=5433
+    depends_on:
+      - db
+
+  db:
+    container_name: pokedec-dev-db
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:

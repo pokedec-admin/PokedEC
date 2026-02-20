@@ -1,0 +1,269 @@
+<div class="pokemon-detail-container" *ngIf="pokemon">
+    <div class="header">
+        <div class="header-title-group">
+            <h1>{{ translatedName || pokemon.name }}</h1>
+            <span class="pokemon-id">#{{ pokemon.id | number:'3.0-0' }}</span>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="image-section">
+            <button class="nav-btn prev" (click)="goToPrevious()" *ngIf="pokemon.id > 1" title="Précédent">
+                &#10094;
+            </button>
+
+            <img [src]="userPokemon?.image_url || pokemon.sprites.front_default" [alt]="pokemon.name"
+                class="pokemon-image">
+
+            <!-- Forms Selector (Alola, Galar, etc.) -->
+            <div class="forms-selector" *ngIf="availableForms.length > 1">
+                <div *ngFor="let f of availableForms" class="form-thumbnail" [class.active]="f.form_name === formName"
+                    (click)="switchForm(f.form_name)" [title]="f.form_name">
+                    <img [src]="f.image_url" [alt]="f.form_name">
+                    <span>{{ f.form_name === 'Normal' ? 'Base' : f.form_name }}</span>
+                </div>
+            </div>
+
+            <button class="nav-btn next" (click)="goToNext()" *ngIf="pokemon.id < 1025" title="Suivant">
+                &#10095;
+            </button>
+        </div>
+
+        <div class="info-section">
+
+        </div>
+    </div>
+
+    <!-- Master Data Section -->
+    <div class="master-data-section" *ngIf="userPokemon">
+        <div class="master-badge-row">
+            <div class="badge-group" *ngIf="userPokemon.classification_name">
+                <label>Classification</label>
+                <span class="badge badge-classification">{{ userPokemon.classification_name }}</span>
+            </div>
+            <div class="badge-group" *ngIf="userPokemon.region_name">
+                <label>Région</label>
+                <span class="badge badge-region">{{ userPokemon.region_name }}</span>
+            </div>
+            <div class="badge-group" *ngIf="userPokemon.is_regional">
+                <label>Spécificité</label>
+                <span class="badge badge-regional" [title]="userPokemon.regional_description || ''">
+                    <i class="fas fa-map-marker-alt"></i> Régional
+                </span>
+            </div>
+            <div class="badge-group" *ngIf="userPokemon.type_primary_name">
+                <label>Types</label>
+                <div class="types-badges">
+                    <span class="badge badge-type" [style.background-color]="userPokemon.type_primary_color">
+                        {{ userPokemon.type_primary_name }}
+                    </span>
+                    <span *ngIf="userPokemon.type_secondary_name" class="badge badge-type"
+                        [style.background-color]="userPokemon.type_secondary_color">
+                        {{ userPokemon.type_secondary_name }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Incoming Trade Requests -->
+<div class="trade-requests-section" *ngIf="incomingRequests.length > 0"
+    style="margin: 20px 0; padding: 15px; background: #fff3cd; border: 1px solid #ffeeba; border-radius: 10px;">
+    <h3 style="color: #856404; margin-top: 0;">📬 Demandes d'échange ({{ incomingRequests.length }})</h3>
+    <div class="request-card" *ngFor="let req of incomingRequests"
+        style="background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <p class="request-info" style="margin-bottom: 10px;">
+            <strong>{{ req.requester_name || req.requester_email }}</strong> souhaite échanger ce Pokémon.
+        </p>
+        <div class="request-actions" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+            <button (click)="respondToRequest(req, 'rejected')"
+                style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                Pas intéressé
+            </button>
+            <div class="contact-options" style="display: flex; gap: 5px; align-items: center;">
+                <span style="font-size: 0.9rem; color: #666;">Me contacter via :</span>
+                <button (click)="respondToRequest(req, 'contact_campfire')"
+                    style="background: #fd7e14; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                    Campfire
+                </button>
+                <button (click)="respondToRequest(req, 'contact_whatsapp')"
+                    style="background: #25D366; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                    WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="user-controls">
+    <h3>{{ getLabel('collection_status') }}</h3>
+
+    <!-- Add/Remove Buttons -->
+    <div class="action-buttons" style="margin-bottom: 20px; display: flex; gap: 10px; justify-content: center;">
+        <button *ngIf="!userPokemon?.id" class="add-btn" (click)="addToPokedex()"
+            style="background-color: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            <i class="fas fa-plus"></i> Add to Pokedex
+        </button>
+        <button *ngIf="userPokemon?.id" class="remove-btn" (click)="removeFromPokedex()"
+            style="background-color: #dc3545; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+            <i class="fas fa-trash"></i> Remove from Pokedex
+        </button>
+    </div>
+
+    <div class="toggles-grid">
+        <!-- Normal Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_normal">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_normal" (click)="toggleNormal()">
+                <i class="fas fa-circle"></i> Normal
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_normal"
+                [class.active-normal]="userPokemon.has_trade && getTradeStatus() === 'YES'"
+                [class.active-special]="userPokemon.has_trade && getTradeStatus() === 'SPECIAL'"
+                [class.inactive]="getTradeStatus() === 'NO'" (click)="toggleTrade()"
+                [title]="getTradeStatus() === 'NO' ? 'Échange impossible' : 'Basculer échange'">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Legendary Group (Mutually exclusive with Normal, Mythical, Ultra Beast) -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_legendary">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_normal" (click)="toggleLegendary()">
+                <i class="fas fa-star"></i> Légendaire
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_normal" (click)="toggleTradeLegendary()"
+                [class.active]="userPokemon?.has_trade"
+                [class.active-normal]="userPokemon.has_trade && getTradeStatus() !== 'NO'"
+                [class.inactive]="getTradeStatus() === 'NO'"
+                [title]="getTradeStatus() === 'NO' ? 'Échange impossible' : 'Basculer échange Légendaire'">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Mythical Group (Mutually exclusive with Normal, Legendary, Ultra Beast) -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_mythical">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_normal" (click)="toggleMythical()">
+                <i class="fas fa-magic"></i> Fabuleux
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_normal" (click)="toggleTradeMythical()"
+                [class.active]="userPokemon?.has_trade">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Ultra Beast Group (Mutually exclusive with Normal, Legendary, Mythical) -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_ultra_beast">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_normal" (click)="toggleUltraBeast()">
+                <i class="fas fa-alien"></i> Ultra-Chimères
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_normal" (click)="toggleTradeUltraBeast()"
+                [class.active]="userPokemon?.has_trade">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Shiny Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_shiny">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_shiny" (click)="toggleShiny()">
+                <i class="fas fa-star"></i> {{ getLabel('shiny') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_shiny" (click)="toggleTradeShiny()"
+                [class.active]="userPokemon?.trade_shiny" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Lucky (No trade sub-option) -->
+        <button class="toggle-btn" *ngIf="userPokemon?.can_be_lucky" [class.active]="userPokemon?.has_lucky"
+            (click)="toggleLucky()">
+            <i class="fas fa-clover"></i> {{ getLabel('lucky') }}
+        </button>
+
+        <!-- XXL Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_xxl">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_xxl" (click)="toggleXXL()">
+                <i class="fas fa-expand-arrows-alt"></i> {{ getLabel('xxl') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_xxl" (click)="toggleTradeXXL()"
+                [class.active]="userPokemon?.trade_xxl" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- XXS Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_xxs">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_xxs" (click)="toggleXXS()">
+                <i class="fas fa-compress-arrows-alt"></i> {{ getLabel('xxs') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_xxs" (click)="toggleTradeXXS()"
+                [class.active]="userPokemon?.trade_xxs" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- G-MAX Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_gmax">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_gmax" (click)="toggleGMax()">
+                <i class="fas fa-cloud"></i> {{ getLabel('gmax') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_gmax" (click)="toggleTradeGMax()"
+                [class.active]="userPokemon?.trade_gmax" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Dynamax Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_dynamax">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_dynamax" (click)="toggleDynamax()">
+                <i class="fas fa-bomb"></i> {{ getLabel('dynamax') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_dynamax" (click)="toggleTradeDynamax()"
+                [class.active]="userPokemon?.trade_dynamax" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Mega Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_mega">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_mega" (click)="toggleMega()">
+                <i class="fas fa-dna"></i> {{ getLabel('mega') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_mega" (click)="toggleTradeMega()"
+                [class.active]="userPokemon?.trade_mega" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Obscure Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_obscure">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_obscure" (click)="toggleObscure()">
+                <i class="fas fa-ghost"></i> {{ getLabel('obscure') }}
+            </button>
+            <!-- No trade for obscure usually? Assuming yes based on pattern -->
+        </div>
+
+        <!-- Purified Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_purified">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_purifie" (click)="togglePurifie()">
+                <i class="fas fa-sun"></i> {{ getLabel('purified') }}
+            </button>
+            <div class="sub-toggle" *ngIf="userPokemon?.has_purifie" (click)="toggleTradePurified()"
+                [class.active]="userPokemon?.trade_purified" title="Disponible à l'échange ?">
+                <i class="fas fa-exchange-alt"></i>
+            </div>
+        </div>
+
+        <!-- Perfect Group -->
+        <div class="toggle-wrapper" *ngIf="userPokemon?.can_be_perfect">
+            <button class="toggle-btn" [class.active]="userPokemon?.has_parfait" (click)="toggleParfait()">
+                <i class="fas fa-crown"></i> {{ getLabel('perfect') }}
+            </button>
+            <!-- No trade for perfect usually? Or maybe yes? -->
+        </div>
+    </div>
+</div>
+
+<button class="back-btn" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> {{ getLabel('back') }}
+</button>

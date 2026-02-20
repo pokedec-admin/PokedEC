@@ -1,0 +1,42 @@
+<div class="credits-container">
+    <div class="hero-section">
+        <h1>Crédits & Remerciements</h1>
+        <p class="subtitle">Les fondations de Poked'EC</p>
+    </div>
+
+    <div class="ai-section">
+        <div class="ai-card">
+            <div class="ai-icon">🤖</div>
+            <div class="ai-content">
+                <h2>Conçu avec l'IA</h2>
+                <p>
+                    Ce projet a été réalisé avec l'assistance d'une Intelligence Artificielle avancée développée par
+                    <strong>Google DeepMind</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tech-grid">
+        <a *ngFor="let tech of technologies" [href]="tech.url" target="_blank" class="tech-card">
+            <div class="tech-icon">{{ tech.icon }}</div>
+            <div class="tech-info">
+                <h3>{{ tech.name }}</h3>
+                <p>{{ tech.description }}</p>
+            </div>
+            <div class="external-link">↗</div>
+        </a>
+    </div>
+
+    <div class="legal-section">
+        <p>
+            Pokémon et Pokémon GO sont des marques déposées de The Pokémon Company, Niantic et Nintendo.
+            <br>
+            Ce projet est un outil communautaire non officiel créé par des fans pour des fans.
+        </p>
+    </div>
+
+    <div class="actions">
+        <a routerLink="/" class="btn-back">Retour à l'accueil</a>
+    </div>
+</div>

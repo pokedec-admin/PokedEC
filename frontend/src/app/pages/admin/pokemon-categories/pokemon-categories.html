@@ -1,0 +1,109 @@
+<div class="pokemon-categories-container">
+        <h2>📋 Gestion des Catégories Pokémon</h2>
+        <p class="subtitle">Cochez les catégories disponibles pour chaque Pokémon. Les modifications sont enregistrées
+                automatiquement.</p>
+
+        <!-- Messages -->
+        <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+        <!-- Loading Indicator -->
+        <div *ngIf="loading" class="loading">Chargement des 1025 Pokémon...</div>
+
+        <!-- Region-Based Table -->
+        <div *ngIf="!loading" class="regions-container">
+                <div *ngFor="let region of regions" class="region-section">
+                        <h3 (click)="toggleRegion(region)" class="region-header">
+                                <span class="toggle-icon">{{ region.expanded ? '▼' : '▶' }}</span>
+                                {{ region.name }} ({{ region.pokemon.length }})
+                        </h3>
+
+                        <div class="table-wrapper">
+                                <table *ngIf="region.pokemon.length > 0" class="pokemon-table">
+                                        <thead>
+                                                <tr>
+                                                        <th>Sprite</th>
+                                                        <th>ID</th>
+                                                        <th>Catégorie</th>
+                                                        <th>Disponible</th>
+                                                        <th>🌟 Shiny</th>
+                                                        <th>🍀 Lucky</th>
+                                                        <th>📏 XXL</th>
+                                                        <th>🤏 XXS</th>
+                                                        <th>🌑 Obscure</th>
+                                                        <th>☀️ Purifié</th>
+                                                        <th>🌈 Parfait</th>
+                                                </tr>
+                                                <tr class="count-row">
+                                                        <th colspan="2">Total: {{ region.pokemon.length }}</th>
+                                                        <th>-</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_normal') +
+                                                                getCategoryCount(region.pokemon, 'can_be_legendary') +
+                                                                getCategoryCount(region.pokemon, 'can_be_mythical') +
+                                                                getCategoryCount(region.pokemon, 'can_be_ultra_beast')
+                                                                }}</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_shiny') }}</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_lucky') }}</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_xxl') }}</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_xxs') }}</th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_obscure') }}
+                                                        </th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_purified') }}
+                                                        </th>
+                                                        <th>{{ getCategoryCount(region.pokemon, 'can_be_perfect') }}
+                                                        </th>
+                                                </tr>
+                                        </thead>
+                                        <tbody *ngIf="region.expanded">
+                                                <tr *ngFor="let p of region.pokemon">
+                                                        <td><img [src]="getPokemonSpriteUrl(p.pokemon_id)"
+                                                                        alt="#{{p.pokemon_id}}" class="pokemon-sprite">
+                                                        </td>
+                                                        <td class="pokemon-id">#{{ p.pokemon_id.toString().padStart(4,
+                                                                '0') }}</td>
+                                                        <td class="check-cell">
+                                                                <select [ngModel]="getCategory(p)"
+                                                                        (ngModelChange)="setCategory(p, $event)"
+                                                                        class="category-select">
+                                                                        <option value="normal">Normal</option>
+                                                                        <option value="legendary">Légendaire</option>
+                                                                        <option value="mythical">Fabuleux</option>
+                                                                        <option value="ultra_beast">Ultra-Chimère
+                                                                        </option>
+                                                                </select>
+                                                        </td>
+                                                        <td class="check-cell">
+                                                                <label class="switch">
+                                                                        <input type="checkbox"
+                                                                                [checked]="isAvailable(p)"
+                                                                                (change)="toggleAvailability(p, $event)">
+                                                                        <span class="slider round"></span>
+                                                                </label>
+                                                        </td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_shiny"
+                                                                        (change)="toggleShiny(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_lucky"
+                                                                        (change)="toggleLucky(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_xxl"
+                                                                        (change)="toggleXXL(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_xxs"
+                                                                        (change)="toggleXXS(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_obscure"
+                                                                        (change)="toggleObscure(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_purified"
+                                                                        (change)="togglePurified(p)"></td>
+                                                        <td class="check-cell"><input type="checkbox"
+                                                                        [checked]="p.can_be_perfect"
+                                                                        (change)="togglePerfect(p)"></td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                        </div>
+                </div>
+        </div>
+</div>

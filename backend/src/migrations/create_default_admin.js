@@ -1,0 +1,49 @@
+const { Pool } = require('pg');
+const bcrypt = require('bcrypt');
+
+const pool = new Pool({
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'db',
+    database: process.env.DB_NAME || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    port: process.env.DB_PORT || 5432,
+});
+
+async function createDefaultAdmin() {
+    try {
+        console.log('[Migration] Checking for existing admin user...');
+
+        // Check if any admin exists
+        const adminCheck = await pool.query('SELECT id FROM users WHERE is_admin = true');
+
+        if (adminCheck.rows.length > 0) {
+            console.log('[Migration] Admin user already exists. Skipping creation.');
+            process.exit(0);
+        }
+
+        console.log('[Migration] No admin found. Creating default admin user...');
+
+        const email = 'admin@pokedec.com';
+        const password = 'admin123';
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const trainerName = 'Admin';
+        const team = 'Harmony';
+
+        await pool.query(
+            `INSERT INTO users (email, password, trainer_name, team, is_admin, email_verified, preferred_language)
+             VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+            [email, hashedPassword, trainerName, team, true, true, 'fr']
+        );
+
+        console.log(`[Migration] Default admin created successfully.`);
+        console.log(`[Migration] Email: ${email}`);
+        console.log(`[Migration] Password: ${password}`);
+
+        process.exit(0);
+    } catch (err) {
+        console.error('[Migration] Error:', err);
+        process.exit(1);
+    }
+}
+
+createDefaultAdmin();

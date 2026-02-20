@@ -1,0 +1,640 @@
+<div class="schema-help-container">
+    <header class="page-header">
+        <button class="back-btn" routerLink="/admin">← Back to Admin</button>
+        <h1>📚 Database Schema Documentation</h1>
+        <div class="controls">
+            <button (click)="expandAll()" class="control-btn">Expand All</button>
+            <button (click)="collapseAll()" class="control-btn">Collapse All</button>
+        </div>
+    </header>
+
+    <!-- ERD Diagram -->
+    <section class="erd-section">
+        <h2>Entity-Relationship Diagram</h2>
+        <pre class="mermaid" [innerHTML]="mermaidDiagram"></pre>
+    </section>
+
+    <!-- Collapsible Sections -->
+    <div class="sections-container">
+        <div *ngFor="let section of sections; let i = index" class="section-wrapper">
+            <div class="section-header" (click)="toggleSection(i)" [class.expanded]="section.expanded">
+                <span class="chevron">{{ section.expanded ? '▼' : '▶' }}</span>
+                <h3>{{ section.title }}</h3>
+            </div>
+
+            <div class="section-content" [class.show]="section.expanded">
+
+                <!-- Users Table -->
+                <div *ngIf="section.content === 'users'" class="content">
+                    <p class="description">User accounts for the application.</p>
+                    <div class="table-responsive">
+                        <table class="attr-table">
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>id</code></td>
+                                    <td>SERIAL</td>
+                                    <td>Unique user identifier</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>email</code></td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>User email</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>password</code></td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Hashed password</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trainer_name</code></td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Pokemon GO trainer (unique)</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>team</code></td>
+                                    <td>VARCHAR(20)</td>
+                                    <td>GO team</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>phone</code></td>
+                                    <td>VARCHAR(20)</td>
+                                    <td>Contact phone</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>email_verified</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Email status</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>is_active</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Active status</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>is_admin</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Admin flag</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>preferred_language</code></td>
+                                    <td>VARCHAR(10)</td>
+                                    <td>UI language</td>
+                                    <td>'fr'</td>
+                                </tr>
+                                <tr>
+                                    <td><code>campfire_name</code></td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Campfire username</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>whatsapp_group</code></td>
+                                    <td>VARCHAR(255)</td>
+                                    <td>Community group</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pokedex Table -->
+                <div *ngIf="section.content === 'pokedex'" class="content">
+                    <p class="description">User Pokemon collection data with variant tracking.</p>
+                    <div class="table-responsive">
+                        <table class="attr-table">
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>id</code></td>
+                                    <td>SERIAL</td>
+                                    <td>Entry ID</td>
+                                </tr>
+                                <tr>
+                                    <td><code>user_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>Owner FK</td>
+                                </tr>
+                                <tr>
+                                    <td><code>pokemon_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>National Dex #</td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="3"><strong>Variants (Collected)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_shiny</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Shiny/Chromatique</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_lucky</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Lucky/Chanceux</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_xxl</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXL size</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_xxs</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXS size</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_gmax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Gigantamax</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_dynamax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Dynamax</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_mega</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Mega Evolution</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_obscure</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Shadow</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_purifie</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Purified</td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_parfait</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Perfect IV</td>
+                                </tr>
+                                <tr class="category-row">
+                                    <td colspan="3"><strong>Trade Flags</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><code>has_trade</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Normal for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_shiny</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Shiny for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_xxl</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXL for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_xxs</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXS for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_gmax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>G-MAX for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_dynamax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Dynamax for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_mega</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Mega for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_purified</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Purified for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_legendary</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Legendary for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_mythical</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Mythical for trade</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_ultra_beast</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Ultra Beast for trade</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pokemon Master Table -->
+                <div *ngIf="section.content === 'pokemon_master'" class="content">
+                    <p class="description">Central repository for all Pokemon static data. Source of truth.</p>
+                    <div class="table-responsive">
+                        <table class="attr-table">
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>pokemon_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>Primary Key (National Dex ID)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>name_fr/en/de/it</code></td>
+                                    <td>VARCHAR</td>
+                                    <td>Localized names</td>
+                                </tr>
+                                <tr>
+                                    <td><code>is_available</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Global visibility flag</td>
+                                </tr>
+                                <tr>
+                                    <td><code>classification_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>FK to classifications</td>
+                                </tr>
+                                <tr>
+                                    <td><code>region_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>FK to regions</td>
+                                </tr>
+                                <tr>
+                                    <td><code>type_primary_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>FK to types</td>
+                                </tr>
+                                <tr>
+                                    <td><code>type_secondary_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>FK to types (Nullable)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trade_status</code></td>
+                                    <td>VARCHAR</td>
+                                    <td>Global trade rule (YES/NO/SPECIAL)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>updated_by</code></td>
+                                    <td>INTEGER</td>
+                                    <td>Admin who last modified</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Reference Tables -->
+                <div *ngIf="section.content === 'references'" class="content">
+                    <h4>Classifications</h4>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>PK</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_key</code></td>
+                            <td>Unique key (e.g. 'legendary')</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_fr/en</code></td>
+                            <td>Localized labels</td>
+                        </tr>
+                    </table>
+
+                    <h4>Regions</h4>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>PK</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_key</code></td>
+                            <td>Unique key (e.g. 'kanto')</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_fr/en</code></td>
+                            <td>Localized labels</td>
+                        </tr>
+                        <tr>
+                            <td><code>is_custom</code></td>
+                            <td>Custom region flag</td>
+                        </tr>
+                    </table>
+
+                    <h4>Types</h4>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>PK</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_key</code></td>
+                            <td>Unique key (e.g. 'fire')</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_fr/en</code></td>
+                            <td>Localized labels</td>
+                        </tr>
+                        <tr>
+                            <td><code>color_hex</code></td>
+                            <td>Badge color</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Verification Codes -->
+                <div *ngIf="section.content === 'verification'" class="content">
+                    <p class="description">Temporary storage for email verification OTPs.</p>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>SERIAL (PK)</td>
+                        </tr>
+                        <tr>
+                            <td><code>email</code></td>
+                            <td>Target email</td>
+                        </tr>
+                        <tr>
+                            <td><code>code</code></td>
+                            <td>4-digit OTP</td>
+                        </tr>
+                        <tr>
+                            <td><code>verified</code></td>
+                            <td>Verification status</td>
+                        </tr>
+                        <tr>
+                            <td><code>attempts</code></td>
+                            <td>Security counter</td>
+                        </tr>
+                        <tr>
+                            <td><code>created_at</code></td>
+                            <td>Expiration tracking</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Categories Table -->
+                <div *ngIf="section.content === 'categories'" class="content">
+                    <p class="description">Admin-defined availability rules for Pokemon variants.</p>
+                    <div class="table-responsive">
+                        <table class="attr-table">
+                            <thead>
+                                <tr>
+                                    <th>Attribute</th>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Default</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>pokemon_id</code></td>
+                                    <td>INTEGER</td>
+                                    <td>National Dex # (PK)</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_shiny</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Shiny allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_lucky</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Lucky allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_xxl</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXL allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_xxs</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>XXS allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_gmax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>G-MAX allowed</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_dynamax</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Dynamax allowed</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_mega</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Mega allowed</td>
+                                    <td>FALSE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_obscure</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Shadow allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_purified</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Purified allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                                <tr>
+                                    <td><code>can_be_perfect</code></td>
+                                    <td>BOOLEAN</td>
+                                    <td>Perfect IV allowed</td>
+                                    <td>TRUE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Names Table -->
+                <div *ngIf="section.content === 'names'" class="content">
+                    <p class="description">Localized Pokemon names for multilingual support.</p>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>pokemon_id</code></td>
+                            <td>INTEGER (PK)</td>
+                            <td>National Dex number</td>
+                        </tr>
+                        <tr>
+                            <td><code>name_fr/en/de/it/pt</code></td>
+                            <td>VARCHAR(100)</td>
+                            <td>Localized names</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Suggestions Table -->
+                <div *ngIf="section.content === 'suggestions'" class="content">
+                    <p class="description">User feedback and suggestions.</p>
+                    <table class="simple-table">
+                        <tr>
+                            <td><code>id</code></td>
+                            <td>SERIAL (PK)</td>
+                            <td>Suggestion ID</td>
+                        </tr>
+                        <tr>
+                            <td><code>user_id</code></td>
+                            <td>INTEGER (FK)</td>
+                            <td>Author</td>
+                        </tr>
+                        <tr>
+                            <td><code>type</code></td>
+                            <td>VARCHAR(50)</td>
+                            <td>Type (bug/feature)</td>
+                        </tr>
+                        <tr>
+                            <td><code>content</code></td>
+                            <td>TEXT</td>
+                            <td>Suggestion text</td>
+                        </tr>
+                        <tr>
+                            <td><code>status</code></td>
+                            <td>VARCHAR(20)</td>
+                            <td>pending/approved/rejected</td>
+                        </tr>
+                        <tr>
+                            <td><code>admin_response</code></td>
+                            <td>TEXT</td>
+                            <td>Admin response</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- Business Logic -->
+                <div *ngIf="section.content === 'logic'" class="content">
+                    <h4>Exclusive Category System</h4>
+                    <ul class="logic-list">
+                        <li><strong>Admin Side:</strong> Dropdown to select ONE category
+                            (Normal/Legendary/Mythical/Ultra Beast) in <code>/admin/pokemon-categories</code></li>
+                        <li><strong>User Side:</strong> Only admin-defined category is visible/toggleable in Pokedex
+                        </li>
+                        <li><strong>Backend:</strong> Toggle endpoint ensures mutual exclusivity</li>
+                        <li><strong>Propagation:</strong> Admin changes automatically update user Pokedex entries</li>
+                    </ul>
+
+                    <h4>Trade System</h4>
+                    <ul class="logic-list">
+                        <li>Users mark variants as "for trade" using trade flags</li>
+                        <li><code>GET /pokedex/trade-available</code> shows Pokemon from other users</li>
+                        <li>Trade flags are mutually exclusive for exclusive categories</li>
+                    </ul>
+                </div>
+
+                <!-- Relationships -->
+                <div *ngIf="section.content === 'relationships'" class="content">
+                    <table class="simple-table">
+                        <thead>
+                            <tr>
+                                <th>Parent</th>
+                                <th>Child</th>
+                                <th>Type</th>
+                                <th>On Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>users</td>
+                                <td>pokedex</td>
+                                <td>One-to-Many</td>
+                                <td>CASCADE</td>
+                            </tr>
+                            <tr>
+                                <td>users</td>
+                                <td>suggestions</td>
+                                <td>One-to-Many</td>
+                                <td>CASCADE</td>
+                            </tr>
+                            <tr>
+                                <td>users</td>
+                                <td>pokemon_master</td>
+                                <td>One-to-Many (updated_by)</td>
+                                <td>SET NULL</td>
+                            </tr>
+                            <tr>
+                                <td>pokemon_master</td>
+                                <td>pokedex</td>
+                                <td>One-to-Many</td>
+                                <td>CASCADE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- File Index -->
+                <div *ngIf="section.content === 'files'" class="content">
+                    <h4>Backend Models</h4>
+                    <ul class="file-list">
+                        <li><code>backend/src/models/user.js</code></li>
+                        <li><code>backend/src/models/pokedex.js</code></li>
+                        <li><code>backend/src/models/pokemon_master.js</code></li>
+                        <li><code>backend/src/models/pokemon_category_availability.js</code></li>
+                        <li><code>backend/src/models/pokemon_names.js</code></li>
+                        <li><code>backend/src/models/suggestions.js</code></li>
+                    </ul>
+
+                    <h4>Backend Routes</h4>
+                    <ul class="file-list">
+                        <li><code>backend/src/routes/auth.js</code></li>
+                        <li><code>backend/src/routes/pokedex.js</code></li>
+                        <li><code>backend/src/routes/admin-pokemon.js</code></li>
+                        <li><code>backend/src/routes/pokemon-categories.js</code></li>
+                        <li><code>backend/src/routes/admin.js</code></li>
+                        <li><code>backend/src/routes/suggestions.js</code></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

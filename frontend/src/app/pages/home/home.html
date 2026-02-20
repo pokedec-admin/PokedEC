@@ -1,0 +1,494 @@
+<div class="home-container">
+    <div *ngIf="!isLoggedIn" class="welcome-section">
+        <img src="/Logo_Pokedec.png" alt="Poked'EC Logo" class="logo">
+
+        <!-- Menu Mode -->
+        <div *ngIf="guestViewMode === 'menu'" class="guest-menu">
+            <h1>Bienvenue sur Poked'EC</h1>
+            <p>Votre Pokédex personnel pour suivre vos Pokémon et leurs variantes !</p>
+            <div class="auth-buttons">
+                <button class="cta-button primary" (click)="setGuestView('login')">Se connecter</button>
+                <button class="cta-button secondary" (click)="setGuestView('signup')">Créer un compte</button>
+            </div>
+        </div>
+
+        <!-- Login Mode -->
+        <div *ngIf="guestViewMode === 'login'" class="auth-form-container">
+            <h2>Connexion</h2>
+            <form (submit)="onLogin(); $event.preventDefault()">
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="loginData.trainer_name" name="trainer_name"
+                        placeholder="Nom de dresseur" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="loginData.password" name="password" placeholder="Mot de passe"
+                        required>
+                </div>
+                <button type="submit" class="cta-button primary full-width">Se connecter</button>
+            </form>
+            <div class="form-footer">
+                <a (click)="setGuestView('reset')">Mot de passe oublié ?</a>
+                <button class="text-button" (click)="setGuestView('menu')">Retour</button>
+            </div>
+        </div>
+
+        <!-- Signup Mode -->
+        <div *ngIf="guestViewMode === 'signup'" class="auth-form-container">
+            <h2>Inscription</h2>
+            <form (submit)="onSignup(); $event.preventDefault()">
+                <div class="form-group">
+                    <input type="text" [(ngModel)]="signupData.trainer_name" name="trainerName"
+                        placeholder="Nom de dresseur" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="signupData.email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" [(ngModel)]="signupData.password" name="password" placeholder="Mot de passe"
+                        required>
+                </div>
+                <div class="form-group">
+                    <select [(ngModel)]="signupData.team" name="team">
+                        <option value="Mystic">Mystic (Bleu)</option>
+                        <option value="Valor">Valor (Rouge)</option>
+                        <option value="Instinct">Instinct (Jaune)</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-button primary full-width">S'inscrire</button>
+            </form>
+            <div class="form-footer">
+                <button class="text-button" (click)="setGuestView('menu')">Retour</button>
+            </div>
+        </div>
+
+        <!-- Reset Password Mode -->
+        <div *ngIf="guestViewMode === 'reset'" class="auth-form-container">
+            <h2>Réinitialiser le mot de passe</h2>
+            <p class="info-text">Entrez votre email pour recevoir un lien de réinitialisation.</p>
+            <form (submit)="onResetPassword(); $event.preventDefault()">
+                <div class="form-group">
+                    <input type="email" [(ngModel)]="resetEmail" name="resetEmail" placeholder="Votre email" required>
+                </div>
+                <button type="submit" class="cta-button primary full-width">Envoyer</button>
+            </form>
+            <div class="form-footer">
+                <button class="text-button" (click)="setGuestView('login')">Retour</button>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <p class="error-message" *ngIf="authError">{{ authError }}</p>
+        <p class="success-message" *ngIf="authSuccess">{{ authSuccess }}</p>
+    </div>
+
+    <div *ngIf="isLoggedIn" class="dashboard">
+        <!-- Environment Banner -->
+        <div class="env-banner" *ngIf="authService.currentUserValue?.is_admin" [class.env-dev]="currentEnv === 'DEV'"
+            [class.env-prod]="currentEnv !== 'DEV'">
+            <p>Vous vous trouvez actuellement sur l'environnement <strong>{{ currentEnv }}</strong> ({{ currentVersion
+                }})</p>
+        </div>
+
+        <!-- Admin Monitoring Section -->
+        <div class="admin-monitoring" *ngIf="authService.currentUserValue?.is_admin">
+            <div class="monitoring-header">
+                <h2>🖥️ Monitoring Système</h2>
+                <button (click)="loadMonitoring()" class="btn-refresh" [disabled]="isLoadingMonitoring">
+                    {{ isLoadingMonitoring ? 'Chargement...' : '🔄 Actualiser' }}
+                </button>
+            </div>
+
+            <div class="monitoring-grid">
+                <table class="monitoring-table" *ngIf="monitoringData">
+                    <thead>
+                        <tr>
+                            <th>Environnement</th>
+                            <th>URL</th>
+                            <th>Statut</th>
+                            <th>Version</th>
+                            <th>Env Détecté</th>
+                            <th>Réponse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let env of ['DEV', 'BLUE', 'GREEN', 'PUBLIC']">
+                            <td><strong>{{ env }}</strong></td>
+                            <td><small>{{ monitoringData[env]?.url }}</small></td>
+                            <td>
+                                <span class="status-badge" [class.online]="monitoringData[env]?.status === 'ONLINE'"
+                                    [class.offline]="monitoringData[env]?.status !== 'ONLINE'">
+                                    {{ monitoringData[env]?.status }}
+                                </span>
+                            </td>
+                            <td>{{ monitoringData[env]?.version || '-' }}</td>
+                            <td>{{ monitoringData[env]?.activeEnv || '-' }}</td>
+                            <td>{{ monitoringData[env]?.responseTime || '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="!monitoringData && !isLoadingMonitoring" class="no-data">
+                    Aucune donnée de monitoring disponible.
+                </div>
+            </div>
+
+            <!-- Deployment Controls (Only visible in DEV) -->
+            <div class="deployment-controls" *ngIf="currentEnv === 'DEV'">
+                <h3>🚀 Contrôle de Déploiement</h3>
+                <div class="control-actions">
+                    <div class="action-group">
+                        <h4>Déployer vers NAS</h4>
+                        <button (click)="deploy('blue')" class="btn-deploy blue"
+                            [disabled]="deployingTarget === 'blue'">
+                            {{ deployingTarget === 'blue' ? 'Déploiement...' : 'Déployer sur BLUE 🔵' }}
+                        </button>
+                        <button (click)="deploy('green')" class="btn-deploy green"
+                            [disabled]="deployingTarget === 'green'">
+                            {{ deployingTarget === 'green' ? 'Déploiement...' : 'Déployer sur GREEN 🟢' }}
+                        </button>
+                    </div>
+
+                    <div class="action-group">
+                        <h4>Basculer Public (Switch)</h4>
+                        <button (click)="switchEnv('blue')" class="btn-switch blue"
+                            [disabled]="switchingTarget === 'blue'">
+                            {{ switchingTarget === 'blue' ? 'Basculement...' : 'Exposer BLUE 🔵' }}
+                        </button>
+                        <button (click)="switchEnv('green')" class="btn-switch green"
+                            [disabled]="switchingTarget === 'green'">
+                            {{ switchingTarget === 'green' ? 'Basculement...' : 'Exposer GREEN 🟢' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1>Bienvenue {{ trainerName }} {{ teamBadge }}</h1>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <h2>Recherche avancée</h2>
+            <div class="search-box-container">
+                <app-pokemon-search placeholder="Rechercher un Pokémon..."
+                    [navigateToDetail]="true"></app-pokemon-search>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-section" *ngIf="userStats">
+                <h2>Monitoring</h2>
+                <p class="section-subtitle">Légende : Nombre possédé / Nombre total existant (%)</p>
+                <div class="stats-grid">
+                    <div class="stat-card pokedex" [routerLink]="['/tracking/pokedex']">
+                        <span class="stat-icon">📖</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.pokedex_count }} / {{
+                                userStats.total_pokedex_available
+                                }}</span>
+                            <span class="stat-label">Pokédex ({{ getPercentage(userStats.pokedex_count,
+                                userStats.total_pokedex_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card normal" [routerLink]="['/tracking/normal']">
+                        <span class="stat-icon">⭐</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.normal }} / {{ userStats.total_normal_available
+                                }}</span>
+                            <span class="stat-label">Normal ({{ getPercentage(userStats.normal,
+                                userStats.total_normal_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card legendary" [routerLink]="['/tracking/legendary']">
+                        <span class="stat-icon">⚜️</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.legendary }} / {{ userStats.total_legendary_available
+                                }}</span>
+                            <span class="stat-label">Légendaire ({{ getPercentage(userStats.legendary,
+                                userStats.total_legendary_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card mythical" [routerLink]="['/tracking/mythical']">
+                        <span class="stat-icon">✨</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.mythical }} / {{ userStats.total_mythical_available
+                                }}</span>
+                            <span class="stat-label">Fabuleux ({{ getPercentage(userStats.mythical,
+                                userStats.total_mythical_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card ultra_beast" [routerLink]="['/tracking/ultra-beast']">
+                        <span class="stat-icon">👾</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.ultra_beast }} / {{
+                                userStats.total_ultra_beast_available }}</span>
+                            <span class="stat-label">Ultra-Chimères ({{ getPercentage(userStats.ultra_beast,
+                                userStats.total_ultra_beast_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card regional" [routerLink]="['/regional']">
+                        <span class="stat-icon">📍</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.regional }} / {{ userStats.total_regional_available
+                                }}</span>
+                            <span class="stat-label">Régional ({{ getPercentage(userStats.regional,
+                                userStats.total_regional_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card forms" [routerLink]="['/forms']">
+                        <span class="stat-icon">🔄</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.forms }} / {{ userStats.total_forms_available
+                                }}</span>
+                            <span class="stat-label">Formes ({{ getPercentage(userStats.forms,
+                                userStats.total_forms_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card shiny" [routerLink]="['/shiny']">
+                        <span class="stat-icon">✨</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.shiny }} / {{ userStats.total_shiny_available
+                                }}</span>
+                            <span class="stat-label">Shiny ({{ getPercentage(userStats.shiny,
+                                userStats.total_shiny_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card lucky" [routerLink]="['/lucky']">
+                        <span class="stat-icon">🍀</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.lucky }} / {{ userStats.total_lucky_available
+                                }}</span>
+                            <span class="stat-label">Chanceux ({{ getPercentage(userStats.lucky,
+                                userStats.total_lucky_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card xxl" [routerLink]="['/xxl']">
+                        <span class="stat-icon">📏</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.xxl }} / {{ userStats.total_xxl_available }}</span>
+                            <span class="stat-label">XXL ({{ getPercentage(userStats.xxl, userStats.total_xxl_available)
+                                }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card xxs" [routerLink]="['/xxs']">
+                        <span class="stat-icon">🤏</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.xxs }} / {{ userStats.total_xxs_available }}</span>
+                            <span class="stat-label">XXS ({{ getPercentage(userStats.xxs, userStats.total_xxs_available)
+                                }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card gmax" [routerLink]="['/gmax']">
+                        <span class="stat-icon">⚡</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.gmax }} / {{ userStats.total_gmax_available }}</span>
+                            <span class="stat-label">G-Max ({{ getPercentage(userStats.gmax,
+                                userStats.total_gmax_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card dynamax" [routerLink]="['/dynamax']">
+                        <span class="stat-icon">🌀</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.dynamax }} / {{ userStats.total_dynamax_available
+                                }}</span>
+                            <span class="stat-label">D-Max ({{ getPercentage(userStats.dynamax,
+                                userStats.total_dynamax_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card mega" [routerLink]="['/mega']">
+                        <span class="stat-icon">🧬</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.mega }} / {{ userStats.total_mega_available }}</span>
+                            <span class="stat-label">Méga ({{ getPercentage(userStats.mega,
+                                userStats.total_mega_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card obscure" [routerLink]="['/obscure']">
+                        <span class="stat-icon">🌑</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.obscure }} / {{ userStats.total_obscure_available
+                                }}</span>
+                            <span class="stat-label">Obscurs ({{ getPercentage(userStats.obscure,
+                                userStats.total_obscure_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card purified" [routerLink]="['/purifie']">
+                        <span class="stat-icon">☀️</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.purified }} / {{ userStats.total_purified_available
+                                }}</span>
+                            <span class="stat-label">Purifiés ({{ getPercentage(userStats.purified,
+                                userStats.total_purified_available) }}%)</span>
+                        </div>
+                    </div>
+                    <div class="stat-card perfect" [routerLink]="['/parfait']">
+                        <span class="stat-icon">💯</span>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ userStats.perfect }} / {{ userStats.total_perfect_available
+                                }}</span>
+                            <span class="stat-label">Parfaits ({{ getPercentage(userStats.perfect,
+                                userStats.total_perfect_available) }}%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+            </div>
+        </div>
+
+        <!-- Trade Opportunities Section -->
+        <section class="dashboard-section">
+            <h2>💱 Opportunités d’échanges</h2>
+            <p class="section-subtitle">Pokémon recherchés disponibles chez d'autres utilisateurs</p>
+
+            <div *ngIf="tradeOpportunities.length === 0" class="empty-state">
+                Aucune opportunité d'échange pour le moment
+            </div>
+
+            <div class="pokemon-grid" *ngIf="tradeOpportunities.length > 0">
+                <div *ngFor="let opportunity of tradeOpportunities" class="pokemon-card trade-card">
+                    <img [src]="opportunity.image_url" [alt]="opportunity.name" class="pokemon-img">
+                    <div class="pokemon-info">
+                        <h3>{{ opportunity.name | titlecase }}</h3>
+                        <p class="pokemon-id">#{{ opportunity.pokemon_id }}</p>
+                        <div class="trade-badges" *ngIf="getTradeBadges(opportunity).length > 0">
+                            <span *ngFor="let badge of getTradeBadges(opportunity)" class="trade-badge">
+                                {{ badge }}
+                            </span>
+                        </div>
+                        <div class="users-list">
+                            <p class="users-label">Contacter :</p>
+                            <div *ngFor="let user of opportunity.users" class="user-contact-row"
+                                style="margin-bottom: 5px;">
+                                <span class="user-name" style="display:block; margin-bottom: 3px;">{{ user.username ||
+                                    user.email }}</span>
+                                <button class="cta-button secondary"
+                                    style="padding: 5px 10px; font-size: 0.8rem; width: 100%;"
+                                    (click)="requestTrade(opportunity, user)" [disabled]="user.requestSent">
+                                    {{ user.requestSent ? 'Demande envoyée' : 'Demande d’échange' }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Activity from Others -->
+        <section class="dashboard-section">
+            <h2>🆕 Activité récente</h2>
+            <p class="section-subtitle">Derniers Pokémon ajoutés par d'autres utilisateurs (dans votre liste recherchés)
+            </p>
+
+            <div *ngIf="recentOthersActivity.length === 0" class="empty-state">
+                Aucune activité récente
+            </div>
+
+            <div class="activity-list" *ngIf="recentOthersActivity.length > 0">
+                <div *ngFor="let activity of recentOthersActivity" class="activity-item">
+                    <img [src]="activity.image_url" [alt]="activity.name" class="activity-img">
+                    <div class="activity-info">
+                        <h4>{{ activity.name | titlecase }}</h4>
+                        <p class="activity-meta">
+                            <span class="user-badge">{{ activity.username || activity.email }}</span>
+                            <span class="time-badge">{{ formatDate(activity.created_at) }}</span>
+                        </p>
+                        <div class="variant-badges">
+                            <span *ngFor="let badge of getVariantBadges(activity)" class="badge">{{ badge }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Recent Pokemon -->
+        <section class="dashboard-section" *ngIf="myRecentPokemon">
+            <h2>⭐ Mon dernier Pokémon</h2>
+            <p class="section-subtitle">Dernier Pokémon ajouté ou complété</p>
+
+            <div class="my-recent-card">
+                <img [src]="myRecentPokemon.image_url" [alt]="myRecentPokemon.name" class="large-pokemon-img">
+                <div class="my-recent-info">
+                    <h3>{{ myRecentPokemon.name | titlecase }}</h3>
+                    <p class="pokemon-id">#{{ myRecentPokemon.pokemon_id }}</p>
+                    <p class="added-time">Ajouté {{ formatDate(myRecentPokemon.created_at) }}</p>
+                    <div class="variant-badges">
+                        <span *ngFor="let badge of getVariantBadges(myRecentPokemon)" class="badge my-badge">{{ badge
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Welcome / Bulk Fill Modal -->
+    <div class="modal-overlay" *ngIf="showWelcomeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Bienvenue sur Poked'EC ! 🚀</h2>
+                <button class="close-btn" (click)="closeWelcomeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Il semble que votre Pokédex soit vide. Pour commencer rapidement, vous pouvez pré-remplir votre
+                    Pokédex avec les catégories que vous possédez déjà pour <strong>tous les Pokémon
+                        disponibles</strong>.</p>
+
+                <div class="bulk-fill-container">
+                    <h4>Sélectionnez vos catégories :</h4>
+                    <div class="bulk-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.normal"
+                                (change)="toggleBulkCategory('normal')"> Standard
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.shiny"
+                                (change)="toggleBulkCategory('shiny')"> Shiny ✨
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.lucky"
+                                (change)="toggleBulkCategory('lucky')"> Chanceux 🍀
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.xxl"
+                                (change)="toggleBulkCategory('xxl')"> XXL 📏
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.xxs"
+                                (change)="toggleBulkCategory('xxs')"> XXS 🤏
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.gmax"
+                                (change)="toggleBulkCategory('gmax')"> G-Max 🌋
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.dynamax"
+                                (change)="toggleBulkCategory('dynamax')"> Dynamax 🌀
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.mega"
+                                (change)="toggleBulkCategory('mega')"> Méga 🧬
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.obscure"
+                                (change)="toggleBulkCategory('obscure')"> Obscur 👻
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.purified"
+                                (change)="toggleBulkCategory('purified')"> Purifié 🌟
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" [checked]="bulkFillCategories.perfect"
+                                (change)="toggleBulkCategory('perfect')"> Parfait 💯
+                        </label>
+                    </div>
+
+                    <div *ngIf="bulkFillError" class="error-message">{{ bulkFillError }}</div>
+                    <div *ngIf="bulkFillSuccess" class="success-message">{{ bulkFillSuccess }}</div>
+
+                    <button class="btn-bulk-fill" (click)="bulkFillPokedex()" [disabled]="bulkFillLoading">
+                        {{ bulkFillLoading ? 'Remplissage en cours...' : 'Remplir mon Pokédex' }}
+                    </button>
+                    <button class="btn-skip" (click)="closeWelcomeModal()">Passer cette étape</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

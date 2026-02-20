@@ -1,0 +1,50 @@
+<header>
+      <nav>
+            <div class="logo-container">
+                  <a routerLink="/home" class="logo-link">
+                        <img src="/Logo_Pokedec.png" alt="Poked'EC Logo" class="logo-img logo-icon">
+                        <span class="logo-text">Poked'<span class="logo-ec">EC</span></span>
+                  </a>
+                  <a *ngIf="hasNewResponses" routerLink="/profile" class="notification-star"
+                        title="Nouvelles réponses à vos suggestions">
+                        ⭐
+                  </a>
+                  <a *ngIf="isAdmin && openSuggestionsCount > 0" routerLink="/admin" class="admin-notification-badge"
+                        title="Nouvelles suggestions à traiter">
+                        {{ openSuggestionsCount }}
+                  </a>
+            </div>
+            <div class="menu-backdrop" [class.open]="isMenuOpen" (click)="closeMenu()"></div>
+            <button class="hamburger text-white" (click)="toggleMenu()" [class.active]="isMenuOpen">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+            </button>
+            <ul [class.open]="isMenuOpen">
+                  <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Home</a></li>
+                  <li class="separator"></li>
+                  <li><a routerLink="/pokedex" routerLinkActive="active" (click)="closeMenu()">Mon Pokedex</a></li>
+
+                  <li class="separator"></li>
+                  <li><a routerLink="/trade" routerLinkActive="active" (click)="closeMenu()">Échange</a></li>
+                  <li><a routerLink="/wanted" routerLinkActive="active" (click)="closeMenu()">Recherchés</a></li>
+
+                  <li class="separator"></li>
+                  <li><a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Mes paramètres</a></li>
+
+                  <li *ngIf="isAdmin" class="separator"></li>
+                  <li *ngIf="isAdmin" class="admin-link">
+                        <a routerLink="/admin" routerLinkActive="active" (click)="closeMenu()">
+                              👑 Admin
+                        </a>
+                  </li>
+                  <li *ngIf="!isLoggedIn"><a routerLink="/login" routerLinkActive="active"
+                              (click)="closeMenu()">Login</a></li>
+
+                  <li *ngIf="isLoggedIn" class="separator"></li>
+                  <li *ngIf="isLoggedIn" class="logout-item">
+                        <button (click)="logout()" class="logout-btn">Déconnexion</button>
+                  </li>
+            </ul>
+      </nav>
+</header>

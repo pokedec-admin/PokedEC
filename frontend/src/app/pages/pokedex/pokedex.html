@@ -1,0 +1,129 @@
+<div class="pokedex-container">
+    <div class="header-section">
+        <h2>Mon Pokédex</h2>
+        <button class="btn-text-action" (click)="toggleAddSearch()">
+            {{ showAddSearch ? 'Masquer l\'ajout' : '+ Ajouter un Pokémon (Recherche Globale)' }}
+        </button>
+
+        <!-- Global Add Search (Hidden by default) -->
+        <div class="global-search-wrapper" *ngIf="showAddSearch">
+            <app-pokemon-search [navigateToDetail]="true" placeholder="🔍 Rechercher & Ajouter..."></app-pokemon-search>
+        </div>
+    </div>
+
+    <!-- Filter Bar (Sticky) -->
+    <div class="filters-bar">
+        <div class="search-input-group">
+            <span class="search-icon">🔍</span>
+            <input type="text" [(ngModel)]="searchQuery" (input)="applyFilters()"
+                placeholder="Rechercher (Nom ou #ID)..." class="filter-input">
+        </div>
+
+        <div class="select-group">
+            <select [(ngModel)]="selectedRegion" (change)="applyFilters()" class="filter-select">
+                <option value="">Toutes les régions</option>
+                <option *ngFor="let r of availableRegions" [value]="r">{{ r }}</option>
+            </select>
+
+            <select [(ngModel)]="selectedType" (change)="applyFilters()" class="filter-select">
+                <option value="">Tous les types</option>
+                <option *ngFor="let t of availableTypes" [value]="t">{{ t }}</option>
+            </select>
+
+            <!-- Classifications (Legendaire, etc) -->
+            <select [(ngModel)]="selectedClassification" (change)="applyFilters()" class="filter-select">
+                <option *ngFor="let c of classifications" [value]="c.value">{{ c.label }}</option>
+            </select>
+
+            <!-- Categories (Shiny, etc) -->
+            <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
+                <option *ngFor="let c of categories" [value]="c.value">{{ c.label }}</option>
+            </select>
+
+            <!-- Forms (Normal, Variant) -->
+            <select [(ngModel)]="selectedFormType" (change)="applyFilters()" class="filter-select">
+                <option *ngFor="let f of formTypes" [value]="f.value">{{ f.label }}</option>
+            </select>
+        </div>
+
+        <div class="count-badge">
+            {{ filteredPokemon.length }} Pokémon
+        </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading" class="loader-container">
+        <div class="spinner"></div>
+        <p>Chargement de la collection...</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="pokemon-grid" *ngIf="!isLoading">
+        <div *ngFor="let p of displayedPokemon; trackBy: trackById" class="pokemon-card"
+            [class.caught]="isStandardCaught(p)">
+
+            <!-- Card Header (Click to Detail) -->
+            <div class="card-top" (click)="goToDetail(p.pokemon_id, p.form_name)">
+                <span class="poke-id">#{{ p.pokemon_id }}</span>
+                <img [src]="p.image_url" loading="lazy" class="poke-img">
+                <div class="poke-info">
+                    <span class="poke-name">{{ (p.name_fr || p.name) + (p.form_name !== 'Normal' ? ' (' + p.form_name +
+                        ')' : '') }}</span>
+                    <div class="badges">
+                        <span class="badge region">{{ p.region_name }}</span>
+                        <span class="badge regional-badge" *ngIf="p.is_regional"
+                            [title]="p.regional_description || ''">📍 Régional</span>
+                        <span class="badge type" *ngIf="p.type_primary_name"
+                            [style.background-color]="p.type_primary_color">{{ p.type_primary_name }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toggles Section -->
+            <div class="card-toggles">
+                <!-- Standard (Normal/Legendary/etc) -->
+                <div class="toggle-item" [title]="getStandardLabel(p)">
+                    <input type="checkbox" [checked]="isStandardCaught(p)" (change)="toggleStandard(p)"
+                        id="std-{{p.id}}">
+                    <label for="std-{{p.id}}">
+                        <span *ngIf="p.can_be_normal">Normal</span>
+                        <span *ngIf="p.can_be_legendary" class="legendary-text">Légen.</span>
+                        <span *ngIf="p.can_be_mythical" class="mythical-text">Fabuleux</span>
+                        <span *ngIf="p.can_be_ultra_beast" class="ub-text">U-Chim.</span>
+                    </label>
+                </div>
+
+                <!-- Shiny -->
+                <div class="toggle-item" *ngIf="p.can_be_shiny" title="Shiny">
+                    <input type="checkbox" [checked]="p.has_shiny" (change)="toggleShiny(p)" id="shy-{{p.id}}">
+                    <label for="shy-{{p.id}}">✨ Shiny</label>
+                </div>
+
+                <!-- Lucky -->
+                <div class="toggle-item" *ngIf="p.can_be_lucky" title="Chanceux">
+                    <input type="checkbox" [checked]="p.has_lucky" (change)="toggleLucky(p)" id="lck-{{p.id}}">
+                    <label for="lck-{{p.id}}">🍀 Lucky</label>
+                </div>
+
+                <!-- XXS/XXL (Compact) -->
+                <div class="toggle-row-mini">
+                    <div class="toggle-item mini" *ngIf="p.can_be_xxs" title="XXS">
+                        <input type="checkbox" [checked]="p.has_xxs" (change)="toggleXXS(p)" id="xxs-{{p.id}}">
+                        <label for="xxs-{{p.id}}">XXS</label>
+                    </div>
+                    <div class="toggle-item mini" *ngIf="p.can_be_xxl" title="XXL">
+                        <input type="checkbox" [checked]="p.has_xxl" (change)="toggleXXL(p)" id="xxl-{{p.id}}">
+                        <label for="xxl-{{p.id}}">XXL</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show More -->
+    <div class="load-more-container" *ngIf="filteredPokemon.length > displayedPokemon.length">
+        <button class="btn btn-primary" (click)="showMore()">
+            Afficher plus ({{ displayedPokemon.length }} / {{ filteredPokemon.length }})
+        </button>
+    </div>
+</div>

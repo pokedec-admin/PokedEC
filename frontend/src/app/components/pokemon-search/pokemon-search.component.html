@@ -1,0 +1,19 @@
+<div class="search-container">
+    <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" [(ngModel)]="searchQuery" (input)="onSearchInput()" (blur)="onBlur()"
+            [placeholder]="placeholder" class="search-input">
+        <div *ngIf="loading" class="spinner"></div>
+    </div>
+
+    <div class="dropdown-results" *ngIf="showDropdown">
+        <div *ngFor="let pokemon of searchResults" class="result-item" (click)="selectPokemon(pokemon)">
+            <img [src]="pokemon.image_url" [alt]="pokemon.name" class="pokemon-thumb"
+                onerror="this.src='assets/placeholder.png'">
+            <div class="pokemon-info">
+                <span class="pokemon-name">{{ pokemon.name }}</span>
+                <span class="pokemon-id">#{{ pokemon.pokemon_id }}</span>
+            </div>
+        </div>
+    </div>
+</div>

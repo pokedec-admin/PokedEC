@@ -1,0 +1,46 @@
+<div class="admin-container">
+    <div class="header">
+        <button class="btn-back" routerLink="/admin">← Back to Admin</button>
+        <h1>Gestion des Noms de Formes Prédéfinis</h1>
+        <p class="subtitle">Ces noms seront proposés lors de la création de nouvelles formes de Pokémon pour garantir
+            une unité dans la base de données.</p>
+    </div>
+
+    <div class="add-section">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="newName" placeholder="Ex: Méga, Gigamax, Hisui..."
+                (keyup.enter)="addFormName()" [disabled]="loading">
+            <button class="btn-add" (click)="addFormName()" [disabled]="!newName.trim() || loading">
+                {{ loading ? '...' : '+ Ajouter' }}
+            </button>
+        </div>
+    </div>
+
+    <div class="list-section">
+        <div *ngIf="loading && formNames.length === 0" class="status">Chargement...</div>
+        <div *ngIf="error" class="error">{{ error }}</div>
+
+        <table *ngIf="formNames.length > 0" class="admin-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Date de création</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fn of formNames">
+                    <td><strong>{{ fn.name }}</strong></td>
+                    <td>{{ fn.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <td class="actions">
+                        <button class="btn-delete" (click)="deleteFormName(fn.id, fn.name)">Effacer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div *ngIf="!loading && formNames.length === 0" class="empty">
+            Aucun nom de forme enregistré.
+        </div>
+    </div>
+</div>

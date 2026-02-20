@@ -1,0 +1,83 @@
+<div class="admin-container">
+    <div class="admin-header">
+        <div class="header-actions">
+            <button class="back-btn" routerLink="/admin">← Retour Menu</button>
+            <button class="archive-toggle-btn" (click)="toggleShowArchived()" [class.active]="showArchived">
+                {{ showArchived ? '📁 Voir Actifs' : '📦 Voir Archives' }}
+            </button>
+        </div>
+        <h2>💡 Suggestions & Bugs</h2>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+    <div class="table-wrapper">
+        <table class="suggestions-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Utilisateur</th>
+                    <th>Type</th>
+                    <th>Contenu</th>
+                    <th>Statut</th>
+                    <th>Réponse Admin</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let suggestion of suggestions">
+                    <td>{{ suggestion.id }}</td>
+                    <td>
+                        <div>{{ suggestion.trainer_name }}</div>
+                        <small>{{ suggestion.email }}</small>
+                    </td>
+                    <td>
+                        <span [class]="getTypeBadgeClass(suggestion.type)"
+                            [title]="suggestion.type === 'bug' ? 'Bug' : 'Suggestion'">
+                            {{ suggestion.type === 'bug' ? '🐛' : '💡' }}
+                        </span>
+                    </td>
+                    <td class="content-cell">{{ suggestion.content }}</td>
+                    <td>
+                        <select *ngIf="suggestion.editing" [(ngModel)]="suggestion.status" class="edit-input">
+                            <option value="open">Ouvert</option>
+                            <option value="in_progress">En cours</option>
+                            <option value="resolved">Résolu</option>
+                            <option value="closed">Fermé</option>
+                        </select>
+                        <span *ngIf="!suggestion.editing" [class]="getStatusBadgeClass(suggestion.status)">
+                            {{ suggestion.status === 'open' ? 'Ouvert' :
+                            suggestion.status === 'in_progress' ? 'En cours' :
+                            suggestion.status === 'resolved' ? 'Résolu' : 'Fermé' }}
+                        </span>
+                    </td>
+                    <td>
+                        <textarea *ngIf="suggestion.editing" [(ngModel)]="suggestion.admin_response"
+                            class="edit-textarea" placeholder="Votre réponse..."></textarea>
+                        <span *ngIf="!suggestion.editing">{{ suggestion.admin_response || '-' }}</span>
+                    </td>
+                    <td>{{ suggestion.created_at | date:'short' }}</td>
+                    <td class="actions">
+                        <button *ngIf="!suggestion.editing" (click)="startEditSuggestion(suggestion)"
+                            class="btn-edit">Modifier</button>
+                        <button (click)="archiveSuggestion(suggestion)" class="btn-archive"
+                            [title]="suggestion.archived_admin ? 'Désarchiver' : 'Archiver'">
+                            {{ suggestion.archived_admin ? '📁' : '📦' }}
+                        </button>
+                        <button (click)="deleteSuggestion(suggestion)" class="btn-delete"
+                            title="Supprimer définitivement">
+                            🗑️
+                        </button>
+                        <button *ngIf="suggestion.editing" (click)="saveSuggestion(suggestion)"
+                            class="btn-save">Enregistrer</button>
+                        <button *ngIf="suggestion.editing" (click)="cancelEditSuggestion(suggestion)"
+                            class="btn-cancel">Annuler</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p *ngIf="suggestions.length === 0" class="no-data">Aucune suggestion pour le moment.</p>
+</div>

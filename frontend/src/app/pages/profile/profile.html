@@ -1,0 +1,291 @@
+<div class="profile-container">
+    <h1>Mon Profil Dresseur</h1>
+
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+    </div>
+
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="avatar">
+                <span *ngIf="user.team === 'Mystic'">🔵</span>
+                <span *ngIf="user.team === 'Valor'">🔴</span>
+                <span *ngIf="user.team === 'Instinct'">🟡</span>
+                <span *ngIf="!user.team">⚪</span>
+            </div>
+            <h2>{{ user.trainer_name || 'Dresseur sans nom' }}</h2>
+            <p class="email">{{ user.email }}</p>
+            <span class="verified-badge" [class.verified]="user.email_verified">
+                {{ user.email_verified ? 'Email Vérifié ✅' : 'Email Non Vérifié ⚠️' }}
+            </span>
+        </div>
+
+        <div class="profile-details" *ngIf="!editMode">
+            <div class="detail-item">
+                <span class="label">Équipe :</span>
+                <span class="value">{{ user.team || 'Aucune' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">📞 Téléphone:</span>
+                <span>{{ user.phone || 'Non renseigné' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">🔥 Campfire:</span>
+                <span>{{ user.campfire_name || 'Non renseigné' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">💬 WhatsApp:</span>
+                <span>{{ user.whatsapp_group || 'Non renseigné' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">🌍 Langue:</span>
+                <span>{{ user.preferred_language === 'fr' ? 'Français' : user.preferred_language === 'en' ?
+                    'English' : user.preferred_language === 'de' ? 'Deutsch' : user.preferred_language === 'it' ?
+                    'Italiano' : 'Français' }}</span>
+            </div>
+            <div class="actions">
+                <button (click)="enableEdit()" class="btn-edit">Modifier le profil</button>
+            </div>
+        </div>
+
+        <!-- Edit Mode -->
+        <div *ngIf="editMode" class="profile-edit-form">
+            <h3>Modifier le profil</h3>
+
+            <!-- Profile Information -->
+            <div class="edit-subsection">
+                <h4>Informations du profil</h4>
+                <div class="form-group">
+                    <label for="trainerName">Nom de dresseur</label>
+                    <input type="text" id="trainerName" [(ngModel)]="user.trainer_name" placeholder="Nom de dresseur">
+                </div>
+                <div class="form-group">
+                    <label for="team">Équipe</label>
+                    <select id="team" [(ngModel)]="user.team">
+                        <option value="">Aucune</option>
+                        <option value="Mystic">Mystic 🔵</option>
+                        <option value="Valor">Valor 🔴</option>
+                        <option value="Instinct">Instinct 🟡</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" [(ngModel)]="user.phone" placeholder="Numéro de téléphone">
+                </div>
+                <div class="form-group">
+                    <label for="campfire_name">Nom Campfire</label>
+                    <input type="text" id="campfire_name" [(ngModel)]="user.campfire_name"
+                        placeholder="Votre nom sur Campfire">
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp_group">Groupe WhatsApp</label>
+                    <input type="text" id="whatsapp_group" [(ngModel)]="user.whatsapp_group"
+                        placeholder="Nom de votre groupe WhatsApp">
+                </div>
+                <div class="form-group">
+                    <label for="language">Langue préférée</label>
+                    <select id="language" [(ngModel)]="user.preferred_language">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                        <option value="de">Deutsch</option>
+                        <option value="it">Italiano</option>
+                    </select>
+                </div>
+                <div class="actions">
+                    <button (click)="saveChanges()" class="btn-save">Enregistrer les informations</button>
+                    <button (click)="cancelEdit()" class="btn-cancel">Annuler</button>
+                </div>
+            </div>
+
+            <!-- Password Change -->
+            <div class="edit-subsection password-subsection">
+                <h4>🔐 Changer le mot de passe</h4>
+
+                <div *ngIf="passwordError" class="error-message">{{ passwordError }}</div>
+                <div *ngIf="passwordSuccess" class="success-message">{{ passwordSuccess }}</div>
+
+                <div class="form-group">
+                    <label for="currentPassword">Mot de passe actuel</label>
+                    <div class="password-input">
+                        <input [type]="showCurrentPassword ? 'text' : 'password'" id="currentPassword"
+                            [(ngModel)]="currentPassword" placeholder="Mot de passe actuel">
+                        <button type="button" (click)="showCurrentPassword = !showCurrentPassword"
+                            class="toggle-password">
+                            {{ showCurrentPassword ? '👁️' : '👁️‍🗨️' }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="newPassword">Nouveau mot de passe</label>
+                    <div class="password-input">
+                        <input [type]="showNewPassword ? 'text' : 'password'" id="newPassword" [(ngModel)]="newPassword"
+                            placeholder="Nouveau mot de passe">
+                        <button type="button" (click)="showNewPassword = !showNewPassword" class="toggle-password">
+                            {{ showNewPassword ? '👁️' : '👁️‍🗨️' }}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmer le mot de passe</label>
+                    <div class="password-input">
+                        <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+                            [(ngModel)]="confirmPassword" placeholder="Confirmer le nouveau mot de passe">
+                        <button type="button" (click)="showConfirmPassword = !showConfirmPassword"
+                            class="toggle-password">
+                            {{ showConfirmPassword ? '👁️' : '👁️‍🗨️' }}
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Password Requirements -->
+                <div class="password-requirements">
+                    <p><strong>Le mot de passe doit contenir :</strong></p>
+                    <ul>
+                        <li [class.valid]="passwordRequirements.minLength">
+                            {{ passwordRequirements.minLength ? '✅' : '❌' }} Au moins 8 caractères
+                        </li>
+                        <li [class.valid]="passwordRequirements.hasUppercase">
+                            {{ passwordRequirements.hasUppercase ? '✅' : '❌' }} Au moins une majuscule
+                        </li>
+                        <li [class.valid]="passwordRequirements.hasNumber">
+                            {{ passwordRequirements.hasNumber ? '✅' : '❌' }} Au moins un chiffre
+                        </li>
+                        <li [class.valid]="newPassword === confirmPassword && confirmPassword.length > 0">
+                            {{ (newPassword === confirmPassword && confirmPassword.length > 0) ? '✅' : '❌' }} Les mots
+                            de passe correspondent
+                        </li>
+                    </ul>
+                </div>
+
+                <button (click)="changePassword()" [disabled]="!isPasswordValid" class="btn-change-password">
+                    Modifier le mot de passe
+                </button>
+            </div>
+        </div>
+
+        <!-- My Suggestions Section -->
+        <div class="suggestions-section">
+            <h3>
+                💡 Mes Suggestions
+                <span *ngIf="hasNewResponses()" class="new-response-indicator">⭐ Nouvelle réponse</span>
+                <button class="btn-toggle-archived" (click)="toggleShowArchivedSuggestions()">
+                    {{ showArchivedSuggestions ? '📁 Voir Actives' : '📦 Voir Archives' }}
+                </button>
+            </h3>
+            <div *ngIf="suggestions.length === 0" class="empty-state">
+                Vous n'avez pas encore soumis de suggestion.
+            </div>
+            <div *ngIf="suggestions.length > 0" class="suggestions-list">
+                <div *ngFor="let suggestion of suggestions" class="suggestion-card">
+                    <div class="suggestion-header">
+                        <span class="suggestion-type">
+                            {{ suggestion.type === 'bug' ? '🐛 Bug' : '💡 Suggestion' }}
+                        </span>
+                        <span [class]="getStatusBadgeClass(suggestion.status)">
+                            {{ getStatusLabel(suggestion.status) }}
+                        </span>
+                    </div>
+                    <div class="suggestion-content">
+                        <p><strong>Votre message :</strong></p>
+                        <p>{{ suggestion.content }}</p>
+                    </div>
+                    <div *ngIf="suggestion.admin_response" class="admin-response">
+                        <p><strong>Réponse de l'équipe :</strong></p>
+                        <p>{{ suggestion.admin_response }}</p>
+                    </div>
+                    <div class="suggestion-footer">
+                        <small>Créé le {{ suggestion.created_at | date:'short' }}</small>
+                        <div class="suggestion-actions">
+                            <button *ngIf="suggestion.admin_response" (click)="toggleReadStatus(suggestion)"
+                                [class]="suggestion.is_read ? 'btn-mark-unread' : 'btn-mark-read'">
+                                {{ suggestion.is_read ? '👁️ Non lu' : '✓ Lu' }}
+                            </button>
+                            <button (click)="toggleArchiveSuggestion(suggestion)" class="btn-archive"
+                                [title]="suggestion.archived_user ? 'Désarchiver' : 'Archiver'">
+                                {{ suggestion.archived_user ? '📁' : '📦' }}
+                            </button>
+                            <button (click)="deleteSuggestion(suggestion)" class="btn-delete-mini" title="Supprimer">
+                                🗑️
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Section -->
+        <div class="advanced-section">
+            <h3>🚀 Avancé</h3>
+            <div class="bulk-fill-container">
+                <h4>Remplissage Automatique du Pokédex</h4>
+                <p class="info-text">Cochez les catégories que vous possédez déjà pour tous les Pokémon disponibles.
+                    Cela ajoutera automatiquement ces entrées à votre Pokédex.</p>
+
+                <div class="bulk-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.normal"
+                            (change)="toggleBulkCategory('normal')"> Standard
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.shiny"
+                            (change)="toggleBulkCategory('shiny')"> Shiny ✨
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.lucky"
+                            (change)="toggleBulkCategory('lucky')"> Chanceux 🍀
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.xxl" (change)="toggleBulkCategory('xxl')">
+                        XXL 📏
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.xxs" (change)="toggleBulkCategory('xxs')">
+                        XXS 🤏
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.gmax"
+                            (change)="toggleBulkCategory('gmax')"> G-Max 🌋
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.dynamax"
+                            (change)="toggleBulkCategory('dynamax')"> Dynamax 🌀
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.mega"
+                            (change)="toggleBulkCategory('mega')"> Méga 🧬
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.obscure"
+                            (change)="toggleBulkCategory('obscure')"> Obscur 👻
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.purified"
+                            (change)="toggleBulkCategory('purified')"> Purifié 🌟
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="bulkFillCategories.perfect"
+                            (change)="toggleBulkCategory('perfect')"> Parfait 💯
+                    </label>
+                </div>
+
+                <div *ngIf="bulkFillError" class="error-message">{{ bulkFillError }}</div>
+                <div *ngIf="bulkFillSuccess" class="success-message">{{ bulkFillSuccess }}</div>
+
+                <button class="btn-bulk-fill" (click)="bulkFillPokedex()" [disabled]="bulkFillLoading">
+                    {{ bulkFillLoading ? 'Traitement en cours...' : 'Valider le remplissage' }}
+                </button>
+            </div>
+        </div>
+
+        <div class="danger-zone">
+            <h3>Zone de danger</h3>
+            <button class="btn-delete" (click)="deleteAccount()">Supprimer mon compte</button>
+        </div>
+    </div>
+</div>

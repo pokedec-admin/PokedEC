@@ -1,0 +1,285 @@
+<div class="pokemon-detail-container" *ngIf="!loading">
+  <!-- Header -->
+  <div class="navigation-header">
+    <button class="btn-back" routerLink="/admin/pokemon">← Retour</button>
+    <div class="nav-arrows">
+      <button class="btn-nav" (click)="goToPrevious()" [disabled]="pokemonId <= 1">← Précédent</button>
+      <button class="btn-nav" (click)="goToNext()">Suivant →</button>
+    </div>
+    <h1>Pokémon #{{pokemon?.pokemon_id}} <span *ngIf="pokemon">- {{pokemon.name_fr}}</span></h1>
+  </div>
+
+  <!-- Forms Selector (Mobile-Friendly) -->
+  <div class="forms-selector">
+    <div class="forms-header">
+      <h3>🔄 Formes disponibles ({{availableForms.length}})</h3>
+      <div class="forms-actions">
+        <button class="btn-add-form" (click)="addForm()">+ Ajouter</button>
+        <button class="btn-delete-form" *ngIf="currentFormName !== 'Normal'" (click)="deleteForm()">🗑️
+          Supprimer</button>
+      </div>
+    </div>
+    <div class="forms-list" *ngIf="availableForms.length > 0">
+      <button *ngFor="let form of availableForms" class="form-item" [class.active]="form.form_name === currentFormName"
+        (click)="switchForm(form.form_name)">
+        <span class="form-indicator">{{ form.form_name === currentFormName ? '●' : '○' }}</span>
+        <span class="form-name">{{ form.form_name }}</span>
+        <span class="form-badge" *ngIf="form.form_name === 'Normal'">Originale</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="content" *ngIf="pokemon">
+    <div class="left-panel">
+      <div class="image-section">
+        <img
+          [src]="pokemon.image_url || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.pokemon_id + '.png'"
+          [alt]="pokemon.name_fr" class="pokemon-image">
+
+        <div class="upload-controls">
+          <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none">
+          <button class="btn-upload" (click)="fileInput.click()">📸 Changer l'image</button>
+          <p class="image-path-info" *ngIf="pokemon.image_url">
+            <small>{{pokemon.image_url}}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <!-- 1. Names Section -->
+      <div class="form-section">
+        <h3>📝 Noms</h3>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Français</label>
+            <input type="text" [(ngModel)]="pokemon.name_fr" (ngModelChange)="triggerAutoSave()">
+          </div>
+          <div class="form-field">
+            <label>English</label>
+            <input type="text" [(ngModel)]="pokemon.name_en" (ngModelChange)="triggerAutoSave()">
+          </div>
+          <div class="form-field">
+            <label>Deutsch</label>
+            <input type="text" [(ngModel)]="pokemon.name_de" (ngModelChange)="triggerAutoSave()">
+          </div>
+          <div class="form-field">
+            <label>Italiano</label>
+            <input type="text" [(ngModel)]="pokemon.name_it" (ngModelChange)="triggerAutoSave()">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Disponibilité, Échangeabilité & Catégories -->
+      <div class="form-section">
+        <h3>✅ Disponibilité & Catégories</h3>
+
+        <!-- Disponible dans le Pokédex -->
+        <div class="subsection">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="pokemon.is_available" (ngModelChange)="triggerAutoSave()">
+            <span><strong>Disponible dans le Pokédex utilisateur</strong></span>
+          </label>
+        </div>
+
+        <!-- Échangeabilité -->
+        <div class="subsection">
+          <label class="subsection-label">Échangeabilité</label>
+          <div class="checkbox-row">
+            <label class="checkbox-label">
+              <input type="radio" name="trade_status" [(ngModel)]="pokemon.trade_status" value="YES"
+                (ngModelChange)="triggerAutoSave()">
+              <span>✅ Oui (Échange Normal)</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="trade_status" [(ngModel)]="pokemon.trade_status" value="SPECIAL"
+                (ngModelChange)="triggerAutoSave()">
+              <span>⭐ Oui (Échange Spécial)</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="trade_status" [(ngModel)]="pokemon.trade_status" value="NO"
+                (ngModelChange)="triggerAutoSave()">
+              <span>❌ Non</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Catégories Disponibles -->
+        <div class="subsection">
+          <label class="subsection-label">Catégories Disponibles</label>
+          <div class="checkbox-grid">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_normal" (ngModelChange)="triggerAutoSave()">
+              <span>Normal</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_shiny" (ngModelChange)="triggerAutoSave()">
+              <span>Shiny</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_lucky" (ngModelChange)="triggerAutoSave()">
+              <span>Chanceux</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_xxl" (ngModelChange)="triggerAutoSave()">
+              <span>XXL</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_xxs" (ngModelChange)="triggerAutoSave()">
+              <span>XXS</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_gmax" (change)="onCategoryToggle('gmax', $event)">
+              <span>Gigamax</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_dynamax"
+                (change)="onCategoryToggle('dynamax', $event)">
+              <span>Dynamax</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_mega" (change)="onCategoryToggle('mega', $event)">
+              <span>Méga</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_obscure" (ngModelChange)="triggerAutoSave()">
+              <span>Obscur</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_purified" (ngModelChange)="triggerAutoSave()">
+              <span>Purifié</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.can_be_perfect" (ngModelChange)="triggerAutoSave()">
+              <span>Parfait</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Classification & Region -->
+      <div class="form-section">
+        <h3>🏷️ Classification & Région</h3>
+
+        <div class="radio-section">
+          <label class="section-label">Classification</label>
+          <div class="radio-grid">
+            <label *ngFor="let c of classifications" class="radio-option">
+              <input type="radio" name="classification" [value]="c.id" [(ngModel)]="pokemon.classification_id"
+                (ngModelChange)="triggerAutoSave()">
+              <span>{{c.name_fr}}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="radio-section">
+          <label class="section-label">
+            Région
+            <button class="btn-add-inline" (click)="showNewRegionForm = !showNewRegionForm" type="button">+</button>
+          </label>
+          <div class="radio-grid">
+            <label *ngFor="let r of regions" class="radio-option">
+              <input type="radio" name="region" [value]="r.id" [(ngModel)]="pokemon.region_id"
+                (ngModelChange)="triggerAutoSave()">
+              <span>{{r.name_fr}}<span *ngIf="r.is_custom" class="custom-badge">Perso</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="regional-section">
+          <label class="section-label">Spécificité Régionale</label>
+          <div class="regional-controls">
+            <label class="checkbox-label">
+              <input type="checkbox" [(ngModel)]="pokemon.is_regional" (ngModelChange)="triggerAutoSave()">
+              <span><strong>Pokémon Régional</strong></span>
+            </label>
+            <div class="form-field full-width" *ngIf="pokemon.is_regional">
+              <label>Description de la zone (Info-bulle)</label>
+              <textarea [(ngModel)]="pokemon.regional_description" (ngModelChange)="triggerAutoSave()"
+                placeholder="Ex: Disponible uniquement au Japon et en Corée du Sud"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- New Region Form (if visible) -->
+        <div class="new-region-form" *ngIf="showNewRegionForm">
+          <h4>Nouvelle Région</h4>
+          <div class="form-grid">
+            <input type="text" placeholder="Nom FR" [(ngModel)]="newRegion.name_fr">
+            <input type="text" placeholder="Nom EN" [(ngModel)]="newRegion.name_en">
+            <input type="text" placeholder="Clé (ex: region_name)" [(ngModel)]="newRegion.name_key">
+            <button class="btn-create" (click)="createNewRegion()">Créer</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Types -->
+      <div class="form-section">
+        <h3>⚡ Types</h3>
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Type Primaire</label>
+            <select [(ngModel)]="pokemon.type_primary_id" (ngModelChange)="triggerAutoSave()" class="type-select">
+              <option *ngFor="let t of types" [value]="t.id">{{t.name_fr}}</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Type Secondaire</label>
+            <select [(ngModel)]="pokemon.type_secondary_id" (ngModelChange)="triggerAutoSave()" class="type-select">
+              <option [value]="null">-- Aucun --</option>
+              <option *ngFor="let t of types" [value]="t.id">{{t.name_fr}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <div class="save-status">
+          <span *ngIf="saving" class="saving-indicator">⏳ Enregistrement...</span>
+          <span *ngIf="!saving && lastSaved" class="saved-indicator">✅ Enregistré à {{ lastSaved | date:'HH:mm:ss'
+            }}</span>
+        </div>
+        <button class="btn-cancel" (click)="cancel()">Retour Admin</button>
+      </div>
+
+      <!-- Messages -->
+      <div class="message error" *ngIf="error">{{error}}</div>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <p>Chargement...</p>
+  </div>
+
+  <!-- Form Creation Modal -->
+  <div class="modal-overlay" *ngIf="showAddFormModal">
+    <div class="modal-card">
+      <div class="modal-content">
+        <h3>➕ Ajouter une nouvelle forme</h3>
+        <p class="modal-desc">Choisissez un nom prédéfini ou saisissez-en un nouveau.</p>
+
+        <div class="modal-body">
+          <div class="field">
+            <label>Type de forme</label>
+            <select [(ngModel)]="selectedPredefinedName" (change)="onPredefinedNameChange()" class="predefined-select">
+              <option [value]="''">-- Sélectionner --</option>
+              <option *ngFor="let fn of predefinedFormNames" [value]="fn.name">{{fn.name}}</option>
+              <option [value]="'OTHER'">✍️ Saisie libre...</option>
+            </select>
+          </div>
+
+          <div class="field" *ngIf="selectedPredefinedName === 'OTHER'">
+            <label>Nom de la forme</label>
+            <input type="text" [(ngModel)]="customFormName" placeholder="Ex: Hisui, Solaire...">
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn-secondary" (click)="showAddFormModal = false">Annuler</button>
+            <button class="btn-primary" (click)="confirmAddForm()" [disabled]="!canConfirmAddForm()">Créer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

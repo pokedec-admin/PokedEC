@@ -1,0 +1,510 @@
+.pokemon-detail-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.header-title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    text-transform: capitalize;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.2;
+}
+
+.pokemon-id {
+    font-size: 1.5rem;
+    margin-top: 0.3rem;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.nav-btn {
+    background: transparent;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 4rem;
+    font-weight: bold;
+    flex-shrink: 0;
+    color: #FFD700;
+    line-height: 1;
+    padding-bottom: 0.5rem;
+    /* Visual adjustment for centering the character */
+}
+
+.nav-btn:hover {
+    transform: scale(1.2);
+    color: #FFA500;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.content-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.image-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.pokemon-image {
+    width: 200px;
+    height: 200px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    align-items: center;
+}
+
+.types {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.type-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Type colors */
+.type-normal {
+    background-color: #A8A878;
+    color: #000;
+}
+
+.type-fire {
+    background-color: #F08030;
+    color: #fff;
+}
+
+.type-water {
+    background-color: #6890F0;
+    color: #fff;
+}
+
+.type-grass {
+    background-color: #78C850;
+    color: #000;
+}
+
+.type-electric {
+    background-color: #F8D030;
+    color: #000;
+}
+
+.type-ice {
+    background-color: #98D8D8;
+    color: #000;
+}
+
+.type-fighting {
+    background-color: #C03028;
+    color: #fff;
+}
+
+.type-poison {
+    background-color: #A040A0;
+    color: #fff;
+}
+
+.type-ground {
+    background-color: #E0C068;
+    color: #000;
+}
+
+.type-flying {
+    background-color: #A890F0;
+    color: #fff;
+}
+
+.type-psychic {
+    background-color: #F85888;
+    color: #fff;
+}
+
+.type-bug {
+    background-color: #A8B820;
+    color: #000;
+}
+
+.type-rock {
+    background-color: #B8A038;
+    color: #fff;
+}
+
+.type-ghost {
+    background-color: #705898;
+    color: #fff;
+}
+
+.type-dragon {
+    background-color: #7038F8;
+    color: #fff;
+}
+
+.type-steel {
+    background-color: #B8B8D0;
+    color: #000;
+}
+
+.type-fairy {
+    background-color: #EE99AC;
+    color: #000;
+}
+
+/* Master Data Section */
+.master-data-section {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+.master-badge-row {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.badge-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.badge-group label {
+    font-size: 0.85rem;
+    color: #FFD700;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.types-badges {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+}
+
+.badge-classification {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.badge-region {
+    background: linear-gradient(135deg, #27ae60, #229954);
+}
+
+.badge-type {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Forms Selector */
+.forms-selector {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(5px);
+}
+
+.form-thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+    width: 70px;
+}
+
+.form-thumbnail:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.form-thumbnail.active {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #f1c40f;
+    box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3);
+}
+
+.form-thumbnail img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.form-thumbnail span {
+    font-size: 10px;
+    margin-top: 4px;
+    color: #ecf0f1;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.badge-regional {
+    background: linear-gradient(135deg, #d35400, #e67e22);
+    cursor: help;
+}
+
+.user-controls {
+    margin-top: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.user-controls h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #FFD700;
+}
+
+.toggles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    gap: 5px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.sub-toggle {
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.sub-toggle.active,
+.sub-toggle.active-normal {
+    background-color: #28a745;
+    /* Green for trade availability */
+    color: white;
+    border-color: #28a745;
+}
+
+.sub-toggle.active-special {
+    background-color: #fd7e14;
+    /* Orange for special trade */
+    color: white;
+    border-color: #fd7e14;
+}
+
+.sub-toggle.inactive {
+    background-color: #f8d7da;
+    color: #dc3545;
+    border-color: #f5c6cb;
+    cursor: not-allowed;
+}
+
+.toggle-btn.active {
+    background-color: #ffcb05;
+    border-color: #ffcb05;
+    color: #333;
+    font-weight: bold;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.toggle-btn.active {
+    background: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
+    color: #4CAF50;
+}
+
+.toggle-btn i {
+    font-size: 1.2rem;
+}
+
+.back-btn {
+    margin-top: 2rem;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+}
+
+.trade-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 10px;
+    /* Default state (gray/inactive) */
+    color: transparent;
+    text-shadow: 0 0 0 #ccc;
+}
+
+.trade-icon:hover {
+    transform: scale(1.1);
+    text-shadow: 0 0 0 #999;
+}
+
+.trade-icon.active-normal {
+    color: transparent;
+    text-shadow: 0 0 0 #28a745;
+    opacity: 1;
+}
+
+.trade-icon.active-special {
+    color: transparent;
+    text-shadow: 0 0 0 #fd7e14;
+    opacity: 1;
+}
+
+.trade-icon.inactive {
+    color: transparent;
+    text-shadow: 0 0 0 #dc3545;
+    opacity: 1;
+    cursor: not-allowed;
+}
+
+.trade-icon.inactive:hover {
+    transform: none;
+    text-shadow: 0 0 0 #dc3545;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pokemon-image {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Form Selector */
+.form-selector-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px;
+}
+
+.form-select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+
+.form-select option {
+    background: #2d3436;
+    color: white;
+}

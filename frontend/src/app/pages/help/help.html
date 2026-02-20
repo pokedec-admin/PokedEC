@@ -1,0 +1,24 @@
+<div class="help-container">
+    <div class="hero-section">
+        <h1>Guide des Fonctionnalités</h1>
+        <p class="subtitle">Découvrez tout ce que vous pouvez faire avec Poked'EC</p>
+    </div>
+
+    <div class="features-grid">
+        <a *ngFor="let feature of features" [routerLink]="feature.link" class="feature-card"
+            [style.--card-color]="feature.color">
+            <div class="feature-icon-wrapper">
+                <span class="feature-icon">{{ feature.icon }}</span>
+            </div>
+            <div class="feature-content">
+                <h2>{{ feature.title }}</h2>
+                <p>{{ feature.description }}</p>
+                <span class="feature-link">Accéder <span>→</span></span>
+            </div>
+        </a>
+    </div>
+
+    <div class="actions">
+        <a routerLink="/" class="btn-back">Retour à l'accueil</a>
+    </div>
+</div>

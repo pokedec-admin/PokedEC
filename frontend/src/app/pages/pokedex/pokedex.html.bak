@@ -1,0 +1,233 @@
+<div class="pokedex-container">
+    <!-- Loading State -->
+    <div class="loader-overlay" *ngIf="isLoading"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(255,255,255,0.7); z-index: 2000;">
+        <div class="spinner" style="width: 50px; height: 50px; border-width: 5px;"></div>
+    </div>
+
+    <!-- Search Section replaced with new component -->
+    <div class="add-pokemon-section">
+        <h3>Recherche Rapide</h3>
+        <app-pokemon-search placeholder="Chercher un Pokémon à ajouter..."
+            [navigateToDetail]="true"></app-pokemon-search>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <h3>Filtres</h3>
+        <div class="filters-grid">
+            <div class="filter-group">
+                <label>Région</label>
+                <select [(ngModel)]="selectedRegion" (change)="applyFilters()">
+                    <option value="">Toutes les régions</option>
+                    <option *ngFor="let region of availableRegions" [value]="region">{{ region }}</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Type</label>
+                <select [(ngModel)]="selectedType" (change)="applyFilters()">
+                    <option value="">Tous les types</option>
+                    <option *ngFor="let type of availableTypes" [value]="type">{{ type }}</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Classification</label>
+                <select [(ngModel)]="selectedClassification" (change)="applyFilters()">
+                    <option value="">Toutes les classifications</option>
+                    <option *ngFor="let classification of availableClassifications" [value]="classification">{{
+                        classification }}</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button class="clear-btn" (click)="clearFilters()"
+                    *ngIf="selectedRegion || selectedType || selectedClassification">
+                    Effacer les filtres
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trade Icon Legend -->
+    <div class="trade-legend">
+        <span class="legend-title">Légende icône Disponible à l'échange 💱 :</span>
+        <span class="legend-item"><span class="trade-icon inactive-gray">💱</span> Pas disponible (gris)</span>
+        <span class="legend-item"><span class="trade-icon active-normal">💱</span> Échange normal (vert)</span>
+        <span class="legend-item"><span class="trade-icon active-special">💱</span> Échange spécial (orange)</span>
+        <span class="legend-item"><span class="trade-icon inactive">💱</span> Pas d'échange Possible (rouge)</span>
+    </div>
+
+    <hr>
+
+    <!-- Region-Based Table -->
+    <div class="regions-container">
+        <div *ngFor="let region of regions" class="region-section">
+            <h3 (click)="toggleRegion(region)" class="region-header">
+                <span class="toggle-icon">{{ region.expanded ? '▼' : '▶' }}</span>
+                {{ region.name }} ({{ region.pokemon.length }})
+            </h3>
+            <div class="table-wrapper">
+                <table *ngIf="region.pokemon.length > 0" class="pokemon-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>ID</th>
+                            <th>Classification</th>
+                            <th>Région</th>
+                            <th>Types</th>
+                            <th>Standard</th>
+                            <th>Shiny</th>
+                            <th>Chanceux</th>
+                            <th>XXL</th>
+                            <th>XXS</th>
+                            <th>G-MAX</th>
+                            <th>Dynamax</th>
+                            <th>Méga</th>
+                            <th>Obscur</th>
+                            <th>Purifié</th>
+                            <th>Parfait</th>
+                        </tr>
+                        <tr class="count-row">
+                            <th colspan="6">Total: {{ region.pokemon.length }}</th>
+                            <th>{{ getStandardCount(region.pokemon) }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_shiny') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_lucky') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_xxl') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_xxs') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_gmax') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_dynamax') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_mega') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_obscure') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_purifie') }}</th>
+                            <th>{{ getVariantCount(region.pokemon, 'has_parfait') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="region.expanded">
+                        <tr *ngFor="let poke of getDisplayedPokemon(region)">
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer"><img
+                                    [src]="poke.image_url" [alt]="getPokemonName(poke)" class="pokemon-img"></td>
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer">{{ getPokemonName(poke) |
+                                titlecase }}</td>
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer">#{{ poke.pokemon_id }}
+                            </td>
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer">
+                                <span *ngIf="poke.classification_name" class="badge badge-classification">{{
+                                    poke.classification_name }}</span>
+                            </td>
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer">
+                                <span *ngIf="poke.region_name" class="badge badge-region">{{ poke.region_name }}</span>
+                            </td>
+                            <td (click)="goToDetail(poke.pokemon_id)" style="cursor: pointer">
+                                <span *ngIf="poke.type_primary_name" class="badge badge-type"
+                                    [style.background-color]="poke.type_primary_color">{{ poke.type_primary_name
+                                    }}</span>
+                                <span *ngIf="poke.type_secondary_name" class="badge badge-type"
+                                    [style.background-color]="poke.type_secondary_color">{{ poke.type_secondary_name
+                                    }}</span>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container
+                                    *ngIf="poke.can_be_normal || poke.can_be_legendary || poke.can_be_mythical || poke.can_be_ultra_beast">
+                                    <input type="checkbox"
+                                        [checked]="poke.has_normal || poke.has_legendary || poke.has_mythical || poke.has_ultra_beast"
+                                        (change)="toggleStandard(poke)">
+                                    <span
+                                        *ngIf="poke.has_normal || poke.has_legendary || poke.has_mythical || poke.has_ultra_beast"
+                                        class="trade-icon"
+                                        [class.active-normal]="(poke.has_trade || poke.trade_legendary || poke.trade_mythical || poke.trade_ultra_beast) && getTradeStatus(poke) === 'YES'"
+                                        [class.active-special]="(poke.has_trade || poke.trade_legendary || poke.trade_mythical || poke.trade_ultra_beast) && getTradeStatus(poke) === 'SPECIAL'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'"
+                                        (click)="toggleStandardTrade(poke)"
+                                        [title]="getTradeStatus(poke) === 'NO' ? 'Échange impossible' : 'Basculer échange'">𒒱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_shiny">
+                                    <input type="checkbox" [checked]="poke.has_shiny" (change)="toggleShiny(poke)">
+                                    <span *ngIf="poke.has_shiny" class="trade-icon"
+                                        [class.active-normal]="poke.trade_shiny && getTradeStatus(poke) !== 'NO'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'"
+                                        (click)="toggleTradeShiny(poke)"
+                                        [title]="getTradeStatus(poke) === 'NO' ? 'Échange impossible' : 'Basculer échange Shiny'">💱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_lucky">
+                                    <input type="checkbox" [checked]="poke.has_lucky" (change)="toggleLucky(poke)">
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_xxl">
+                                    <input type="checkbox" [checked]="poke.has_xxl" (change)="toggleXXL(poke)">
+                                    <span *ngIf="poke.has_xxl" class="trade-icon"
+                                        [class.active-normal]="poke.trade_xxl && getTradeStatus(poke) !== 'NO'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'" (click)="toggleTradeXXL(poke)"
+                                        [title]="getTradeStatus(poke) === 'NO' ? 'Échange impossible' : 'Basculer échange XXL'">𒒱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_xxs">
+                                    <input type="checkbox" [checked]="poke.has_xxs" (change)="toggleXXS(poke)">
+                                    <span *ngIf="poke.has_xxs" class="trade-icon"
+                                        [class.active-normal]="poke.trade_xxs && getTradeStatus(poke) !== 'NO'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'" (click)="toggleTradeXXS(poke)"
+                                        [title]="getTradeStatus(poke) === 'NO' ? 'Échange impossible' : 'Basculer échange XXS'">𒒱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_gmax">
+                                    <input type="checkbox" [checked]="poke.has_gmax" (change)="toggleGMax(poke)">
+                                    <span *ngIf="poke.has_gmax" class="trade-icon"
+                                        [class.active-normal]="poke.trade_gmax && getTradeStatus(poke) !== 'NO'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'" (click)="toggleTradeGMax(poke)"
+                                        [title]="getTradeStatus(poke) === 'NO' ? 'Échange impossible' : 'Basculer échange GMax'">𒒱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_dynamax">
+                                    <input type="checkbox" [checked]="poke.has_dynamax" (change)="toggleDynamax(poke)">
+                                    <span *ngIf="poke.has_dynamax" class="trade-icon"
+                                        [class.active-normal]="poke.trade_dynamax && getTradeStatus(poke) !== 'NO'"
+                                        [class.inactive]="getTradeStatus(poke) === 'NO'"
+                                        (click)="toggleTradeDynamax(poke)" title="Toggle Dynamax Trade">💱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_mega">
+                                    <input type="checkbox" [checked]="poke.has_mega" (change)="toggleMega(poke)">
+                                    <span *ngIf="poke.has_mega" class="trade-icon" [class.active]="poke.trade_mega"
+                                        (click)="toggleTradeMega(poke)" title="Toggle Mega Trade">💱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_obscure">
+                                    <input type="checkbox" [checked]="poke.has_obscure" (change)="toggleObscure(poke)">
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_purified">
+                                    <input type="checkbox" [checked]="poke.has_purifie" (change)="togglePurifie(poke)">
+                                    <span *ngIf="poke.has_purifie" class="trade-icon"
+                                        [class.active]="poke.trade_purified" (click)="toggleTradePurified(poke)"
+                                        title="Toggle Purified Trade">💱</span>
+                                </ng-container>
+                            </td>
+                            <td class="check-cell">
+                                <ng-container *ngIf="poke.can_be_perfect">
+                                    <input type="checkbox" [checked]="poke.has_parfait" (change)="toggleParfait(poke)">
+                                </ng-container>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Show More Button -->
+                <div *ngIf="hasMorePokemon(region) && region.expanded" class="show-more-container">
+                    <button class="show-more-btn" (click)="showMorePokemon(region)">
+                        Afficher plus ({{ region.pokemon.length - (pokemonDisplayLimit[region.name] || 50) }} restants)
+                    </button>
+                </div>
+            </div>
+            <p *ngIf="region.pokemon.length === 0" class="empty-region">No Pokemon from {{ region.name }} yet.</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="fr" data-critters-container>
+
+<head>
+  <meta charset="utf-8">
+  <title>Poked'EC</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/icone_pokedec.ico">
+  <link rel="apple-touch-icon" href="/Logo_Pokedec.png">
+<style>:root{--primary-color:#3498db;--primary-dark:#2980b9;--secondary-color:#95a5a6;--accent-color:#ffcb05;--accent-dark:#e6b800;--header-bg:#db2b2b;--success-color:#2ecc71;--danger-color:#e74c3c;--warning-color:#f1c40f;--bg-color:#f7f7f7;--card-bg:#ffffff;--text-color:#333333;--text-light:#7f8c8d;--border-radius:8px;--container-max-width:1400px;--header-height:80px}body{background-color:var(--bg-color);margin:0;font-family:Roboto,Segoe UI,Tahoma,Geneva,Verdana,sans-serif;color:var(--text-color);line-height:1.6;overflow-x:hidden;width:100%}</style><link rel="stylesheet" href="styles-JUYEKBPE.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles-JUYEKBPE.css"></noscript></head>
+
+<body>
+  <app-root></app-root>
+<link rel="modulepreload" href="chunk-OCMYC22T.js"><link rel="modulepreload" href="chunk-NWNTRT4O.js"><link rel="modulepreload" href="chunk-RSSVVO4G.js"><link rel="modulepreload" href="chunk-4EHPBUL2.js"><link rel="modulepreload" href="chunk-2I6U3NDU.js"><link rel="modulepreload" href="chunk-7IQ7MVDA.js"><script src="polyfills-FFHMD2TL.js" type="module"></script><script src="main-YNXR47PH.js" type="module"></script></body>
+
+</html>

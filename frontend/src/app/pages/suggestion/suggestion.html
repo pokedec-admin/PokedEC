@@ -1,0 +1,32 @@
+<div class="suggestion-container">
+    <h1>💡 Boîte à idées & Bugs</h1>
+
+    <div class="form-card">
+        <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+        <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+        <form *ngIf="!successMessage" (submit)="onSubmit(); $event.preventDefault()">
+            <div class="form-group">
+                <label for="type">Type de retour</label>
+                <select id="type" [(ngModel)]="type" name="type">
+                    <option value="suggestion">💡 Suggestion d'amélioration</option>
+                    <option value="bug">🐛 Signaler un bug</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Description</label>
+                <textarea id="content" [(ngModel)]="content" name="content"
+                    placeholder="Dites-nous ce que vous aimeriez voir ou ce qui ne fonctionne pas..."
+                    required></textarea>
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn-cancel" (click)="onCancel()">Annuler</button>
+                <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+                    {{ isSubmitting ? 'Envoi...' : 'Envoyer' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

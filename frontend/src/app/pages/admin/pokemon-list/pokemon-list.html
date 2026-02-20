@@ -1,0 +1,97 @@
+<div class="admin-container">
+    <div class="admin-header">
+        <button class="back-btn" routerLink="/admin">← Retour Menu</button>
+        <h2>🔍 Gestion Pokémon</h2>
+    </div>
+
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+    <!-- Quick Access Buttons -->
+    <div class="quick-actions">
+        <a routerLink="/admin/pokemon-categories" class="action-card">
+            <span class="icon">📋</span>
+            <span class="title">Catégories</span>
+            <span class="desc">Gérer les catégories disponibles</span>
+        </a>
+    </div>
+
+    <!-- Filter Panel -->
+    <div class="filter-panel">
+        <!-- Search & Control -->
+        <div class="filter-top">
+            <input type="text" [(ngModel)]="pokemonSearchQuery" (input)="applyFilters()"
+                placeholder="🔍 Nom, ID, Forme..." class="search-input">
+            <button class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
+            <span class="result-count">{{ filteredPokemon.length }} / {{ pokemonList.length }}</span>
+        </div>
+
+        <!-- Filters Grid -->
+        <div class="filter-grid">
+            <select [(ngModel)]="selectedClassification" (change)="applyFilters()" class="filter-select">
+                <option [ngValue]="null">Classifications...</option>
+                <option *ngFor="let c of classifications" [value]="c.id">{{ c.name_fr }}</option>
+            </select>
+
+            <select [(ngModel)]="selectedRegion" (change)="applyFilters()" class="filter-select">
+                <option [ngValue]="null">Régions...</option>
+                <option *ngFor="let r of regions" [value]="r.id">{{ r.name_fr }}</option>
+            </select>
+
+            <select [(ngModel)]="selectedType" (change)="applyFilters()" class="filter-select">
+                <option [ngValue]="null">Types...</option>
+                <option *ngFor="let t of types" [value]="t.id">{{ t.name_fr }}</option>
+            </select>
+
+            <select [(ngModel)]="filterForm" (change)="applyFilters()" class="filter-select">
+                <option value="all">Toutes formes</option>
+                <option value="normal">Uniquement Normal</option>
+                <option value="variants">Uniquement Variantes</option>
+                <option value="mega">Uniquement Méga / Primo</option>
+                <option value="gmax">Uniquement Gigamax</option>
+                <option value="dynamax">Uniquement Dynamax</option>
+            </select>
+
+            <select [(ngModel)]="filterRegional" (change)="applyFilters()" class="filter-select">
+                <option [ngValue]="null">Régional : Tout</option>
+                <option [ngValue]="true">Régional : Oui</option>
+                <option [ngValue]="false">Régional : Non</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loadingPokemon" class="loading-state">
+        <p>⏳ Chargement des Pokémon...</p>
+    </div>
+
+    <!-- Pokemon List -->
+    <div *ngIf="!loadingPokemon && filteredPokemon.length > 0" class="pokemon-grid">
+        <a *ngFor="let pokemon of filteredPokemon.slice(0, 50)"
+            [routerLink]="pokemon.form_name === 'Normal' ? ['/admin/pokemon', pokemon.pokemon_id] : ['/admin/pokemon', pokemon.pokemon_id, pokemon.form_name]"
+            class="pokemon-card">
+            <div class="pokemon-id">#{{ pokemon.pokemon_id }}</div>
+            <img [src]="pokemon.image_url || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.pokemon_id + '.png'"
+                [alt]="pokemon.name_fr" class="pokemon-image" loading="lazy">
+            <div class="pokemon-name">
+                {{ pokemon.name_fr || pokemon.name_en }}
+                <span *ngIf="pokemon.form_name !== 'Normal'" class="form-tag">({{ pokemon.form_name }})</span>
+            </div>
+            <div class="pokemon-meta">
+                <span class="badge badge-classification">{{ pokemon.classification_name }}</span>
+                <span class="badge badge-region">{{ pokemon.region_name }}</span>
+                <span *ngIf="!pokemon.is_available" class="badge badge-unavailable">Indisponible</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Empty State -->
+    <p *ngIf="!loadingPokemon && filteredPokemon.length === 0 && pokemonSearchQuery" class="no-data">
+        Aucun Pokémon trouvé pour "{{ pokemonSearchQuery }}"
+    </p>
+
+    <!-- Pagination Info -->
+    <p *ngIf="filteredPokemon.length > 50" class="pagination-info">
+        📄 Affichage de 50 Pokémon sur {{ filteredPokemon.length }}. Affinez votre recherche pour voir plus de
+        résultats.
+    </p>
+</div>

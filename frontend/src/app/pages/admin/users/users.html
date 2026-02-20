@@ -1,0 +1,115 @@
+<div class="admin-container">
+    <div class="admin-header">
+        <button class="back-btn" routerLink="/admin">← Retour Menu</button>
+        <h2>👥 Gestion Utilisateurs</h2>
+    </div>
+
+    <!-- Messages -->
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+    <div class="section-header">
+        <p class="subtitle">Gérer tous les utilisateurs de l'application</p>
+        <button class="btn-create" (click)="showCreateUserForm = !showCreateUserForm">
+            {{ showCreateUserForm ? 'Annuler' : '➕ Créer un utilisateur' }}
+        </button>
+    </div>
+
+    <!-- Create User Form -->
+    <div *ngIf="showCreateUserForm" class="create-user-form">
+        <h3>Nouvel Utilisateur</h3>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="newUser.trainer_name" placeholder="Nom de dresseur" required>
+            <input type="email" [(ngModel)]="newUser.email" placeholder="Email" required>
+            <input type="password" [(ngModel)]="newUser.password" placeholder="Mot de passe" required>
+            <select [(ngModel)]="newUser.team">
+                <option value="">Équipe (Optionnel)</option>
+                <option value="Mystic">Mystic</option>
+                <option value="Valor">Valor</option>
+                <option value="Instinct">Instinct</option>
+            </select>
+            <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="newUser.is_admin"> Admin
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="newUser.is_active"> Actif
+            </label>
+            <button (click)="createUser()" class="btn-save">Créer</button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="users-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom de dresseur</th>
+                    <th>Email</th>
+                    <th>Équipe</th>
+                    <th>Téléphone</th>
+                    <th>Email vérifié</th>
+                    <th>Actif</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.id }}</td>
+                    <td>
+                        <input *ngIf="user.editing" type="text" [(ngModel)]="user.trainer_name" class="edit-input">
+                        <span *ngIf="!user.editing">{{ user.trainer_name }}</span>
+                    </td>
+                    <td>
+                        <input *ngIf="user.editing" type="email" [(ngModel)]="user.email" class="edit-input">
+                        <span *ngIf="!user.editing">{{ user.email }}</span>
+                    </td>
+                    <td>
+                        <select *ngIf="user.editing" [(ngModel)]="user.team" class="edit-input">
+                            <option value="">Aucune</option>
+                            <option value="Mystic">Mystic</option>
+                            <option value="Valor">Valor</option>
+                            <option value="Instinct">Instinct</option>
+                        </select>
+                        <span *ngIf="!user.editing">{{ user.team || '-' }}</span>
+                    </td>
+                    <td>
+                        <input *ngIf="user.editing" type="tel" [(ngModel)]="user.phone" class="edit-input">
+                        <span *ngIf="!user.editing">{{ user.phone || '-' }}</span>
+                    </td>
+                    <td *ngIf="user.editing" class="password-cell">
+                        <input type="password" [(ngModel)]="user.newPassword" class="edit-input"
+                            placeholder="🔐 Nouveau mot de passe (optionnel)">
+                    </td>
+                    <td>
+                        <input *ngIf="user.editing" type="checkbox" [(ngModel)]="user.email_verified">
+                        <span *ngIf="!user.editing">{{ user.email_verified ? '✓' : '✗' }}</span>
+                    </td>
+                    <td>
+                        <span [class.active-badge]="user.is_active !== false"
+                            [class.inactive-badge]="user.is_active === false">
+                            {{ user.is_active !== false ? 'Oui' : 'Non' }}
+                        </span>
+                    </td>
+                    <td>
+                        <span [class.admin-badge]="user.is_admin">{{ user.is_admin ? '👑 Admin' : 'User' }}</span>
+                    </td>
+                    <td class="actions">
+                        <button *ngIf="!user.editing" (click)="startEdit(user)" class="btn-edit">Modifier</button>
+                        <button *ngIf="user.editing" (click)="saveUser(user)" class="btn-save">Enregistrer</button>
+                        <button *ngIf="user.editing" (click)="cancelEdit(user)" class="btn-cancel">Annuler</button>
+                        <button (click)="toggleAdminStatus(user)" class="btn-admin">
+                            {{ user.is_admin ? 'Retirer Admin' : 'Promouvoir Admin' }}
+                        </button>
+                        <button (click)="toggleActiveStatus(user)" [class.btn-activate]="!user.is_active"
+                            [class.btn-deactivate]="user.is_active !== false">
+                            {{ user.is_active !== false ? 'Désactiver' : 'Activer' }}
+                        </button>
+                        <button (click)="confirmDelete(user)" class="btn-delete">Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p *ngIf="users.length === 0" class="no-data">Aucun utilisateur trouvé.</p>
+</div>

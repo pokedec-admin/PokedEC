@@ -1,0 +1,75 @@
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    margin-top: auto;
+}
+
+.footer-line {
+    margin: 0.5rem 0;
+    text-align: center;
+}
+
+.trainer-line {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.trainer-name {
+    color: #ffcb05;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.trainer-name:hover {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+.team-badge {
+    font-size: 1.2rem;
+}
+
+.footer-badge-new {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+footer a {
+    color: #3498db;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: #5dade2;
+}
+
+.logout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b;
+}

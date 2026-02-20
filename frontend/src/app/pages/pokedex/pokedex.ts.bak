@@ -1,0 +1,483 @@
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PokemonService } from '../../services/pokemon.service';
+import { AuthService } from '../../services/auth.service';
+import { PokemonSearchComponent } from '../../components/pokemon-search/pokemon-search.component';
+
+interface PokemonEntry {
+  // ... (interfaces stay same, truncated for brevity in prompt but kept in file)
+  id: number;
+  user_id: number;
+  pokemon_id: number;
+  name: string;
+  image_url: string;
+  has_normal: boolean;
+  has_legendary: boolean;
+  has_mythical: boolean;
+  has_ultra_beast: boolean;
+  can_be_normal?: boolean;
+  can_be_legendary?: boolean;
+  can_be_mythical?: boolean;
+  can_be_ultra_beast?: boolean;
+  can_be_shiny?: boolean;
+  can_be_lucky?: boolean;
+  can_be_xxl?: boolean;
+  can_be_xxs?: boolean;
+  can_be_gmax?: boolean;
+  can_be_dynamax?: boolean;
+  can_be_mega?: boolean;
+  can_be_obscure?: boolean;
+  can_be_purified?: boolean;
+  can_be_perfect?: boolean;
+  has_shiny: boolean;
+  has_trade: boolean;
+  has_lucky: boolean;
+  has_xxl: boolean;
+  has_xxs: boolean;
+  has_gmax: boolean;
+  has_dynamax: boolean;
+  has_mega: boolean;
+  has_obscure: boolean;
+  has_purifie: boolean;
+  has_parfait: boolean;
+  trade_shiny: boolean;
+  trade_legendary: boolean;
+  trade_mythical: boolean;
+  trade_ultra_beast: boolean;
+  trade_xxl: boolean;
+  trade_xxs: boolean;
+  trade_gmax: boolean;
+  trade_dynamax: boolean;
+  trade_mega: boolean;
+  trade_purified: boolean;
+  created_at: string;
+  name_fr?: string;
+  name_en?: string;
+  name_de?: string;
+  name_it?: string;
+  master_trade_status?: string;
+  classification_id?: number;
+  classification_name?: string;
+  region_id?: number;
+  region_name?: string;
+  type_primary_id?: number;
+  type_primary_name?: string;
+  type_primary_color?: string;
+  type_secondary_id?: number;
+  type_secondary_name?: string;
+  type_secondary_color?: string;
+}
+
+interface RegionGroup {
+  name: string;
+  pokemon: PokemonEntry[];
+  expanded: boolean;
+}
+
+@Component({
+  selector: 'app-pokedex',
+  standalone: true,
+  imports: [CommonModule, FormsModule, PokemonSearchComponent],
+  templateUrl: './pokedex.html',
+  styleUrls: ['./pokedex.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class Pokedex implements OnInit {
+  searchedPokemon: any = null;
+  myPokemon: PokemonEntry[] = [];
+  filteredPokemon: PokemonEntry[] = [];
+  regions: RegionGroup[] = [];
+  errorMessage: string = '';
+  successMessage: string = '';
+  isLoading: boolean = true;
+
+  // Filters
+  selectedRegion: string = '';
+  selectedType: string = '';
+  selectedClassification: string = '';
+
+  // Available filter options
+  availableRegions: string[] = [];
+  availableTypes: string[] = [];
+  availableClassifications: string[] = [];
+
+  // Display limit for performance
+  pokemonDisplayLimit: { [regionName: string]: number } = {};
+
+  constructor(
+    private pokemonService: PokemonService,
+    private authService: AuthService,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) { }
+
+  ngOnInit() {
+    this.loadPokedex();
+  }
+
+  loadPokedex() {
+    this.isLoading = true;
+    this.cd.markForCheck();
+    this.pokemonService.getMyPokedex().subscribe({
+      next: (data: PokemonEntry[]) => {
+        this.myPokemon = data;
+        this.filteredPokemon = data;
+        this.extractFilterOptions();
+        this.groupByRegion();
+        this.isLoading = false;
+        this.cd.markForCheck();
+      },
+      error: (err: any) => {
+        console.error('Failed to load pokedex', err);
+        this.errorMessage = 'Failed to load pokedex';
+        this.isLoading = false;
+        this.cd.markForCheck();
+      }
+    });
+  }
+
+  goToDetail(pokemonId: number) {
+    this.router.navigate(['/pokedex', pokemonId]);
+  }
+
+  extractFilterOptions() {
+    const regions = new Set<string>();
+    const types = new Set<string>();
+    const classifications = new Set<string>();
+
+    this.myPokemon.forEach(p => {
+      if (p.region_name) regions.add(p.region_name);
+      if (p.type_primary_name) types.add(p.type_primary_name);
+      if (p.type_secondary_name) types.add(p.type_secondary_name);
+      if (p.classification_name) classifications.add(p.classification_name);
+    });
+
+    this.availableRegions = Array.from(regions).sort();
+    this.availableTypes = Array.from(types).sort();
+    this.availableClassifications = Array.from(classifications).sort();
+  }
+
+  applyFilters() {
+    this.filteredPokemon = this.myPokemon.filter(p => {
+      const matchRegion = this.selectedRegion ? p.region_name === this.selectedRegion : true;
+      const matchType = this.selectedType ?
+        (p.type_primary_name === this.selectedType || p.type_secondary_name === this.selectedType) : true;
+      const matchClassification = this.selectedClassification ? p.classification_name === this.selectedClassification : true;
+
+      return matchRegion && matchType && matchClassification;
+    });
+
+    this.groupByRegion();
+  }
+
+  clearFilters() {
+    this.selectedRegion = '';
+    this.selectedType = '';
+    this.selectedClassification = '';
+    this.applyFilters();
+  }
+
+  groupByRegion() {
+    const groups: { [key: string]: PokemonEntry[] } = {};
+    const regionOrder = [
+      'Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar', 'Hisui', 'Paldea'
+    ];
+
+    // Initialize groups based on available data
+    this.filteredPokemon.forEach(pokemon => {
+      const regionName = pokemon.region_name || 'Inconnue';
+      if (!groups[regionName]) {
+        groups[regionName] = [];
+      }
+      groups[regionName].push(pokemon);
+    });
+
+    // Create sorted region groups
+    this.regions = Object.keys(groups)
+      .sort((a, b) => {
+        // "Inconnue" always last
+        if (a === 'Inconnue') return 1;
+        if (b === 'Inconnue') return -1;
+
+        // Use predefined order if available
+        const indexA = regionOrder.indexOf(a);
+        const indexB = regionOrder.indexOf(b);
+
+        if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+        if (indexA !== -1) return -1;
+        if (indexB !== -1) return 1;
+
+        return a.localeCompare(b);
+      })
+      .map(regionName => ({
+        name: regionName,
+        pokemon: groups[regionName].sort((a, b) => a.id - b.id),
+        expanded: true
+      }));
+
+    // Initialize display limits (50 Pokemon per region for performance)
+    this.regions.forEach(region => {
+      this.pokemonDisplayLimit[region.name] = 50;
+    });
+  }
+
+  toggleRegion(region: RegionGroup) {
+    region.expanded = !region.expanded;
+  }
+
+  getDisplayedPokemon(region: RegionGroup): PokemonEntry[] {
+    const limit = this.pokemonDisplayLimit[region.name] || 50;
+    return region.pokemon.slice(0, limit);
+  }
+
+  hasMorePokemon(region: RegionGroup): boolean {
+    const limit = this.pokemonDisplayLimit[region.name] || 50;
+    return region.pokemon.length > limit;
+  }
+
+  showMorePokemon(region: RegionGroup) {
+    const currentLimit = this.pokemonDisplayLimit[region.name] || 50;
+    this.pokemonDisplayLimit[region.name] = currentLimit + 50;
+  }
+
+  getPokemonName(poke: PokemonEntry): string {
+    return poke.name_fr || poke.name_en || poke.name || 'Inconnu';
+  }
+
+  // --- Toggle Methods ---
+
+  private handleToggleSuccess(pokemon: PokemonEntry, updated: any, field: keyof PokemonEntry) {
+    (pokemon as any)[field] = updated[field];
+    this.cd.markForCheck();
+  }
+
+  private handleToggleError(err: any, message: string) {
+    console.error(message, err);
+    this.cd.markForCheck();
+  }
+
+  toggleNormal(pokemon: PokemonEntry) {
+    this.pokemonService.toggleNormal(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_normal'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle normal')
+    });
+  }
+
+  toggleLegendary(pokemon: PokemonEntry) {
+    this.pokemonService.toggleLegendary(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_legendary'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle legendary')
+    });
+  }
+
+  toggleMythical(pokemon: PokemonEntry) {
+    this.pokemonService.toggleMythical(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_mythical'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle mythical')
+    });
+  }
+
+  toggleUltraBeast(pokemon: PokemonEntry) {
+    this.pokemonService.toggleUltraBeast(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_ultra_beast'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle ultra beast')
+    });
+  }
+
+  toggleShiny(pokemon: PokemonEntry) {
+    this.pokemonService.toggleShiny(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_shiny'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle shiny')
+    });
+  }
+
+  toggleTrade(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTrade(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_trade'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle trade')
+    });
+  }
+
+  toggleTradeLegendary(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradeLegendary(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_legendary'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle legendary trade')
+    });
+  }
+
+  toggleTradeMythical(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradeMythical(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_mythical'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle mythical trade')
+    });
+  }
+
+  toggleTradeUltraBeast(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradeUltraBeast(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_ultra_beast'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle ultra beast trade')
+    });
+  }
+
+  toggleLucky(pokemon: PokemonEntry) {
+    this.pokemonService.toggleLucky(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_lucky'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle lucky')
+    });
+  }
+
+  toggleXXL(pokemon: PokemonEntry) {
+    this.pokemonService.toggleXXL(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_xxl'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle XXL')
+    });
+  }
+
+  toggleXXS(pokemon: PokemonEntry) {
+    this.pokemonService.toggleXXS(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_xxs'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle XXS')
+    });
+  }
+
+  toggleGMax(pokemon: PokemonEntry) {
+    this.pokemonService.toggleGMax(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_gmax'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle G-MAX')
+    });
+  }
+
+  toggleMega(pokemon: PokemonEntry) {
+    this.pokemonService.toggleMega(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_mega'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Méga')
+    });
+  }
+
+  toggleObscure(pokemon: PokemonEntry) {
+    this.pokemonService.toggleObscure(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_obscure'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Obscure')
+    });
+  }
+
+  togglePurifie(pokemon: PokemonEntry) {
+    this.pokemonService.togglePurifie(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_purifie'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Purifié')
+    });
+  }
+
+  toggleParfait(pokemon: PokemonEntry) {
+    this.pokemonService.toggleParfait(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_parfait'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Parfait')
+    });
+  }
+
+  toggleTradeShiny(pokemon: PokemonEntry) {
+    if (this.getTradeStatus(pokemon) === 'NO') return;
+    this.pokemonService.toggleTradeShiny(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_shiny'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Shiny Trade')
+    });
+  }
+
+  toggleTradeXXL(pokemon: PokemonEntry) {
+    if (this.getTradeStatus(pokemon) === 'NO') return;
+    this.pokemonService.toggleTradeXXL(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_xxl'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle XXL Trade')
+    });
+  }
+
+  toggleTradeXXS(pokemon: PokemonEntry) {
+    if (this.getTradeStatus(pokemon) === 'NO') return;
+    this.pokemonService.toggleTradeXXS(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_xxs'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle XXS Trade')
+    });
+  }
+
+  toggleTradeGMax(pokemon: PokemonEntry) {
+    if (this.getTradeStatus(pokemon) === 'NO') return;
+    this.pokemonService.toggleTradeGMax(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_gmax'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle G-MAX Trade')
+    });
+  }
+
+  toggleDynamax(pokemon: PokemonEntry) {
+    this.pokemonService.toggleDynamax(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'has_dynamax'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Dynamax')
+    });
+  }
+
+  toggleTradeDynamax(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradeDynamax(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_dynamax'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Dynamax Trade')
+    });
+  }
+
+  toggleTradeMega(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradeMega(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_mega'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Mega Trade')
+    });
+  }
+
+  toggleTradePurified(pokemon: PokemonEntry) {
+    this.pokemonService.toggleTradePurified(pokemon.pokemon_id).subscribe({
+      next: (updated: any) => this.handleToggleSuccess(pokemon, updated, 'trade_purified'),
+      error: (err: any) => this.handleToggleError(err, 'Failed to toggle Purified Trade')
+    });
+  }
+
+  getVariantCount(pokemon: PokemonEntry[], variantKey: keyof PokemonEntry): number {
+    return pokemon.filter(p => p[variantKey] === true).length;
+  }
+
+  getStandardCount(pokemon: PokemonEntry[]): number {
+    return pokemon.filter(p => p.has_normal || p.has_legendary || p.has_mythical || p.has_ultra_beast).length;
+  }
+
+  toggleStandard(pokemon: PokemonEntry) {
+    // Toggle the appropriate standard form based on what's available
+    if (pokemon.can_be_normal) {
+      this.toggleNormal(pokemon);
+    } else if (pokemon.can_be_legendary) {
+      this.toggleLegendary(pokemon);
+    } else if (pokemon.can_be_mythical) {
+      this.toggleMythical(pokemon);
+    } else if (pokemon.can_be_ultra_beast) {
+      this.toggleUltraBeast(pokemon);
+    }
+  }
+
+  toggleStandardTrade(pokemon: PokemonEntry) {
+    // Check if trade is allowed
+    if (this.getTradeStatus(pokemon) === 'NO') {
+      return;
+    }
+
+    // Toggle the appropriate trade based on what's active
+    if (pokemon.has_normal) {
+      this.toggleTrade(pokemon);
+    } else if (pokemon.has_legendary) {
+      this.toggleTradeLegendary(pokemon);
+    } else if (pokemon.has_mythical) {
+      this.toggleTradeMythical(pokemon);
+    } else if (pokemon.has_ultra_beast) {
+      this.toggleTradeUltraBeast(pokemon);
+    }
+  }
+
+  getTradeStatus(pokemon: PokemonEntry): string {
+    // Return trade status from master_trade_status
+    return pokemon.master_trade_status || 'YES';
+  }
+}
