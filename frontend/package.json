@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "node scripts/set-env.js && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -28,6 +28,7 @@
     "@angular/forms": "^18.0.0",
     "@angular/platform-browser": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@supabase/supabase-js": "^2.97.0",
     "mermaid": "^11.12.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -25,8 +25,8 @@ declare global {
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="trainer_name">Nom de dresseur</label>
-          <input id="trainer_name" type="text" formControlName="trainer_name" placeholder="Entrez votre nom de dresseur">
+          <label for="trainer_name">Email / Nom de dresseur</label>
+          <input id="trainer_name" type="text" formControlName="trainer_name" placeholder="votre@email.com">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
@@ -139,9 +139,13 @@ export class Login {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.errorMessage = '';
       this.authService.login(this.loginForm.value).subscribe({
         next: () => this.router.navigate(['/']),
-        error: (err) => this.errorMessage = err.error?.error || 'Login failed'
+        error: (err) => {
+          console.error('[Login] Error:', err);
+          this.errorMessage = err.message || 'Login failed. Please check your credentials.';
+        }
       });
     }
   }

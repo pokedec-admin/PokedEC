@@ -3,45 +3,76 @@ const router = express.Router();
 const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { createClient } = require('@supabase/supabase-js');
+
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 // Database connection (should ideally be shared/injected)
-const poolConfig = process.env.DATABASE_URL 
-    ? { 
+const poolConfig = process.env.DATABASE_URL
+    ? {
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false }
-      }
+    }
     : {
         user: process.env.DB_USER || 'postgres',
         host: process.env.DB_HOST || 'db',
         database: process.env.DB_NAME || 'postgres',
         password: process.env.DB_PASSWORD || 'postgres',
         port: process.env.DB_PORT || 5432,
-      };
+    };
 
 const pool = new Pool(poolConfig);
 
-const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key'; // In production, use a strong secret
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+    console.warn('WARNING: JWT_SECRET environment variable is not set!');
+}
 
 // Middleware to authenticate token
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null) return res.sendStatus(401);
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
+    try {
+        const { data, error } = await supabase.auth.getUser(token);
+
+        if (error || !data.user) {
+            console.error('[Auth Middleware] Supabase Error:', error);
+            return res.sendStatus(403);
+        }
+
+        // Map Supabase user to the format expected by the app
+        req.user = {
+            id: data.user.id,
+            email: data.user.email,
+            trainer_name: data.user.user_metadata?.trainer_name || 'User'
+        };
         next();
-    });
+    } catch (err) {
+        console.error('[Auth Middleware] Catch Error:', err);
+        res.sendStatus(500);
+    }
 };
 
 // Middleware to authenticate admin
-const authenticateAdmin = (req, res, next) => {
-    authenticateToken(req, res, async () => {
+const authenticateAdmin = async (req, res, next) => {
+    await authenticateToken(req, res, async () => {
         try {
-            const result = await pool.query('SELECT is_admin FROM users WHERE id = $1', [req.user.id]);
-            if (result.rows.length === 0 || !result.rows[0].is_admin) {
+            // We can check admin status in Supabase metadata first for speed
+            const isAdmin = req.user.is_admin || false;
+
+            // Or fallback to DB check (Supabase ID is now a string UUID)
+            const result = await pool.query('SELECT is_admin FROM users WHERE id = $1 OR email = $2', [req.user.id, req.user.email]);
+            if (result.rows.length > 0 && result.rows[0].is_admin) {
+                return next();
+            }
+
+            if (!isAdmin) {
                 return res.status(403).json({ error: 'Admin access required' });
             }
             next();

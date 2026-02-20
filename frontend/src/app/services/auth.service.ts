@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 export interface User {
-    id: number;
+    id: number | string;
     email: string;
     trainer_name: string;
     team?: string;
@@ -33,27 +34,39 @@ export class AuthService {
     public suggestions$ = this.suggestionsSubject.asObservable();
 
     public adminOpenSuggestionsCount$ = new BehaviorSubject<number>(0);
+    private supabase: SupabaseClient;
 
     constructor(private http: HttpClient) {
+        this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
         const storedUser = localStorage.getItem('currentUser');
         this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
         this.currentUser$ = this.currentUserSubject.asObservable();
 
-        // Create isLoggedIn$ derived from currentUser$
         this.isLoggedIn$ = this.currentUser$.pipe(
             map(user => !!user)
         );
 
-        // Original constructor logic, adapted to new currentUserSubject initialization
-        // this.refreshUserFromStorage(); // This logic is now partially handled by the new constructor init
-        if (this.currentUserSubject.value) { // Check if user was loaded from 'currentUser'
-            this.loadSuggestions();
-            if (this.isAdmin()) {
-                this.loadAdminStats();
+        // Listen for auth state changes
+        this.supabase.auth.onAuthStateChange((event, session) => {
+            console.log('[AuthService] Supabase Auth Event:', event);
+            if (session?.user) {
+                // Map Supabase user to our local format
+                const mappedUser = {
+                    ...session.user,
+                    id: session.user.id, // Supabase uses UUID string, our app might expect number. Caution!
+                    email: session.user.email,
+                    token: session.access_token,
+                    trainer_name: session.user.user_metadata?.['trainer_name'] || 'User',
+                    is_admin: session.user.user_metadata?.['is_admin'] || false
+                };
+                this.currentUserSubject.next(mappedUser);
+                localStorage.setItem('user', JSON.stringify(mappedUser));
+                localStorage.setItem('token', session.access_token);
+                this.loadSuggestions();
+            } else if (event === 'SIGNED_OUT') {
+                this.logout();
             }
-        } else { // If not, try the old 'user' key for backward compatibility or initial load
-            this.refreshUserFromStorage();
-        }
+        });
     }
 
     public get currentUserValue(): any {
@@ -125,20 +138,46 @@ export class AuthService {
     }
 
     signup(data: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/signup`, data).pipe(
-            tap((res: any) => this.handleAuthSuccess(res))
+        return from(this.supabase.auth.signUp({
+            email: data.email,
+            password: data.password,
+            options: {
+                data: {
+                    trainer_name: data.trainer_name,
+                    team: data.team,
+                    is_admin: false
+                }
+            }
+        })).pipe(
+            map(res => {
+                if (res.error) throw res.error;
+                return res.data;
+            })
         );
     }
 
     login(data: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/login`, data).pipe(
-            tap((res: any) => this.handleAuthSuccess(res))
+        return from(this.supabase.auth.signInWithPassword({
+            email: data.email || data.trainer_name,
+            password: data.password
+        })).pipe(
+            map(res => {
+                if (res.error) throw res.error;
+                return res.data;
+            })
         );
     }
 
     googleLogin(token: string, user: any): Observable<any> {
-        return this.http.post(`${this.apiUrl}/google`, { token, user }).pipe(
-            tap((res: any) => this.handleAuthSuccess(res))
+        // For Google login with Supabase, we usually use signInWithIdToken
+        return from(this.supabase.auth.signInWithIdToken({
+            provider: 'google',
+            token: token
+        })).pipe(
+            map(res => {
+                if (res.error) throw res.error;
+                return res.data;
+            })
         );
     }
 
@@ -146,9 +185,11 @@ export class AuthService {
         return this.http.post(`${this.apiUrl}/forgot-password`, { email });
     }
 
-    logout() {
+    async logout() {
+        await this.supabase.auth.signOut();
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
         this.adminOpenSuggestionsCount$.next(0);
     }
