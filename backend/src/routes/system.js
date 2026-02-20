@@ -19,6 +19,11 @@ function getVersion() {
     return process.env.APP_VERSION || '1.0.0';
 }
 
+// GET /health - For Render monitoring
+router.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
 // GET /status - Returns current instance info
 router.get('/status', (req, res) => {
     res.json({
