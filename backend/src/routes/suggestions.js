@@ -2,13 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
 
-const pool = new Pool({
-    user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'db',
-    database: process.env.DB_NAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'postgres',
-    port: process.env.DB_PORT || 5432,
-});
+const poolConfig = process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false }
+    }
+    : {
+        user: process.env.DB_USER || 'postgres',
+        host: process.env.DB_HOST || 'db',
+        database: process.env.DB_NAME || 'postgres',
+        password: process.env.DB_PASSWORD || 'postgres',
+        port: process.env.DB_PORT || 5432,
+    };
+
+const pool = new Pool(poolConfig);
 
 // Middleware to authenticate token (imported from auth.js in index.js, but we need it here if we want to use it directly or assume it's passed)
 // For simplicity, we'll assume the main index.js passes the auth middleware or we re-implement/import it.

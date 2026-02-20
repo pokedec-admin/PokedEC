@@ -5,13 +5,20 @@ const bcrypt = require('bcrypt');
 const { authenticateAdmin } = require('./auth');
 
 // Database connection
-const pool = new Pool({
-    user: process.env.DB_USER || 'postgres',
-    host: process.env.DB_HOST || 'db',
-    database: process.env.DB_NAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'postgres',
-    port: process.env.DB_PORT || 5432,
-});
+const poolConfig = process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false }
+    }
+    : {
+        user: process.env.DB_USER || 'postgres',
+        host: process.env.DB_HOST || 'db',
+        database: process.env.DB_NAME || 'postgres',
+        password: process.env.DB_PASSWORD || 'postgres',
+        port: process.env.DB_PORT || 5432,
+    };
+
+const pool = new Pool(poolConfig);
 
 // Get all users (admin only)
 router.get('/users', authenticateAdmin, async (req, res) => {
