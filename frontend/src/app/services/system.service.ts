@@ -27,7 +27,7 @@ export interface MonitoringResponse {
     providedIn: 'root'
 })
 export class SystemService {
-    private apiUrl = '/api/system';
+    private apiUrl = `${environment.apiUrl}/system`;
 
     constructor(private http: HttpClient) { }
 

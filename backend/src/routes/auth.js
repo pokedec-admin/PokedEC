@@ -83,6 +83,21 @@ const authenticateAdmin = async (req, res, next) => {
     });
 };
 
+// Identify Route (Resolve trainer_name to email)
+router.post('/identify', async (req, res) => {
+    const { identifier } = req.body;
+    try {
+        const result = await pool.query('SELECT email FROM users WHERE trainer_name = $1 OR email = $1', [identifier]);
+        if (result.rows.length > 0) {
+            return res.json({ email: result.rows[0].email });
+        }
+        return res.status(404).json({ error: 'User not found' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // Signup Route
 router.post('/signup', async (req, res) => {
     const { email, password, trainer_name, team, phone, campfire_name, whatsapp_group } = req.body;

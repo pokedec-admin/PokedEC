@@ -98,6 +98,7 @@ async function runMigrations() {
   try {
     // 1. Create Base Tables
     console.log('📦 Creating base tables...');
+    await runStep('Add supabase_id to users', 'ALTER TABLE users ADD COLUMN IF NOT EXISTS supabase_id VARCHAR(255) UNIQUE');
     await pool.query(createUsersTable).catch(e => console.error('Error users:', e.message));
     await pool.query(createPokedexTable).catch(e => console.error('Error pokedex:', e.message));
     if (createPokemonNamesTable) await pool.query(createPokemonNamesTable).catch(e => { });

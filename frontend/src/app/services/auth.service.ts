@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, from } from 'rxjs';
+import { BehaviorSubject, Observable, tap, from, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -157,11 +157,30 @@ export class AuthService {
     }
 
     login(data: any): Observable<any> {
+        const identifier = data.email || data.trainer_name;
+
+        // If it's not an email, we need to resolve it first
+        if (identifier && !identifier.includes('@')) {
+            return this.http.post<any>(`${this.apiUrl}/identify`, { identifier }).pipe(
+                switchMap((res: any) => {
+                    return from(this.supabase.auth.signInWithPassword({
+                        email: res.email,
+                        password: data.password
+                    }));
+                }),
+                map((res: any) => {
+                    if (res.error) throw res.error;
+                    return res.data;
+                })
+            );
+        }
+
+        // Otherwise, call Supabase directly
         return from(this.supabase.auth.signInWithPassword({
-            email: data.email || data.trainer_name,
+            email: identifier,
             password: data.password
         })).pipe(
-            map(res => {
+            map((res: any) => {
                 if (res.error) throw res.error;
                 return res.data;
             })

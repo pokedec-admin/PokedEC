@@ -12,6 +12,7 @@ const createUsersTable = `
     preferred_language VARCHAR(10) DEFAULT 'fr',
     campfire_name VARCHAR(255),
     whatsapp_group VARCHAR(255),
+    supabase_id VARCHAR(255) UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )
 `;
