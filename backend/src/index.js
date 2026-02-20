@@ -47,11 +47,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Root route for simple health check
-app.get('/', (req, res) => {
-  res.status(200).json({ status: 'OK', message: 'PokedEC Backend API' });
-});
-
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
@@ -270,21 +265,41 @@ async function runMigrations() {
   }
 }
 
-// Initialize Database with simplified migrations
-pool.connect()
-  .then(() => {
+// Database Connection State Cache
+let dbConnected = false;
+let dbError = null;
+
+// Initialize Database connection and run migrations in background
+const initDB = async () => {
+  try {
+    await pool.connect();
     console.log('✅ Database connected');
-    return runMigrations();
-  })
-  .then(() => {
-    console.log('🚀 Server ready to start');
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Backend listening on port ${PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error('❌ Database connection error:', err);
-    process.exit(1);
+    dbConnected = true;
+    await runMigrations();
+    console.log('✅ Background initializations completed');
+  } catch (err) {
+    console.error('❌ Database initialization error:', err);
+    dbError = err.message;
+    // Don't exit, let the server stay alive for diagnostics
+  }
+};
+
+initDB();
+
+// Root route for simple health check
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: dbConnected ? 'OK' : 'BOOTING',
+    dbConnected,
+    dbError: dbError || undefined,
+    message: 'PokedEC Backend API'
   });
+});
+
+// START SERVER IMMEDIATELY
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Backend listening on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV}`);
+});
 
 module.exports = app;
