@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -9,7 +10,7 @@ import { AuthService } from './auth.service';
 export class PokemonService {
     private pokeApiUrl = 'https://pokeapi.co/api/v2/pokemon';
     private pokeApiSpeciesUrl = 'https://pokeapi.co/api/v2/pokemon-species';
-    private backendUrl = '/api/pokemon';
+    private backendUrl = `${environment.apiUrl}/pokemon`;
     private nameCache: Map<string, string> = new Map(); // Cache for translated names
 
     constructor(private http: HttpClient, private authService: AuthService) { }
@@ -183,7 +184,7 @@ export class PokemonService {
 
     // Get global category availability
     getCategoryAvailability(): Observable<any> {
-        return this.http.get<any>('/api/pokemon-categories/availability');
+        return this.http.get<any>(`${environment.apiUrl}/pokemon-categories/availability`);
     }
 
     // Get all Pokemon master data (public)
@@ -193,15 +194,15 @@ export class PokemonService {
 
     // Trade Requests
     createTradeRequest(targetUserId: number, pokemonId: number): Observable<any> {
-        return this.http.post('/api/trade/request', { target_user_id: targetUserId, pokemon_id: pokemonId }, this.getAuthHeaders());
+        return this.http.post(`${environment.apiUrl}/trade/request`, { target_user_id: targetUserId, pokemon_id: pokemonId }, this.getAuthHeaders());
     }
 
     getIncomingTradeRequests(): Observable<any[]> {
-        return this.http.get<any[]>('/api/trade/requests/incoming', this.getAuthHeaders());
+        return this.http.get<any[]>(`${environment.apiUrl}/trade/requests/incoming`, this.getAuthHeaders());
     }
 
     respondToTradeRequest(requestId: number, status: string): Observable<any> {
-        return this.http.put(`/api/trade/request/${requestId}/respond`, { status }, this.getAuthHeaders());
+        return this.http.put(`${environment.apiUrl}/trade/request/${requestId}/respond`, { status }, this.getAuthHeaders());
     }
 
     private getAuthHeaders() {

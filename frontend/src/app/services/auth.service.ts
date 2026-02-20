@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface User {
     id: number;
@@ -18,8 +19,8 @@ export interface User {
     providedIn: 'root'
 })
 export class AuthService {
-    private apiUrl = '/api/auth';
-    private adminApiUrl = '/api/admin';
+    private apiUrl = `${environment.apiUrl}/auth`;
+    private adminApiUrl = `${environment.apiUrl}/admin`;
     // Original currentUserSubject and currentUser$ declarations are replaced by the new ones below
     // private currentUserSubject = new BehaviorSubject<User | null>(null);
     // public currentUser$ = this.currentUserSubject.asObservable();
@@ -79,7 +80,7 @@ export class AuthService {
         if (!token) return;
 
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http.get<any[]>(`/api/suggestions${includeArchived ? '?archived=true' : ''}`, { headers }).subscribe({
+        this.http.get<any[]>(`${environment.apiUrl}/suggestions${includeArchived ? '?archived=true' : ''}`, { headers }).subscribe({
             next: (data) => this.suggestionsSubject.next(data),
             error: (err) => console.error('Failed to load suggestions', err)
         });
@@ -90,7 +91,7 @@ export class AuthService {
         if (!token || !this.isAdmin()) return;
 
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        this.http.get<any[]>(`/api/suggestions/admin${includeArchived ? '?archived=true' : ''}`, { headers }).subscribe({
+        this.http.get<any[]>(`${environment.apiUrl}/suggestions/admin${includeArchived ? '?archived=true' : ''}`, { headers }).subscribe({
             next: (data) => {
                 const openCount = data.filter(s => s.status === 'open').length;
                 this.adminOpenSuggestionsCount$.next(openCount);
