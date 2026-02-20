@@ -268,8 +268,10 @@ async function runMigrations() {
 // Initialize Database with simplified migrations
 pool.connect()
   .then(() => {
-    console.log('✅ Database connected');
-    return runMigrations();
+    console.log('✅ Database connected to:', process.env.DATABASE_URL?.split('@')[1] || 'unknown');
+    // Temporarily skip migrations to see if server starts
+    // return runMigrations();
+    return Promise.resolve();
   })
   .then(() => {
     console.log('🚀 Server ready to start');
@@ -278,7 +280,8 @@ pool.connect()
     });
   })
   .catch(err => {
-    console.error('❌ Database connection error:', err);
+    console.error('❌ Startup failure:', err);
+    console.error('Stack:', err.stack);
     process.exit(1);
   });
 
