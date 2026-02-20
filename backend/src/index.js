@@ -59,18 +59,18 @@ app.use('/api/admin/import', require('./routes/admin-import'));
 app.use('/api/trade', require('./routes/trade'));
 app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data management
 
-const poolConfig = process.env.DATABASE_URL 
-  ? { 
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false } // Required for Supabase/Render in prod
-    }
+const poolConfig = process.env.DATABASE_URL
+  ? {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false } // Required for Supabase/Render in prod
+  }
   : {
-      user: process.env.DB_USER || 'postgres',
-      host: process.env.DB_HOST || 'localhost',
-      database: process.env.DB_NAME || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      port: process.env.DB_PORT || 5434,
-    };
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_NAME || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    port: process.env.DB_PORT || 5434,
+  };
 
 const pool = new Pool(poolConfig);
 
@@ -273,7 +273,7 @@ pool.connect()
   })
   .then(() => {
     console.log('🚀 Server ready to start');
-    app.listen(PORT, () => {
+    app.listen(PORT, '0.0.0.0', () => {
       console.log(`Backend listening on port ${PORT}`);
     });
   })
