@@ -62,14 +62,15 @@ app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data
 const poolConfig = process.env.DATABASE_URL
   ? {
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false } // Required for Supabase/Render in prod
+    ssl: { rejectUnauthorized: false }
   }
   : {
     user: process.env.DB_USER || 'postgres',
     host: process.env.DB_HOST || 'localhost',
     database: process.env.DB_NAME || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
-    port: process.env.DB_PORT || 5434,
+    port: process.env.DB_PORT || 5432,
+    ssl: { rejectUnauthorized: false }
   };
 
 const pool = new Pool(poolConfig);
