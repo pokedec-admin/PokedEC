@@ -6,8 +6,8 @@ import { PokemonService } from '../../services/pokemon.service';
 import { PokemonSearchComponent } from '../../components/pokemon-search/pokemon-search.component';
 
 export interface PokemonEntry {
-    id: number;
-    user_id: number;
+    id: number | string;
+    user_id: number | string;
     pokemon_id: number;
     name: string;
     image_url: string;

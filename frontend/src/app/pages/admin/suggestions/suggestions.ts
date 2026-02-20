@@ -5,8 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 
 interface Suggestion {
-    id: number;
-    user_id: number;
+    id: number | string;
+    user_id: number | string;
     trainer_name: string;
     email: string;
     type: string;

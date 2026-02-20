@@ -20,7 +20,7 @@ interface EditableUser extends User {
 })
 export class AdminUsersComponent implements OnInit {
     users: EditableUser[] = [];
-    originalUsers: Map<number, EditableUser> = new Map();
+    originalUsers: Map<number | string, EditableUser> = new Map();
     errorMessage = '';
     successMessage = '';
 
