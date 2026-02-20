@@ -47,6 +47,11 @@ app.use(cors({
 
 app.use(express.json());
 
+// Root route for simple health check
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'PokedEC Backend API' });
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
