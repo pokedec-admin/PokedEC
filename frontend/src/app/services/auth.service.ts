@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, from, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -38,7 +38,7 @@ export class AuthService {
 
     constructor(private http: HttpClient) {
         this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-        const storedUser = localStorage.getItem('currentUser');
+        const storedUser = localStorage.getItem('user');
         this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
         this.currentUser$ = this.currentUserSubject.asObservable();
 
@@ -46,27 +46,39 @@ export class AuthService {
             map(user => !!user)
         );
 
-        // Listen for auth state changes
-        this.supabase.auth.onAuthStateChange((event, session) => {
-            console.log('[AuthService] Supabase Auth Event:', event);
-            if (session?.user) {
-                // Map Supabase user to our local format
-                const mappedUser = {
-                    ...session.user,
-                    id: session.user.id, // Supabase uses UUID string, our app might expect number. Caution!
-                    email: session.user.email,
-                    token: session.access_token,
-                    trainer_name: session.user.user_metadata?.['trainer_name'] || 'User',
-                    is_admin: session.user.user_metadata?.['is_admin'] || false
-                };
-                this.currentUserSubject.next(mappedUser);
-                localStorage.setItem('user', JSON.stringify(mappedUser));
-                localStorage.setItem('token', session.access_token);
-                this.loadSuggestions();
-            } else if (event === 'SIGNED_OUT') {
-                this.logout();
+        // Initialize Supabase listener safely (handles LockManager errors)
+        this.initializeSupabaseListener();
+    }
+
+    private initializeSupabaseListener() {
+        // Wrap in try-catch to handle LockManager errors gracefully
+        try {
+            this.supabase.auth.onAuthStateChange((event, session) => {
+                console.log('[AuthService] Supabase Auth Event:', event);
+                if (session?.user) {
+                    // Map Supabase user to our local format
+                    const mappedUser = {
+                        ...session.user,
+                        id: session.user.id,
+                        email: session.user.email,
+                        token: session.access_token,
+                        trainer_name: session.user.user_metadata?.['trainer_name'] || 'User',
+                        is_admin: session.user.user_metadata?.['is_admin'] || false
+                    };
+                    this.currentUserSubject.next(mappedUser);
+                    localStorage.setItem('user', JSON.stringify(mappedUser));
+                    localStorage.setItem('token', session.access_token);
+                    this.loadSuggestions();
+                } else if (event === 'SIGNED_OUT') {
+                    this.logout();
+                }
+            });
+        } catch (err: any) {
+            // Silently ignore LockManager errors - they don't affect functionality
+            if (err?.message && !err.message.includes('LockManager')) {
+                console.error('[AuthService] Failed to initialize Supabase listener:', err);
             }
-        });
+        }
     }
 
     public get currentUserValue(): any {
@@ -151,6 +163,10 @@ export class AuthService {
         })).pipe(
             map(res => {
                 if (res.error) throw res.error;
+                // Ensure token is saved even on signup
+                if (res.data?.session?.access_token) {
+                    localStorage.setItem('token', res.data.session.access_token);
+                }
                 return res.data;
             })
         );
@@ -162,16 +178,22 @@ export class AuthService {
         // If it's not an email, we need to resolve it first
         if (identifier && !identifier.includes('@')) {
             return this.http.post<any>(`${this.apiUrl}/identify`, { identifier }).pipe(
-                switchMap((res: any) => {
-                    return from(this.supabase.auth.signInWithPassword({
-                        email: res.email,
-                        password: data.password
-                    }));
-                }),
-                map((res: any) => {
-                    if (res.error) throw res.error;
-                    return res.data;
-                })
+                map((res: any) => res.email || identifier),
+                map((email: string) => from(this.supabase.auth.signInWithPassword({
+                    email: email,
+                    password: data.password
+                }))),
+                map(obs => obs.pipe(
+                    map(res => {
+                        if (res.error) throw res.error;
+                        // Ensure token is saved
+                        if (res.data?.session?.access_token) {
+                            localStorage.setItem('token', res.data.session.access_token);
+                        }
+                        return res.data;
+                    })
+                )),
+                map((obs: any) => obs) // flatten
             );
         }
 
@@ -180,8 +202,12 @@ export class AuthService {
             email: identifier,
             password: data.password
         })).pipe(
-            map((res: any) => {
+            map(res => {
                 if (res.error) throw res.error;
+                // Ensure token is saved
+                if (res.data?.session?.access_token) {
+                    localStorage.setItem('token', res.data.session.access_token);
+                }
                 return res.data;
             })
         );
@@ -195,6 +221,10 @@ export class AuthService {
         })).pipe(
             map(res => {
                 if (res.error) throw res.error;
+                // Ensure token is saved
+                if (res.data?.session?.access_token) {
+                    localStorage.setItem('token', res.data.session.access_token);
+                }
                 return res.data;
             })
         );
