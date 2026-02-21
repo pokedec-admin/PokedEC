@@ -52,6 +52,7 @@ function supabaseAuthApi(method, path, body = null) {
             path: url.pathname + url.search,
             headers: {
                 'Content-Type': 'application/json',
+                'apikey': SERVICE_ROLE_KEY,
                 'Authorization': `Bearer ${SERVICE_ROLE_KEY}`
             }
         };
