@@ -177,7 +177,7 @@ router.post('/import-prod-data', authenticateToken, authenticateAdmin, async (re
 
         // 5cc. Sync images from PROD
         console.log('🖼️  Syncing images from PROD...');
-        const prodBaseUrl = process.env.PROD_APP_URL || `http://${process.env.PROD_DB_HOST}:8080`;
+        const prodBaseUrl = process.env.PROD_APP_URL || 'https://www.pokedec.ch';
         const localImagesDir = path.join(__dirname, '../../../frontend/public/images/pokemon');
 
         if (!fs.existsSync(localImagesDir)) {

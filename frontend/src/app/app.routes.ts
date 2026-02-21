@@ -102,5 +102,6 @@ export const routes: Routes = [
     },
     { path: 'credits', component: CreditsComponent },
     { path: 'help', loadComponent: () => import('./pages/help/help').then(m => m.HelpComponent) },
+    { path: 'reset-password', loadComponent: () => import('./pages/reset-password/reset-password').then(m => m.ResetPassword) },
     { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, from } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,8 +37,28 @@ export class AuthService {
     public adminOpenSuggestionsCount$ = new BehaviorSubject<number>(0);
     private supabase: SupabaseClient;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
+        // Attempt to mitigate noisy LockManager errors by wrapping navigator.locks.request
+        try {
+            if (typeof navigator !== 'undefined' && (navigator as any).locks && (navigator as any).locks.request) {
+                const locks = (navigator as any).locks;
+                const origRequest = locks.request.bind(locks);
+                locks.request = async function (...args: any[]) {
+                    try {
+                        return await origRequest(...args);
+                    } catch (err: any) {
+                        // Silently ignore LockManager acquisition errors coming from browsers
+                        if (err && typeof err.message === 'string' && err.message.toLowerCase().includes('lockmanager')) {
+                            return;
+                        }
+                        throw err;
+                    }
+                };
+            }
+        } catch (err) {
+            // If not possible to patch, continue silently
+        }
         const storedUser = localStorage.getItem('user');
         this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
         this.currentUser$ = this.currentUserSubject.asObservable();
@@ -48,6 +69,8 @@ export class AuthService {
 
         // Initialize Supabase listener safely (handles LockManager errors)
         this.initializeSupabaseListener();
+        // Handle possible Supabase auth redirect (magic links / recovery)
+        this.processAuthRedirectFromUrl();
     }
 
     private initializeSupabaseListener() {
@@ -78,6 +101,69 @@ export class AuthService {
             if (err?.message && !err.message.includes('LockManager')) {
                 console.error('[AuthService] Failed to initialize Supabase listener:', err);
             }
+        }
+    }
+
+    private async processAuthRedirectFromUrl() {
+        try {
+            // supabase-js v2: getSessionFromUrl parses the URL and returns session info
+            if (typeof (this.supabase.auth as any).getSessionFromUrl === 'function') {
+                const { data, error } = await (this.supabase.auth as any).getSessionFromUrl();
+                if (error) {
+                    console.warn('[AuthService] getSessionFromUrl error:', error.message || error);
+                }
+                // If a session was created (e.g. after recovery), persist token and redirect to password reset
+                if (data?.session?.access_token) {
+                    const accessToken = data.session.access_token;
+                    localStorage.setItem('token', accessToken);
+                    // Ensure current user is refreshed (listener should handle it too)
+                    this.currentUserSubject.next({ ...data.session.user, token: accessToken });
+                    // Navigate to reset-password page so user can set a new password.
+                    // Delay slightly to ensure Router has registered routes (avoids NG04002).
+                    try {
+                        const routeExists = this.router.config.some(r => r.path === 'reset-password');
+                        if (routeExists) {
+                            setTimeout(() => this.router.navigate(['/reset-password']), 50);
+                        } else {
+                            // Fallback to a full reload to the reset URL so the app handles the token on load
+                            window.location.href = '/reset-password';
+                        }
+                    } catch (navErr) {
+                        // As a last resort, modify location
+                        window.location.href = '/reset-password';
+                    }
+                    return;
+                }
+            }
+
+            // Fallback: if URL contains type=recovery or token=, still navigate to reset page
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('type') === 'recovery' || params.get('token')) {
+                // Delay navigation slightly to avoid route not found errors
+                try {
+                    const routeExists = this.router.config.some(r => r.path === 'reset-password');
+                    if (routeExists) {
+                        setTimeout(() => this.router.navigate(['/reset-password']), 50);
+                    } else {
+                        window.location.href = '/reset-password';
+                    }
+                } catch (e) {
+                    window.location.href = '/reset-password';
+                }
+            }
+        } catch (err: any) {
+            console.error('[AuthService] processAuthRedirectFromUrl failed:', err?.message || err);
+        }
+    }
+
+    // Allow reset-password component to update password using current temporary session
+    public async updatePassword(newPassword: string) {
+        try {
+            const res = await this.supabase.auth.updateUser({ password: newPassword } as any);
+            if ((res as any).error) throw (res as any).error;
+            return res;
+        } catch (err) {
+            throw err;
         }
     }
 

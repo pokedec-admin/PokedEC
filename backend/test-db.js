@@ -4,11 +4,11 @@ const connectionString = 'postgresql://postgres:x%2BDEqb%24GR%2B5_%25p%25@fkcktc
 
 async function test() {
     const client = new Client({
-        user: 'postgres.fkcktcwtnmuflasiueji',
-        host: 'aws-0-eu-central-1.pooler.supabase.com',
+        user: 'postgres',
+        host: 'db.fkcktcwtnmuflasiueji.supabase.co',
         database: 'postgres',
         password: 'x+DEqb$GR+5_%p%',
-        port: 6543,
+        port: 5432,
         ssl: { rejectUnauthorized: false }
     });
     try {

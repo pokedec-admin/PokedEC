@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Define payload JSON correct schema for PUT /env-vars
+PAYLOAD='[
+  {"key": "DATABASE_URL", "value": "postgresql://postgres:x%2BDEqb%24GR%2B5_%25p%25@db.fkcktcwtnmuflasiueji.supabase.co:5432/postgres"},
+  {"key": "SUPABASE_URL", "value": "https://fkcktcwtnmuflasiueji.supabase.co"},
+  {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrY2t0Y3d0bm11Zmxhc2l1ZWppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMDg5OTkxMCwiZXhwIjoyMDQ2NDc1OTEwfQ.mP1p7_87R2fV_I2B4m0u7y84k2qQ_O0"},
+  {"key": "NODE_TLS_REJECT_UNAUTHORIZED", "value": "0"},
+  {"key": "NODE_ENV", "value": "production"},
+  {"key": "JWT_SECRET", "value": "pokedec_secure_v2_fec_2026"},
+  {"key": "FRONTEND_URL", "value": "https://www.pokedec.ch"}
+]'
+
+curl -X PUT "https://api.render.com/v1/services/srv-d6c9mqvgi27c73ddq0ng/env-vars" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer rnd_drBoARamOUoOvffYwpPZCMXTANOQ" \
+  -d "$PAYLOAD"
