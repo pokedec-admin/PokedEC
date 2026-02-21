@@ -46,12 +46,58 @@ const authenticateToken = async (req, res, next) => {
             return res.sendStatus(403);
         }
 
-        // Map Supabase user to the format expected by the app
-        req.user = {
-            id: data.user.id,
-            email: data.user.email,
-            trainer_name: data.user.user_metadata?.trainer_name || 'User'
-        };
+        // First, try to find the user by supabase_uid (preferred method after migration)
+        const userResult = await pool.query(
+            'SELECT * FROM users WHERE supabase_uid = $1 LIMIT 1',
+            [data.user.id]
+        );
+
+        if (userResult.rows.length > 0) {
+            // User found by supabase_uid
+            const backendUser = userResult.rows[0];
+            req.user = {
+                id: backendUser.id,
+                email: backendUser.email,
+                trainer_name: backendUser.trainer_name,
+                supabase_id: data.user.id,
+                is_admin: backendUser.is_admin
+            };
+        } else {
+            // Fallback: try to find by email (for users not yet migrated)
+            const emailResult = await pool.query(
+                'SELECT * FROM users WHERE email = $1 LIMIT 1',
+                [data.user.email]
+            );
+
+            if (emailResult.rows.length > 0) {
+                const backendUser = emailResult.rows[0];
+                req.user = {
+                    id: backendUser.id,
+                    email: backendUser.email,
+                    trainer_name: backendUser.trainer_name,
+                    supabase_id: data.user.id,
+                    is_admin: backendUser.is_admin
+                };
+
+                // Link the user if not already linked
+                if (!backendUser.supabase_uid) {
+                    await pool.query(
+                        'UPDATE users SET supabase_uid = $1 WHERE id = $2',
+                        [data.user.id, backendUser.id]
+                    );
+                    console.log(`[Auth Middleware] Auto-linked user ${backendUser.email} to Supabase`);
+                }
+            } else {
+                // New user from Supabase (not yet in backend)
+                req.user = {
+                    id: data.user.id,
+                    email: data.user.email,
+                    trainer_name: data.user.user_metadata?.trainer_name || 'User',
+                    supabase_id: data.user.id,
+                    is_admin: data.user.user_metadata?.is_admin || false
+                };
+            }
+        }
         next();
     } catch (err) {
         console.error('[Auth Middleware] Catch Error:', err);
@@ -63,19 +109,12 @@ const authenticateToken = async (req, res, next) => {
 const authenticateAdmin = async (req, res, next) => {
     await authenticateToken(req, res, async () => {
         try {
-            // We can check admin status in Supabase metadata first for speed
-            const isAdmin = req.user.is_admin || false;
-
-            // Or fallback to DB check (Supabase ID is now a string UUID)
-            const result = await pool.query('SELECT is_admin FROM users WHERE id = $1 OR email = $2', [req.user.id, req.user.email]);
-            if (result.rows.length > 0 && result.rows[0].is_admin) {
+            // Check admin status from req.user (already populated by authenticateToken)
+            if (req.user.is_admin) {
                 return next();
             }
 
-            if (!isAdmin) {
-                return res.status(403).json({ error: 'Admin access required' });
-            }
-            next();
+            return res.status(403).json({ error: 'Admin access required' });
         } catch (err) {
             console.error(err);
             return res.status(500).json({ error: 'Server error' });
