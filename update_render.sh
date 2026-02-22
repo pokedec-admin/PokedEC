@@ -1,19 +1,27 @@
 #!/bin/bash
 
 # Define payload JSON correct schema for PUT /env-vars
+# NOTE: Replace ${VAR_NAME} with actual values from your secure .env file before running!
 PAYLOAD='[
-  {"key": "DATABASE_URL", "value": "postgresql://postgres:x%2BDEqb%24GR%2B5_%25p%25@db.fkcktcwtnmuflasiueji.supabase.co:5432/postgres"},
-  {"key": "SUPABASE_URL", "value": "https://fkcktcwtnmuflasiueji.supabase.co"},
-  {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrY2t0Y3d0bm11Zmxhc2l1ZWppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTUxMjc1NCwiZXhwIjoyMDg3MDg4NzU0fQ.j2XeEEic-5M2FXVYQ9QQdQvVzcWxjsxSI2UG-zoCP6M"},
-  {"key": "SUPABASE_ANON_KEY", "value": "sb_publishable_x-yC3GJsTNFqVacVzLKl0g_jEWhFOOl"},
+  {"key": "DATABASE_URL", "value": "${DATABASE_URL}"},
+  {"key": "SUPABASE_URL", "value": "${SUPABASE_URL}"},
+  {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "${SUPABASE_SERVICE_ROLE_KEY}"},
+  {"key": "SUPABASE_ANON_KEY", "value": "${SUPABASE_ANON_KEY}"},
   {"key": "NODE_TLS_REJECT_UNAUTHORIZED", "value": "0"},
   {"key": "NODE_ENV", "value": "production"},
-  {"key": "JWT_SECRET", "value": "pokedec_secure_v2_fec_2026"},
+  {"key": "JWT_SECRET", "value": "${JWT_SECRET}"},
   {"key": "FRONTEND_URL", "value": "https://www.pokedec.ch"}
 ]'
+
+# RENDER_API_KEY should be provided via environment variable, not hardcoded
+RENDER_API_KEY="${RENDER_API_KEY:-}"
+if [ -z "$RENDER_API_KEY" ]; then
+  echo "Error: RENDER_API_KEY environment variable is not set."
+  exit 1
+fi
 
 curl -X PUT "https://api.render.com/v1/services/srv-d6c9mqvgi27c73ddq0ng/env-vars" \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer rnd_drBoARamOUoOvffYwpPZCMXTANOQ" \
+  -H "Authorization: Bearer $RENDER_API_KEY" \
   -d "$PAYLOAD"

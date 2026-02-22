@@ -1,10 +1,10 @@
 [
-  {"key": "DATABASE_URL", "value": "postgresql://postgres.fkcktcwtnmuflasiueji:x%2BDEqb%24GR%2B5_%25p%25@aws-0-eu-central-1.pooler.supabase.com:6543/postgres?sslmode=require"},
-  {"key": "SUPABASE_URL", "value": "https://fkcktcwtnmuflasiueji.supabase.co"},
-  {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZrY2t0Y3d0bm11Zmxhc2l1ZWppIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTUxMjc1NCwiZXhwIjoyMDg3MDg4NzU0fQ.j2XeEEic-5M2FXVYQ9QQdQvVzcWxjsxSI2UG-zoCP6M"},
-  {"key": "SUPABASE_ANON_KEY", "value": "sb_publishable_x-yC3GJsTNFqVacVzLKl0g_jEWhFOOl"},
+  {"key": "DATABASE_URL", "value": "${DATABASE_URL}"},
+  {"key": "SUPABASE_URL", "value": "${SUPABASE_URL}"},
+  {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "${SUPABASE_SERVICE_ROLE_KEY}"},
+  {"key": "SUPABASE_ANON_KEY", "value": "${SUPABASE_ANON_KEY}"},
   {"key": "NODE_TLS_REJECT_UNAUTHORIZED", "value": "0"},
   {"key": "NODE_ENV", "value": "production"},
-  {"key": "JWT_SECRET", "value": "pokedec_secure_v2_fec_2026"},
+  {"key": "JWT_SECRET", "value": "${JWT_SECRET}"},
   {"key": "FRONTEND_URL", "value": "https://www.pokedec.ch"}
 ]
