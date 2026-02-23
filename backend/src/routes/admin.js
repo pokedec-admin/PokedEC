@@ -55,7 +55,7 @@ router.post('/users', authenticateAdmin, async (req, res) => {
 
         // Sync to local DB
         const newUser = await pool.query(
-            `INSERT INTO users (email, trainer_name, team, is_admin, is_active, email_verified, supabase_id)
+            `INSERT INTO users (email, trainer_name, team, is_admin, is_active, email_verified, supabase_uid)
              VALUES ($1, $2, $3, $4, $5, $6, $7) 
              RETURNING id, email, trainer_name, team, is_admin, is_active, created_at`,
             [email, trainer_name, team || null, !!is_admin, is_active !== false, true, data.user.id]
@@ -74,11 +74,11 @@ router.put('/users/:id', authenticateAdmin, async (req, res) => {
     const { email, trainer_name, team, phone, email_verified, password, is_admin } = req.body;
 
     try {
-        // Find user to get supabase_id
-        const userRes = await pool.query('SELECT supabase_id FROM users WHERE id = $1', [id]);
+        // Find user to get supabase_uid
+        const userRes = await pool.query('SELECT supabase_uid FROM users WHERE id = $1', [id]);
         if (userRes.rows.length === 0) return res.status(404).json({ error: 'User not found' });
 
-        const supabaseId = userRes.rows[0].supabase_id;
+        const supabaseId = userRes.rows[0].supabase_uid;
 
         // Update Supabase if password or email or metadata changed
         if (supabaseId) {
@@ -116,9 +116,9 @@ router.delete('/users/:id', authenticateAdmin, async (req, res) => {
     const { id } = req.params;
 
     try {
-        const userRes = await pool.query('SELECT supabase_id FROM users WHERE id = $1', [id]);
-        if (userRes.rows.length > 0 && userRes.rows[0].supabase_id) {
-            await supabase.auth.admin.deleteUser(userRes.rows[0].supabase_id);
+        const userRes = await pool.query('SELECT supabase_uid FROM users WHERE id = $1', [id]);
+        if (userRes.rows.length > 0 && userRes.rows[0].supabase_uid) {
+            await supabase.auth.admin.deleteUser(userRes.rows[0].supabase_uid);
         }
 
         const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING id', [id]);

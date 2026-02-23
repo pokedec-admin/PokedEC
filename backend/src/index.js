@@ -26,7 +26,7 @@ app.use(helmet());
 
 // CORS Configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL, 'https://pokedec.ch', 'https://www.pokedec.ch',
   'http://localhost:4200',
   'http://localhost:4201',
   'http://localhost:8081'
@@ -124,7 +124,18 @@ async function runMigrations() {
     await runStep('users.address_country_drop', 'ALTER TABLE users DROP COLUMN IF EXISTS address_country');
 
     // Add new columns for auth sync if missing
-    await runStep('Add supabase_id to users', 'ALTER TABLE users ADD COLUMN IF NOT EXISTS supabase_id VARCHAR(255) UNIQUE');
+    await runStep('Add supabase_uid to users', 'ALTER TABLE users ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
+
+    // Migrate data from supabase_id to supabase_uid if needed
+    try {
+      const checkCol = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name='users' AND column_name='supabase_id'");
+      if (checkCol.rows.length > 0) {
+        console.log('🔄 Migrating supabase_id to supabase_uid...');
+        await pool.query('UPDATE users SET supabase_uid = supabase_id WHERE supabase_uid IS NULL AND supabase_id IS NOT NULL');
+      }
+    } catch (e) {
+      console.error('  ⚠️  Migration from supabase_id failed:', e.message);
+    }
 
     // Pokemon Master structural updates
     await runStep('pca.columns', 'ALTER TABLE pokemon_category_availability ADD COLUMN IF NOT EXISTS is_available BOOLEAN DEFAULT false');
