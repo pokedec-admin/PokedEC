@@ -16,7 +16,7 @@ declare global {
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   template: `
     <div class="login-container">
-      <img src="/Logo_Pokefec_Complet.png" alt="Logo" class="login-logo">
+      <img src="/Logo_Pokedec.png" alt="Logo" class="login-logo">
       <h2>Login to PokedEC</h2>
       
       <div id="google-btn"></div>

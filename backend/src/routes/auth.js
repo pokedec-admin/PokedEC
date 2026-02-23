@@ -40,59 +40,55 @@ const authenticateToken = async (req, res, next) => {
         }
 
         // Find the user by supabase_uid in local DB
-        const userResult = await pool.query(
+        // Also check by email to handle cases where supabase_uid hasn't been linked yet
+        let userResult = await pool.query(
             'SELECT * FROM users WHERE supabase_uid = $1 OR email = $2 LIMIT 1',
             [data.user.id, data.user.email]
         );
 
+        let backendUser;
         if (userResult.rows.length > 0) {
-            const backendUser = userResult.rows[0];
-            req.user = {
-                id: backendUser.id,
-                email: backendUser.email,
-                trainer_name: backendUser.trainer_name,
-                supabase_uid: data.user.id,
-                is_admin: backendUser.is_admin
-            };
+            backendUser = userResult.rows[0];
 
-            // Link if needed
+            // Link if needed (if found by email but supabase_uid is missing)
             if (!backendUser.supabase_uid) {
+                console.log(`[Auth Middleware] Linking existing user ${backendUser.email} to Supabase UID ${data.user.id}`);
                 await pool.query('UPDATE users SET supabase_uid = $1 WHERE id = $2', [data.user.id, backendUser.id]);
+                backendUser.supabase_uid = data.user.id;
             }
         } else {
             // New user from Supabase - Auto-provision in local DB
+            console.log(`[Auth Middleware] Auto-provisioning new user: ${data.user.email}`);
             try {
                 const insertResult = await pool.query(
-                    'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4 RETURNING id',
+                    'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4 RETURNING *',
                     [
                         data.user.email,
-                        data.user.user_metadata?.trainer_name || 'User',
+                        data.user.user_metadata?.trainer_name || data.user.email.split('@')[0],
                         data.user.user_metadata?.team || '',
                         data.user.id,
                         data.user.user_metadata?.is_admin || false
                     ]
                 );
-
-                const backendUser = insertResult.rows[0];
-                req.user = {
-                    id: backendUser.id,
-                    email: data.user.email,
-                    trainer_name: data.user.user_metadata?.trainer_name || 'User',
-                    supabase_uid: data.user.id,
-                    is_admin: data.user.user_metadata?.is_admin || false
-                };
+                backendUser = insertResult.rows[0];
             } catch (insertErr) {
                 console.error('[Auth Middleware] Auto-provisioning failed:', insertErr);
-                // Fallback to supabase UID but this might cause issues in routes expecting INTEGER
-                req.user = {
-                    id: data.user.id,
-                    email: data.user.email,
-                    trainer_name: data.user.user_metadata?.trainer_name || 'User',
-                    supabase_uid: data.user.id,
-                    is_admin: data.user.user_metadata?.is_admin || false
-                };
+                return res.status(500).json({ error: 'Failed to create local user profile' });
             }
         }
+
+        if (!backendUser || !backendUser.id) {
+            return res.status(403).json({ error: 'User profile not found or could not be created' });
+        }
+
+        // Ensure req.user.id is always an integer from our database
+        req.user = {
+            id: parseInt(backendUser.id),
+            email: backendUser.email,
+            trainer_name: backendUser.trainer_name,
+            supabase_uid: data.user.id,
+            is_admin: backendUser.is_admin || false
+        };
         next();
     } catch (err) {
         console.error('[Auth Middleware] Catch Error:', err);
@@ -112,12 +108,14 @@ const authenticateAdmin = async (req, res, next) => {
 // Identify Route
 router.post('/identify', async (req, res) => {
     const { identifier } = req.body;
+    if (!identifier) return res.status(400).json({ error: 'Identifier required' });
+
     try {
-        const result = await pool.query('SELECT email FROM users WHERE trainer_name = $1 OR email = $1', [identifier]);
+        const result = await pool.query('SELECT email FROM users WHERE LOWER(trainer_name) = LOWER($1) OR LOWER(email) = LOWER($1)', [identifier]);
         if (result.rows.length > 0) {
             return res.json({ email: result.rows[0].email });
         }
-        return res.status(404).json({ error: 'User not found' });
+        return res.status(404).json({ error: 'User not found locally. Please try with your email.' });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });
@@ -127,7 +125,7 @@ router.post('/identify', async (req, res) => {
 // Profile Routes
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users WHERE supabase_uid = $1 OR id::text = $1', [req.user.supabase_uid]);
+        const result = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'User profile not found' });
         }
@@ -149,16 +147,20 @@ router.put('/profile', authenticateToken, async (req, res) => {
                  preferred_language = COALESCE($4, preferred_language),
                  campfire_name = COALESCE($5, campfire_name),
                  whatsapp_group = COALESCE($6, whatsapp_group)
-             WHERE supabase_uid = $7 OR id::text = $7
+             WHERE id = $7
              RETURNING *`,
-            [trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, req.user.supabase_uid]
+            [trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, req.user.id]
         );
 
         // Also update Supabase metadata if trainer_name or team changed
         if (trainer_name || team) {
-            await supabase.auth.admin.updateUserById(req.user.supabase_uid, {
-                user_metadata: { trainer_name, team }
-            });
+            try {
+                await supabase.auth.admin.updateUserById(req.user.supabase_uid, {
+                    user_metadata: { trainer_name, team }
+                });
+            } catch (supaErr) {
+                console.error('[Profile Update] Supabase metadata sync failed:', supaErr);
+            }
         }
 
         res.json({ message: 'Profile updated', user: result.rows[0] });
@@ -168,7 +170,7 @@ router.put('/profile', authenticateToken, async (req, res) => {
     }
 });
 
-// Signup/Login/Forgot Password (Supabase Proxy)
+// Signup/Login/Forgot Password (Supabase Proxy) - Kept for compatibility but might be bypassed by frontend
 router.post('/signup', async (req, res) => {
     const { email, password, trainer_name, team } = req.body;
     const { data, error } = await supabase.auth.signUp({
@@ -176,7 +178,7 @@ router.post('/signup', async (req, res) => {
         password,
         options: { data: { trainer_name, team } }
     });
-    if (error) return res.status(400).json({ error: error.message });
+    if (error) return res.status(error.status || 400).json({ error: error.message });
 
     // Sync to local DB
     try {
@@ -184,7 +186,9 @@ router.post('/signup', async (req, res) => {
             'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4',
             [email, trainer_name, team, data.user.id]
         );
-    } catch (e) {}
+    } catch (e) {
+        console.error('[Signup Sync] Failed to sync to local DB:', e);
+    }
 
     res.status(201).json({ user: data.user, session: data.session });
 });
@@ -192,10 +196,25 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return res.status(400).json({ error: error.message });
+    if (error) return res.status(error.status || 400).json({ error: error.message });
 
-    const userResult = await pool.query('SELECT * FROM users WHERE supabase_uid = $1', [data.user.id]);
-    res.json({ token: data.session.access_token, user: { ...data.user, ...userResult.rows[0] } });
+    let userResult = await pool.query('SELECT * FROM users WHERE supabase_uid = $1 OR email = $2', [data.user.id, data.user.email]);
+    let backendUser = userResult.rows[0];
+
+    if (!backendUser) {
+        // Auto-provision if missing during login too
+        try {
+             const insertResult = await pool.query(
+                'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) RETURNING *',
+                [data.user.email, data.user.user_metadata?.trainer_name || data.user.email.split('@')[0], data.user.user_metadata?.team || '', data.user.id]
+            );
+            backendUser = insertResult.rows[0];
+        } catch (e) {
+            console.error('[Login Sync] Failed to auto-provision:', e);
+        }
+    }
+
+    res.json({ token: data.session.access_token, user: { ...data.user, ...backendUser } });
 });
 
 router.post('/forgot-password', async (req, res) => {
@@ -203,7 +222,7 @@ router.post('/forgot-password', async (req, res) => {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:4200'}/auth/callback`
     });
-    if (error) return res.status(400).json({ error: error.message });
+    if (error) return res.status(error.status || 400).json({ error: error.message });
     res.json({ message: 'Reset link sent' });
 });
 
