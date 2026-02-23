@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
   template: `
     <div class="signup-container">
-      <img src="/Logo_Pokefec_Complet.png" alt="Logo" class="signup-logo">
+      <img src="/Logo_Pokedec.png" alt="Logo" class="signup-logo">
       <h2 *ngIf="!successMessage">Créer un compte</h2>
       <h2 *ngIf="successMessage">Vérifiez vos emails</h2>
         
@@ -47,7 +47,7 @@ import { HttpClient } from '@angular/common/http';
         </div>
 
         <button type="submit" [disabled]="signupForm.invalid || loading">
-          {{ loading ? 'Inscription en cours...' : 'S'#39;inscrire' }}
+          {{ loading ? 'Inscription en cours...' : "S'inscrire" }}
         </button>
       </form>
 

@@ -18,7 +18,7 @@
             <form (submit)="onLogin(); $event.preventDefault()">
                 <div class="form-group">
                     <input type="text" [(ngModel)]="loginData.trainer_name" name="trainer_name"
-                        placeholder="Nom de dresseur" required>
+                        placeholder="Email ou Nom de dresseur" required>
                 </div>
                 <div class="form-group">
                     <input type="password" [(ngModel)]="loginData.password" name="password" placeholder="Mot de passe"
@@ -38,7 +38,7 @@
             <form (submit)="onSignup(); $event.preventDefault()">
                 <div class="form-group">
                     <input type="text" [(ngModel)]="signupData.trainer_name" name="trainerName"
-                        placeholder="Nom de dresseur" required>
+                        placeholder="Email ou Nom de dresseur" required>
                 </div>
                 <div class="form-group">
                     <input type="email" [(ngModel)]="signupData.email" name="email" placeholder="Email" required>
