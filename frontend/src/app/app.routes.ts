@@ -24,10 +24,14 @@ import { Forms } from './pages/forms/forms';
 import { authGuard } from './guards/auth.guard';
 
 import { CreditsComponent } from './pages/credits/credits';
+import { ForgotPassword } from './pages/forgot-password/forgot-password';
+import { AuthCallback } from './pages/auth-callback/auth-callback';
 
 export const routes: Routes = [
 
     { path: 'login', component: Login },
+    { path: 'forgot-password', component: ForgotPassword },
+    { path: 'auth/callback', component: AuthCallback },
     { path: 'signup', component: Signup },
     { path: 'pokedex', component: Pokedex, canActivate: [authGuard] },
     { path: 'wanted', component: Wanted, canActivate: [authGuard] },

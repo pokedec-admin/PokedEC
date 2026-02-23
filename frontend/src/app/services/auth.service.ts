@@ -78,7 +78,9 @@ export class AuthService {
         try {
             this.supabase.auth.onAuthStateChange((event, session) => {
                 console.log('[AuthService] Supabase Auth Event:', event);
-                if (session?.user) {
+                if (event === 'PASSWORD_RECOVERY') {
+                    this.router.navigate(['/reset-password']);
+                } else if (session?.user) {
                     // Map Supabase user to our local format
                     const mappedUser = {
                         ...session.user,
@@ -317,6 +319,16 @@ export class AuthService {
     }
 
     forgotPassword(email: string): Observable<any> {
+        return from(this.supabase.auth.resetPasswordForEmail(email, {
+            redirectTo: `${window.location.origin}/auth/callback`
+        })).pipe(
+            map(res => {
+                if (res.error) throw res.error;
+                return res.data;
+            })
+        );
+    }
+    old_forgotPassword(email: string): Observable<any> {
         return this.http.post(`${this.apiUrl}/forgot-password`, { email });
     }
 
