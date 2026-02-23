@@ -11,12 +11,20 @@ const ENV_URLS = {
     DEV: 'http://localhost:3000', // Local backend
     BLUE: 'http://192.168.1.199:8081', // NAS Blue
     GREEN: 'http://192.168.1.199:8080', // NAS Green
-    PUBLIC: 'https://poke.fec.ch' // Public URL
+    PUBLIC: 'https://poke.fec.ch', // Public URL
+    CLOUD: 'https://www.pokedec.ch' // Production Cloud
 };
 
 // Helper to read version
 function getVersion() {
-    return process.env.APP_VERSION || '1.0.0';
+    // Priority: Env Var > Package.json > Default
+    if (process.env.APP_VERSION) return process.env.APP_VERSION;
+    try {
+        const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
+        return pkg.version || '0.8.0';
+    } catch (e) {
+        return '0.8.0';
+    }
 }
 
 // GET /health - For Render monitoring
@@ -36,7 +44,7 @@ router.get('/status', (req, res) => {
 // GET /monitoring - Probes all environments (Admin only)
 router.get('/monitoring', authenticateAdmin, async (req, res) => {
     const results = {};
-    const environments = ['DEV', 'BLUE', 'GREEN', 'PUBLIC'];
+    const environments = ['DEV', 'BLUE', 'GREEN', 'PUBLIC', 'CLOUD'];
 
     const probes = environments.map(async (env) => {
         try {

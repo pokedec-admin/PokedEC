@@ -126,6 +126,10 @@ async function runMigrations() {
     // Add new columns for auth sync if missing
     await runStep('Add supabase_uid to users', 'ALTER TABLE users ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
 
+    // Add indexes for performance
+    await runStep('users.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_users_supabase_uid ON users(supabase_uid)');
+    await runStep('users.idx_email', 'CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+
     // Migrate data from supabase_id to supabase_uid if needed
     try {
       const checkCol = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name='users' AND column_name='supabase_id'");
@@ -173,6 +177,10 @@ async function initDB() {
 
     // Run migrations
     await runMigrations();
+
+    // Sync users from Supabase Auth
+    const { syncUsers } = require('./middleware/auth');
+    syncUsers(pool).catch(e => console.error('User sync error:', e));
 
     // Trigger classifications sync in background
     require('./models/pokemon_references').syncInitialData(pool).catch(e => console.error('Ref sync error:', e));

@@ -77,12 +77,16 @@ export class AuthService {
                         trainer_name: session.user.user_metadata?.['trainer_name'] || 'User',
                         is_admin: session.user.user_metadata?.['is_admin'] || false
                     };
-                    this.currentUserSubject.next(mappedUser);
-                    localStorage.setItem('user', JSON.stringify(mappedUser));
+                    // SET STORAGE BEFORE SUBJECT NEXT to avoid race conditions in interceptors
                     localStorage.setItem('token', session.access_token);
+                    localStorage.setItem('user', JSON.stringify(mappedUser));
+                    this.currentUserSubject.next(mappedUser);
                     this.loadSuggestions();
                 } else if (event === 'SIGNED_OUT') {
-                    this.logout();
+                    // Only call logout if we still have a user (prevents infinite loop)
+                    if (this.currentUserSubject.value) {
+                        this.logout();
+                    }
                 }
             });
         } catch (err) {
@@ -176,11 +180,11 @@ export class AuthService {
 
     public refreshUserFromStorage() {
         const user = localStorage.getItem('user');
-        console.log('[AuthService] Refreshing user from storage. Found:', user ? 'YES' : 'NO');
+        // console.log('[AuthService] Refreshing user from storage. Found:', user ? 'YES' : 'NO');
         if (user) {
             const parsedUser = JSON.parse(user);
             this.currentUserSubject.next(parsedUser);
-            console.log('[AuthService] User restored:', parsedUser.email);
+            // console.log('[AuthService] User restored:', parsedUser.email);
             this.loadSuggestions();
             if (this.isAdmin()) {
                 this.loadAdminStats();
@@ -271,12 +275,23 @@ export class AuthService {
     }
 
     async logout() {
-        await this.supabase.auth.signOut();
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-        this.adminOpenSuggestionsCount$.next(0);
+        try {
+            // Only sign out if we have a session to avoid loops
+            const { data } = await this.supabase.auth.getSession();
+            if (data.session) {
+                await this.supabase.auth.signOut();
+            }
+        } catch (err) {
+            console.error('[AuthService] SignOut error:', err);
+        } finally {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('currentUser');
+            if (this.currentUserSubject.value !== null) {
+                this.currentUserSubject.next(null);
+            }
+            this.adminOpenSuggestionsCount$.next(0);
+        }
     }
 
     updateProfile(data: any): Observable<any> {
