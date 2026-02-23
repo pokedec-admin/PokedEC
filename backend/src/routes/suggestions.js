@@ -20,7 +20,7 @@ const pool = new Pool(poolConfig);
 // Middleware to authenticate token (imported from auth.js in index.js, but we need it here if we want to use it directly or assume it's passed)
 // For simplicity, we'll assume the main index.js passes the auth middleware or we re-implement/import it.
 // Better approach: Export authenticateToken from auth.js and use it here.
-const { authenticateToken, authenticateAdmin } = require('./auth');
+const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
 
 // Create a suggestion
 router.post('/', authenticateToken, async (req, res) => {

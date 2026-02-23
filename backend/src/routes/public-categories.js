@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
-const { authenticateToken } = require('./auth');
+const { authenticateToken } = require('../middleware/auth');
 
 const poolConfig = process.env.DATABASE_URL
     ? {

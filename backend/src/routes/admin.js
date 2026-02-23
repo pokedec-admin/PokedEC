@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
 const { createClient } = require('@supabase/supabase-js');
-const { authenticateAdmin } = require('./auth');
+const { authenticateAdmin } = require('../middleware/auth');
 
 const supabase = createClient(
     process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
