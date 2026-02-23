@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Pool } = require('pg');
-const jwt = require('jsonwebtoken');
+const { authenticateToken } = require('../middleware/auth');
 
 // Database connection (should ideally be shared/injected)
 const poolConfig = process.env.DATABASE_URL
@@ -19,31 +19,6 @@ const poolConfig = process.env.DATABASE_URL
 
 const pool = new Pool(poolConfig);
 
-const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
-
-// Middleware to authenticate token
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    console.log('[Backend Auth] Authorization header:', authHeader);
-    console.log('[Backend Auth] Token extracted:', token ? 'YES' : 'NO');
-
-    if (token == null) {
-        console.warn('[Backend Auth] No token found, returning 401');
-        return res.sendStatus(401);
-    }
-
-    jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err) {
-            console.error('[Backend Auth] Token verification failed:', err.message);
-            return res.sendStatus(403);
-        }
-        console.log('[Backend Auth] Token verified for user:', user.email);
-        req.user = user;
-        next();
-    });
-};
 
 // Get user's pokedex
 router.get('/', authenticateToken, async (req, res) => {

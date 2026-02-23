@@ -4,7 +4,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
-const { authenticateToken, authenticateAdmin } = require('./auth');
+const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
 
 // Create a separate pool for PROD database
 let prodPool = null;

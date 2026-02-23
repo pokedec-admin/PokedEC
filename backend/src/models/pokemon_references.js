@@ -1,20 +1,22 @@
 // Pokemon reference tables models
-// These tables don't need pool require since they're called from index.js migration
-// which already has pool access
+// Actual table creation is primarily done via SQL migration files
+// These functions are called by index.js during auto-migration
 
 module.exports = {
-    // These are placeholder exports - actual table creation is done via SQL migration files
-    // The models here are just to maintain consistency with other model files
-    createClassificationsTable: () => {
-        // Table created via migrations/create_classifications.sql
+    createClassificationsTable: async (pool) => {
+        // Tables should exist from migrations, but we ensure basic structure if needed
         return Promise.resolve();
     },
-    createRegionsTable: () => {
-        // Table created via migrations/create_regions.sql
+    createRegionsTable: async (pool) => {
         return Promise.resolve();
     },
-    createTypesTable: () => {
-        // Table created via migrations/create_types.sql
+    createTypesTable: async (pool) => {
+        return Promise.resolve();
+    },
+    syncInitialData: async (pool) => {
+        // Placeholder for initial data synchronization
+        // This is called on new installations to populate reference tables
+        console.log('ℹ️ syncInitialData: No new reference data to sync.');
         return Promise.resolve();
     }
 };

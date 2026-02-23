@@ -17,7 +17,7 @@ const poolConfig = process.env.DATABASE_URL
 
 const pool = new Pool(poolConfig);
 
-const { authenticateAdmin } = require('./auth');
+const { authenticateAdmin } = require('../middleware/auth');
 
 // Get all pokemon with their category availability (paginated)
 router.get('/', authenticateAdmin, async (req, res) => {
