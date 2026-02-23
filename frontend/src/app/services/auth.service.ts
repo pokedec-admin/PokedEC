@@ -23,9 +23,6 @@ export interface User {
 export class AuthService {
     private apiUrl = `${environment.apiUrl}/auth`;
     private adminApiUrl = `${environment.apiUrl}/admin`;
-    // Original currentUserSubject and currentUser$ declarations are replaced by the new ones below
-    // private currentUserSubject = new BehaviorSubject<User | null>(null);
-    // public currentUser$ = this.currentUserSubject.asObservable();
 
     private currentUserSubject: BehaviorSubject<any>;
     public currentUser$: Observable<any>;
@@ -38,27 +35,21 @@ export class AuthService {
     private supabase: SupabaseClient;
 
     constructor(private http: HttpClient, private router: Router) {
-        this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
-        // Attempt to mitigate noisy LockManager errors by wrapping navigator.locks.request
-        try {
-            if (typeof navigator !== 'undefined' && (navigator as any).locks && (navigator as any).locks.request) {
-                const locks = (navigator as any).locks;
-                const origRequest = locks.request.bind(locks);
-                locks.request = async function (...args: any[]) {
-                    try {
-                        return await origRequest(...args);
-                    } catch (err: any) {
-                        // Silently ignore LockManager acquisition errors coming from browsers
-                        if (err && typeof err.message === 'string' && err.message.toLowerCase().includes('lockmanager')) {
-                            return;
-                        }
-                        throw err;
-                    }
-                };
-            }
-        } catch (err) {
-            // If not possible to patch, continue silently
-        }
+        // Initialize Supabase with a custom no-op lock to prevent Navigator LockManager errors.
+        // This avoids the 'Acquiring an exclusive Navigator LockManager' error in Chrome/Firefox.
+        this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey, {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true,
+                storage: localStorage,
+                // Custom lock function that executes the callback immediately without using Navigator locks
+                lock: async (name: string, acquireTimeout: number, fn: () => Promise<any>) => {
+                    return await fn();
+                }
+            } as any
+        });
+
         const storedUser = localStorage.getItem('user');
         this.currentUserSubject = new BehaviorSubject<any>(storedUser ? JSON.parse(storedUser) : null);
         this.currentUser$ = this.currentUserSubject.asObservable();
@@ -67,21 +58,17 @@ export class AuthService {
             map(user => !!user)
         );
 
-        // Initialize Supabase listener safely (handles LockManager errors)
         this.initializeSupabaseListener();
-        // Handle possible Supabase auth redirect (magic links / recovery)
         this.processAuthRedirectFromUrl();
     }
 
     private initializeSupabaseListener() {
-        // Wrap in try-catch to handle LockManager errors gracefully
         try {
             this.supabase.auth.onAuthStateChange((event, session) => {
                 console.log('[AuthService] Supabase Auth Event:', event);
                 if (event === 'PASSWORD_RECOVERY') {
                     this.router.navigate(['/reset-password']);
                 } else if (session?.user) {
-                    // Map Supabase user to our local format
                     const mappedUser = {
                         ...session.user,
                         id: session.user.id,
@@ -98,59 +85,24 @@ export class AuthService {
                     this.logout();
                 }
             });
-        } catch (err: any) {
-            // Silently ignore LockManager errors - they don't affect functionality
-            if (err?.message && !err.message.includes('LockManager')) {
-                console.error('[AuthService] Failed to initialize Supabase listener:', err);
-            }
+        } catch (err) {
+            console.error('[AuthService] Supabase listener initialization failed:', err);
         }
     }
 
     private async processAuthRedirectFromUrl() {
         try {
-            // supabase-js v2: getSessionFromUrl parses the URL and returns session info
-            if (typeof (this.supabase.auth as any).getSessionFromUrl === 'function') {
-                const { data, error } = await (this.supabase.auth as any).getSessionFromUrl();
-                if (error) {
-                    console.warn('[AuthService] getSessionFromUrl error:', error.message || error);
-                }
-                // If a session was created (e.g. after recovery), persist token and redirect to password reset
-                if (data?.session?.access_token) {
-                    const accessToken = data.session.access_token;
-                    localStorage.setItem('token', accessToken);
-                    // Ensure current user is refreshed (listener should handle it too)
-                    this.currentUserSubject.next({ ...data.session.user, token: accessToken });
-                    // Navigate to reset-password page so user can set a new password.
-                    // Delay slightly to ensure Router has registered routes (avoids NG04002).
-                    try {
-                        const routeExists = this.router.config.some(r => r.path === 'reset-password');
-                        if (routeExists) {
-                            setTimeout(() => this.router.navigate(['/reset-password']), 50);
-                        } else {
-                            // Fallback to a full reload to the reset URL so the app handles the token on load
-                            window.location.href = '/reset-password';
-                        }
-                    } catch (navErr) {
-                        // As a last resort, modify location
-                        window.location.href = '/reset-password';
-                    }
-                    return;
-                }
-            }
+            const hash = window.location.hash;
+            if (hash && (hash.includes('access_token') || hash.includes('type=recovery'))) {
+                console.log('[AuthService] Detected auth tokens in URL hash');
+                const { data, error } = await this.supabase.auth.getSession();
+                if (error) throw error;
 
-            // Fallback: if URL contains type=recovery or token=, still navigate to reset page
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('type') === 'recovery' || params.get('token')) {
-                // Delay navigation slightly to avoid route not found errors
-                try {
-                    const routeExists = this.router.config.some(r => r.path === 'reset-password');
-                    if (routeExists) {
-                        setTimeout(() => this.router.navigate(['/reset-password']), 50);
-                    } else {
-                        window.location.href = '/reset-password';
+                if (data.session?.user) {
+                    console.log('[AuthService] Session successfully restored from redirect');
+                    if (hash.includes('type=recovery')) {
+                        this.router.navigate(['/reset-password']);
                     }
-                } catch (e) {
-                    window.location.href = '/reset-password';
                 }
             }
         } catch (err: any) {
@@ -158,7 +110,6 @@ export class AuthService {
         }
     }
 
-    // Allow reset-password component to update password using current temporary session
     public async updatePassword(newPassword: string) {
         try {
             const res = await this.supabase.auth.updateUser({ password: newPassword } as any);
@@ -251,7 +202,6 @@ export class AuthService {
         })).pipe(
             map(res => {
                 if (res.error) throw res.error;
-                // Ensure token is saved even on signup
                 if (res.data?.session?.access_token) {
                     localStorage.setItem('token', res.data.session.access_token);
                 }
@@ -263,7 +213,6 @@ export class AuthService {
     login(data: any): Observable<any> {
         const identifier = data.email || data.trainer_name;
 
-        // If it's not an email, we need to resolve it first
         if (identifier && !identifier.includes('@')) {
             return this.http.post<any>(`${this.apiUrl}/identify`, { identifier }).pipe(
                 map((res: any) => res.email || identifier),
@@ -274,25 +223,22 @@ export class AuthService {
                 map(obs => obs.pipe(
                     map(res => {
                         if (res.error) throw res.error;
-                        // Ensure token is saved
                         if (res.data?.session?.access_token) {
                             localStorage.setItem('token', res.data.session.access_token);
                         }
                         return res.data;
                     })
                 )),
-                map((obs: any) => obs) // flatten
+                map((obs: any) => obs)
             );
         }
 
-        // Otherwise, call Supabase directly
         return from(this.supabase.auth.signInWithPassword({
             email: identifier,
             password: data.password
         })).pipe(
             map(res => {
                 if (res.error) throw res.error;
-                // Ensure token is saved
                 if (res.data?.session?.access_token) {
                     localStorage.setItem('token', res.data.session.access_token);
                 }
@@ -302,14 +248,12 @@ export class AuthService {
     }
 
     googleLogin(token: string, user: any): Observable<any> {
-        // For Google login with Supabase, we usually use signInWithIdToken
         return from(this.supabase.auth.signInWithIdToken({
             provider: 'google',
             token: token
         })).pipe(
             map(res => {
                 if (res.error) throw res.error;
-                // Ensure token is saved
                 if (res.data?.session?.access_token) {
                     localStorage.setItem('token', res.data.session.access_token);
                 }
@@ -327,9 +271,6 @@ export class AuthService {
                 return res.data;
             })
         );
-    }
-    old_forgotPassword(email: string): Observable<any> {
-        return this.http.post(`${this.apiUrl}/forgot-password`, { email });
     }
 
     async logout() {
@@ -363,23 +304,12 @@ export class AuthService {
         );
     }
 
-
     deleteAccount(): Observable<any> {
         return this.http.delete(`${this.apiUrl}/profile`, { headers: this.getAuthHeaders() }).pipe(
             tap(() => {
                 this.logout();
             })
         );
-    }
-
-    private handleAuthSuccess(response: any) {
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('user', JSON.stringify(response.user));
-        this.currentUserSubject.next(response.user);
-        this.loadSuggestions();
-        if (this.isAdmin()) {
-            this.loadAdminStats();
-        }
     }
 
     isAuthenticated(): boolean {
@@ -391,7 +321,6 @@ export class AuthService {
     private getAuthHeaders(): HttpHeaders {
         const token = localStorage.getItem('token');
         if (!token) {
-            console.warn('No auth token found in localStorage');
             return new HttpHeaders();
         }
         return new HttpHeaders({
@@ -399,7 +328,6 @@ export class AuthService {
         });
     }
 
-    // Admin methods
     isAdmin(): boolean {
         return this.currentUserSubject.value?.is_admin || false;
     }
