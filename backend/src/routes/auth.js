@@ -39,9 +39,9 @@ const authenticateToken = async (req, res, next) => {
             return res.sendStatus(403);
         }
 
-        // Find the user by supabase_id in local DB
+        // Find the user by supabase_uid in local DB
         const userResult = await pool.query(
-            'SELECT * FROM users WHERE supabase_id = $1 OR email = $2 LIMIT 1',
+            'SELECT * FROM users WHERE supabase_uid = $1 OR email = $2 LIMIT 1',
             [data.user.id, data.user.email]
         );
 
@@ -51,23 +51,47 @@ const authenticateToken = async (req, res, next) => {
                 id: backendUser.id,
                 email: backendUser.email,
                 trainer_name: backendUser.trainer_name,
-                supabase_id: data.user.id,
+                supabase_uid: data.user.id,
                 is_admin: backendUser.is_admin
             };
 
             // Link if needed
-            if (!backendUser.supabase_id) {
-                await pool.query('UPDATE users SET supabase_id = $1 WHERE id = $2', [data.user.id, backendUser.id]);
+            if (!backendUser.supabase_uid) {
+                await pool.query('UPDATE users SET supabase_uid = $1 WHERE id = $2', [data.user.id, backendUser.id]);
             }
         } else {
-            // New user from Supabase
-            req.user = {
-                id: data.user.id,
-                email: data.user.email,
-                trainer_name: data.user.user_metadata?.trainer_name || 'User',
-                supabase_id: data.user.id,
-                is_admin: data.user.user_metadata?.is_admin || false
-            };
+            // New user from Supabase - Auto-provision in local DB
+            try {
+                const insertResult = await pool.query(
+                    'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4 RETURNING id',
+                    [
+                        data.user.email,
+                        data.user.user_metadata?.trainer_name || 'User',
+                        data.user.user_metadata?.team || '',
+                        data.user.id,
+                        data.user.user_metadata?.is_admin || false
+                    ]
+                );
+
+                const backendUser = insertResult.rows[0];
+                req.user = {
+                    id: backendUser.id,
+                    email: data.user.email,
+                    trainer_name: data.user.user_metadata?.trainer_name || 'User',
+                    supabase_uid: data.user.id,
+                    is_admin: data.user.user_metadata?.is_admin || false
+                };
+            } catch (insertErr) {
+                console.error('[Auth Middleware] Auto-provisioning failed:', insertErr);
+                // Fallback to supabase UID but this might cause issues in routes expecting INTEGER
+                req.user = {
+                    id: data.user.id,
+                    email: data.user.email,
+                    trainer_name: data.user.user_metadata?.trainer_name || 'User',
+                    supabase_uid: data.user.id,
+                    is_admin: data.user.user_metadata?.is_admin || false
+                };
+            }
         }
         next();
     } catch (err) {
@@ -103,7 +127,7 @@ router.post('/identify', async (req, res) => {
 // Profile Routes
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users WHERE supabase_id = $1 OR id::text = $1', [req.user.supabase_id]);
+        const result = await pool.query('SELECT * FROM users WHERE supabase_uid = $1 OR id::text = $1', [req.user.supabase_uid]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'User profile not found' });
         }
@@ -125,14 +149,14 @@ router.put('/profile', authenticateToken, async (req, res) => {
                  preferred_language = COALESCE($4, preferred_language),
                  campfire_name = COALESCE($5, campfire_name),
                  whatsapp_group = COALESCE($6, whatsapp_group)
-             WHERE supabase_id = $7 OR id::text = $7
+             WHERE supabase_uid = $7 OR id::text = $7
              RETURNING *`,
-            [trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, req.user.supabase_id]
+            [trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, req.user.supabase_uid]
         );
 
         // Also update Supabase metadata if trainer_name or team changed
         if (trainer_name || team) {
-            await supabase.auth.admin.updateUserById(req.user.supabase_id, {
+            await supabase.auth.admin.updateUserById(req.user.supabase_uid, {
                 user_metadata: { trainer_name, team }
             });
         }
@@ -157,7 +181,7 @@ router.post('/signup', async (req, res) => {
     // Sync to local DB
     try {
         await pool.query(
-            'INSERT INTO users (email, trainer_name, team, supabase_id, email_verified) VALUES ($1, $2, $3, $4, true) ON CONFLICT (email) DO UPDATE SET supabase_id = $4',
+            'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4',
             [email, trainer_name, team, data.user.id]
         );
     } catch (e) {}
@@ -170,7 +194,7 @@ router.post('/login', async (req, res) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return res.status(400).json({ error: error.message });
 
-    const userResult = await pool.query('SELECT * FROM users WHERE supabase_id = $1', [data.user.id]);
+    const userResult = await pool.query('SELECT * FROM users WHERE supabase_uid = $1', [data.user.id]);
     res.json({ token: data.session.access_token, user: { ...data.user, ...userResult.rows[0] } });
 });
 

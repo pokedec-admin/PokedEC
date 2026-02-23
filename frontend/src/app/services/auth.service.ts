@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap, from } from 'rxjs';
+import { BehaviorSubject, Observable, tap, from, switchMap } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
@@ -216,20 +216,17 @@ export class AuthService {
         if (identifier && !identifier.includes('@')) {
             return this.http.post<any>(`${this.apiUrl}/identify`, { identifier }).pipe(
                 map((res: any) => res.email || identifier),
-                map((email: string) => from(this.supabase.auth.signInWithPassword({
+                switchMap((email: string) => from(this.supabase.auth.signInWithPassword({
                     email: email,
                     password: data.password
                 }))),
-                map(obs => obs.pipe(
-                    map(res => {
-                        if (res.error) throw res.error;
-                        if (res.data?.session?.access_token) {
-                            localStorage.setItem('token', res.data.session.access_token);
-                        }
-                        return res.data;
-                    })
-                )),
-                map((obs: any) => obs)
+                map(res => {
+                    if (res.error) throw res.error;
+                    if (res.data?.session?.access_token) {
+                        localStorage.setItem('token', res.data.session.access_token);
+                    }
+                    return res.data;
+                })
             );
         }
 
