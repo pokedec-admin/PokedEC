@@ -36,6 +36,7 @@ declare global {
       </form>
 
       <p>Don't have an account? <a routerLink="/signup">Sign up here</a></p>
+      <p><a routerLink="/forgot-password">Mot de passe oublié ?</a></p>
       <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </div>
   `,
