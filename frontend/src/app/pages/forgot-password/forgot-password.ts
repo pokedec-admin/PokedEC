@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [CommonModule, FormsModule, RouterLink],
   template: `
     <div class="forgot-container">
-      <img src="/Logo_Pokefec_Complet.png" alt="Logo" class="logo">
+      <img src="/Logo_Pokedec.png" alt="Logo" class="logo">
       <h2>Mot de passe oublié</h2>
       <p>Entrez votre email pour recevoir un lien de réinitialisation.</p>
 
