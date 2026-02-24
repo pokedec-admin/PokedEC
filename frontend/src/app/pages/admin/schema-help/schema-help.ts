@@ -6,7 +6,7 @@ import mermaid from 'mermaid';
 interface Section {
     title: string;
     expanded: boolean;
-    content: 'users' | 'pokedex' | 'pokemon_master' | 'references' | 'verification' | 'categories' | 'names' | 'suggestions' | 'logic' | 'relationships' | 'files';
+    content: 'trainers' | 'pokedex' | 'pokemon_master' | 'references' | 'verification' | 'categories' | 'names' | 'suggestions' | 'logic' | 'relationships' | 'files';
 }
 
 @Component({
@@ -19,11 +19,11 @@ interface Section {
 export class SchemaHelpComponent implements OnInit, AfterViewInit {
     mermaidDiagram = `
 erDiagram
-    users ||--o{ pokedex : "owns"
-    users ||--o{ suggestions : "submits"
-    users ||--o{ pokemon_category_availability : "configures (admin)"
-    users ||--o{ pokemon_master : "updates (admin)"
-    users ||--o{ trade_requests : "initiates/receives"
+    trainers ||--o{ pokedex : "owns"
+    trainers ||--o{ suggestions : "submits"
+    trainers ||--o{ pokemon_category_availability : "configures (admin)"
+    trainers ||--o{ pokemon_master : "updates (admin)"
+    trainers ||--o{ trade_requests : "initiates/receives"
     
     pokemon_master ||--o{ pokedex : "defines"
     pokemon_master }|--|| classifications : "has"
@@ -31,19 +31,18 @@ erDiagram
     pokemon_master }|--|| types : "has primary"
     pokemon_master }|--|| types : "has secondary"
     
-    users {
+    trainers {
         INT id PK
         VARCHAR email
         VARCHAR password
         VARCHAR trainer_name UK
         VARCHAR team
-        VARCHAR phone
+        TEXT[] contact_methods
         BOOLEAN email_verified
         BOOLEAN is_active
         BOOLEAN is_admin
         VARCHAR preferred_language
-        VARCHAR campfire_name
-        VARCHAR whatsapp_group
+        UUID supabase_uid
         TIMESTAMP created_at
     }
     
@@ -66,7 +65,7 @@ erDiagram
     
     pokedex {
         INT id PK
-        INT user_id FK
+        INT trainer_id FK
         INT pokemon_id FK
         VARCHAR name
         BOOLEAN has_shiny
@@ -111,7 +110,7 @@ erDiagram
     `;
 
     sections: Section[] = [
-        { title: 'Table: users', expanded: false, content: 'users' },
+        { title: 'Table: trainers', expanded: false, content: 'trainers' },
         { title: 'Table: pokedex', expanded: false, content: 'pokedex' },
         { title: 'Table: pokemon_master', expanded: false, content: 'pokemon_master' },
         { title: 'Reference Tables (Classifications, Regions, Types)', expanded: false, content: 'references' },

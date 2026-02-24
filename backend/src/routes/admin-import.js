@@ -106,7 +106,7 @@ router.post('/import-prod-data', authenticateToken, authenticateAdmin, async (re
         // 4. Clear local DEV data (DESTRUCTIVE!)
         console.log('🗑️   Clearing local DEV data...');
         await localPool.query('TRUNCATE TABLE pokedex CASCADE');
-        await localPool.query('TRUNCATE TABLE users RESTART IDENTITY CASCADE');
+        await localPool.query('TRUNCATE TABLE trainers RESTART IDENTITY CASCADE');
         await localPool.query('TRUNCATE TABLE pokemon_category_availability CASCADE');
         await localPool.query('TRUNCATE TABLE pokemon_master CASCADE');
         await localPool.query('TRUNCATE TABLE classifications CASCADE');
