@@ -19,7 +19,7 @@ STABLE
 SECURITY DEFINER
 SET search_path = public
 AS $$
-  SELECT id FROM public.users WHERE supabase_uid = auth.uid();
+  SELECT id FROM public.trainers WHERE supabase_uid = auth.uid();
 $$;
 
 -- Helper Function pour vérifier si l'utilisateur est admin
@@ -30,7 +30,7 @@ STABLE
 SECURITY DEFINER
 SET search_path = public
 AS $$
-  SELECT COALESCE(is_admin, false) FROM public.users WHERE supabase_uid = auth.uid();
+  SELECT COALESCE(is_admin, false) FROM public.trainers WHERE supabase_uid = auth.uid();
 $$;
 
 -- 2. Activation du RLS sur toutes les tables
@@ -49,15 +49,15 @@ BEGIN
 END $$;
 
 -- 3. Politiques pour la table 'users'
-DROP POLICY IF EXISTS "Users can view own profile" ON public.users;
-CREATE POLICY "Users can view own profile"
-ON public.users FOR SELECT
+DROP POLICY IF EXISTS "Trainers can view own profile" ON public.trainers;
+CREATE POLICY "Trainers can view own profile"
+ON public.trainers FOR SELECT
 TO authenticated
 USING (supabase_uid = auth.uid() OR public.is_admin());
 
-DROP POLICY IF EXISTS "Users can update own profile" ON public.users;
-CREATE POLICY "Users can update own profile"
-ON public.users FOR UPDATE
+DROP POLICY IF EXISTS "Trainers can update own profile" ON public.trainers;
+CREATE POLICY "Trainers can update own profile"
+ON public.trainers FOR UPDATE
 TO authenticated
 USING (supabase_uid = auth.uid() OR public.is_admin())
 WITH CHECK (supabase_uid = auth.uid() OR public.is_admin());
@@ -69,36 +69,36 @@ ON public.pokedex FOR SELECT
 TO authenticated, anon
 USING (true);
 
-DROP POLICY IF EXISTS "Users can manage own pokedex" ON public.pokedex;
-CREATE POLICY "Users can manage own pokedex"
+DROP POLICY IF EXISTS "Trainers can manage own pokedex" ON public.pokedex;
+CREATE POLICY "Trainers can manage own pokedex"
 ON public.pokedex FOR ALL
 TO authenticated
 USING (user_id = public.get_my_user_id() OR public.is_admin())
 WITH CHECK (user_id = public.get_my_user_id() OR public.is_admin());
 
 -- 5. Politiques pour la table 'suggestions'
-DROP POLICY IF EXISTS "Users can manage own suggestions" ON public.suggestions;
-CREATE POLICY "Users can manage own suggestions"
+DROP POLICY IF EXISTS "Trainers can manage own suggestions" ON public.suggestions;
+CREATE POLICY "Trainers can manage own suggestions"
 ON public.suggestions FOR ALL
 TO authenticated
 USING (user_id = public.get_my_user_id() OR public.is_admin())
 WITH CHECK (user_id = public.get_my_user_id() OR public.is_admin());
 
 -- 6. Politiques pour la table 'trade_requests'
-DROP POLICY IF EXISTS "Users can view involved trade requests" ON public.trade_requests;
-CREATE POLICY "Users can view involved trade requests"
+DROP POLICY IF EXISTS "Trainers can view involved trade requests" ON public.trade_requests;
+CREATE POLICY "Trainers can view involved trade requests"
 ON public.trade_requests FOR SELECT
 TO authenticated
 USING (requester_id = public.get_my_user_id() OR target_user_id = public.get_my_user_id() OR public.is_admin());
 
-DROP POLICY IF EXISTS "Users can create trade requests" ON public.trade_requests;
-CREATE POLICY "Users can create trade requests"
+DROP POLICY IF EXISTS "Trainers can create trade requests" ON public.trade_requests;
+CREATE POLICY "Trainers can create trade requests"
 ON public.trade_requests FOR INSERT
 TO authenticated
 WITH CHECK (requester_id = public.get_my_user_id() OR public.is_admin());
 
-DROP POLICY IF EXISTS "Users can update involved trade requests" ON public.trade_requests;
-CREATE POLICY "Users can update involved trade requests"
+DROP POLICY IF EXISTS "Trainers can update involved trade requests" ON public.trade_requests;
+CREATE POLICY "Trainers can update involved trade requests"
 ON public.trade_requests FOR UPDATE
 TO authenticated
 USING (requester_id = public.get_my_user_id() OR target_user_id = public.get_my_user_id() OR public.is_admin());
@@ -133,12 +133,12 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO anon, authenticated;
 GRANT INSERT, UPDATE, DELETE ON TABLE public.pokedex TO authenticated;
 GRANT INSERT, UPDATE, DELETE ON TABLE public.suggestions TO authenticated;
 GRANT INSERT, UPDATE, DELETE ON TABLE public.trade_requests TO authenticated;
-GRANT UPDATE ON TABLE public.users TO authenticated;
+GRANT UPDATE ON TABLE public.trainers TO authenticated;
 
 -- 9. Protection des colonnes sensibles
 -- On révoque l'accès à la colonne password pour les rôles anon et authenticated
 -- (Le backend continuera d'y avoir accès via le rôle postgres/service_role)
-REVOKE SELECT (password) ON public.users FROM anon, authenticated;
+REVOKE SELECT (password) ON public.trainers FROM anon, authenticated;
 
 -- 10. Email Verification Codes (System only)
 -- On n'autorise aucun accès via PostgREST (anon/authenticated)

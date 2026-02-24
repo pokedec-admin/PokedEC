@@ -114,21 +114,21 @@ async function runMigrations() {
 
     console.log('🛠️ Applying structural updates...');
     // Ensure trainer_name is NOT NULL
-    await runStep('users.trainer_name_not_null', 'ALTER TABLE users ALTER COLUMN trainer_name SET NOT NULL');
+    await runStep('trainers.trainer_name_not_null', 'ALTER TABLE trainers ALTER COLUMN trainer_name SET NOT NULL');
 
     // Ensure email is NOT UNIQUE if it's shared between Supabase accounts (rare but possible during migrations)
     // Actually we keep it unique but handle the linking.
-    await runStep('users.email_un-unique', 'ALTER TABLE users DROP CONSTRAINT IF EXISTS users_email_key');
+    await runStep('trainers.email_un-unique', 'ALTER TABLE trainers DROP CONSTRAINT IF EXISTS users_email_key');
 
     // Drop old columns if they exist
-    await runStep('users.address_country_drop', 'ALTER TABLE users DROP COLUMN IF EXISTS address_country');
+    await runStep('trainers.address_country_drop', 'ALTER TABLE trainers DROP COLUMN IF EXISTS address_country');
 
     // Add new columns for auth sync if missing
-    await runStep('Add supabase_uid to users', 'ALTER TABLE users ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
+    await runStep('Add supabase_uid to trainers', 'ALTER TABLE trainers ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
 
     // Add indexes for performance
-    await runStep('users.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_users_supabase_uid ON users(supabase_uid)');
-    await runStep('users.idx_email', 'CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+    await runStep('trainers.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_users_supabase_uid ON users(supabase_uid)');
+    await runStep('trainers.idx_email', 'CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
 
     // Migrate data from supabase_id to supabase_uid if needed
     try {

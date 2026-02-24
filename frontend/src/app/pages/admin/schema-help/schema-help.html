@@ -25,8 +25,9 @@
             <div class="section-content" [class.show]="section.expanded">
 
                 <!-- Users Table -->
-                <div *ngIf="section.content === 'users'" class="content">
-                    <p class="description">User accounts for the application.</p>
+                <!-- Trainers Table -->
+                <div *ngIf="section.content === 'trainers'" class="content">
+                    <p class="description">Trainer accounts for the application.</p>
                     <div class="table-responsive">
                         <table class="attr-table">
                             <thead>
@@ -41,19 +42,19 @@
                                 <tr>
                                     <td><code>id</code></td>
                                     <td>SERIAL</td>
-                                    <td>Unique user identifier</td>
+                                    <td>Unique trainer identifier</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
                                     <td><code>email</code></td>
                                     <td>VARCHAR(255)</td>
-                                    <td>User email</td>
+                                    <td>Trainer email</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
                                     <td><code>password</code></td>
                                     <td>VARCHAR(255)</td>
-                                    <td>Hashed password</td>
+                                    <td>Hashed password (unused if Supabase Auth)</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
@@ -69,9 +70,9 @@
                                     <td>-</td>
                                 </tr>
                                 <tr>
-                                    <td><code>phone</code></td>
-                                    <td>VARCHAR(20)</td>
-                                    <td>Contact phone</td>
+                                    <td><code>contact_methods</code></td>
+                                    <td>TEXT[]</td>
+                                    <td>List of contact methods</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
@@ -99,160 +100,16 @@
                                     <td>'fr'</td>
                                 </tr>
                                 <tr>
-                                    <td><code>campfire_name</code></td>
-                                    <td>VARCHAR(255)</td>
-                                    <td>Campfire username</td>
+                                    <td><code>supabase_uid</code></td>
+                                    <td>UUID</td>
+                                    <td>Supabase Auth UID</td>
                                     <td>-</td>
                                 </tr>
                                 <tr>
-                                    <td><code>whatsapp_group</code></td>
-                                    <td>VARCHAR(255)</td>
-                                    <td>Community group</td>
-                                    <td>-</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Pokedex Table -->
-                <div *ngIf="section.content === 'pokedex'" class="content">
-                    <p class="description">User Pokemon collection data with variant tracking.</p>
-                    <div class="table-responsive">
-                        <table class="attr-table">
-                            <thead>
-                                <tr>
-                                    <th>Attribute</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><code>id</code></td>
-                                    <td>SERIAL</td>
-                                    <td>Entry ID</td>
-                                </tr>
-                                <tr>
-                                    <td><code>user_id</code></td>
-                                    <td>INTEGER</td>
-                                    <td>Owner FK</td>
-                                </tr>
-                                <tr>
-                                    <td><code>pokemon_id</code></td>
-                                    <td>INTEGER</td>
-                                    <td>National Dex #</td>
-                                </tr>
-                                <tr class="category-row">
-                                    <td colspan="3"><strong>Variants (Collected)</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_shiny</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Shiny/Chromatique</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_lucky</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Lucky/Chanceux</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_xxl</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>XXL size</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_xxs</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>XXS size</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_gmax</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Gigantamax</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_dynamax</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Dynamax</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_mega</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Mega Evolution</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_obscure</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Shadow</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_purifie</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Purified</td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_parfait</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Perfect IV</td>
-                                </tr>
-                                <tr class="category-row">
-                                    <td colspan="3"><strong>Trade Flags</strong></td>
-                                </tr>
-                                <tr>
-                                    <td><code>has_trade</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Normal for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_shiny</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Shiny for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_xxl</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>XXL for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_xxs</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>XXS for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_gmax</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>G-MAX for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_dynamax</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Dynamax for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_mega</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Mega for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_purified</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Purified for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_legendary</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Legendary for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_mythical</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Mythical for trade</td>
-                                </tr>
-                                <tr>
-                                    <td><code>trade_ultra_beast</code></td>
-                                    <td>BOOLEAN</td>
-                                    <td>Ultra Beast for trade</td>
+                                    <td><code>created_at</code></td>
+                                    <td>TIMESTAMP</td>
+                                    <td>Creation date</td>
+                                    <td>NOW()</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -524,7 +381,7 @@
                             <td>Suggestion ID</td>
                         </tr>
                         <tr>
-                            <td><code>user_id</code></td>
+                            <td><code>trainer_id</code></td>
                             <td>INTEGER (FK)</td>
                             <td>Author</td>
                         </tr>
@@ -566,7 +423,7 @@
                     <h4>Trade System</h4>
                     <ul class="logic-list">
                         <li>Users mark variants as "for trade" using trade flags</li>
-                        <li><code>GET /pokedex/trade-available</code> shows Pokemon from other users</li>
+                        <li><code>GET /pokedex/trade-available</code> shows Pokemon from other trainers</li>
                         <li>Trade flags are mutually exclusive for exclusive categories</li>
                     </ul>
                 </div>
@@ -584,19 +441,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>users</td>
+                                <td>trainers</td>
                                 <td>pokedex</td>
                                 <td>One-to-Many</td>
                                 <td>CASCADE</td>
                             </tr>
                             <tr>
-                                <td>users</td>
+                                <td>trainers</td>
                                 <td>suggestions</td>
                                 <td>One-to-Many</td>
                                 <td>CASCADE</td>
                             </tr>
                             <tr>
-                                <td>users</td>
+                                <td>trainers</td>
                                 <td>pokemon_master</td>
                                 <td>One-to-Many (updated_by)</td>
                                 <td>SET NULL</td>
@@ -615,7 +472,7 @@
                 <div *ngIf="section.content === 'files'" class="content">
                     <h4>Backend Models</h4>
                     <ul class="file-list">
-                        <li><code>backend/src/models/user.js</code></li>
+                        <li><code>backend/src/models/trainer.js</code></li>
                         <li><code>backend/src/models/pokedex.js</code></li>
                         <li><code>backend/src/models/pokemon_master.js</code></li>
                         <li><code>backend/src/models/pokemon_category_availability.js</code></li>
