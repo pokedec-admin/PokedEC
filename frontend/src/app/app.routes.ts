@@ -60,8 +60,8 @@ export const routes: Routes = [
     { path: 'suggestion', component: Suggestion, canActivate: [authGuard] },
     { path: 'admin', component: Admin, canActivate: [authGuard] },
     {
-        path: 'admin/users',
-        loadComponent: () => import('./pages/admin/users/users').then(m => m.AdminUsersComponent),
+        path: 'admin/trainers',
+        loadComponent: () => import('./pages/admin/trainers/trainers').then(m => m.AdminTrainersComponent),
         canActivate: [authGuard]
     },
     {

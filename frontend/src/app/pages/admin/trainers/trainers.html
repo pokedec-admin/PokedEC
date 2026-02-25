@@ -1,7 +1,7 @@
 <div class="admin-container">
     <div class="admin-header">
         <button class="back-btn" routerLink="/admin">← Retour Menu</button>
-        <h2>👥 Gestion Utilisateurs</h2>
+        <h2>👥 Gestion Dresseurs</h2>
     </div>
 
     <!-- Messages -->
@@ -9,32 +9,32 @@
     <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
 
     <div class="section-header">
-        <p class="subtitle">Gérer tous les utilisateurs de l'application</p>
-        <button class="btn-create" (click)="showCreateUserForm = !showCreateUserForm">
-            {{ showCreateUserForm ? 'Annuler' : '➕ Créer un utilisateur' }}
+        <p class="subtitle">Gérer tous les dresseurs de l'application</p>
+        <button class="btn-create" (click)="showCreateDresseurForm = !showCreateDresseurForm">
+            {{ showCreateDresseurForm ? 'Annuler' : '➕ Créer un dresseur' }}
         </button>
     </div>
 
-    <!-- Create User Form -->
-    <div *ngIf="showCreateUserForm" class="create-user-form">
-        <h3>Nouvel Utilisateur</h3>
+    <!-- Create Dresseur Form -->
+    <div *ngIf="showCreateDresseurForm" class="create-user-form">
+        <h3>Nouvel Dresseur</h3>
         <div class="form-group">
-            <input type="text" [(ngModel)]="newUser.trainer_name" placeholder="Nom de dresseur" required>
-            <input type="email" [(ngModel)]="newUser.email" placeholder="Email" required>
-            <input type="password" [(ngModel)]="newUser.password" placeholder="Mot de passe" required>
-            <select [(ngModel)]="newUser.team">
+            <input type="text" [(ngModel)]="newDresseur.trainer_name" placeholder="Nom de dresseur" required>
+            <input type="email" [(ngModel)]="newDresseur.email" placeholder="Email" required>
+            <input type="password" [(ngModel)]="newDresseur.password" placeholder="Mot de passe" required>
+            <select [(ngModel)]="newDresseur.team">
                 <option value="">Équipe (Optionnel)</option>
                 <option value="Mystic">Mystic</option>
                 <option value="Valor">Valor</option>
                 <option value="Instinct">Instinct</option>
             </select>
             <label class="checkbox-label">
-                <input type="checkbox" [(ngModel)]="newUser.is_admin"> Admin
+                <input type="checkbox" [(ngModel)]="newDresseur.is_admin"> Admin
             </label>
             <label class="checkbox-label">
-                <input type="checkbox" [(ngModel)]="newUser.is_active"> Actif
+                <input type="checkbox" [(ngModel)]="newDresseur.is_active"> Actif
             </label>
-            <button (click)="createUser()" class="btn-save">Créer</button>
+            <button (click)="createDresseur()" class="btn-save">Créer</button>
         </div>
     </div>
 
@@ -92,11 +92,11 @@
                         </span>
                     </td>
                     <td>
-                        <span [class.admin-badge]="user.is_admin">{{ user.is_admin ? '👑 Admin' : 'User' }}</span>
+                        <span [class.admin-badge]="user.is_admin">{{ user.is_admin ? '👑 Admin' : 'Dresseur' }}</span>
                     </td>
                     <td class="actions">
                         <button *ngIf="!user.editing" (click)="startEdit(user)" class="btn-edit">Modifier</button>
-                        <button *ngIf="user.editing" (click)="saveUser(user)" class="btn-save">Enregistrer</button>
+                        <button *ngIf="user.editing" (click)="saveDresseur(user)" class="btn-save">Enregistrer</button>
                         <button *ngIf="user.editing" (click)="cancelEdit(user)" class="btn-cancel">Annuler</button>
                         <button (click)="toggleAdminStatus(user)" class="btn-admin">
                             {{ user.is_admin ? 'Retirer Admin' : 'Promouvoir Admin' }}
@@ -111,5 +111,5 @@
             </tbody>
         </table>
     </div>
-    <p *ngIf="users.length === 0" class="no-data">Aucun utilisateur trouvé.</p>
+    <p *ngIf="users.length === 0" class="no-data">Aucun dresseur trouvé.</p>
 </div>

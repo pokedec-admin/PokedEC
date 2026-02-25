@@ -66,3 +66,15 @@ Assurez-vous que votre frontend et votre backend ont les bonnes clés :
 
 ---
 *Besoin d'aide ? Consultez la [documentation officielle de Supabase](https://supabase.com/docs/guides/auth).*
+
+---
+
+## 6. Protection contre les mots de passe compromis (Security)
+Pour renforcer la sécurité de vos utilisateurs, Supabase propose une option pour empêcher l'utilisation de mots de passe connus pour avoir été fuités (via HaveIBeenPwned).
+
+1. Allez dans **Authentication** > **Settings**.
+2. Faites défiler jusqu'à la section **Security**.
+3. Activez l'option **Prevent use of compromised passwords**.
+4. Cliquez sur **Save**.
+
+Cela ajoutera une couche de protection supplémentaire lors de l'inscription ou du changement de mot de passe.

@@ -40,7 +40,7 @@ async function runImport() {
         console.log('📥 Fetching users from PROD...');
         const usersResult = await prodPool.query(`
       SELECT id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team
-      FROM users 
+      FROM trainers
       ORDER BY id
     `);
         const users = usersResult.rows;
@@ -83,7 +83,7 @@ async function runImport() {
         console.log('📤 Importing users to DEV...');
         for (const user of users) {
             await localPool.query(`
-        INSERT INTO users (id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team)
+        INSERT INTO trainers (id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
         ON CONFLICT (id) DO UPDATE 
         SET email = EXCLUDED.email,

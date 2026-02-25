@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS pokemon_category_availability (
     can_be_perfect BOOLEAN DEFAULT true,
     can_be_normal BOOLEAN DEFAULT true,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    updated_by INTEGER REFERENCES trainers(id)
 );
 
 -- Index for faster lookups

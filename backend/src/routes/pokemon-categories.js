@@ -55,7 +55,7 @@ router.get('/', authenticateAdmin, async (req, res) => {
             u.trainer_name as updated_by_name
              FROM generate_series(1, 1025) AS gs(pokemon_id)
              LEFT JOIN pokemon_category_availability pca ON gs.pokemon_id = pca.pokemon_id AND pca.form_name = 'Normal'
-             LEFT JOIN users u ON pca.updated_by = u.id
+             LEFT JOIN trainers u ON pca.updated_by = u.id
              WHERE CAST(gs.pokemon_id AS TEXT) LIKE $1
              ORDER BY gs.pokemon_id
              LIMIT $2 OFFSET $3`,

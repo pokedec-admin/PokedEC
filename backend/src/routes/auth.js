@@ -25,7 +25,7 @@ router.post('/identify', async (req, res) => {
     if (!identifier) return res.status(400).json({ error: 'Identifier required' });
 
     try {
-        const result = await pool.query('SELECT email FROM users WHERE LOWER(trainer_name) = LOWER($1) OR LOWER(email) = LOWER($1)', [identifier]);
+        const result = await pool.query('SELECT email FROM trainers WHERE LOWER(trainer_name) = LOWER($1) OR LOWER(email) = LOWER($1)', [identifier]);
         if (result.rows.length > 0) {
             return res.json({ email: result.rows[0].email });
         }
@@ -39,7 +39,7 @@ router.post('/identify', async (req, res) => {
 // Profile Routes
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
+        const result = await pool.query('SELECT * FROM trainers WHERE id = $1', [req.user.id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'User profile not found' });
         }
@@ -54,7 +54,7 @@ router.put('/profile', authenticateToken, async (req, res) => {
     const { trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group } = req.body;
     try {
         const result = await pool.query(
-            `UPDATE users
+            `UPDATE trainers
              SET trainer_name = COALESCE($1, trainer_name),
                  team = COALESCE($2, team),
                  phone = COALESCE($3, phone),
@@ -97,7 +97,7 @@ router.post('/signup', async (req, res) => {
     // Sync to local DB
     try {
         await pool.query(
-            'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4',
+            'INSERT INTO trainers (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4',
             [email, trainer_name, team, data.user.id]
         );
     } catch (e) {
@@ -112,14 +112,14 @@ router.post('/login', async (req, res) => {
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return res.status(error.status || 400).json({ error: error.message });
 
-    let userResult = await pool.query('SELECT * FROM users WHERE supabase_uid = $1 OR email = $2', [data.user.id, data.user.email]);
+    let userResult = await pool.query('SELECT * FROM trainers WHERE supabase_uid = $1 OR email = $2', [data.user.id, data.user.email]);
     let backendUser = userResult.rows[0];
 
     if (!backendUser) {
         // Auto-provision if missing during login too
         try {
              const insertResult = await pool.query(
-                'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) RETURNING *',
+                'INSERT INTO trainers (email, trainer_name, team, supabase_uid, email_verified) VALUES ($1, $2, $3, $4, true) RETURNING *',
                 [data.user.email, data.user.user_metadata?.trainer_name || data.user.email.split('@')[0], data.user.user_metadata?.team || '', data.user.id]
             );
             backendUser = insertResult.rows[0];

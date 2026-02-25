@@ -1,6 +1,6 @@
-const createUsersTable = async (pool) => {
+const createTrainersTable = async (pool) => {
   const query = `
-    CREATE TABLE IF NOT EXISTS users (
+    CREATE TABLE IF NOT EXISTS trainers (
       id SERIAL PRIMARY KEY,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255),
@@ -20,4 +20,4 @@ const createUsersTable = async (pool) => {
   return pool.query(query);
 };
 
-module.exports = { createUsersTable };
+module.exports = { createTrainersTable };

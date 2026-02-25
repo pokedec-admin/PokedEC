@@ -2,7 +2,7 @@ const createPokedexTable = async (pool) => {
   const query = `
     CREATE TABLE IF NOT EXISTS pokedex (
       id SERIAL PRIMARY KEY,
-      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES trainers(id) ON DELETE CASCADE,
       pokemon_id INTEGER NOT NULL,
       name VARCHAR(255) NOT NULL,
       name_fr VARCHAR(255),

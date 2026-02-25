@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS pokemon_master (
     -- Metadata
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
-    updated_by INTEGER REFERENCES users(id)
+    updated_by INTEGER REFERENCES trainers(id)
 );
 
 -- Create indexes for performance

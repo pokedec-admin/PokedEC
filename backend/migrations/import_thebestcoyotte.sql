@@ -2,7 +2,7 @@
 -- Generated: 2025-11-23T00:17:15.047Z
 
 -- Insert user (will skip if email already exists)
-INSERT INTO users (
+INSERT INTO trainers (
     email, password, trainer_name, team, phone, preferred_language,
     campfire_name, whatsapp_group, is_admin, email_verified
 ) VALUES (
@@ -34,7 +34,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1,
     'Bulbizarre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
@@ -96,7 +96,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     2,
     'Herbizarre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
@@ -158,7 +158,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     3,
     'Florizarre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/3.png',
@@ -220,7 +220,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     4,
     'Salamèche',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
@@ -282,7 +282,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     5,
     'Reptincel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/5.png',
@@ -344,7 +344,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     6,
     'Dracaufeu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png',
@@ -406,7 +406,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     7,
     'Carapuce',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
@@ -468,7 +468,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     8,
     'Carabaffe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/8.png',
@@ -530,7 +530,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     9,
     'Tortank',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
@@ -592,7 +592,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     10,
     'Chenipan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/10.png',
@@ -654,7 +654,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     11,
     'Chrysacier',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/11.png',
@@ -716,7 +716,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     12,
     'Papilusion',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/12.png',
@@ -778,7 +778,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     13,
     'Aspicot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/13.png',
@@ -840,7 +840,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     14,
     'Coconfort',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/14.png',
@@ -902,7 +902,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     15,
     'Dardargnan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/15.png',
@@ -964,7 +964,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     16,
     'Roucool',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/16.png',
@@ -1026,7 +1026,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     17,
     'Roucoups',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/17.png',
@@ -1088,7 +1088,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     18,
     'Roucarnage',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/18.png',
@@ -1150,7 +1150,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     19,
     'Rattata',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png',
@@ -1212,7 +1212,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     20,
     'Rattatac',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png',
@@ -1274,7 +1274,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     21,
     'Piafabec',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/21.png',
@@ -1336,7 +1336,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     22,
     'Rapasdepic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/22.png',
@@ -1398,7 +1398,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     23,
     'Abo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/23.png',
@@ -1460,7 +1460,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     24,
     'Arbok',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png',
@@ -1522,7 +1522,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     25,
     'Pikachu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png',
@@ -1584,7 +1584,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     26,
     'Raichu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/26.png',
@@ -1646,7 +1646,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     27,
     'Sabelette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/27.png',
@@ -1708,7 +1708,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     28,
     'Sablaireau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/28.png',
@@ -1770,7 +1770,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     29,
     'Nidoran♀',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/29.png',
@@ -1832,7 +1832,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     30,
     'Nidorina',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/30.png',
@@ -1894,7 +1894,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     31,
     'Nidoqueen',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/31.png',
@@ -1956,7 +1956,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     32,
     'Nidoran♂',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/32.png',
@@ -2018,7 +2018,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     33,
     'Nidorino',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png',
@@ -2080,7 +2080,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     34,
     'Nidoking',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/34.png',
@@ -2142,7 +2142,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     35,
     'Mélofée',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png',
@@ -2204,7 +2204,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     36,
     'Mélodelfe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/36.png',
@@ -2266,7 +2266,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     37,
     'Goupix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png',
@@ -2328,7 +2328,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     38,
     'Feunard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png',
@@ -2390,7 +2390,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     39,
     'Rondoudou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/39.png',
@@ -2452,7 +2452,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     40,
     'Grodoudou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/40.png',
@@ -2514,7 +2514,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     41,
     'Nosferapti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/41.png',
@@ -2576,7 +2576,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     42,
     'Nosferalto',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/42.png',
@@ -2638,7 +2638,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     43,
     'Mystherbe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/43.png',
@@ -2700,7 +2700,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     44,
     'Ortide',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/44.png',
@@ -2762,7 +2762,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     45,
     'Rafflesia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/45.png',
@@ -2824,7 +2824,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     46,
     'Paras',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/46.png',
@@ -2886,7 +2886,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     47,
     'Parasect',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/47.png',
@@ -2948,7 +2948,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     48,
     'Mimitoss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/48.png',
@@ -3010,7 +3010,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     49,
     'Aéromite',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/49.png',
@@ -3072,7 +3072,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     50,
     'Taupiqueur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png',
@@ -3134,7 +3134,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     51,
     'Triopikeur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/51.png',
@@ -3196,7 +3196,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     52,
     'Miaouss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/52.png',
@@ -3258,7 +3258,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     53,
     'Persian',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/53.png',
@@ -3320,7 +3320,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     54,
     'Psykokwak',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/54.png',
@@ -3382,7 +3382,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     55,
     'Akwakwak',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/55.png',
@@ -3444,7 +3444,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     56,
     'Férosinge',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/56.png',
@@ -3506,7 +3506,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     57,
     'Colossinge',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/57.png',
@@ -3568,7 +3568,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     58,
     'Caninos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/58.png',
@@ -3630,7 +3630,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     59,
     'Arcanin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/59.png',
@@ -3692,7 +3692,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     60,
     'Ptitard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png',
@@ -3754,7 +3754,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     61,
     'Têtarte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/61.png',
@@ -3816,7 +3816,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     62,
     'Tartard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/62.png',
@@ -3878,7 +3878,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     63,
     'Abra',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png',
@@ -3940,7 +3940,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     64,
     'Kadabra',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/64.png',
@@ -4002,7 +4002,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     65,
     'Alakazam',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/65.png',
@@ -4064,7 +4064,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     66,
     'Machoc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/66.png',
@@ -4126,7 +4126,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     67,
     'Machopeur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/67.png',
@@ -4188,7 +4188,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     68,
     'Mackogneur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/68.png',
@@ -4250,7 +4250,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     69,
     'Chétiflor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/69.png',
@@ -4312,7 +4312,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     70,
     'Boustiflor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/70.png',
@@ -4374,7 +4374,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     71,
     'Empiflor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/71.png',
@@ -4436,7 +4436,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     72,
     'Tentacool',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/72.png',
@@ -4498,7 +4498,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     73,
     'Tentacruel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/73.png',
@@ -4560,7 +4560,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     74,
     'Racaillou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/74.png',
@@ -4622,7 +4622,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     75,
     'Gravalanch',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/75.png',
@@ -4684,7 +4684,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     76,
     'Grolem',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/76.png',
@@ -4746,7 +4746,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     77,
     'Ponyta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/77.png',
@@ -4808,7 +4808,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     78,
     'Galopa',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/78.png',
@@ -4870,7 +4870,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     79,
     'Ramoloss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/79.png',
@@ -4932,7 +4932,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     80,
     'Flagadoss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png',
@@ -4994,7 +4994,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     81,
     'Magnéti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/81.png',
@@ -5056,7 +5056,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     82,
     'Magnéton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/82.png',
@@ -5118,7 +5118,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     83,
     'Canarticho',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/83.png',
@@ -5180,7 +5180,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     84,
     'Doduo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/84.png',
@@ -5242,7 +5242,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     85,
     'Dodrio',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/85.png',
@@ -5304,7 +5304,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     86,
     'Otaria',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/86.png',
@@ -5366,7 +5366,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     87,
     'Lamantine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/87.png',
@@ -5428,7 +5428,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     88,
     'Tadmorv',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/88.png',
@@ -5490,7 +5490,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     89,
     'Grotadmorv',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png',
@@ -5552,7 +5552,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     90,
     'Kokiyas',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/90.png',
@@ -5614,7 +5614,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     91,
     'Crustabri',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/91.png',
@@ -5676,7 +5676,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     92,
     'Fantominus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/92.png',
@@ -5738,7 +5738,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     93,
     'Spectrum',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/93.png',
@@ -5800,7 +5800,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     94,
     'Ectoplasma',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png',
@@ -5862,7 +5862,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     95,
     'Onix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/95.png',
@@ -5924,7 +5924,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     96,
     'Soporifik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png',
@@ -5986,7 +5986,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     97,
     'Hypnomade',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/97.png',
@@ -6048,7 +6048,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     98,
     'Krabby',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/98.png',
@@ -6110,7 +6110,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     99,
     'Krabboss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/99.png',
@@ -6172,7 +6172,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     100,
     'Voltorbe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/100.png',
@@ -6234,7 +6234,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     101,
     'Électrode',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/101.png',
@@ -6296,7 +6296,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     102,
     'Noeunoeuf',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/102.png',
@@ -6358,7 +6358,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     103,
     'Noadkoko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/103.png',
@@ -6420,7 +6420,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     104,
     'Osselait',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/104.png',
@@ -6482,7 +6482,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     105,
     'Ossatueur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/105.png',
@@ -6544,7 +6544,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     106,
     'Kicklee',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/106.png',
@@ -6606,7 +6606,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     107,
     'Tygnon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/107.png',
@@ -6668,7 +6668,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     108,
     'Excelangue',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/108.png',
@@ -6730,7 +6730,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     109,
     'Smogo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/109.png',
@@ -6792,7 +6792,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     110,
     'Smogogo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/110.png',
@@ -6854,7 +6854,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     111,
     'Rhinocorne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/111.png',
@@ -6916,7 +6916,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     112,
     'Rhinoféros',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png',
@@ -6978,7 +6978,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     113,
     'Leveinard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/113.png',
@@ -7040,7 +7040,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     114,
     'Saquedeneu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/114.png',
@@ -7102,7 +7102,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     115,
     'Kangourex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/115.png',
@@ -7164,7 +7164,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     116,
     'Hypotrempe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/116.png',
@@ -7226,7 +7226,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     117,
     'Hypocéan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/117.png',
@@ -7288,7 +7288,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     118,
     'Poissirène',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/118.png',
@@ -7350,7 +7350,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     119,
     'Poissoroy',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/119.png',
@@ -7412,7 +7412,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     120,
     'Stari',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/120.png',
@@ -7474,7 +7474,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     121,
     'Staross',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/121.png',
@@ -7536,7 +7536,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     122,
     'M. Mime',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/122.png',
@@ -7598,7 +7598,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     123,
     'Insécateur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png',
@@ -7660,7 +7660,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     124,
     'Lippoutou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/124.png',
@@ -7722,7 +7722,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     125,
     'Élektek',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/125.png',
@@ -7784,7 +7784,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     126,
     'Magmar',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/126.png',
@@ -7846,7 +7846,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     127,
     'Scarabrute',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/127.png',
@@ -7908,7 +7908,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     128,
     'Tauros',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/128.png',
@@ -7970,7 +7970,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     129,
     'Magicarpe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/129.png',
@@ -8032,7 +8032,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     130,
     'Léviator',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png',
@@ -8094,7 +8094,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     131,
     'Lokhlass',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/131.png',
@@ -8156,7 +8156,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     132,
     'Métamorph',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
@@ -8218,7 +8218,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     133,
     'Évoli',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/133.png',
@@ -8280,7 +8280,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     134,
     'Aquali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/134.png',
@@ -8342,7 +8342,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     135,
     'Voltali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/135.png',
@@ -8404,7 +8404,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     136,
     'Pyroli',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/136.png',
@@ -8466,7 +8466,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     137,
     'Porygon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/137.png',
@@ -8528,7 +8528,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     138,
     'Amonita',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/138.png',
@@ -8590,7 +8590,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     139,
     'Amonistar',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/139.png',
@@ -8652,7 +8652,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     140,
     'Kabuto',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/140.png',
@@ -8714,7 +8714,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     141,
     'Kabutops',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/141.png',
@@ -8776,7 +8776,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     142,
     'Ptéra',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/142.png',
@@ -8838,7 +8838,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     143,
     'Ronflex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png',
@@ -8900,7 +8900,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     144,
     'Artikodin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/144.png',
@@ -8962,7 +8962,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     145,
     'Électhor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/145.png',
@@ -9024,7 +9024,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     146,
     'Sulfura',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/146.png',
@@ -9086,7 +9086,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     147,
     'Minidraco',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/147.png',
@@ -9148,7 +9148,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     148,
     'Draco',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/148.png',
@@ -9210,7 +9210,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     149,
     'Dracolosse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/149.png',
@@ -9272,7 +9272,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     150,
     'Mewtwo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png',
@@ -9334,7 +9334,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     151,
     'Mew',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/151.png',
@@ -9396,7 +9396,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     152,
     'Germignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/152.png',
@@ -9458,7 +9458,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     153,
     'Macronium',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/153.png',
@@ -9520,7 +9520,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     154,
     'Méganium',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/154.png',
@@ -9582,7 +9582,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     155,
     'Héricendre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/155.png',
@@ -9644,7 +9644,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     156,
     'Feurisson',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/156.png',
@@ -9706,7 +9706,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     157,
     'Typhlosion',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/157.png',
@@ -9768,7 +9768,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     158,
     'Kaiminus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/158.png',
@@ -9830,7 +9830,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     159,
     'Crocrodil',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/159.png',
@@ -9892,7 +9892,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     160,
     'Aligatueur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/160.png',
@@ -9954,7 +9954,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     161,
     'sentret',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/161.png',
@@ -10016,7 +10016,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     162,
     'Fouinar',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/162.png',
@@ -10078,7 +10078,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     163,
     'Hoothoot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/163.png',
@@ -10140,7 +10140,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     164,
     'Noarfang',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/164.png',
@@ -10202,7 +10202,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     165,
     'Coxy',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/165.png',
@@ -10264,7 +10264,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     166,
     'Coxyclaque',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/166.png',
@@ -10326,7 +10326,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     167,
     'Mimigal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/167.png',
@@ -10388,7 +10388,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     168,
     'Migalos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/168.png',
@@ -10450,7 +10450,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     169,
     'Nostenfer',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/169.png',
@@ -10512,7 +10512,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     170,
     'Loupio',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/170.png',
@@ -10574,7 +10574,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     171,
     'Lanturn',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/171.png',
@@ -10636,7 +10636,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     172,
     'Pichu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/172.png',
@@ -10698,7 +10698,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     173,
     'Mélo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/173.png',
@@ -10760,7 +10760,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     174,
     'Toudoudou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/174.png',
@@ -10822,7 +10822,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     175,
     'Togepi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/175.png',
@@ -10884,7 +10884,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     176,
     'Togetic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/176.png',
@@ -10946,7 +10946,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     177,
     'Natu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/177.png',
@@ -11008,7 +11008,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     178,
     'Xatu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/178.png',
@@ -11070,7 +11070,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     179,
     'Wattouat',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/179.png',
@@ -11132,7 +11132,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     180,
     'flaaffy',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/180.png',
@@ -11194,7 +11194,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     181,
     'Pharamp',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/181.png',
@@ -11256,7 +11256,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     182,
     'Joliflor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/182.png',
@@ -11318,7 +11318,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     183,
     'Marill',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/183.png',
@@ -11380,7 +11380,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     184,
     'Azumarill',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/184.png',
@@ -11442,7 +11442,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     185,
     'Simularbre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/185.png',
@@ -11504,7 +11504,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     186,
     'Tarpaud',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/186.png',
@@ -11566,7 +11566,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     187,
     'Granivol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/187.png',
@@ -11628,7 +11628,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     188,
     'Floravol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/188.png',
@@ -11690,7 +11690,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     189,
     'Cotovol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/189.png',
@@ -11752,7 +11752,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     190,
     'Capumain',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/190.png',
@@ -11814,7 +11814,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     191,
     'Tournegrin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/191.png',
@@ -11876,7 +11876,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     192,
     'Héliatronc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/192.png',
@@ -11938,7 +11938,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     193,
     'Yanma',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/193.png',
@@ -12000,7 +12000,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     194,
     'Axoloto',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/194.png',
@@ -12062,7 +12062,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     195,
     'Maraiste',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/195.png',
@@ -12124,7 +12124,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     196,
     'Mentali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/196.png',
@@ -12186,7 +12186,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     197,
     'Noctali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/197.png',
@@ -12248,7 +12248,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     198,
     'Cornèbre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/198.png',
@@ -12310,7 +12310,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     199,
     'Roigada',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/199.png',
@@ -12372,7 +12372,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     200,
     'Feuforêve',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/200.png',
@@ -12434,7 +12434,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     201,
     'Zarbi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/201.png',
@@ -12496,7 +12496,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     202,
     'Qulbutoké',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/202.png',
@@ -12558,7 +12558,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     203,
     'Girafarig',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/203.png',
@@ -12620,7 +12620,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     204,
     'Pomdepik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/204.png',
@@ -12682,7 +12682,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     205,
     'Foretress',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/205.png',
@@ -12744,7 +12744,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     206,
     'Insolourdo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/206.png',
@@ -12806,7 +12806,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     207,
     'Scorplane',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/207.png',
@@ -12868,7 +12868,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     208,
     'Steelix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/208.png',
@@ -12930,7 +12930,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     209,
     'Snubbull',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/209.png',
@@ -12992,7 +12992,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     210,
     'Granbull',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/210.png',
@@ -13054,7 +13054,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     211,
     'Qwilfish',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/211.png',
@@ -13116,7 +13116,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     212,
     'Cizayox',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png',
@@ -13178,7 +13178,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     213,
     'Caratroc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/213.png',
@@ -13240,7 +13240,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     214,
     'Scarhino',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/214.png',
@@ -13302,7 +13302,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     215,
     'Farfuret',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/215.png',
@@ -13364,7 +13364,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     216,
     'Teddiursa',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/216.png',
@@ -13426,7 +13426,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     217,
     'Ursaring',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/217.png',
@@ -13488,7 +13488,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     218,
     'Limagma',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/218.png',
@@ -13550,7 +13550,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     219,
     'Volcaropod',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/219.png',
@@ -13612,7 +13612,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     220,
     'Marcacrin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/220.png',
@@ -13674,7 +13674,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     221,
     'Cochignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/221.png',
@@ -13736,7 +13736,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     222,
     'Corayon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/222.png',
@@ -13798,7 +13798,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     223,
     'Rémoraid',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/223.png',
@@ -13860,7 +13860,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     224,
     'Octillery',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/224.png',
@@ -13922,7 +13922,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     225,
     'Cadoizo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/225.png',
@@ -13984,7 +13984,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     226,
     'Démanta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/226.png',
@@ -14046,7 +14046,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     227,
     'Airmure',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/227.png',
@@ -14108,7 +14108,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     228,
     'Malosse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/228.png',
@@ -14170,7 +14170,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     229,
     'Démolosse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/229.png',
@@ -14232,7 +14232,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     230,
     'Hyporoi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/230.png',
@@ -14294,7 +14294,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     231,
     'Phanpy',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/231.png',
@@ -14356,7 +14356,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     232,
     'Donphan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/232.png',
@@ -14418,7 +14418,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     233,
     'Porygon2',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/233.png',
@@ -14480,7 +14480,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     234,
     'Cerfrousse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/234.png',
@@ -14542,7 +14542,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     235,
     'Queulorior',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/235.png',
@@ -14604,7 +14604,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     236,
     'Debugant',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/236.png',
@@ -14666,7 +14666,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     237,
     'Kapoera',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/237.png',
@@ -14728,7 +14728,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     238,
     'Lippouti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/238.png',
@@ -14790,7 +14790,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     239,
     'Élekid',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/239.png',
@@ -14852,7 +14852,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     240,
     'Magby',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/240.png',
@@ -14914,7 +14914,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     241,
     'Écrémeuh',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/241.png',
@@ -14976,7 +14976,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     242,
     'Leuphorie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/242.png',
@@ -15038,7 +15038,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     243,
     'Raikou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/243.png',
@@ -15100,7 +15100,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     244,
     'Entei',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/244.png',
@@ -15162,7 +15162,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     245,
     'Suicune',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/245.png',
@@ -15224,7 +15224,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     246,
     'Embrylex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/246.png',
@@ -15286,7 +15286,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     247,
     'Ymphect',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/247.png',
@@ -15348,7 +15348,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     248,
     'Tyranocif',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/248.png',
@@ -15410,7 +15410,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     249,
     'Lugia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png',
@@ -15472,7 +15472,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     250,
     'Ho-Oh',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/250.png',
@@ -15534,7 +15534,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     251,
     'Celebi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/251.png',
@@ -15596,7 +15596,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     252,
     'Arcko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/252.png',
@@ -15658,7 +15658,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     253,
     'Massko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/253.png',
@@ -15720,7 +15720,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     254,
     'Jungko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/254.png',
@@ -15782,7 +15782,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     255,
     'Poussifeu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/255.png',
@@ -15844,7 +15844,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     256,
     'Galifeu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/256.png',
@@ -15906,7 +15906,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     257,
     'Braségali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/257.png',
@@ -15968,7 +15968,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     258,
     'Gobou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/258.png',
@@ -16030,7 +16030,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     259,
     'Flobio',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/259.png',
@@ -16092,7 +16092,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     260,
     'Laggron',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/260.png',
@@ -16154,7 +16154,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     261,
     'Medhyèna',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/261.png',
@@ -16216,7 +16216,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     262,
     'Grahyèna',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/262.png',
@@ -16278,7 +16278,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     263,
     'Zigzaton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/263.png',
@@ -16340,7 +16340,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     264,
     'Linéon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/264.png',
@@ -16402,7 +16402,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     265,
     'Chenipotte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/265.png',
@@ -16464,7 +16464,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     266,
     'Armulys',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/266.png',
@@ -16526,7 +16526,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     267,
     'Charmillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/267.png',
@@ -16588,7 +16588,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     268,
     'Blindalys',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/268.png',
@@ -16650,7 +16650,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     269,
     'Papinox',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/269.png',
@@ -16712,7 +16712,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     270,
     'Nénupiot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/270.png',
@@ -16774,7 +16774,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     271,
     'Lombre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/271.png',
@@ -16836,7 +16836,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     272,
     'Ludicolo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/272.png',
@@ -16898,7 +16898,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     273,
     'Grainipiot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/273.png',
@@ -16960,7 +16960,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     274,
     'Pifeuil',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/274.png',
@@ -17022,7 +17022,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     275,
     'Tengalice',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/275.png',
@@ -17084,7 +17084,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     276,
     'Nirondelle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/276.png',
@@ -17146,7 +17146,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     277,
     'Hélédelle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/277.png',
@@ -17208,7 +17208,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     278,
     'Goélise',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/278.png',
@@ -17270,7 +17270,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     279,
     'Bekipan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/279.png',
@@ -17332,7 +17332,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     280,
     'Tarsal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/280.png',
@@ -17394,7 +17394,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     281,
     'Kirlia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/281.png',
@@ -17456,7 +17456,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     282,
     'Gardevoir',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/282.png',
@@ -17518,7 +17518,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     283,
     'Arakdo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/283.png',
@@ -17580,7 +17580,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     284,
     'Maskadra',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/284.png',
@@ -17642,7 +17642,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     285,
     'Balignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/285.png',
@@ -17704,7 +17704,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     286,
     'Chapignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/286.png',
@@ -17766,7 +17766,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     287,
     'Parecool',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/287.png',
@@ -17828,7 +17828,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     288,
     'Vigoroth',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/288.png',
@@ -17890,7 +17890,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     289,
     'Monaflèmit',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/289.png',
@@ -17952,7 +17952,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     290,
     'Ningale',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/290.png',
@@ -18014,7 +18014,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     291,
     'Ninjask',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/291.png',
@@ -18076,7 +18076,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     292,
     'Munja',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/292.png',
@@ -18138,7 +18138,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     293,
     'Chuchmur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/293.png',
@@ -18200,7 +18200,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     294,
     'Ramboum',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/294.png',
@@ -18262,7 +18262,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     295,
     'Brouhabam',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/295.png',
@@ -18324,7 +18324,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     296,
     'Makuhita',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/296.png',
@@ -18386,7 +18386,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     297,
     'Hariyama',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/297.png',
@@ -18448,7 +18448,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     298,
     'Azurill',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/298.png',
@@ -18510,7 +18510,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     299,
     'Tarinor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/299.png',
@@ -18572,7 +18572,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     300,
     'Skitty',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/300.png',
@@ -18634,7 +18634,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     301,
     'Delcatty',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/301.png',
@@ -18696,7 +18696,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     302,
     'Ténéfix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/302.png',
@@ -18758,7 +18758,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     303,
     'Mysdibule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/303.png',
@@ -18820,7 +18820,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     304,
     'Galekid',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/304.png',
@@ -18882,7 +18882,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     305,
     'Galegon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/305.png',
@@ -18944,7 +18944,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     306,
     'Galeking',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/306.png',
@@ -19006,7 +19006,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     307,
     'Méditikka',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/307.png',
@@ -19068,7 +19068,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     308,
     'Charmina',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/308.png',
@@ -19130,7 +19130,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     309,
     'Dynavolt',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/309.png',
@@ -19192,7 +19192,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     310,
     'Élecsprint',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/310.png',
@@ -19254,7 +19254,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     311,
     'Posipi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/311.png',
@@ -19316,7 +19316,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     312,
     'Négapi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/312.png',
@@ -19378,7 +19378,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     313,
     'Muciole',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/313.png',
@@ -19440,7 +19440,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     314,
     'Lumivole',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/314.png',
@@ -19502,7 +19502,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     315,
     'Rosélia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/315.png',
@@ -19564,7 +19564,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     316,
     'Gloupti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/316.png',
@@ -19626,7 +19626,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     317,
     'Avaltout',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/317.png',
@@ -19688,7 +19688,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     318,
     'Carvanha',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/318.png',
@@ -19750,7 +19750,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     319,
     'Sharpedo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/319.png',
@@ -19812,7 +19812,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     320,
     'Wailmer',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/320.png',
@@ -19874,7 +19874,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     321,
     'Wailord',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/321.png',
@@ -19936,7 +19936,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     322,
     'Chamallot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/322.png',
@@ -19998,7 +19998,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     323,
     'Camérupt',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/323.png',
@@ -20060,7 +20060,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     324,
     'Chartor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/324.png',
@@ -20122,7 +20122,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     325,
     'spoink',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/325.png',
@@ -20184,7 +20184,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     326,
     'grumpig',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/326.png',
@@ -20246,7 +20246,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     327,
     'Spinda',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/327.png',
@@ -20308,7 +20308,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     328,
     'Kraknoix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/328.png',
@@ -20370,7 +20370,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     329,
     'Vibraninf',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/329.png',
@@ -20432,7 +20432,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     330,
     'Libégon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/330.png',
@@ -20494,7 +20494,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     331,
     'Cacnea',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/331.png',
@@ -20556,7 +20556,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     332,
     'Cacturne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/332.png',
@@ -20618,7 +20618,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     333,
     'Tylton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/333.png',
@@ -20680,7 +20680,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     334,
     'Altaria',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/334.png',
@@ -20742,7 +20742,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     335,
     'Mangriff',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/335.png',
@@ -20804,7 +20804,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     336,
     'Séviper',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/336.png',
@@ -20866,7 +20866,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     337,
     'Séléroc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/337.png',
@@ -20928,7 +20928,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     338,
     'Solaroc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/338.png',
@@ -20990,7 +20990,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     339,
     'Barloche',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/339.png',
@@ -21052,7 +21052,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     340,
     'Barbicha',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/340.png',
@@ -21114,7 +21114,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     341,
     'Écrapince',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/341.png',
@@ -21176,7 +21176,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     342,
     'Colhomard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/342.png',
@@ -21238,7 +21238,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     343,
     'Balbuto',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/343.png',
@@ -21300,7 +21300,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     344,
     'Kaorine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/344.png',
@@ -21362,7 +21362,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     345,
     'Lilia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/345.png',
@@ -21424,7 +21424,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     346,
     'Vacilys',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/346.png',
@@ -21486,7 +21486,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     347,
     'Anorith',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/347.png',
@@ -21548,7 +21548,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     348,
     'Armaldo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/348.png',
@@ -21610,7 +21610,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     349,
     'Barpau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/349.png',
@@ -21672,7 +21672,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     350,
     'Milobellus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/350.png',
@@ -21734,7 +21734,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     351,
     'Morphéo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/351.png',
@@ -21796,7 +21796,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     352,
     'Kecleon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/352.png',
@@ -21858,7 +21858,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     353,
     'Polichombr',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/353.png',
@@ -21920,7 +21920,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     354,
     'Branette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/354.png',
@@ -21982,7 +21982,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     355,
     'Skelénox',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/355.png',
@@ -22044,7 +22044,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     356,
     'Téraclope',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/356.png',
@@ -22106,7 +22106,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     357,
     'Tropius',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/357.png',
@@ -22168,7 +22168,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     358,
     'Éoko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/358.png',
@@ -22230,7 +22230,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     359,
     'Absol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/359.png',
@@ -22292,7 +22292,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     360,
     'Okéoké',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/360.png',
@@ -22354,7 +22354,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     361,
     'Stalgamin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/361.png',
@@ -22416,7 +22416,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     362,
     'Oniglali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/362.png',
@@ -22478,7 +22478,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     363,
     'Obalie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/363.png',
@@ -22540,7 +22540,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     364,
     'Phogleur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/364.png',
@@ -22602,7 +22602,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     365,
     'Kaimorse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/365.png',
@@ -22664,7 +22664,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     366,
     'Coquiperl',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/366.png',
@@ -22726,7 +22726,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     367,
     'Serpang',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/367.png',
@@ -22788,7 +22788,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     368,
     'Rosabyss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/368.png',
@@ -22850,7 +22850,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     369,
     'Relicanth',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/369.png',
@@ -22912,7 +22912,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     370,
     'Lovdisc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/370.png',
@@ -22974,7 +22974,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     371,
     'Draby',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/371.png',
@@ -23036,7 +23036,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     372,
     'Drackhaus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/372.png',
@@ -23098,7 +23098,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     373,
     'Drattak',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/373.png',
@@ -23160,7 +23160,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     374,
     'Terhal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/374.png',
@@ -23222,7 +23222,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     375,
     'Métang',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/375.png',
@@ -23284,7 +23284,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     376,
     'Métalosse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/376.png',
@@ -23346,7 +23346,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     377,
     'Regirock',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/377.png',
@@ -23408,7 +23408,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     378,
     'Regice',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/378.png',
@@ -23470,7 +23470,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     379,
     'Registeel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/379.png',
@@ -23532,7 +23532,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     380,
     'Latias',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/380.png',
@@ -23594,7 +23594,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     381,
     'Latios',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/381.png',
@@ -23656,7 +23656,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     382,
     'Kyogre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/382.png',
@@ -23718,7 +23718,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     383,
     'Groudon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/383.png',
@@ -23780,7 +23780,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     384,
     'Rayquaza',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png',
@@ -23842,7 +23842,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     385,
     'Jirachi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/385.png',
@@ -23904,7 +23904,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     386,
     'Deoxys',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/386.png',
@@ -23966,7 +23966,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     387,
     'Tortipouss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/387.png',
@@ -24028,7 +24028,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     388,
     'Boskara',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/388.png',
@@ -24090,7 +24090,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     389,
     'Torterra',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png',
@@ -24152,7 +24152,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     390,
     'Ouisticram',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/390.png',
@@ -24214,7 +24214,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     391,
     'Chimpenfeu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/391.png',
@@ -24276,7 +24276,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     392,
     'Simiabraz',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/392.png',
@@ -24338,7 +24338,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     393,
     'Tiplouf',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/393.png',
@@ -24400,7 +24400,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     394,
     'Prinplouf',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/394.png',
@@ -24462,7 +24462,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     395,
     'Pingoléon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/395.png',
@@ -24524,7 +24524,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     396,
     'Étourmi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/396.png',
@@ -24586,7 +24586,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     397,
     'Étourvol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/397.png',
@@ -24648,7 +24648,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     398,
     'Étouraptor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/398.png',
@@ -24710,7 +24710,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     399,
     'Keunotor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/399.png',
@@ -24772,7 +24772,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     400,
     'Castorno',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/400.png',
@@ -24834,7 +24834,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     401,
     'Crikzik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/401.png',
@@ -24896,7 +24896,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     402,
     'Mélokrik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/402.png',
@@ -24958,7 +24958,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     403,
     'Lixy',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/403.png',
@@ -25020,7 +25020,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     404,
     'Luxio',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/404.png',
@@ -25082,7 +25082,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     405,
     'Luxray',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/405.png',
@@ -25144,7 +25144,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     406,
     'Rozbouton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/406.png',
@@ -25206,7 +25206,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     407,
     'Roserade',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/407.png',
@@ -25268,7 +25268,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     408,
     'Kranidos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/408.png',
@@ -25330,7 +25330,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     409,
     'Charkos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/409.png',
@@ -25392,7 +25392,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     410,
     'Dinoclier',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/410.png',
@@ -25454,7 +25454,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     411,
     'Bastiodon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/411.png',
@@ -25516,7 +25516,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     412,
     'Cheniti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/412.png',
@@ -25578,7 +25578,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     413,
     'Cheniselle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/413.png',
@@ -25640,7 +25640,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     414,
     'Papilord',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/414.png',
@@ -25702,7 +25702,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     415,
     'Apitrini',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/415.png',
@@ -25764,7 +25764,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     416,
     'Apireine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/416.png',
@@ -25826,7 +25826,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     417,
     'Pachirisu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/417.png',
@@ -25888,7 +25888,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     418,
     'Mustébouée',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/418.png',
@@ -25950,7 +25950,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     419,
     'Mustéflott',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/419.png',
@@ -26012,7 +26012,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     420,
     'Ceribou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/420.png',
@@ -26074,7 +26074,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     421,
     'Ceriflor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/421.png',
@@ -26136,7 +26136,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     422,
     'Sancoki',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/422.png',
@@ -26198,7 +26198,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     423,
     'Tritosor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/423.png',
@@ -26260,7 +26260,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     424,
     'Capidextre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/424.png',
@@ -26322,7 +26322,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     425,
     'Baudrive',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/425.png',
@@ -26384,7 +26384,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     426,
     'Grodrive',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/426.png',
@@ -26446,7 +26446,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     427,
     'Laporeille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/427.png',
@@ -26508,7 +26508,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     428,
     'Lockpin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/428.png',
@@ -26570,7 +26570,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     429,
     'Magirêve',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/429.png',
@@ -26632,7 +26632,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     430,
     'Corboss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/430.png',
@@ -26694,7 +26694,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     431,
     'Chaglam',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/431.png',
@@ -26756,7 +26756,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     432,
     'Chaffreux',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/432.png',
@@ -26818,7 +26818,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     433,
     'Korillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/433.png',
@@ -26880,7 +26880,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     434,
     'Moufouette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/434.png',
@@ -26942,7 +26942,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     435,
     'Moufflair',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/435.png',
@@ -27004,7 +27004,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     436,
     'Archéomire',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/436.png',
@@ -27066,7 +27066,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     437,
     'Archéodong',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/437.png',
@@ -27128,7 +27128,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     438,
     'Manzaï',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/438.png',
@@ -27190,7 +27190,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     439,
     'Mime Jr.',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/439.png',
@@ -27252,7 +27252,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     440,
     'Ptiravi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/440.png',
@@ -27314,7 +27314,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     441,
     'Pijako',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/441.png',
@@ -27376,7 +27376,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     442,
     'Spiritomb',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/442.png',
@@ -27438,7 +27438,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     443,
     'Griknot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/443.png',
@@ -27500,7 +27500,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     444,
     'Carmache',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/444.png',
@@ -27562,7 +27562,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     445,
     'Carchacrok',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/445.png',
@@ -27624,7 +27624,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     446,
     'Goinfrex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/446.png',
@@ -27686,7 +27686,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     447,
     'Riolu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/447.png',
@@ -27748,7 +27748,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     448,
     'Lucario',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/448.png',
@@ -27810,7 +27810,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     449,
     'Hippopotas',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/449.png',
@@ -27872,7 +27872,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     450,
     'Hippodocus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/450.png',
@@ -27934,7 +27934,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     451,
     'Rapion',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/451.png',
@@ -27996,7 +27996,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     452,
     'Drascore',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/452.png',
@@ -28058,7 +28058,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     453,
     'Cradopaud',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/453.png',
@@ -28120,7 +28120,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     454,
     'Coatox',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/454.png',
@@ -28182,7 +28182,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     455,
     'Vortente',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/455.png',
@@ -28244,7 +28244,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     456,
     'Écayon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/456.png',
@@ -28306,7 +28306,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     457,
     'Luminéon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/457.png',
@@ -28368,7 +28368,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     458,
     'Babimanta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/458.png',
@@ -28430,7 +28430,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     459,
     'Blizzi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/459.png',
@@ -28492,7 +28492,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     460,
     'Blizzaroi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/460.png',
@@ -28554,7 +28554,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     461,
     'Dimoret',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/461.png',
@@ -28616,7 +28616,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     462,
     'Magnézone',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/462.png',
@@ -28678,7 +28678,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     463,
     'Coudlangue',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/463.png',
@@ -28740,7 +28740,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     464,
     'Rhinastoc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/464.png',
@@ -28802,7 +28802,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     465,
     'Bouldeneu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/465.png',
@@ -28864,7 +28864,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     466,
     'Élekable',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/466.png',
@@ -28926,7 +28926,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     467,
     'Maganon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/467.png',
@@ -28988,7 +28988,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     468,
     'Togekiss',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/468.png',
@@ -29050,7 +29050,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     469,
     'Yanmega',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/469.png',
@@ -29112,7 +29112,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     470,
     'Phyllali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/470.png',
@@ -29174,7 +29174,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     471,
     'Givrali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/471.png',
@@ -29236,7 +29236,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     472,
     'Scorvol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/472.png',
@@ -29298,7 +29298,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     473,
     'Mammochon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/473.png',
@@ -29360,7 +29360,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     474,
     'Porygon-Z',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/474.png',
@@ -29422,7 +29422,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     475,
     'Gallame',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/475.png',
@@ -29484,7 +29484,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     476,
     'Tarinorme',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/476.png',
@@ -29546,7 +29546,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     477,
     'Noctunoir',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/477.png',
@@ -29608,7 +29608,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     478,
     'Momartik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/478.png',
@@ -29670,7 +29670,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     479,
     'Motisma',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/479.png',
@@ -29732,7 +29732,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     480,
     'Créhelf',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/480.png',
@@ -29794,7 +29794,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     481,
     'Créfollet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/481.png',
@@ -29856,7 +29856,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     482,
     'Créfadet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/482.png',
@@ -29918,7 +29918,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     483,
     'Dialga',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/483.png',
@@ -29980,7 +29980,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     484,
     'Palkia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/484.png',
@@ -30042,7 +30042,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     485,
     'Heatran',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/485.png',
@@ -30104,7 +30104,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     486,
     'Regigigas',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/486.png',
@@ -30166,7 +30166,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     487,
     'Giratina',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/487.png',
@@ -30228,7 +30228,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     488,
     'Cresselia',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/488.png',
@@ -30290,7 +30290,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     491,
     'Darkrai',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/491.png',
@@ -30352,7 +30352,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     492,
     'Shaymin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/492.png',
@@ -30414,7 +30414,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     494,
     'Victini',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/494.png',
@@ -30476,7 +30476,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     495,
     'Vipélierre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/495.png',
@@ -30538,7 +30538,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     496,
     'Lianaja',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/496.png',
@@ -30600,7 +30600,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     497,
     'Majaspic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/497.png',
@@ -30662,7 +30662,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     498,
     'Gruikui',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/498.png',
@@ -30724,7 +30724,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     499,
     'Grotichon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/499.png',
@@ -30786,7 +30786,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     500,
     'Roitiflam',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/500.png',
@@ -30848,7 +30848,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     501,
     'Moustillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/501.png',
@@ -30910,7 +30910,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     502,
     'Mateloutre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/502.png',
@@ -30972,7 +30972,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     503,
     'Clamiral',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/503.png',
@@ -31034,7 +31034,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     504,
     'Ratentif',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/504.png',
@@ -31096,7 +31096,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     505,
     'Miradar',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/505.png',
@@ -31158,7 +31158,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     506,
     'Ponchiot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/506.png',
@@ -31220,7 +31220,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     507,
     'Ponchien',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/507.png',
@@ -31282,7 +31282,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     508,
     'Mastouffe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/508.png',
@@ -31344,7 +31344,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     509,
     'Chacripan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/509.png',
@@ -31406,7 +31406,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     510,
     'Léopardus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/510.png',
@@ -31468,7 +31468,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     511,
     'Feuillajou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/511.png',
@@ -31530,7 +31530,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     512,
     'Feuiloutan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/512.png',
@@ -31592,7 +31592,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     513,
     'Flamajou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/513.png',
@@ -31654,7 +31654,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     514,
     'Flamoutan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/514.png',
@@ -31716,7 +31716,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     515,
     'Flotajou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/515.png',
@@ -31778,7 +31778,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     516,
     'Flotoutan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/516.png',
@@ -31840,7 +31840,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     517,
     'Munna',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/517.png',
@@ -31902,7 +31902,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     518,
     'Mushana',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/518.png',
@@ -31964,7 +31964,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     519,
     'Poichigeon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/519.png',
@@ -32026,7 +32026,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     520,
     'Colombeau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/520.png',
@@ -32088,7 +32088,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     521,
     'Déflaisan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/521.png',
@@ -32150,7 +32150,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     522,
     'Zébibron',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/522.png',
@@ -32212,7 +32212,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     523,
     'Zéblitz',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/523.png',
@@ -32274,7 +32274,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     524,
     'Nodulithe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/524.png',
@@ -32336,7 +32336,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     525,
     'Géolithe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/525.png',
@@ -32398,7 +32398,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     526,
     'Gigalithe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/526.png',
@@ -32460,7 +32460,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     527,
     'Chovsourir',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/527.png',
@@ -32522,7 +32522,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     528,
     'Rhinolove',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/528.png',
@@ -32584,7 +32584,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     529,
     'Rototaupe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/529.png',
@@ -32646,7 +32646,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     530,
     'Minotaupe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/530.png',
@@ -32708,7 +32708,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     531,
     'Nanméouïe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/531.png',
@@ -32770,7 +32770,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     532,
     'Charpenti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/532.png',
@@ -32832,7 +32832,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     533,
     'Ouvrifier',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/533.png',
@@ -32894,7 +32894,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     534,
     'Bétochef',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/534.png',
@@ -32956,7 +32956,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     535,
     'Tritonde',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/535.png',
@@ -33018,7 +33018,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     536,
     'Batracné',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/536.png',
@@ -33080,7 +33080,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     537,
     'Crapustule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/537.png',
@@ -33142,7 +33142,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     538,
     'Judokrak',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/538.png',
@@ -33204,7 +33204,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     539,
     'Karaclée',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/539.png',
@@ -33266,7 +33266,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     540,
     'Larveyette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/540.png',
@@ -33328,7 +33328,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     541,
     'Couverdure',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/541.png',
@@ -33390,7 +33390,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     542,
     'Manternel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/542.png',
@@ -33452,7 +33452,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     543,
     'Venipatte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/543.png',
@@ -33514,7 +33514,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     544,
     'Scobolide',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/544.png',
@@ -33576,7 +33576,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     545,
     'Brutapode',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/545.png',
@@ -33638,7 +33638,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     546,
     'Doudouvet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/546.png',
@@ -33700,7 +33700,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     547,
     'Farfaduvet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/547.png',
@@ -33762,7 +33762,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     548,
     'Chlorobule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/548.png',
@@ -33824,7 +33824,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     549,
     'Fragilady',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/549.png',
@@ -33886,7 +33886,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     550,
     'Bargantua',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/550.png',
@@ -33948,7 +33948,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     551,
     'Mascaïman',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/551.png',
@@ -34010,7 +34010,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     552,
     'Escroco',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/552.png',
@@ -34072,7 +34072,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     553,
     'Crocorible',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/553.png',
@@ -34134,7 +34134,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     554,
     'Darumarond',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/554.png',
@@ -34196,7 +34196,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     555,
     'Darumacho',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/555.png',
@@ -34258,7 +34258,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     556,
     'Maracachi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/556.png',
@@ -34320,7 +34320,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     557,
     'Crabicoque',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/557.png',
@@ -34382,7 +34382,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     558,
     'Crabaraque',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/558.png',
@@ -34444,7 +34444,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     559,
     'Baggiguane',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/559.png',
@@ -34506,7 +34506,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     560,
     'Baggaïd',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/560.png',
@@ -34568,7 +34568,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     561,
     'Cryptéro',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/561.png',
@@ -34630,7 +34630,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     562,
     'Tutafeh',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/562.png',
@@ -34692,7 +34692,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     563,
     'Tutankafer',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/563.png',
@@ -34754,7 +34754,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     564,
     'Carapagos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/564.png',
@@ -34816,7 +34816,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     565,
     'Mégapagos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/565.png',
@@ -34878,7 +34878,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     566,
     'Arkéapti',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/566.png',
@@ -34940,7 +34940,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     567,
     'Aéroptéryx',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/567.png',
@@ -35002,7 +35002,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     568,
     'Miamiasme',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/568.png',
@@ -35064,7 +35064,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     569,
     'Miasmax',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/569.png',
@@ -35126,7 +35126,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     570,
     'Zorua',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/570.png',
@@ -35188,7 +35188,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     571,
     'Zoroark',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/571.png',
@@ -35250,7 +35250,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     572,
     'Chinchidou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/572.png',
@@ -35312,7 +35312,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     573,
     'Pashmilla',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/573.png',
@@ -35374,7 +35374,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     574,
     'Scrutella',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/574.png',
@@ -35436,7 +35436,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     575,
     'Mesmérella',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/575.png',
@@ -35498,7 +35498,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     576,
     'Sidérella',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/576.png',
@@ -35560,7 +35560,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     577,
     'Nucléos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/577.png',
@@ -35622,7 +35622,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     578,
     'Méios',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/578.png',
@@ -35684,7 +35684,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     579,
     'Symbios',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/579.png',
@@ -35746,7 +35746,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     580,
     'Couaneton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/580.png',
@@ -35808,7 +35808,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     581,
     'Lakmécygne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/581.png',
@@ -35870,7 +35870,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     582,
     'Sorbébé',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/582.png',
@@ -35932,7 +35932,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     583,
     'Sorboul',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/583.png',
@@ -35994,7 +35994,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     584,
     'Sorbouboul',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/584.png',
@@ -36056,7 +36056,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     585,
     'Vivaldaim',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/585.png',
@@ -36118,7 +36118,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     586,
     'Haydaim',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/586.png',
@@ -36180,7 +36180,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     587,
     'Emolga',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/587.png',
@@ -36242,7 +36242,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     588,
     'Carabing',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/588.png',
@@ -36304,7 +36304,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     589,
     'Lançargot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/589.png',
@@ -36366,7 +36366,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     590,
     'Trompignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/590.png',
@@ -36428,7 +36428,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     591,
     'Gaulet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/591.png',
@@ -36490,7 +36490,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     592,
     'Viskuse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/592.png',
@@ -36552,7 +36552,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     593,
     'Moyade',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/593.png',
@@ -36614,7 +36614,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     594,
     'Mamanbo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/594.png',
@@ -36676,7 +36676,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     595,
     'Statitik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/595.png',
@@ -36738,7 +36738,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     596,
     'Mygavolt',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/596.png',
@@ -36800,7 +36800,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     597,
     'Grindur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/597.png',
@@ -36862,7 +36862,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     598,
     'Noacier',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/598.png',
@@ -36924,7 +36924,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     599,
     'Tic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/599.png',
@@ -36986,7 +36986,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     600,
     'Clic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/600.png',
@@ -37048,7 +37048,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     601,
     'Cliticlic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/601.png',
@@ -37110,7 +37110,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     602,
     'Anchwatt',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/602.png',
@@ -37172,7 +37172,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     603,
     'Lampéroie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/603.png',
@@ -37234,7 +37234,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     604,
     'Ohmassacre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/604.png',
@@ -37296,7 +37296,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     605,
     'Lewsor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/605.png',
@@ -37358,7 +37358,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     606,
     'Neitram',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/606.png',
@@ -37420,7 +37420,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     607,
     'Funécire',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/607.png',
@@ -37482,7 +37482,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     608,
     'Mélancolux',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/608.png',
@@ -37544,7 +37544,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     609,
     'Lugulabre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/609.png',
@@ -37606,7 +37606,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     610,
     'Coupenotte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/610.png',
@@ -37668,7 +37668,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     611,
     'Incisache',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/611.png',
@@ -37730,7 +37730,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     612,
     'Tranchodon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/612.png',
@@ -37792,7 +37792,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     613,
     'Polarhume',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/613.png',
@@ -37854,7 +37854,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     614,
     'Polagriffe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/614.png',
@@ -37916,7 +37916,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     615,
     'Hexagel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/615.png',
@@ -37978,7 +37978,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     616,
     'Escargaume',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/616.png',
@@ -38040,7 +38040,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     617,
     'Limaspeed',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/617.png',
@@ -38102,7 +38102,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     618,
     'Limonde',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/618.png',
@@ -38164,7 +38164,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     619,
     'Kungfouine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/619.png',
@@ -38226,7 +38226,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     620,
     'Shaofouine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/620.png',
@@ -38288,7 +38288,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     621,
     'Drakkarmin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/621.png',
@@ -38350,7 +38350,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     622,
     'Gringolem',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/622.png',
@@ -38412,7 +38412,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     623,
     'Golemastoc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/623.png',
@@ -38474,7 +38474,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     624,
     'Scalpion',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/624.png',
@@ -38536,7 +38536,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     625,
     'Scalproie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/625.png',
@@ -38598,7 +38598,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     626,
     'Frison',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/626.png',
@@ -38660,7 +38660,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     627,
     'Furaiglon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/627.png',
@@ -38722,7 +38722,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     628,
     'Gueriaigle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/628.png',
@@ -38784,7 +38784,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     629,
     'Vostourno',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/629.png',
@@ -38846,7 +38846,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     630,
     'Vaututrice',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/630.png',
@@ -38908,7 +38908,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     631,
     'Aflamanoir',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/631.png',
@@ -38970,7 +38970,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     632,
     'Fermite',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/632.png',
@@ -39032,7 +39032,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     633,
     'Solochi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/633.png',
@@ -39094,7 +39094,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     634,
     'Diamat',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/634.png',
@@ -39156,7 +39156,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     635,
     'Trioxhydre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/635.png',
@@ -39218,7 +39218,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     636,
     'Pyronille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/636.png',
@@ -39280,7 +39280,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     637,
     'Pyrax',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/637.png',
@@ -39342,7 +39342,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     638,
     'Cobaltium',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/638.png',
@@ -39404,7 +39404,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     639,
     'Terrakium',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/639.png',
@@ -39466,7 +39466,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     640,
     'Viridium',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/640.png',
@@ -39528,7 +39528,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     641,
     'Boréas',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/641.png',
@@ -39590,7 +39590,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     642,
     'Fulguris',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/642.png',
@@ -39652,7 +39652,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     643,
     'Reshiram',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/643.png',
@@ -39714,7 +39714,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     644,
     'Zekrom',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/644.png',
@@ -39776,7 +39776,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     645,
     'Démétéros',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/645.png',
@@ -39838,7 +39838,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     646,
     'Kyurem',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/646.png',
@@ -39900,7 +39900,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     647,
     'Keldeo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/647.png',
@@ -39962,7 +39962,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     648,
     'Meloetta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/648.png',
@@ -40024,7 +40024,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     649,
     'Genesect',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/649.png',
@@ -40086,7 +40086,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     650,
     'Marisson',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/650.png',
@@ -40148,7 +40148,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     651,
     'Boguérisse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/651.png',
@@ -40210,7 +40210,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     652,
     'Blindépique',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/652.png',
@@ -40272,7 +40272,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     653,
     'Feunnec',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/653.png',
@@ -40334,7 +40334,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     654,
     'Roussil',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/654.png',
@@ -40396,7 +40396,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     655,
     'Goupelin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/655.png',
@@ -40458,7 +40458,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     656,
     'Grenousse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/656.png',
@@ -40520,7 +40520,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     657,
     'Croâporal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/657.png',
@@ -40582,7 +40582,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     658,
     'Amphinobi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/658.png',
@@ -40644,7 +40644,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     659,
     'Sapereau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/659.png',
@@ -40706,7 +40706,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     660,
     'Excavarenne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/660.png',
@@ -40768,7 +40768,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     661,
     'fletchling',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/661.png',
@@ -40830,7 +40830,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     662,
     'Braisillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/662.png',
@@ -40892,7 +40892,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     663,
     'Flambusard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/663.png',
@@ -40954,7 +40954,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     664,
     'Lépidonille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/664.png',
@@ -41016,7 +41016,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     665,
     'Pérégrain',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/665.png',
@@ -41078,7 +41078,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     666,
     'Prismillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/666.png',
@@ -41140,7 +41140,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     667,
     'Hélionceau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/667.png',
@@ -41202,7 +41202,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     668,
     'Némélios',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/668.png',
@@ -41264,7 +41264,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     669,
     'Flabébé',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/669.png',
@@ -41326,7 +41326,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     670,
     'Floette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/670.png',
@@ -41388,7 +41388,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     671,
     'Florges',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/671.png',
@@ -41450,7 +41450,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     672,
     'Cabriolaine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/672.png',
@@ -41512,7 +41512,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     673,
     'Chevroum',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/673.png',
@@ -41574,7 +41574,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     674,
     'pancham',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/674.png',
@@ -41636,7 +41636,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     675,
     'Pandarbare',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/675.png',
@@ -41698,7 +41698,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     676,
     'Couafarel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/676.png',
@@ -41760,7 +41760,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     677,
     'Psystigri',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/677.png',
@@ -41822,7 +41822,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     678,
     'Mistigrix',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/678.png',
@@ -41884,7 +41884,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     679,
     'Monorpale',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/679.png',
@@ -41946,7 +41946,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     680,
     'Dimoclès',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/680.png',
@@ -42008,7 +42008,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     681,
     'Exagide',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/681.png',
@@ -42070,7 +42070,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     682,
     'Fluvetin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/682.png',
@@ -42132,7 +42132,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     683,
     'Cocotine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/683.png',
@@ -42194,7 +42194,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     684,
     'Sucroquin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/684.png',
@@ -42256,7 +42256,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     685,
     'Cupcanaille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/685.png',
@@ -42318,7 +42318,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     686,
     'Sepiatop',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/686.png',
@@ -42380,7 +42380,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     687,
     'Sepiatroce',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/687.png',
@@ -42442,7 +42442,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     688,
     'Opermine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/688.png',
@@ -42504,7 +42504,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     689,
     'Golgopathe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/689.png',
@@ -42566,7 +42566,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     690,
     'Venalgue',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/690.png',
@@ -42628,7 +42628,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     691,
     'Kravarech',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/691.png',
@@ -42690,7 +42690,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     692,
     'Flingouste',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/692.png',
@@ -42752,7 +42752,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     693,
     'Gamblast',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/693.png',
@@ -42814,7 +42814,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     694,
     'Galvaran',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/694.png',
@@ -42876,7 +42876,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     695,
     'Iguolta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/695.png',
@@ -42938,7 +42938,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     696,
     'Ptyranidur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/696.png',
@@ -43000,7 +43000,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     697,
     'Rexillius',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/697.png',
@@ -43062,7 +43062,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     698,
     'Amagara',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/698.png',
@@ -43124,7 +43124,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     699,
     'Dragmara',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/699.png',
@@ -43186,7 +43186,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     700,
     'Nymphali',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/700.png',
@@ -43248,7 +43248,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     701,
     'Brutalibré',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/701.png',
@@ -43310,7 +43310,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     702,
     'Dedenne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/702.png',
@@ -43372,7 +43372,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     703,
     'Strassie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/703.png',
@@ -43434,7 +43434,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     704,
     'Mucuscule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/704.png',
@@ -43496,7 +43496,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     705,
     'Colimucus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/705.png',
@@ -43558,7 +43558,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     706,
     'Muplodocus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/706.png',
@@ -43620,7 +43620,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     707,
     'Trousselin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/707.png',
@@ -43682,7 +43682,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     708,
     'Brocélôme',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/708.png',
@@ -43744,7 +43744,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     709,
     'Desséliande',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/709.png',
@@ -43806,7 +43806,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     710,
     'Pitrouille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/710.png',
@@ -43868,7 +43868,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     711,
     'Banshitrouye',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/711.png',
@@ -43930,7 +43930,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     712,
     'Grelaçon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/712.png',
@@ -43992,7 +43992,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     713,
     'Séracrawl',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/713.png',
@@ -44054,7 +44054,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     714,
     'Sonistrelle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/714.png',
@@ -44116,7 +44116,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     715,
     'Bruyverne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/715.png',
@@ -44178,7 +44178,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     716,
     'Xerneas',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/716.png',
@@ -44240,7 +44240,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     717,
     'Yveltal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/717.png',
@@ -44302,7 +44302,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     718,
     'Zygarde',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/718.png',
@@ -44364,7 +44364,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     719,
     'Diancie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/719.png',
@@ -44426,7 +44426,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     720,
     'Hoopa',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/720.png',
@@ -44488,7 +44488,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     721,
     'Volcanion',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/721.png',
@@ -44550,7 +44550,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     722,
     'Brindibou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/722.png',
@@ -44612,7 +44612,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     723,
     'Efflèche',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/723.png',
@@ -44674,7 +44674,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     724,
     'Archéduc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/724.png',
@@ -44736,7 +44736,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     725,
     'Flamiaou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/725.png',
@@ -44798,7 +44798,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     726,
     'Matoufeu',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/726.png',
@@ -44860,7 +44860,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     727,
     'Félinferno',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/727.png',
@@ -44922,7 +44922,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     728,
     'Otaquin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/728.png',
@@ -44984,7 +44984,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     729,
     'Otarlette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/729.png',
@@ -45046,7 +45046,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     730,
     'Oratoria',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/730.png',
@@ -45108,7 +45108,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     731,
     'Picassaut',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/731.png',
@@ -45170,7 +45170,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     732,
     'Piclairon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/732.png',
@@ -45232,7 +45232,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     733,
     'Bazoucan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/733.png',
@@ -45294,7 +45294,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     734,
     'Manglouton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/734.png',
@@ -45356,7 +45356,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     735,
     'Argouste',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/735.png',
@@ -45418,7 +45418,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     736,
     'Larvibule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/736.png',
@@ -45480,7 +45480,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     737,
     'Chrysapile',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/737.png',
@@ -45542,7 +45542,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     738,
     'Lucanon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/738.png',
@@ -45604,7 +45604,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     739,
     'Crabagarre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/739.png',
@@ -45666,7 +45666,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     740,
     'Crabominable',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/740.png',
@@ -45728,7 +45728,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     741,
     'Plumeline',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/741.png',
@@ -45790,7 +45790,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     742,
     'Bombydou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/742.png',
@@ -45852,7 +45852,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     743,
     'Rubombelle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/743.png',
@@ -45914,7 +45914,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     744,
     'Rocabot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/744.png',
@@ -45976,7 +45976,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     745,
     'Lougaroc',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/745.png',
@@ -46038,7 +46038,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     747,
     'Vorastérie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/747.png',
@@ -46100,7 +46100,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     748,
     'Prédastérie',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/748.png',
@@ -46162,7 +46162,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     749,
     'Tiboudet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/749.png',
@@ -46224,7 +46224,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     750,
     'Bourrinos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/750.png',
@@ -46286,7 +46286,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     751,
     'Araqua',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/751.png',
@@ -46348,7 +46348,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     752,
     'Tarenbulle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/752.png',
@@ -46410,7 +46410,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     753,
     'Mimantis',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/753.png',
@@ -46472,7 +46472,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     754,
     'Floramantis',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/754.png',
@@ -46534,7 +46534,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     755,
     'Spododo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/755.png',
@@ -46596,7 +46596,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     756,
     'Lampignon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/756.png',
@@ -46658,7 +46658,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     757,
     'Tritox',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/757.png',
@@ -46720,7 +46720,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     758,
     'Malamandre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/758.png',
@@ -46782,7 +46782,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     759,
     'Nounourson',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/759.png',
@@ -46844,7 +46844,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     760,
     'Chelours',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/760.png',
@@ -46906,7 +46906,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     761,
     'Croquine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/761.png',
@@ -46968,7 +46968,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     762,
     'Candine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/762.png',
@@ -47030,7 +47030,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     763,
     'Sucreine',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/763.png',
@@ -47092,7 +47092,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     764,
     'Guérilande',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/764.png',
@@ -47154,7 +47154,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     765,
     'Gouroutan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/765.png',
@@ -47216,7 +47216,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     766,
     'Quartermac',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/766.png',
@@ -47278,7 +47278,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     767,
     'Sovkipou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/767.png',
@@ -47340,7 +47340,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     768,
     'Sarmuraï',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/768.png',
@@ -47402,7 +47402,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     769,
     'Bacabouh',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/769.png',
@@ -47464,7 +47464,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     770,
     'Trépassable',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/770.png',
@@ -47526,7 +47526,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     775,
     'Dodoala',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/775.png',
@@ -47588,7 +47588,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     776,
     'Boumata',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/776.png',
@@ -47650,7 +47650,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     777,
     'Togedemaru',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/777.png',
@@ -47712,7 +47712,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     779,
     'Denticrisse',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/779.png',
@@ -47774,7 +47774,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     780,
     'Draïeul',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/780.png',
@@ -47836,7 +47836,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     781,
     'Sinistrail',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/781.png',
@@ -47898,7 +47898,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     782,
     'Bébécaille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/782.png',
@@ -47960,7 +47960,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     783,
     'Écaïd',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/783.png',
@@ -48022,7 +48022,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     784,
     'Ékaïser',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/784.png',
@@ -48084,7 +48084,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     785,
     'Tokorico',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/785.png',
@@ -48146,7 +48146,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     786,
     'Tokopiyon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/786.png',
@@ -48208,7 +48208,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     787,
     'Tokotoro',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/787.png',
@@ -48270,7 +48270,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     788,
     'Tokopisco',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/788.png',
@@ -48332,7 +48332,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     789,
     'Cosmog',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/789.png',
@@ -48394,7 +48394,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     790,
     'Cosmovum',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/790.png',
@@ -48456,7 +48456,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     791,
     'Solgaleo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/791.png',
@@ -48518,7 +48518,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     792,
     'Lunala',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/792.png',
@@ -48580,7 +48580,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     793,
     'Zéroïd',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/793.png',
@@ -48642,7 +48642,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     794,
     'Mouscoto',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/794.png',
@@ -48704,7 +48704,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     795,
     'Cancrelove',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/795.png',
@@ -48766,7 +48766,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     796,
     'Câblifère',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/796.png',
@@ -48828,7 +48828,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     797,
     'Bamboiselle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/797.png',
@@ -48890,7 +48890,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     798,
     'Katagami',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/798.png',
@@ -48952,7 +48952,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     799,
     'Engloutyran',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/799.png',
@@ -49014,7 +49014,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     800,
     'Necrozma',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/800.png',
@@ -49076,7 +49076,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     802,
     'Marshadow',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/802.png',
@@ -49138,7 +49138,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     803,
     'Vémini',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/803.png',
@@ -49200,7 +49200,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     804,
     'Mandrillon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/804.png',
@@ -49262,7 +49262,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     805,
     'Ama-Ama',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/805.png',
@@ -49324,7 +49324,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     806,
     'Pierroteknik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/806.png',
@@ -49386,7 +49386,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     808,
     'Meltan',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/808.png',
@@ -49448,7 +49448,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     809,
     'Melmetal',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/809.png',
@@ -49510,7 +49510,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     810,
     'Ouistempo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/810.png',
@@ -49572,7 +49572,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     811,
     'Badabouin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/811.png',
@@ -49634,7 +49634,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     812,
     'Gorythmic',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/812.png',
@@ -49696,7 +49696,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     813,
     'Flambino',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/813.png',
@@ -49758,7 +49758,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     814,
     'Lapyro',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/814.png',
@@ -49820,7 +49820,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     815,
     'Pyrobut',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/815.png',
@@ -49882,7 +49882,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     816,
     'Larméléon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/816.png',
@@ -49944,7 +49944,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     817,
     'Arrozard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/817.png',
@@ -50006,7 +50006,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     818,
     'Lézargus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/818.png',
@@ -50068,7 +50068,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     819,
     'Rongourmand',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/819.png',
@@ -50130,7 +50130,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     820,
     'Rongrigou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/820.png',
@@ -50192,7 +50192,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     821,
     'Minisange',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/821.png',
@@ -50254,7 +50254,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     822,
     'Bleuseille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/822.png',
@@ -50316,7 +50316,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     823,
     'Corvaillus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/823.png',
@@ -50378,7 +50378,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     827,
     'Goupilou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/827.png',
@@ -50440,7 +50440,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     828,
     'Roublenard',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/828.png',
@@ -50502,7 +50502,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     829,
     'Tournicoton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/829.png',
@@ -50564,7 +50564,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     830,
     'Blancoton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/830.png',
@@ -50626,7 +50626,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     831,
     'Moumouton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/831.png',
@@ -50688,7 +50688,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     832,
     'Moumouflon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/832.png',
@@ -50750,7 +50750,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     835,
     'Voltoutou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/835.png',
@@ -50812,7 +50812,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     836,
     'Fulgudog',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/836.png',
@@ -50874,7 +50874,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     840,
     'Verpom',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/840.png',
@@ -50936,7 +50936,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     841,
     'Pomdrapi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/841.png',
@@ -50998,7 +50998,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     842,
     'Dratatin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/842.png',
@@ -51060,7 +51060,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     848,
     'Toxizap',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/848.png',
@@ -51122,7 +51122,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     849,
     'Salarsen',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/849.png',
@@ -51184,7 +51184,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     850,
     'Grillepattes',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/850.png',
@@ -51246,7 +51246,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     851,
     'Scolocendre',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/851.png',
@@ -51308,7 +51308,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     854,
     'Théffroi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/854.png',
@@ -51370,7 +51370,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     855,
     'Polthégeist',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/855.png',
@@ -51432,7 +51432,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     856,
     'Bibichut',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/856.png',
@@ -51494,7 +51494,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     857,
     'Chapotus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/857.png',
@@ -51556,7 +51556,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     858,
     'Sorcilence',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/858.png',
@@ -51618,7 +51618,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     859,
     'Grimalin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/859.png',
@@ -51680,7 +51680,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     860,
     'Fourbelin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/860.png',
@@ -51742,7 +51742,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     861,
     'Angoliath',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/861.png',
@@ -51804,7 +51804,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     862,
     'Ixon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/862.png',
@@ -51866,7 +51866,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     863,
     'Berserkatt',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/863.png',
@@ -51928,7 +51928,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     864,
     'Corayôme',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/864.png',
@@ -51990,7 +51990,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     865,
     'Palarticho',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/865.png',
@@ -52052,7 +52052,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     866,
     'M. Glaquette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/866.png',
@@ -52114,7 +52114,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     867,
     'Tutétékri',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/867.png',
@@ -52176,7 +52176,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     870,
     'Hexadron',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/870.png',
@@ -52238,7 +52238,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     872,
     'Frissonille',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/872.png',
@@ -52300,7 +52300,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     873,
     'Beldeneige',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/873.png',
@@ -52362,7 +52362,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     874,
     'Dolman',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/874.png',
@@ -52424,7 +52424,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     876,
     'Wimessir',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/876.png',
@@ -52486,7 +52486,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     877,
     'Morpeko',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/877.png',
@@ -52548,7 +52548,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     884,
     'Duralugon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/884.png',
@@ -52610,7 +52610,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     885,
     'Fantyrm',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/885.png',
@@ -52672,7 +52672,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     886,
     'Dispareptil',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/886.png',
@@ -52734,7 +52734,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     887,
     'Lanssorien',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/887.png',
@@ -52796,7 +52796,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     888,
     'Zacian',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/888.png',
@@ -52858,7 +52858,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     889,
     'Zamazenta',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/889.png',
@@ -52920,7 +52920,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     890,
     'Éthernatos',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/890.png',
@@ -52982,7 +52982,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     891,
     'Wushours',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/891.png',
@@ -53044,7 +53044,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     892,
     'Shifours',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/892.png',
@@ -53106,7 +53106,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     893,
     'Zarude',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/893.png',
@@ -53168,7 +53168,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     894,
     'Regieleki',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/894.png',
@@ -53230,7 +53230,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     895,
     'Regidrago',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/895.png',
@@ -53292,7 +53292,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     899,
     'Cerbyllin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/899.png',
@@ -53354,7 +53354,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     900,
     'Hachécateur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/900.png',
@@ -53416,7 +53416,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     901,
     'Ursaking',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/901.png',
@@ -53478,7 +53478,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     903,
     'Farfurex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/903.png',
@@ -53540,7 +53540,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     904,
     'Qwilpik',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/904.png',
@@ -53602,7 +53602,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     905,
     'Amovénus',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/905.png',
@@ -53664,7 +53664,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     906,
     'Poussacha',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/906.png',
@@ -53726,7 +53726,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     907,
     'Matourgeon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/907.png',
@@ -53788,7 +53788,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     908,
     'Miascarade',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/908.png',
@@ -53850,7 +53850,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     909,
     'Chochodile',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/909.png',
@@ -53912,7 +53912,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     910,
     'Crocogril',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/910.png',
@@ -53974,7 +53974,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     911,
     'Flâmigator',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/911.png',
@@ -54036,7 +54036,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     912,
     'Coiffeton',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/912.png',
@@ -54098,7 +54098,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     913,
     'Canarbello',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/913.png',
@@ -54160,7 +54160,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     914,
     'Palmaval',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/914.png',
@@ -54222,7 +54222,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     915,
     'Gourmelet',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/915.png',
@@ -54284,7 +54284,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     916,
     'Fragroin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/916.png',
@@ -54346,7 +54346,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     917,
     'Tissenboule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/917.png',
@@ -54408,7 +54408,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     918,
     'Filentrappe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/918.png',
@@ -54470,7 +54470,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     919,
     'Lilliterelle',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/919.png',
@@ -54532,7 +54532,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     920,
     'Gambex',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/920.png',
@@ -54594,7 +54594,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     921,
     'Pohm',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/921.png',
@@ -54656,7 +54656,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     922,
     'Pohmotte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/922.png',
@@ -54718,7 +54718,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     923,
     'Pohmarmotte',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/923.png',
@@ -54780,7 +54780,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     924,
     'Compagnol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/924.png',
@@ -54842,7 +54842,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     925,
     'Famignol',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/925.png',
@@ -54904,7 +54904,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     926,
     'Pâtachiot',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/926.png',
@@ -54966,7 +54966,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     927,
     'Briochien',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/927.png',
@@ -55028,7 +55028,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     928,
     'Olivini',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/928.png',
@@ -55090,7 +55090,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     929,
     'Olivado',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/929.png',
@@ -55152,7 +55152,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     930,
     'Arboliva',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/930.png',
@@ -55214,7 +55214,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     935,
     'Charbambin',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/935.png',
@@ -55276,7 +55276,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     936,
     'Carmadura',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/936.png',
@@ -55338,7 +55338,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     937,
     'Malvalame',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/937.png',
@@ -55400,7 +55400,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     938,
     'Têtampoule',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/938.png',
@@ -55462,7 +55462,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     939,
     'Ampibidou',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/939.png',
@@ -55524,7 +55524,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     944,
     'Gribouraigne',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/944.png',
@@ -55586,7 +55586,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     945,
     'Tag-Tag',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/945.png',
@@ -55648,7 +55648,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     948,
     'Terracool',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/948.png',
@@ -55710,7 +55710,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     949,
     'Terracruel',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/949.png',
@@ -55772,7 +55772,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     957,
     'Forgerette',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/957.png',
@@ -55834,7 +55834,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     958,
     'Forgella',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/958.png',
@@ -55896,7 +55896,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     959,
     'Forgelina',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/959.png',
@@ -55958,7 +55958,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     960,
     'Taupikeau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/960.png',
@@ -56020,7 +56020,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     961,
     'Triopikeau',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/961.png',
@@ -56082,7 +56082,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     962,
     'Lestombaile',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/962.png',
@@ -56144,7 +56144,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     965,
     'Vrombi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/965.png',
@@ -56206,7 +56206,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     966,
     'Vrombotor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/966.png',
@@ -56268,7 +56268,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     971,
     'Toutombe',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/971.png',
@@ -56330,7 +56330,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     972,
     'Tomberro',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/972.png',
@@ -56392,7 +56392,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     974,
     'Piétacé',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/974.png',
@@ -56454,7 +56454,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     975,
     'Balbalèze',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/975.png',
@@ -56516,7 +56516,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     977,
     'Oyacata',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/977.png',
@@ -56578,7 +56578,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     978,
     'Nigirigon',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/978.png',
@@ -56640,7 +56640,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     979,
     'Courrousinge',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/979.png',
@@ -56702,7 +56702,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     980,
     'Terraiste',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/980.png',
@@ -56764,7 +56764,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     982,
     'Deusolourdo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/982.png',
@@ -56826,7 +56826,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     983,
     'Scalpereur',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/983.png',
@@ -56888,7 +56888,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     996,
     'Frigodo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/996.png',
@@ -56950,7 +56950,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     997,
     'Cryodo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/997.png',
@@ -57012,7 +57012,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     998,
     'Glaivodo',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/998.png',
@@ -57074,7 +57074,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     999,
     'Mordudor',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/999.png',
@@ -57136,7 +57136,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1000,
     'Gromago',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1000.png',
@@ -57198,7 +57198,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1011,
     'Pomdramour',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1011.png',
@@ -57260,7 +57260,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1012,
     'Poltchageist',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1012.png',
@@ -57322,7 +57322,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1013,
     'Théffroyable',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1013.png',
@@ -57384,7 +57384,7 @@ INSERT INTO pokedex (
     has_gmax, has_mega, has_obscure, has_purifie, has_parfait,
     trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_mega, trade_purified, trade_perfect
 ) VALUES (
-    (SELECT id FROM users WHERE email = 'thebestcoyotte@fec.ch'),
+    (SELECT id FROM trainers WHERE email = 'thebestcoyotte@fec.ch'),
     1019,
     'Pomdorochi',
     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1019.png',

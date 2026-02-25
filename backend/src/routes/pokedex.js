@@ -308,7 +308,7 @@ router.get('/trade-available', authenticateToken, async (req, res) => {
     p.has_trade, p.trade_shiny, p.trade_xxl, p.trade_xxs,
     p.trade_gmax, p.trade_dynamax, p.trade_mega, p.trade_purified
              FROM pokedex p
-             JOIN users u ON p.user_id = u.id
+             JOIN trainers u ON p.user_id = u.id
              INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id AND p.form_name = pm.form_name
 WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR 
                     p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR 
@@ -559,7 +559,7 @@ router.get('/trade-available', authenticateToken, async (req, res) => {
     p.trade_gmax, p.trade_dynamax, p.trade_mega, p.trade_purified,
     p.trade_legendary, p.trade_mythical, p.trade_ultra_beast
              FROM pokedex p
-             JOIN users u ON p.user_id = u.id
+             JOIN trainers u ON p.user_id = u.id
              INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id
 WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR 
                     p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR 
@@ -585,7 +585,7 @@ router.get('/recent-others', authenticateToken, async (req, res) => {
     p.has_trade, p.trade_shiny, p.trade_xxl, p.trade_xxs,
     p.trade_gmax, p.trade_dynamax, p.trade_mega, p.trade_purified
              FROM pokedex p
-             JOIN users u ON p.user_id = u.id
+             JOIN trainers u ON p.user_id = u.id
              INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id
              WHERE p.user_id != $1
              ORDER BY p.created_at DESC
@@ -1014,7 +1014,7 @@ router.post('/bulk-fill', authenticateToken, async (req, res) => {
         await client.query('BEGIN');
 
         // Get user's preferred language
-        const userRes = await client.query('SELECT preferred_language FROM users WHERE id = $1', [req.user.id]);
+        const userRes = await client.query('SELECT preferred_language FROM trainers WHERE id = $1', [req.user.id]);
         const userLang = userRes.rows[0]?.preferred_language || 'fr';
 
         // 1. Get all available pokemon and their category availability
