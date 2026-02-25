@@ -164,7 +164,7 @@ async function runMigrations() {
     // Ensure form column exists in pokedex
     await runStep('pokedex.columns', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS is_shiny BOOLEAN DEFAULT false, ADD COLUMN IF NOT EXISTS is_lucky BOOLEAN DEFAULT false');
     await runStep('pokedex.form_col', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS form VARCHAR(50) DEFAULT NULL');
-    await runStep('pokedex.deduplicate', 'DELETE FROM pokedex p1 WHERE p1.id < ANY (SELECT p2.id FROM pokedex p2 WHERE p1.user_id = p2.user_id AND p1.pokemon_id = p2.pokemon_id AND COALESCE(p1.form, '') = COALESCE(p2.form, '') AND p1.id <> p2.id)');
+    await runStep('pokedex.deduplicate', "DELETE FROM pokedex p1 WHERE p1.id < ANY (SELECT p2.id FROM pokedex p2 WHERE p1.user_id = p2.user_id AND p1.pokemon_id = p2.pokemon_id AND COALESCE(p1.form, '') = COALESCE(p2.form, '') AND p1.id <> p2.id)");
     await runStep('pokedex.drop_old_unique', 'ALTER TABLE pokedex DROP CONSTRAINT IF EXISTS pokedex_user_id_pokemon_id_key');
     await runStep('pokedex.unique', 'ALTER TABLE pokedex ADD CONSTRAINT pokedex_user_id_pokemon_id_form_key UNIQUE (user_id, pokemon_id, form)');
 
