@@ -23,7 +23,7 @@ echo ""
 # 1. Update LOCAL DEV environment
 echo "1️⃣  Updating LOCAL DEV (localhost)..."
 docker exec ng-pokedec-db-1 psql -U postgres -d postgres -c \
-  "UPDATE users SET password = '$NEW_HASH' WHERE email = 'admin@YOUR_DOMAIN.com';" \
+  "UPDATE trainers SET password = '$NEW_HASH' WHERE email = 'admin@YOUR_DOMAIN.com';" \
   && echo "   ✅ Local DEV updated" \
   || echo "   ❌ Local DEV failed"
 
@@ -40,7 +40,7 @@ ssh -p 6674 eugenio@192.168.1.199 << 'EOF'
   fi
   echo "   Found container: $CONTAINER"
   sudo docker exec $CONTAINER psql -U postgres -d postgres -c \
-    "UPDATE users SET password = '\$2b\$10\$VN12NQ81Bde/T28TSUBrAuodnyGTfRlT/eP5Iigxpix.hHoCOii7u' WHERE email = 'admin@YOUR_DOMAIN.com';" \
+    "UPDATE trainers SET password = '\$2b\$10\$VN12NQ81Bde/T28TSUBrAuodnyGTfRlT/eP5Iigxpix.hHoCOii7u' WHERE email = 'admin@YOUR_DOMAIN.com';" \
     && echo "   ✅ PROD (pokedec) updated" \
     || echo "   ❌ PROD (pokedec) failed"
 EOF
@@ -58,7 +58,7 @@ ssh -p 6674 eugenio@192.168.1.199 << 'EOF'
   fi
   echo "   Found container: $CONTAINER"
   sudo docker exec $CONTAINER psql -U postgres -d postgres -c \
-    "UPDATE users SET password = '\$2b\$10\$VN12NQ81Bde/T28TSUBrAuodnyGTfRlT/eP5Iigxpix.hHoCOii7u' WHERE email = 'admin@YOUR_DOMAIN.com';" \
+    "UPDATE trainers SET password = '\$2b\$10\$VN12NQ81Bde/T28TSUBrAuodnyGTfRlT/eP5Iigxpix.hHoCOii7u' WHERE email = 'admin@YOUR_DOMAIN.com';" \
     && echo "   ✅ PROD-NEW (pokedec-prod) updated" \
     || echo "   ❌ PROD-NEW (pokedec-prod) failed"
 EOF

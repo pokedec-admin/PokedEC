@@ -54,7 +54,7 @@ router.get('/requests/incoming', authenticateToken, async (req, res) => {
         const result = await pool.query(
             `SELECT tr.*, u.trainer_name as requester_name, u.email as requester_email
              FROM trade_requests tr
-             JOIN users u ON tr.requester_id = u.id
+             JOIN trainers u ON tr.requester_id = u.id
              WHERE tr.target_user_id = $1 AND tr.status = 'pending'
              ORDER BY tr.created_at DESC`,
             [req.user.id]
@@ -73,7 +73,7 @@ router.get('/requests/outgoing', authenticateToken, async (req, res) => {
             `SELECT tr.*, u.trainer_name as target_name, u.email as target_email,
                     u.campfire_username, u.whatsapp_group
              FROM trade_requests tr
-             JOIN users u ON tr.target_user_id = u.id
+             JOIN trainers u ON tr.target_user_id = u.id
              WHERE tr.requester_id = $1
              ORDER BY tr.created_at DESC`,
             [req.user.id]

@@ -18,7 +18,7 @@ interface EditableUser extends User {
     templateUrl: './users.html',
     styleUrls: ['../admin.css'] // Reuse existing styles
 })
-export class AdminUsersComponent implements OnInit {
+export class AdminTrainersComponent implements OnInit {
     users: EditableUser[] = [];
     originalUsers: Map<number | string, EditableUser> = new Map();
     errorMessage = '';
@@ -142,7 +142,7 @@ export class AdminUsersComponent implements OnInit {
 
         const statusToSend = user.is_active === false ? true : false;
 
-        this.http.put(`/api/admin/users/${user.id}/active`, { is_active: statusToSend }).subscribe({
+        this.http.put(`/api/admin/trainers/${user.id}/active`, { is_active: statusToSend }).subscribe({
             next: () => {
                 user.is_active = statusToSend;
                 this.successMessage = `Utilisateur ${statusToSend ? 'activé' : 'désactivé'} avec succès`;
@@ -158,7 +158,7 @@ export class AdminUsersComponent implements OnInit {
             return;
         }
 
-        this.http.post<any>('/api/admin/users', this.newUser).subscribe({
+        this.http.post<any>('/api/admin/trainers', this.newUser).subscribe({
             next: (res) => {
                 this.users.unshift({ ...res.user, editing: false });
                 this.successMessage = 'Utilisateur créé avec succès';

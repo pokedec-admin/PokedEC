@@ -41,7 +41,7 @@ async function verifyMigration() {
                 trainer_name, 
                 supabase_uid,
                 CASE WHEN supabase_uid IS NOT NULL THEN 'Linked' ELSE 'Not Linked' END as status
-             FROM users 
+             FROM trainers
              ORDER BY id`
         );
 

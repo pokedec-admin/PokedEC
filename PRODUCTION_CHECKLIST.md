@@ -88,7 +88,7 @@ PGPASSWORD=votre_password psql -h db.xxx.supabase.co -U postgres -d postgres < s
 ### 4.2 Vérification des Données
 ```bash
 # Compter les utilisateurs
-PGPASSWORD=xxx psql -h db.xxx.supabase.co -U postgres -c "SELECT COUNT(*) FROM users;"
+PGPASSWORD=xxx psql -h db.xxx.supabase.co -U postgres -c "SELECT COUNT(*) FROM trainers;"
 ```
 
 - [ ] Nombre d'utilisateurs correspond au NAS

@@ -8,7 +8,7 @@ const authRoutes = require('./routes/auth').router;
 const adminRoutes = require('./routes/admin');
 const pokemonRoutes = require('./routes/pokedex');
 const systemRoutes = require('./routes/system');
-const { createUsersTable } = require('./models/user');
+const { createTrainersTable } = require('./models/trainer');
 const { createPokedexTable } = require('./models/pokedex');
 const { createPokemonNamesTable } = require('./models/pokemon_names');
 const { createSuggestionsTable } = require('./models/suggestions');
@@ -102,7 +102,7 @@ async function runMigrations() {
 
   try {
     console.log('📦 Creating base tables...');
-    await createUsersTable(pool);
+    await createTrainersTable(pool);
     await createPokemonMasterTable(pool);
     await createPokedexTable(pool);
     await createPokemonNamesTable(pool);
@@ -127,15 +127,15 @@ async function runMigrations() {
     await runStep('Add supabase_uid to trainers', 'ALTER TABLE trainers ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
 
     // Add indexes for performance
-    await runStep('trainers.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_users_supabase_uid ON users(supabase_uid)');
-    await runStep('trainers.idx_email', 'CREATE INDEX IF NOT EXISTS idx_users_email ON users(email)');
+    await runStep('trainers.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_trainers_supabase_uid ON trainers(supabase_uid)');
+    await runStep('trainers.idx_email', 'CREATE INDEX IF NOT EXISTS idx_trainers_email ON trainers(email)');
 
     // Migrate data from supabase_id to supabase_uid if needed
     try {
-      const checkCol = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name='users' AND column_name='supabase_id'");
+      const checkCol = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name='trainers' AND column_name='supabase_id'");
       if (checkCol.rows.length > 0) {
         console.log('🔄 Migrating supabase_id to supabase_uid...');
-        await pool.query('UPDATE users SET supabase_uid = supabase_id WHERE supabase_uid IS NULL AND supabase_id IS NOT NULL');
+        await pool.query('UPDATE trainers SET supabase_uid = supabase_id WHERE supabase_uid IS NULL AND supabase_id IS NOT NULL');
       }
     } catch (e) {
       console.error('  ⚠️  Migration from supabase_id failed:', e.message);

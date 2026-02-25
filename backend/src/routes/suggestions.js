@@ -69,7 +69,7 @@ router.get('/admin', authenticateAdmin, async (req, res) => {
         const result = await pool.query(
             `SELECT s.*, u.trainer_name, u.email 
              FROM suggestions s
-             JOIN users u ON s.user_id = u.id
+             JOIN trainers u ON s.user_id = u.id
              ${includeArchived ? '' : 'WHERE s.archived_admin = false'}
              ORDER BY s.created_at DESC`
         );

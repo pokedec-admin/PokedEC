@@ -26,10 +26,10 @@ const poolConfig = process.env.DATABASE_URL
 const pool = new Pool(poolConfig);
 
 // Get all users (admin only)
-router.get('/users', authenticateAdmin, async (req, res) => {
+router.get('/trainers', authenticateAdmin, async (req, res) => {
     try {
         const result = await pool.query(
-            'SELECT id, email, trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, is_admin, is_active, created_at FROM users ORDER BY created_at DESC'
+            'SELECT id, email, trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, is_admin, is_active, created_at FROM trainers ORDER BY created_at DESC'
         );
         res.json({ users: result.rows });
     } catch (err) {
@@ -39,7 +39,7 @@ router.get('/users', authenticateAdmin, async (req, res) => {
 });
 
 // Create new user (admin only) - Using Supabase Admin
-router.post('/users', authenticateAdmin, async (req, res) => {
+router.post('/trainers', authenticateAdmin, async (req, res) => {
     const { email, password, trainer_name, team, is_admin, is_active } = req.body;
 
     try {
@@ -55,7 +55,7 @@ router.post('/users', authenticateAdmin, async (req, res) => {
 
         // Sync to local DB
         const newUser = await pool.query(
-            `INSERT INTO users (email, trainer_name, team, is_admin, is_active, email_verified, supabase_uid)
+            `INSERT INTO trainers (email, trainer_name, team, is_admin, is_active, email_verified, supabase_uid)
              VALUES ($1, $2, $3, $4, $5, $6, $7) 
              RETURNING id, email, trainer_name, team, is_admin, is_active, created_at`,
             [email, trainer_name, team || null, !!is_admin, is_active !== false, true, data.user.id]
@@ -69,13 +69,13 @@ router.post('/users', authenticateAdmin, async (req, res) => {
 });
 
 // Update user (admin only) - Using Supabase Admin
-router.put('/users/:id', authenticateAdmin, async (req, res) => {
+router.put('/trainers/:id', authenticateAdmin, async (req, res) => {
     const { id } = req.params; // Local ID
     const { email, trainer_name, team, phone, email_verified, password, is_admin } = req.body;
 
     try {
         // Find user to get supabase_uid
-        const userRes = await pool.query('SELECT supabase_uid FROM users WHERE id = $1', [id]);
+        const userRes = await pool.query('SELECT supabase_uid FROM trainers WHERE id = $1', [id]);
         if (userRes.rows.length === 0) return res.status(404).json({ error: 'User not found' });
 
         const supabaseId = userRes.rows[0].supabase_uid;
@@ -96,7 +96,7 @@ router.put('/users/:id', authenticateAdmin, async (req, res) => {
         }
 
         // Update local DB
-        const query = `UPDATE users
+        const query = `UPDATE trainers
                  SET email = $1, trainer_name = $2, team = $3, phone = $4, email_verified = $5, is_admin = COALESCE($6, is_admin)
                  WHERE id = $7
                  RETURNING *`;
@@ -112,16 +112,16 @@ router.put('/users/:id', authenticateAdmin, async (req, res) => {
 });
 
 // Delete user (admin only)
-router.delete('/users/:id', authenticateAdmin, async (req, res) => {
+router.delete('/trainers/:id', authenticateAdmin, async (req, res) => {
     const { id } = req.params;
 
     try {
-        const userRes = await pool.query('SELECT supabase_uid FROM users WHERE id = $1', [id]);
+        const userRes = await pool.query('SELECT supabase_uid FROM trainers WHERE id = $1', [id]);
         if (userRes.rows.length > 0 && userRes.rows[0].supabase_uid) {
             await supabase.auth.admin.deleteUser(userRes.rows[0].supabase_uid);
         }
 
-        const result = await pool.query('DELETE FROM users WHERE id = $1 RETURNING id', [id]);
+        const result = await pool.query('DELETE FROM trainers WHERE id = $1 RETURNING id', [id]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({ error: 'User not found' });

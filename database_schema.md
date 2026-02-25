@@ -4,11 +4,11 @@
 
 ```mermaid
 erDiagram
-    users ||--o{ pokedex : "owns"
-    users ||--o{ suggestions : "submits"
-    users ||--o{ pokemon_category_availability : "configures (admin)"
-    users ||--o{ pokemon_master : "updates (admin)"
-    users ||--o{ trade_requests : "initiates/receives"
+    trainers ||--o{ pokedex : "owns"
+    trainers ||--o{ suggestions : "submits"
+    trainers ||--o{ pokemon_category_availability : "configures (admin)"
+    trainers ||--o{ pokemon_master : "updates (admin)"
+    trainers ||--o{ trade_requests : "initiates/receives"
     
     pokemon_master ||--o{ pokedex : "defines"
     pokemon_master }|--|| classifications : "has"
@@ -16,7 +16,7 @@ erDiagram
     pokemon_master }|--|| types : "has primary"
     pokemon_master }|--|| types : "has secondary"
     
-    users {
+    trainers {
         INT id PK
         VARCHAR email UK
         VARCHAR password
@@ -100,8 +100,8 @@ erDiagram
 
 ### 1. Core Tables
 
-#### `users`
-User accounts and profile information.
+#### `trainers`
+Trainer accounts and profile information.
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
@@ -127,7 +127,7 @@ User's personal Pokemon collection. Links to `pokemon_master` for static data.
 | Attribute | Type | Description |
 |-----------|------|-------------|
 | `id` | `SERIAL` | Primary Key |
-| `user_id` | `INTEGER` | FK to `users(id)` |
+| `user_id` | `INTEGER` | FK to `trainers(id)` |
 | `pokemon_id` | `INTEGER` | National Dex ID (FK to `pokemon_master`) |
 | `has_shiny` | `BOOLEAN` | Collected shiny variant |
 | `has_lucky` | `BOOLEAN` | Collected lucky variant |
@@ -171,7 +171,7 @@ Central repository for all Pokemon static data. Source of truth for the applicat
 | `type_primary_id` | `INTEGER` | FK to `types(id)` |
 | `type_secondary_id` | `INTEGER` | FK to `types(id)` (Nullable) |
 | `trade_status` | `VARCHAR(20)` | Global trade rule (YES/NO/SPECIAL) |
-| `updated_by` | `INTEGER` | Admin who last modified (FK to `users`) |
+| `updated_by` | `INTEGER` | Admin who last modified (FK to `trainers`) |
 | `updated_at` | `TIMESTAMP` | Last modification time |
 
 #### `classifications`
@@ -241,12 +241,12 @@ Admin configuration for allowed variants per Pokemon (Legacy/Hybrid).
 | `updated_at` | `TIMESTAMP` | Last update |
 
 #### `suggestions`
-User feedback system.
+Trainer feedback system.
 
 | Attribute | Type | Description |
 |-----------|------|-------------|
 | `id` | `SERIAL` | Primary Key |
-| `user_id` | `INTEGER` | FK to `users(id)` |
+| `user_id` | `INTEGER` | FK to `trainers(id)` |
 | `type` | `VARCHAR(50)` | bug/feature/other |
 | `content` | `TEXT` | Suggestion details |
 | `status` | `VARCHAR(20)` | pending/approved/rejected |

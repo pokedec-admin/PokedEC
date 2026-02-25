@@ -13,7 +13,7 @@ async function createSuggestionsTable() {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS suggestions (
                 id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id),
+                user_id INTEGER REFERENCES trainers(id),
                 type VARCHAR(50) NOT NULL, -- 'suggestion' or 'bug'
                 content TEXT NOT NULL,
                 status VARCHAR(50) DEFAULT 'open', -- 'open', 'in_progress', 'resolved', 'closed'

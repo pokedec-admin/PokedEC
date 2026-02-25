@@ -21,7 +21,7 @@ async function createDefaultAdmin() {
         console.log('[Migration] Checking for existing admin user...');
 
         // Check if any admin exists
-        const adminCheck = await pool.query('SELECT id FROM users WHERE is_admin = true');
+        const adminCheck = await pool.query('SELECT id FROM trainers WHERE is_admin = true');
 
         if (adminCheck.rows.length > 0) {
             console.log('[Migration] Admin user already exists. Skipping creation.');
@@ -37,7 +37,7 @@ async function createDefaultAdmin() {
         const team = 'Harmony';
 
         await pool.query(
-            `INSERT INTO users (email, password, trainer_name, team, is_admin, email_verified, preferred_language)
+            `INSERT INTO trainers (email, password, trainer_name, team, is_admin, email_verified, preferred_language)
              VALUES ($1, $2, $3, $4, $5, $6, $7)`,
             [email, hashedPassword, trainerName, team, true, true, 'fr']
         );

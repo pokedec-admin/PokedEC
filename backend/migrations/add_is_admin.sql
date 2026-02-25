@@ -6,14 +6,14 @@ DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM information_schema.columns 
-        WHERE table_name = 'users' AND column_name = 'is_admin'
+        WHERE table_name = 'trainers' AND column_name = 'is_admin'
     ) THEN
-        ALTER TABLE users ADD COLUMN is_admin BOOLEAN DEFAULT FALSE;
+        ALTER TABLE trainers ADD COLUMN is_admin BOOLEAN DEFAULT FALSE;
     END IF;
 END $$;
 
 -- Set Admin_YOUR_DOMAIN as admin
-UPDATE users SET is_admin = TRUE WHERE email = 'admin@YOUR_DOMAIN.com';
+UPDATE trainers SET is_admin = TRUE WHERE email = 'admin@YOUR_DOMAIN.com';
 
 -- Verify
-SELECT id, email, trainer_name, is_admin FROM users WHERE is_admin = TRUE;
+SELECT id, email, trainer_name, is_admin FROM trainers WHERE is_admin = TRUE;

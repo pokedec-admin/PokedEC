@@ -13,7 +13,7 @@ const createPokemonCategoryAvailabilityTable = async (pool) => {
       can_be_obscure BOOLEAN DEFAULT TRUE,
       can_be_purified BOOLEAN DEFAULT TRUE,
       can_be_perfect BOOLEAN DEFAULT TRUE,
-      updated_by INTEGER REFERENCES users(id),
+      updated_by INTEGER REFERENCES trainers(id),
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `;

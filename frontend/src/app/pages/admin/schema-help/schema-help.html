@@ -24,7 +24,7 @@
 
             <div class="section-content" [class.show]="section.expanded">
 
-                <!-- Users Table -->
+                <!-- Trainers Table -->
                 <!-- Trainers Table -->
                 <div *ngIf="section.content === 'trainers'" class="content">
                     <p class="description">Trainer accounts for the application.</p>
@@ -373,7 +373,7 @@
 
                 <!-- Suggestions Table -->
                 <div *ngIf="section.content === 'suggestions'" class="content">
-                    <p class="description">User feedback and suggestions.</p>
+                    <p class="description">Trainer feedback and suggestions.</p>
                     <table class="simple-table">
                         <tr>
                             <td><code>id</code></td>
@@ -417,12 +417,12 @@
                         <li><strong>User Side:</strong> Only admin-defined category is visible/toggleable in Pokedex
                         </li>
                         <li><strong>Backend:</strong> Toggle endpoint ensures mutual exclusivity</li>
-                        <li><strong>Propagation:</strong> Admin changes automatically update user Pokedex entries</li>
+                        <li><strong>Propagation:</strong> Admin changes automatically update trainer Pokedex entries</li>
                     </ul>
 
                     <h4>Trade System</h4>
                     <ul class="logic-list">
-                        <li>Users mark variants as "for trade" using trade flags</li>
+                        <li>Trainers mark variants as "for trade" using trade flags</li>
                         <li><code>GET /pokedex/trade-available</code> shows Pokemon from other trainers</li>
                         <li>Trade flags are mutually exclusive for exclusive categories</li>
                     </ul>

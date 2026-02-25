@@ -48,7 +48,7 @@ async function migrateUsersToSupabase() {
     try {
         // Get all users from PostgreSQL
         const usersResult = await pool.query(
-            'SELECT id, email, trainer_name, password, is_admin, team FROM users ORDER BY id'
+            'SELECT id, email, trainer_name, password, is_admin, team FROM trainers ORDER BY id'
         );
         
         report.total = usersResult.rows.length;
@@ -70,7 +70,7 @@ async function migrateUsersToSupabase() {
                     
                     // Link the user if not already linked
                     const linked = await pool.query(
-                        'UPDATE users SET supabase_uid = $1 WHERE id = $2 AND supabase_uid IS NULL',
+                        'UPDATE trainers SET supabase_uid = $1 WHERE id = $2 AND supabase_uid IS NULL',
                         [supabaseUser.id, user.id]
                     );
                     if (linked.rowCount > 0) {
@@ -100,7 +100,7 @@ async function migrateUsersToSupabase() {
 
                     // Link the user in PostgreSQL
                     await pool.query(
-                        'UPDATE users SET supabase_uid = $1 WHERE id = $2',
+                        'UPDATE trainers SET supabase_uid = $1 WHERE id = $2',
                         [newUser.user.id, user.id]
                     );
                     console.log(`  🔗 Linked to backend user ID ${user.id}\n`);

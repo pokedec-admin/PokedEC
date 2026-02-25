@@ -27,7 +27,7 @@ const authenticateToken = async (req, res, next) => {
 
         // Find the user by supabase_uid in local DB
         let userResult = await pool.query(
-            'SELECT * FROM users WHERE supabase_uid = $1 OR email = $2 LIMIT 1',
+            'SELECT * FROM trainers WHERE supabase_uid = $1 OR email = $2 LIMIT 1',
             [data.user.id, data.user.email]
         );
 
@@ -37,7 +37,7 @@ const authenticateToken = async (req, res, next) => {
 
             if (!backendUser.supabase_uid) {
                 console.log(`[Auth Middleware] Linking existing user ${backendUser.email} to Supabase UID ${data.user.id}`);
-                await pool.query('UPDATE users SET supabase_uid = $1 WHERE id = $2', [data.user.id, backendUser.id]);
+                await pool.query('UPDATE trainers SET supabase_uid = $1 WHERE id = $2', [data.user.id, backendUser.id]);
                 backendUser.supabase_uid = data.user.id;
             }
         } else {
@@ -47,7 +47,7 @@ const authenticateToken = async (req, res, next) => {
                 const trainer_name = data.user.user_metadata?.trainer_name || (data.user.email ? data.user.email.split('@')[0] : `Trainer_${data.user.id.substring(0, 8)}`);
 
                 const insertResult = await pool.query(
-                    'INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4 RETURNING *',
+                    'INSERT INTO trainers (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5) ON CONFLICT (email) DO UPDATE SET supabase_uid = $4 RETURNING *',
                     [
                         email,
                         trainer_name,
@@ -94,14 +94,14 @@ const syncUsers = async (pool) => {
             try {
                 // Try to find local user
                 const userRes = await pool.query(
-                    "SELECT id FROM users WHERE supabase_uid = $1 OR email = $2",
+                    "SELECT id FROM trainers WHERE supabase_uid = $1 OR email = $2",
                     [sbUser.id, sbUser.email]
                 );
 
                 if (userRes.rows.length === 0) {
                     console.log(`[Auth Service] Sync: Provisioning missing user ${sbUser.email}`);
                     await pool.query(
-                        "INSERT INTO users (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5)",
+                        "INSERT INTO trainers (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5)",
                         [
                             sbUser.email,
                             sbUser.user_metadata?.trainer_name || sbUser.email?.split("@")[0] || "User",
@@ -114,7 +114,7 @@ const syncUsers = async (pool) => {
                     const localUser = userRes.rows[0];
                     // Update supabase_uid if missing
                     await pool.query(
-                        "UPDATE users SET supabase_uid = $1 WHERE id = $2 AND (supabase_uid IS NULL OR supabase_uid != $1)",
+                        "UPDATE trainers SET supabase_uid = $1 WHERE id = $2 AND (supabase_uid IS NULL OR supabase_uid != $1)",
                         [sbUser.id, localUser.id]
                     );
                 }
