@@ -12,10 +12,10 @@ interface EditableUser extends User {
 }
 
 @Component({
-    selector: 'app-admin-users',
+    selector: 'app-admin-trainers',
     standalone: true,
     imports: [CommonModule, FormsModule, RouterLink],
-    templateUrl: './users.html',
+    templateUrl: './trainers.html',
     styleUrls: ['../admin.css'] // Reuse existing styles
 })
 export class AdminTrainersComponent implements OnInit {
@@ -25,7 +25,7 @@ export class AdminTrainersComponent implements OnInit {
     successMessage = '';
 
     // New User Form
-    newUser = {
+    newDresseur = {
         email: '',
         password: '',
         trainer_name: '',
@@ -33,7 +33,7 @@ export class AdminTrainersComponent implements OnInit {
         is_admin: false,
         is_active: true
     };
-    showCreateUserForm = false;
+    showCreateDresseurForm = false;
 
     constructor(
         private authService: AuthService,
@@ -71,7 +71,7 @@ export class AdminTrainersComponent implements OnInit {
         user.editing = false;
     }
 
-    saveUser(user: EditableUser) {
+    saveDresseur(user: EditableUser) {
         const updateData: any = {
             email: user.email,
             trainer_name: user.trainer_name,
@@ -152,18 +152,18 @@ export class AdminTrainersComponent implements OnInit {
         });
     }
 
-    createUser() {
-        if (!this.newUser.email || !this.newUser.password || !this.newUser.trainer_name) {
+    createDresseur() {
+        if (!this.newDresseur.email || !this.newDresseur.password || !this.newDresseur.trainer_name) {
             this.errorMessage = 'Veuillez remplir les champs obligatoires (Email, Mot de passe, Nom)';
             return;
         }
 
-        this.http.post<any>('/api/admin/trainers', this.newUser).subscribe({
+        this.http.post<any>('/api/admin/trainers', this.newDresseur).subscribe({
             next: (res) => {
                 this.users.unshift({ ...res.user, editing: false });
                 this.successMessage = 'Utilisateur créé avec succès';
-                this.showCreateUserForm = false;
-                this.newUser = { email: '', password: '', trainer_name: '', team: '', is_admin: false, is_active: true };
+                this.showCreateDresseurForm = false;
+                this.newDresseur = { email: '', password: '', trainer_name: '', team: '', is_admin: false, is_active: true };
                 setTimeout(() => this.successMessage = '', 3000);
             },
             error: (err) => this.errorMessage = err.error?.error || 'Erreur lors de la création de l\'utilisateur'
