@@ -138,14 +138,14 @@ export class AdminTrainersComponent implements OnInit {
     }
 
     toggleActiveStatus(user: EditableUser) {
-        if (!confirm(`Voulez-vous vraiment ${user.is_active !== false ? 'désactiver' : 'activer'} cet utilisateur ?`)) return;
+        if (!confirm(`Voulez-vous vraiment ${user.is_active !== false ? 'désactiver' : 'activer'} cet dresseur ?`)) return;
 
         const statusToSend = user.is_active === false ? true : false;
 
         this.http.put(`/api/admin/trainers/${user.id}/active`, { is_active: statusToSend }).subscribe({
             next: () => {
                 user.is_active = statusToSend;
-                this.successMessage = `Utilisateur ${statusToSend ? 'activé' : 'désactivé'} avec succès`;
+                this.successMessage = `Dresseur ${statusToSend ? 'activé' : 'désactivé'} avec succès`;
                 setTimeout(() => this.successMessage = '', 3000);
             },
             error: (err) => this.errorMessage = 'Erreur lors de la mise à jour du statut actif'
@@ -161,12 +161,12 @@ export class AdminTrainersComponent implements OnInit {
         this.http.post<any>('/api/admin/trainers', this.newDresseur).subscribe({
             next: (res) => {
                 this.users.unshift({ ...res.user, editing: false });
-                this.successMessage = 'Utilisateur créé avec succès';
+                this.successMessage = 'Dresseur créé avec succès';
                 this.showCreateDresseurForm = false;
                 this.newDresseur = { email: '', password: '', trainer_name: '', team: '', is_admin: false, is_active: true };
                 setTimeout(() => this.successMessage = '', 3000);
             },
-            error: (err) => this.errorMessage = err.error?.error || 'Erreur lors de la création de l\'utilisateur'
+            error: (err) => this.errorMessage = err.error?.error || 'Erreur lors de la création de l\'dresseur'
         });
     }
 }

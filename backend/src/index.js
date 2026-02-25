@@ -102,6 +102,13 @@ async function runMigrations() {
 
   try {
     console.log('📦 Creating base tables...');
+    // Check for table name consistency
+    const tableCheck = await pool.query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name IN ('users', 'trainers')");
+    const existingTables = tableCheck.rows.map(r => r.table_name);
+    if (existingTables.includes('users') && !existingTables.includes('trainers')) {
+      console.log('🔄 Auto-renaming users to trainers...');
+      await pool.query('ALTER TABLE users RENAME TO trainers');
+    }
     await createTrainersTable(pool);
     await createPokemonMasterTable(pool);
     await createPokedexTable(pool);
@@ -145,8 +152,6 @@ async function runMigrations() {
     await runStep('pca.columns', 'ALTER TABLE pokemon_category_availability ADD COLUMN IF NOT EXISTS is_available BOOLEAN DEFAULT false');
 
     // Pokedex structural updates
-    await runStep('pokedex.columns', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS is_shiny BOOLEAN DEFAULT false, ADD COLUMN IF NOT EXISTS is_lucky BOOLEAN DEFAULT false');
-    await runStep('pokedex.unique', 'ALTER TABLE pokedex ADD CONSTRAINT pokedex_user_id_pokemon_id_key UNIQUE (user_id, pokemon_id)');
 
     // Pokemon Master data columns
     await runStep('pm.columns', 'ALTER TABLE pokemon_master ADD COLUMN IF NOT EXISTS is_mega BOOLEAN DEFAULT false, ADD COLUMN IF NOT EXISTS is_gmax BOOLEAN DEFAULT false');
@@ -157,7 +162,11 @@ async function runMigrations() {
     await runStep('pokemon_master.id', 'ALTER TABLE pokemon_master ALTER COLUMN id TYPE INTEGER USING id::integer');
 
     // Ensure form column exists in pokedex
+    await runStep('pokedex.columns', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS is_shiny BOOLEAN DEFAULT false, ADD COLUMN IF NOT EXISTS is_lucky BOOLEAN DEFAULT false');
     await runStep('pokedex.form_col', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS form VARCHAR(50) DEFAULT NULL');
+    await runStep('pokedex.deduplicate', 'DELETE FROM pokedex p1 WHERE p1.id < ANY (SELECT p2.id FROM pokedex p2 WHERE p1.user_id = p2.user_id AND p1.pokemon_id = p2.pokemon_id AND COALESCE(p1.form, '') = COALESCE(p2.form, '') AND p1.id <> p2.id)');
+    await runStep('pokedex.drop_old_unique', 'ALTER TABLE pokedex DROP CONSTRAINT IF EXISTS pokedex_user_id_pokemon_id_key');
+    await runStep('pokedex.unique', 'ALTER TABLE pokedex ADD CONSTRAINT pokedex_user_id_pokemon_id_form_key UNIQUE (user_id, pokemon_id, form)');
 
     console.log('✅ Auto-migrations completed!');
   } catch (err) {
