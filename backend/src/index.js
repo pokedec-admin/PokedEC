@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const authRoutes = require('./routes/auth').router;
 const adminRoutes = require('./routes/admin');
+const adminImportRoutes = require('./routes/admin-import');
 const pokemonRoutes = require('./routes/pokedex');
 const systemRoutes = require('./routes/system');
 const { createTrainersTable } = require('./models/trainer');
@@ -56,6 +57,7 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin/import', adminImportRoutes);
 app.use('/api/pokemon', pokemonRoutes);
 app.use('/api/system', systemRoutes);
 app.use('/api/suggestions', require('./routes/suggestions'));
