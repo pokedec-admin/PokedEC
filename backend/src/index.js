@@ -29,6 +29,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL, 'https://pokedec.ch', 'https://www.pokedec.ch',
   'http://localhost:4200',
   'http://localhost:4201',
+  'http://localhost:8080',
   'http://localhost:8081'
 ].filter(Boolean);
 
@@ -67,7 +68,7 @@ app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data
 const poolConfig = process.env.DATABASE_URL
   ? {
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
   }
   : {
     user: process.env.DB_USER || 'postgres',
@@ -75,7 +76,7 @@ const poolConfig = process.env.DATABASE_URL
     database: process.env.DB_NAME || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
     port: process.env.DB_PORT || 5432,
-    ssl: { rejectUnauthorized: false }
+    ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
   };
 
 const pool = new Pool(poolConfig);
@@ -167,6 +168,11 @@ async function runMigrations() {
     await runStep('pokedex.deduplicate', "DELETE FROM pokedex p1 WHERE p1.id < ANY (SELECT p2.id FROM pokedex p2 WHERE p1.user_id = p2.user_id AND p1.pokemon_id = p2.pokemon_id AND COALESCE(p1.form, '') = COALESCE(p2.form, '') AND p1.id <> p2.id)");
     await runStep('pokedex.drop_old_unique', 'ALTER TABLE pokedex DROP CONSTRAINT IF EXISTS pokedex_user_id_pokemon_id_key');
     await runStep('pokedex.unique', 'ALTER TABLE pokedex ADD CONSTRAINT pokedex_user_id_pokemon_id_form_key UNIQUE (user_id, pokemon_id, form)');
+
+    // Suggestions table structural updates
+    await runStep('suggestions.archived_user', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_user BOOLEAN DEFAULT false');
+    await runStep('suggestions.archived_admin', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_admin BOOLEAN DEFAULT false');
+    await runStep('suggestions.is_read', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS is_read BOOLEAN DEFAULT false');
 
     console.log('✅ Auto-migrations completed!');
   } catch (err) {
