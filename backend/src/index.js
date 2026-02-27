@@ -56,16 +56,21 @@ app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
+
+// Specific Admin routes first
 app.use('/api/admin/import', adminImportRoutes);
+app.use('/api/admin/pokemon-categories', require('./routes/pokemon-categories'));
+
+// General Admin routes
+app.use('/api/admin', adminRoutes);
+app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data management
+
+// Other routes
 app.use('/api/pokemon', pokemonRoutes);
+app.use('/api/pokemon-categories', require('./routes/public-categories'));
 app.use('/api/system', systemRoutes);
 app.use('/api/suggestions', require('./routes/suggestions'));
-app.use('/api/admin/pokemon-categories', require('./routes/pokemon-categories'));
-app.use('/api/pokemon-categories', require('./routes/public-categories'));
-app.use('/api/admin/import', require('./routes/admin-import'));
 app.use('/api/trade', require('./routes/trade'));
-app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data management
 
 const poolConfig = process.env.DATABASE_URL
   ? {
