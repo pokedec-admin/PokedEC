@@ -1,0 +1,60 @@
+services:
+  # Automatic updates for all containers
+  watchtower:
+    image: containrrr/watchtower
+    container_name: pokedec-nas-watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 3600 --cleanup
+    restart: always
+
+  nginx:
+    container_name: pokedec-nas-nginx
+    image: nginx:alpine
+    ports:
+      - "8080:80" # Same output port as GREEN
+    volumes:
+      - ./nginx/nginx.synology.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    restart: always
+    networks:
+      - default
+      - pokedec-shared-net
+
+  frontend:
+    container_name: pokedec-nas-frontend
+    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-frontend:latest
+    expose:
+      - "80"
+    volumes:
+      - /volume1/docker/pokedec-shared/images:/usr/share/nginx/html/images
+    depends_on:
+      - backend
+    restart: always
+
+  backend:
+    container_name: pokedec-nas-backend
+    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-backend:latest
+    expose:
+      - "3000"
+    volumes:
+      - /volume1/docker/pokedec-shared/images:/frontend/public/images
+    env_file:
+      - .env.synology
+    environment:
+      - DB_HOST=pokedec-blue-green-db # Assuming sharing the same DB container
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - NODE_ENV=production
+      - APP_ENV=NAS
+    restart: always
+    networks:
+      - default
+      - pokedec-shared-net
+
+networks:
+  pokedec-shared-net:
+    external: true

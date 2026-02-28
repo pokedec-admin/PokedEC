@@ -623,4 +623,125 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
     }
 });
 
+// NEW: Push local data to PROD (DANGEROUS - use with care!)
+router.post('/push-local-to-prod', syncAuthMiddleware, async (req, res) => {
+    try {
+        const localPool = req.app.locals.pool;
+        const prodPool = getProdPool();
+
+        console.log('🚀 Starting PUSH DEV → PROD synchronization...');
+
+        // 1. Fetch all local data
+        console.log('📥 Fetching all local data...');
+        const users = (await localPool.query('SELECT * FROM trainers ORDER BY id')).rows;
+        const pokedex = (await localPool.query('SELECT * FROM pokedex ORDER BY user_id, pokemon_id, form_name')).rows;
+        const categories = (await localPool.query('SELECT * FROM pokemon_category_availability ORDER BY pokemon_id, form_name')).rows;
+        const classifications = (await localPool.query('SELECT * FROM classifications ORDER BY id')).rows;
+        const regions = (await localPool.query('SELECT * FROM regions ORDER BY id')).rows;
+        const types = (await localPool.query('SELECT * FROM types ORDER BY id')).rows;
+        const master = (await localPool.query('SELECT * FROM pokemon_master ORDER BY pokemon_id, form_name')).rows;
+        const suggestions = (await localPool.query('SELECT * FROM suggestions ORDER BY id')).rows;
+
+        // 2. Clear PROD data (EXTREMELY DESTRUCTIVE!)
+        console.log('🗑️   Clearing PROD data...');
+        await prodPool.query('TRUNCATE TABLE pokedex CASCADE');
+
+        // Detect user table on PROD
+        const tableCheck = await prodPool.query(`SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name IN ('trainers', 'users')`);
+        const userTableName = tableCheck.rows.map(r => r.table_name).includes('trainers') ? 'trainers' : 'users';
+        await prodPool.query(`TRUNCATE TABLE ${userTableName} RESTART IDENTITY CASCADE`);
+
+        await prodPool.query('TRUNCATE TABLE pokemon_category_availability CASCADE');
+        await prodPool.query('TRUNCATE TABLE pokemon_master CASCADE');
+        await prodPool.query('TRUNCATE TABLE classifications CASCADE');
+        await prodPool.query('TRUNCATE TABLE regions CASCADE');
+        await prodPool.query('TRUNCATE TABLE types CASCADE');
+        await prodPool.query('TRUNCATE TABLE suggestions RESTART IDENTITY CASCADE');
+
+        // 3. Import to PROD
+        console.log(`📤 Pushing ${users.length} users to ${userTableName}...`);
+        for (const u of users) {
+            await prodPool.query(`
+                INSERT INTO ${userTableName} (id, email, password, google_id, trainer_name, created_at, phone, email_verified, team, is_admin, preferred_language, campfire_name, whatsapp_group)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+            `, [u.id, u.email, u.password, u.google_id, u.trainer_name, u.created_at, u.phone, u.email_verified, u.team, u.is_admin, u.preferred_language, u.campfire_name, u.whatsapp_group]);
+        }
+
+        console.log(`📤 Pushing reference tables...`);
+        for (const row of classifications) await prodPool.query('INSERT INTO classifications (id, name_fr, name_en, name_key, display_order) VALUES ($1,$2,$3,$4,$5)', [row.id, row.name_fr, row.name_en, row.name_key, row.display_order]);
+        for (const row of regions) await prodPool.query('INSERT INTO regions (id, name_fr, name_en, name_key, display_order, is_custom) VALUES ($1,$2,$3,$4,$5,$6)', [row.id, row.name_fr, row.name_en, row.name_key, row.display_order, row.is_custom]);
+        for (const row of types) await prodPool.query('INSERT INTO types (id, name_fr, name_en, name_key, color_hex) VALUES ($1,$2,$3,$4,$5)', [row.id, row.name_fr, row.name_en, row.name_key, row.color_hex]);
+
+        console.log(`📤 Pushing ${master.length} master entries...`);
+        const masterColCheck = await prodPool.query(`SELECT column_name FROM information_schema.columns WHERE table_name = 'pokemon_master'`);
+        const prodMasterCols = masterColCheck.rows.map(r => r.column_name);
+        const hasMega = prodMasterCols.includes('is_mega');
+        const hasGmax = prodMasterCols.includes('is_gmax');
+
+        for (const m of master) {
+            let masterQuery = `
+                INSERT INTO pokemon_master (pokemon_id, form_name, name_fr, name_en, name_de, name_it, classification_id, region_id, type_primary_id, type_secondary_id, is_available, trade_status, image_url, is_regional, regional_description`;
+            let masterValues = [m.pokemon_id, m.form_name, m.name_fr, m.name_en, m.name_de, m.name_it, m.classification_id, m.region_id, m.type_primary_id, m.type_secondary_id, m.is_available, m.trade_status, m.image_url, m.is_regional, m.regional_description];
+            let placeholders = `$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15`;
+
+            let valIdx = 16;
+            if (hasMega) {
+                masterQuery += `, is_mega`;
+                masterValues.push(m.is_mega || false);
+                placeholders += `,$${valIdx++}`;
+            }
+            if (hasGmax) {
+                masterQuery += `, is_gmax`;
+                masterValues.push(m.is_gmax || false);
+                placeholders += `,$${valIdx++}`;
+            }
+
+            masterQuery += `) VALUES (${placeholders})`;
+            await prodPool.query(masterQuery, masterValues);
+        }
+
+        console.log(`📤 Pushing ${categories.length} category availability entries...`);
+        for (const c of categories) {
+            await prodPool.query(`
+                INSERT INTO pokemon_category_availability (pokemon_id, form_name, can_be_normal, can_be_legendary, can_be_mythical, can_be_ultra_beast, can_be_shiny, can_be_lucky, can_be_xxl, can_be_xxs, can_be_gmax, can_be_dynamax, can_be_mega, can_be_obscure, can_be_purified, can_be_perfect)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+            `, [c.pokemon_id, c.form_name, c.can_be_normal, c.can_be_legendary, c.can_be_mythical, c.can_be_ultra_beast, c.can_be_shiny, c.can_be_lucky, c.can_be_xxl, c.can_be_xxs, c.can_be_gmax, c.can_be_dynamax, c.can_be_mega, c.can_be_obscure, c.can_be_purified, c.can_be_perfect]);
+        }
+
+        console.log(`📤 Pushing ${pokedex.length} pokedex entries...`);
+        // Detect pokedex columns for legacy mapping if PROD is old
+        const pokedexColCheck = await prodPool.query(`SELECT column_name FROM information_schema.columns WHERE table_name = 'pokedex'`);
+        const prodPokedexCols = pokedexColCheck.rows.map(r => r.column_name);
+        const hasLegacy = prodPokedexCols.includes('has_legendary');
+
+        for (const p of pokedex) {
+            if (hasLegacy) {
+                await prodPool.query(`
+                    INSERT INTO pokedex (user_id, pokemon_id, form_name, created_at, has_normal, has_shiny, has_lucky, has_xxl, has_xxs, has_gmax, has_dynamax, has_mega, has_obscure, has_purifie, has_parfait, has_trade)
+                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+                `, [p.user_id, p.pokemon_id, p.form_name, p.created_at, p.has_normal, p.has_shiny, p.has_lucky, p.has_xxl, p.has_xxs, p.has_gmax, p.has_dynamax, p.has_mega, p.has_obscure, p.has_purifie, p.has_parfait, p.has_trade]);
+            } else {
+                await prodPool.query(`
+                    INSERT INTO pokedex (user_id, pokemon_id, form_name, created_at, has_normal, has_shiny, has_lucky, has_xxl, has_xxs, has_gmax, has_dynamax, has_mega, has_obscure, has_purifie, has_parfait, has_trade, trade_shiny, trade_xxl, trade_xxs, trade_gmax, trade_dynamax, trade_mega, trade_purified, trade_perfect)
+                    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)
+                `, [p.user_id, p.pokemon_id, p.form_name, p.created_at, p.has_normal, p.has_shiny, p.has_lucky, p.has_xxl, p.has_xxs, p.has_gmax, p.has_dynamax, p.has_mega, p.has_obscure, p.has_purifie, p.has_parfait, p.has_trade, p.trade_shiny, p.trade_xxl, p.trade_xxs, p.trade_gmax, p.trade_dynamax, p.trade_mega, p.trade_purified, p.trade_perfect]);
+            }
+        }
+
+        console.log(`📤 Pushing ${suggestions.length} suggestions...`);
+        for (const s of suggestions) {
+            await prodPool.query(`
+                INSERT INTO suggestions (id, user_id, type, content, status, admin_response, created_at, updated_at, is_read, archived_user, archived_admin)
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+            `, [s.id, s.user_id, s.type, s.content, s.status, s.admin_response, s.created_at, s.updated_at, s.is_read || false, s.archived_user || false, s.archived_admin || false]);
+        }
+
+        console.log('✅ PUSH DEV → PROD completed successfully!');
+        res.json({ success: true, message: 'Données poussées vers PROD avec succès !' });
+    } catch (error) {
+        console.error('❌ Push error:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
 module.exports = router;

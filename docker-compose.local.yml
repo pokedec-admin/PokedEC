@@ -53,6 +53,8 @@ services:
       - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
       - JWT_SECRET=${JWT_SECRET}
       - PROD_DATABASE_URL=${PROD_DATABASE_URL}
+      - PROD_DB_SSL=${PROD_DB_SSL}
+      - SKIP_SYNC_AUTH=${SKIP_SYNC_AUTH}
     depends_on:
       - db
 
