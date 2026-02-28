@@ -8,10 +8,9 @@ COPY . .
 ARG SUPABASE_URL
 ARG SUPABASE_ANON_KEY
 ARG API_URL=/api
-RUN sed -i "s|supabaseUrl: '.*'|supabaseUrl: '${SUPABASE_URL}'|g" src/environments/environment.prod.ts && \
-    sed -i "s|supabaseKey: '.*'|supabaseKey: '${SUPABASE_ANON_KEY}'|g" src/environments/environment.prod.ts && \
-    sed -i "s|apiUrl: '.*'|apiUrl: '${API_URL}'|g" src/environments/environment.prod.ts && \
-    sed -i "s|backupApiUrl: '.*'|backupApiUrl: '/api'|g" src/environments/environment.prod.ts && \
+RUN if [ -n "${SUPABASE_URL}" ]; then sed -i "s|supabaseUrl: '.*'|supabaseUrl: '${SUPABASE_URL}'|g" src/environments/environment.prod.ts; fi && \
+    if [ -n "${SUPABASE_ANON_KEY}" ]; then sed -i "s|supabaseKey: '.*'|supabaseKey: '${SUPABASE_ANON_KEY}'|g" src/environments/environment.prod.ts; fi && \
+    if [ -n "${API_URL}" ] && [ "${API_URL}" != "/api" ]; then sed -i "s|apiUrl: '.*'|apiUrl: '${API_URL}'|g" src/environments/environment.prod.ts; fi && \
     echo "=== environment.prod.ts after patch ===" && cat src/environments/environment.prod.ts
 
 RUN npm run build -- --configuration production
