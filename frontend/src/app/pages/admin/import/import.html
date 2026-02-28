@@ -1,68 +1,82 @@
 <div class="admin-container">
     <div class="admin-header">
         <button class="back-btn" routerLink="/admin">← Retour Menu</button>
-        <h2>📥 Import Données PROD</h2>
+        <h2>📥 Synchronisation des Bases de Données</h2>
     </div>
 
     <div class="import-section">
         <div class="warning-box">
-            <h3>⚠️ Attention - Action Destructive</h3>
-            <p><strong>Cet import va :</strong></p>
+            <h3>⚠️ Attention - Action Destructive (Sur la Cible)</h3>
+            <p><strong>Cette synchronisation va :</strong></p>
             <ul>
-                <li>✅ Conserver la structure des tables (colonnes intactes)</li>
-                <li>❌ Effacer TOUTES les données locales (users + pokedex)</li>
-                <li>📥 Les remplacer par les données de PROD</li>
+                <li>📥 Exporter TOUTES les données de la <strong>Source</strong></li>
+                <li>❌ Effacer TOUTES les données de la <strong>Cible</strong></li>
+                <li>📤 Remplacer les données de la Cible par celles de la Source</li>
             </ul>
-            <p><strong>Les nouvelles colonnes DEV</strong> resteront présentes mais avec valeur NULL.</p>
         </div>
 
-        <div class="import-status" *ngIf="importStatus">
-            <p [class.success]="importStatus.success" [class.error]="!importStatus.success">
-                {{ importStatus.message }}
-            </p>
-            <div *ngIf="importStatus.stats" class="import-stats">
-                <p>✅ Utilisateurs importés : {{ importStatus.stats.users }}</p>
-                <p>✅ Entrées Pokédex importées : {{ importStatus.stats.pokedex }}</p>
+        <div class="sync-controls"
+            style="display: flex; gap: 20px; align-items: center; justify-content: center; margin: 30px 0;">
+            <div class="sync-box">
+                <label>🌐 Source (Maître)</label>
+                <select [(ngModel)]="sourceEnv" class="edit-input" [disabled]="importInProgress">
+                    <option *ngFor="let env of environments" [value]="env.id">{{ env.name }}</option>
+                </select>
+            </div>
+
+            <div style="font-size: 24px;">➡️</div>
+
+            <div class="sync-box">
+                <label>🎯 Cible (Écrasée)</label>
+                <select [(ngModel)]="targetEnv" class="edit-input" [disabled]="importInProgress">
+                    <option *ngFor="let env of environments" [value]="env.id">{{ env.name }}</option>
+                </select>
             </div>
         </div>
 
-        <button (click)="showImportConfirmation = true" class="btn-import" [disabled]="importInProgress">
-            {{ importInProgress ? '🔄 Import en cours...' : '📥 Importer depuis PROD' }}
+        <div class="import-status" *ngIf="importStatus || currentStep">
+            <p *ngIf="currentStep" style="color: #666; font-weight: bold; margin-bottom: 10px;">{{ currentStep }}</p>
+            <p *ngIf="importStatus" [class.success]="importStatus.success" [class.error]="!importStatus.success">
+                {{ importStatus.message }}
+            </p>
+            <div *ngIf="importStatus?.stats" class="import-stats">
+                <p>✅ Utilisateurs importés : {{ importStatus?.stats?.trainers }}</p>
+                <p>✅ Entrées Pokédex importées : {{ importStatus?.stats?.pokedex }}</p>
+                <p>✅ Pokemon Master importés : {{ importStatus?.stats?.pokemon_master }}</p>
+            </div>
+        </div>
+
+        <button (click)="showImportConfirmation = true" class="btn-import"
+            [disabled]="importInProgress || sourceEnv === targetEnv">
+            {{ importInProgress ? '🔄 Synchronisation en cours...' : '📥 Lancer la Synchronisation' }}
         </button>
     </div>
 
     <!-- Import Confirmation Modal -->
     <div *ngIf="showImportConfirmation" class="modal-overlay" (click)="showImportConfirmation = false">
         <div class="modal-content" (click)="$event.stopPropagation()">
-            <h2>⚠️ Confirmation d'import PROD → DEV</h2>
+            <h2>⚠️ Confirmation de Synchronisation</h2>
 
             <div class="confirmation-details">
                 <h3>Ce que fait l'import :</h3>
                 <ul class="detail-list">
-                    <li class="detail-keep">✅ <strong>Colonnes conservées</strong> : La structure des tables reste
-                        intacte, même les nouvelles colonnes en DEV</li>
-                    <li class="detail-delete">❌ <strong>Données effacées</strong> : Toutes les lignes des tables users
-                        et pokedex seront supprimées</li>
-                    <li class="detail-replace">📥 <strong>Données remplacées</strong> : Les données de PROD
-                        (poke.fec.ch) remplaceront les données locales</li>
-                    <li class="detail-warning">⚠️ <strong>Nouvelles colonnes DEV</strong> : Resteront avec valeur NULL
-                        si absentes de PROD</li>
+                    <li class="detail-replace">📥 <strong>Copie totale</strong> : Les données de <strong>{{ sourceEnv
+                            }}</strong>
+                        remplaceront les données de <strong>{{ targetEnv }}</strong></li>
+                    <li class="detail-delete">❌ <strong>Effacement cible</strong> : Toutes les lignes de {{ targetEnv }}
+                        seront irrémédiablement perdues.</li>
                 </ul>
 
-                <h3>Vous perdrez :</h3>
-                <ul class="loss-list">
-                    <li>❌ Toutes les données de test en DEV</li>
-                    <li>❌ Les utilisateurs créés uniquement en DEV</li>
-                    <li>❌ Les entrées pokédex uniques à DEV</li>
-                </ul>
+                <h3>Vous allez écraser :</h3>
+                <p class="import-source" style="color: #e74c3c;">🎯 <strong>{{ targetEnv }}</strong></p>
 
-                <h3>Source de l'import :</h3>
-                <p class="import-source">🔗 <strong>poke.fec.ch</strong> (base de données PROD)</p>
+                <h3>Avec les données de :</h3>
+                <p class="import-source" style="color: #27ae60;">🌐 <strong>{{ sourceEnv }}</strong></p>
             </div>
 
             <div class="modal-actions">
                 <button (click)="showImportConfirmation = false" class="btn-cancel">Annuler</button>
-                <button (click)="confirmImport()" class="btn-confirm-danger">Confirmer l'import</button>
+                <button (click)="confirmImport()" class="btn-confirm-danger">Confirmer l'écrasement</button>
             </div>
         </div>
     </div>

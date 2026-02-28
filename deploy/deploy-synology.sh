@@ -85,20 +85,7 @@ sed -i '' "s/version: '.*'/version: '$NEW_VERSION'/" "$ENV_DEV_FILE"
 if [ "$TARGET_ENV" != "dev" ]; then
 
     echo ""
-    echo "📦  Compilation du Frontend (production)…"
-    cd "$PROJECT_ROOT/frontend"
-
-    if [ ! -d "node_modules" ]; then
-        echo "📥  Installation des dépendances npm…"
-        npm ci --legacy-peer-deps
-    fi
-
-    if npm run build -- --configuration production --output-path=../frontend-dist; then
-        echo "✅  Frontend compilé avec succès."
-    else
-        echo "❌  Échec de la compilation Frontend."
-        exit 1
-    fi
+    echo "📦  Déploiement via DockerHub (images pré-compilées par GitHub Actions)…"
     cd "$PROJECT_ROOT"
 
     # Inject ENV_SUFFIX into the synology compose file via sed (temp file)
@@ -121,7 +108,7 @@ if [ "$TARGET_ENV" != "dev" ]; then
     # Package & transfer
     echo "📤  Envoi de l'archive…"
     tar -czf - "$TEMP_COMPOSE" \
-        -C "$PROJECT_ROOT" backend/ frontend-dist/ nginx/ .env.synology | \
+        -C "$PROJECT_ROOT" nginx/ .env.synology | \
         ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
             "$NAS_USER@$NAS_IP" "cat > $NAS_PATH/deploy-package.tar.gz"
 
@@ -145,17 +132,19 @@ ENVEOF
         echo "🛑  Arrêt des containers pokedec-${ENV_SUFFIX}-*…"
         sudo /usr/local/bin/docker-compose down --remove-orphans || true
 
-        echo "🏗️   Rebuild et démarrage des containers…"
-        sudo /usr/local/bin/docker-compose up -d --build
+        echo "📥   Pull des nouvelles images DockerHub…"
+        sudo /usr/local/bin/docker-compose pull
+
+        echo "🏗️   Démarrage des containers…"
+        sudo /usr/local/bin/docker-compose up -d --remove-orphans
 
         echo "🗄️   Migration base de données (attente 10s)…"
         sleep 10
         sudo /usr/local/bin/docker-compose exec -T backend sh -c \
             "PGPASSWORD=postgres psql -h pokedec-blue-green-db -U postgres < migrations/migration_MASTER_PROD.sql" || true
 
-        echo "📸  Synchronisation des images Pokémon…"
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c \
-            'mkdir -p /frontend/public/images/pokemon && cp -R /static-images/pokemon/. /frontend/public/images/pokemon/' || true
+        echo "📸  Synchronisation des images Pokémon depuis l'image frontend…"
+        sudo docker cp pokedec-${ENV_SUFFIX}-frontend:/usr/share/nginx/html/images/pokemon/. /volume1/docker/pokedec-shared/images/pokemon/ || true
         sudo /usr/local/bin/docker-compose exec -T backend chmod -R 777 /frontend/public/images || true
         sudo /usr/local/bin/docker-compose exec -T backend node scripts/normalize-filenames.js || true
 
@@ -189,17 +178,27 @@ else
 
     cd "$PROJECT_ROOT"
 
-    echo "🛑  Arrêt des containers pokedec-dev-*…"
-    docker-compose down
+    # Load variables from environment files for docker-compose interpolation
+    for env_file in .env.supabase .env.local .env; do
+        if [ -f "$env_file" ]; then
+            echo "📖  Sourcing $env_file..."
+            set -a
+            source "$env_file"
+            set +a
+        fi
+    done
 
-    echo "🏗️   Rebuild et démarrage…"
-    if docker-compose up -d --build; then
+    echo "🛑  Arrêt des containers locaux…"
+    docker-compose -f docker-compose.local.yml down || true
+
+    echo "🏗️   Rebuild et démarrage local (via docker-compose.local.yml)…"
+    if docker-compose -f docker-compose.local.yml up -d --build; then
         echo ""
-        echo "✅  Déploiement DEV terminé !"
-        echo "👉  URL : http://localhost:$FRONTEND_PORT"
+        echo "✅  Déploiement LOCAL (Cloud testing) terminé !"
+        echo "👉  URL : http://localhost:8080"
         echo ""
-        echo "📊  Containers actifs (pokedec-dev-*):"
-        docker ps --filter "name=pokedec-dev" \
+        echo "📊  Containers actifs (pokedec-local-*):"
+        docker ps --filter "name=pokedec-local" \
             --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
     else
         echo "❌  Échec du déploiement DEV."

@@ -6,7 +6,7 @@ const { authenticateToken } = require('../middleware/auth');
 const poolConfig = process.env.DATABASE_URL
     ? {
         connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
+        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
     }
     : {
         user: process.env.DB_USER || 'postgres',

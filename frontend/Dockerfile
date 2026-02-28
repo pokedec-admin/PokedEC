@@ -4,6 +4,16 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
+
+ARG SUPABASE_URL
+ARG SUPABASE_ANON_KEY
+ARG API_URL=/api
+RUN sed -i "s|supabaseUrl: '.*'|supabaseUrl: '${SUPABASE_URL}'|g" src/environments/environment.prod.ts && \
+    sed -i "s|supabaseKey: '.*'|supabaseKey: '${SUPABASE_ANON_KEY}'|g" src/environments/environment.prod.ts && \
+    sed -i "s|apiUrl: '.*'|apiUrl: '${API_URL}'|g" src/environments/environment.prod.ts && \
+    sed -i "s|backupApiUrl: '.*'|backupApiUrl: '/api'|g" src/environments/environment.prod.ts && \
+    echo "=== environment.prod.ts after patch ===" && cat src/environments/environment.prod.ts
+
 RUN npm run build -- --configuration production
 # Normalize output directory: if 'browser' folder exists, move contents up
 RUN if [ -d "dist/frontend/browser" ]; then \

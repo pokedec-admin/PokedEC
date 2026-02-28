@@ -13,7 +13,7 @@ const supabase = createClient(
 const poolConfig = process.env.DATABASE_URL
     ? {
         connectionString: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false }
+        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
     }
     : {
         user: process.env.DB_USER || 'postgres',
@@ -71,7 +71,7 @@ router.post('/trainers', authenticateAdmin, async (req, res) => {
 // Update user (admin only) - Using Supabase Admin
 router.put('/trainers/:id', authenticateAdmin, async (req, res) => {
     const { id } = req.params; // Local ID
-    const { email, trainer_name, team, phone, email_verified, password, is_admin } = req.body;
+    const { email, trainer_name, team, phone, email_verified, password, is_admin, campfire_name, whatsapp_group } = req.body;
 
     try {
         // Find user to get supabase_uid
@@ -97,10 +97,10 @@ router.put('/trainers/:id', authenticateAdmin, async (req, res) => {
 
         // Update local DB
         const query = `UPDATE trainers
-                 SET email = $1, trainer_name = $2, team = $3, phone = $4, email_verified = $5, is_admin = COALESCE($6, is_admin)
+                 SET email = $1, trainer_name = $2, team = $3, phone = $4, email_verified = $5, is_admin = COALESCE($6, is_admin), campfire_name = COALESCE($8, campfire_name), whatsapp_group = COALESCE($9, whatsapp_group)
                  WHERE id = $7
                  RETURNING *`;
-        const params = [email, trainer_name, team, phone, email_verified, is_admin, id];
+        const params = [email, trainer_name, team, phone, email_verified, is_admin, id, campfire_name, whatsapp_group];
 
         const result = await pool.query(query, params);
 

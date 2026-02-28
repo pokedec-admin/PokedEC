@@ -37,7 +37,6 @@ export class AdminImportComponent {
 
         this.showImportConfirmation = false;
         this.importInProgress = true;
-        this.currentStep = '📥 Export depuis la source...';
         this.importStatus = null;
 
         const token = localStorage.getItem('token');
@@ -45,6 +44,35 @@ export class AdminImportComponent {
 
         const sourceUrl = this.environments.find(e => e.id === this.sourceEnv)?.url;
         const targetUrl = this.environments.find(e => e.id === this.targetEnv)?.url;
+
+        // NEW: If Source is CLOUD and Target is ACTUAL, use direct Backend Pull (No browser-mediation)
+        if (this.sourceEnv === 'CLOUD' && this.targetEnv === 'ACTUEL') {
+            this.currentStep = '🚀 Synchronisation directe Backend-to-Backend (Cloud -> Local)...';
+
+            this.http.post(`${targetUrl}/admin/import/import-prod-data`, {}, { headers }).subscribe({
+                next: (response: any) => {
+                    this.importInProgress = false;
+                    this.currentStep = '';
+                    this.importStatus = {
+                        success: true,
+                        message: `✅ Synchronisation CLOUD → LOCAL terminée avec succès !`,
+                        stats: response.stats
+                    };
+                },
+                error: (err) => {
+                    this.importInProgress = false;
+                    this.currentStep = '';
+                    this.importStatus = {
+                        success: false,
+                        message: `❌ Erreur lors de la synchronisation directe : ${err.error?.error || err.message}`
+                    };
+                }
+            });
+            return;
+        }
+
+        // Logic for other syncs (Browser-mediated)
+        this.currentStep = '📥 Export depuis la source...';
 
         // Step 1: Export from Source
         this.http.get(`${sourceUrl}/admin/import/export-all`, { headers }).subscribe({

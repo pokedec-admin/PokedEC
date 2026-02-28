@@ -15,6 +15,8 @@ export interface User {
     email_verified: boolean;
     is_admin?: boolean;
     preferred_language?: string;
+    campfire_name?: string;
+    whatsapp_group?: string;
 }
 
 @Injectable({

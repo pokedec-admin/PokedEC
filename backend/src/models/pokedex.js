@@ -4,7 +4,7 @@ const createPokedexTable = async (pool) => {
       id SERIAL PRIMARY KEY,
       user_id INTEGER REFERENCES trainers(id) ON DELETE CASCADE,
       pokemon_id INTEGER NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(255),
       name_fr VARCHAR(255),
       name_en VARCHAR(255),
       name_de VARCHAR(255),

@@ -75,4 +75,20 @@
             <div class="arrow">→</div>
         </a>
     </div>
+
+    <div class="admin-header" style="margin-top: 40px;">
+        <h2>🌐 Serveur & Environnement</h2>
+        <p class="subtitle">API Actuelle : <strong>{{ currentEnvName }}</strong> ({{ currentApiUrl }})</p>
+    </div>
+
+    <div class="env-switcher" style="display: flex; gap: 10px; margin-top: 20px;">
+        <button [class.active-btn]="currentEnvName === 'DEV'"
+            (click)="setEnvironment('DEV', 'http://localhost:3000/api')" class="btn-secondary">💻 DEV (Local)</button>
+        <button [class.active-btn]="currentEnvName === 'BLUE/GREEN'"
+            (click)="setEnvironment('BLUE/GREEN', 'http://192.168.1.199:8081/api')" class="btn-secondary">🔵🟢
+            BLUE/GREEN (NAS)</button>
+        <button [class.active-btn]="currentEnvName === 'CLOUD'"
+            (click)="setEnvironment('CLOUD', 'https://pokedec-backend.onrender.com/api')" class="btn-secondary">☁️ CLOUD
+            (Production)</button>
+    </div>
 </div>

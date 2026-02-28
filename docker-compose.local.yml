@@ -1,0 +1,72 @@
+services:
+  nginx:
+    container_name: pokedec-local-nginx
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.synology.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - default
+
+  frontend:
+    container_name: pokedec-local-frontend
+    build:
+      context: ./frontend
+      args:
+        SUPABASE_URL: ${SUPABASE_URL}
+        SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-frontend:cloud-local
+    expose:
+      - "80"
+    volumes:
+      - ./frontend/public/images:/usr/share/nginx/html/images
+    depends_on:
+      - backend
+
+  backend:
+    container_name: pokedec-local-backend
+    build:
+      context: ./backend
+    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-backend:cloud-local
+    expose:
+      - "3000"
+    volumes:
+      # Simulate shared volume between backend and frontend
+      - ./backend/src:/app/src
+      - ./frontend/public/images:/frontend/public/images
+      - ./deploy:/deployment/deploy
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - DB_SSL=false
+      - NODE_ENV=production # simulate production locally
+      - APP_ENV=DEV
+      - APP_VERSION=${APP_VERSION:-local}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+      - PROD_DATABASE_URL=${PROD_DATABASE_URL}
+    depends_on:
+      - db
+
+  db:
+    container_name: pokedec-local-db
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - db_local_data:/var/lib/postgresql/data
+
+volumes:
+  db_local_data:

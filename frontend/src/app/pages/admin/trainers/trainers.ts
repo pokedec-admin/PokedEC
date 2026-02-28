@@ -77,7 +77,9 @@ export class AdminTrainersComponent implements OnInit {
             trainer_name: user.trainer_name,
             team: user.team,
             phone: user.phone,
-            email_verified: user.email_verified
+            email_verified: user.email_verified,
+            campfire_name: user.campfire_name,
+            whatsapp_group: user.whatsapp_group
         };
 
         if (user.newPassword) {

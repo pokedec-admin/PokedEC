@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# Optionally load variables from .env if it exists
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
 # Define payload JSON correct schema for PUT /env-vars
-# NOTE: Replace ${VAR_NAME} with actual values from your secure .env file before running!
-PAYLOAD='[
+PAYLOAD=$(cat <<EOF
+[
   {"key": "DATABASE_URL", "value": "${DATABASE_URL}"},
   {"key": "SUPABASE_URL", "value": "${SUPABASE_URL}"},
   {"key": "SUPABASE_SERVICE_ROLE_KEY", "value": "${SUPABASE_SERVICE_ROLE_KEY}"},
@@ -11,7 +16,9 @@ PAYLOAD='[
   {"key": "NODE_ENV", "value": "production"},
   {"key": "JWT_SECRET", "value": "${JWT_SECRET}"},
   {"key": "FRONTEND_URL", "value": "https://www.pokedec.ch"}
-]'
+]
+EOF
+)
 
 # RENDER_API_KEY should be provided via environment variable, not hardcoded
 RENDER_API_KEY="${RENDER_API_KEY:-}"

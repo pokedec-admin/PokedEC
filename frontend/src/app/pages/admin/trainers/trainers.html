@@ -47,6 +47,8 @@
                     <th>Email</th>
                     <th>Équipe</th>
                     <th>Téléphone</th>
+                    <th>Campfire</th>
+                    <th>WhatsApp</th>
                     <th>Email vérifié</th>
                     <th>Actif</th>
                     <th>Admin</th>
@@ -76,6 +78,14 @@
                     <td>
                         <input *ngIf="user.editing" type="tel" [(ngModel)]="user.phone" class="edit-input">
                         <span *ngIf="!user.editing">{{ user.phone || '-' }}</span>
+                    </td>
+                    <td>
+                        <input *ngIf="user.editing" type="text" [(ngModel)]="user.campfire_name" class="edit-input">
+                        <span *ngIf="!user.editing">{{ user.campfire_name || '-' }}</span>
+                    </td>
+                    <td>
+                        <input *ngIf="user.editing" type="text" [(ngModel)]="user.whatsapp_group" class="edit-input">
+                        <span *ngIf="!user.editing">{{ user.whatsapp_group || '-' }}</span>
                     </td>
                     <td *ngIf="user.editing" class="password-cell">
                         <input type="password" [(ngModel)]="user.newPassword" class="edit-input"
