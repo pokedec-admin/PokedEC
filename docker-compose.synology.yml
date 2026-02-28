@@ -16,7 +16,7 @@ services:
 
   frontend:
     container_name: pokedec-${ENV_SUFFIX:-blue}-frontend
-    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-frontend:latest
+    image: ${DOCKERHUB_USERNAME:-pokedec}/pokedec-frontend:latest
     expose:
       - "80"
     volumes:

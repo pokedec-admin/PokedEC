@@ -40,7 +40,7 @@ services:
 
   frontend:
     container_name: pokedec-nas-frontend
-    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-frontend:latest
+    image: ${DOCKERHUB_USERNAME:-pokedec}/pokedec-frontend:latest
     expose:
       - "80"
     volumes:
@@ -53,7 +53,7 @@ services:
 
   backend:
     container_name: pokedec-nas-backend
-    image: ${DOCKERHUB_USERNAME:-eugenioc}/pokedec-backend:latest
+    image: ${DOCKERHUB_USERNAME:-pokedec}/pokedec-backend:latest
     expose:
       - "3000"
     volumes:

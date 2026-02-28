@@ -128,7 +128,7 @@ if [ "$TARGET_ENV" != "dev" ]; then
 
     # Remote execution - Prefix with env vars and use single quotes around EOF to prevent local expansion
     ssh -tt -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
-        "$NAS_USER@$NAS_IP" "APP_ENV_VALUE=\"$APP_ENV_VALUE\" NEW_VERSION=\"$NEW_VERSION\" ENV_SUFFIX=\"$ENV_SUFFIX\" TARGET_ENV=\"$TARGET_ENV\" NAS_PATH=\"$NAS_PATH\" DOCKERHUB_USER=\"${DOCKERHUB_USERNAME:-eugenioc}\" bash -s" <<'EOF'
+        "$NAS_USER@$NAS_IP" "APP_ENV_VALUE=\"$APP_ENV_VALUE\" NEW_VERSION=\"$NEW_VERSION\" ENV_SUFFIX=\"$ENV_SUFFIX\" TARGET_ENV=\"$TARGET_ENV\" NAS_PATH=\"$NAS_PATH\" DOCKERHUB_USER=\"${DOCKERHUB_USERNAME:-pokedec}\" bash -s" <<'EOF'
         set -e
         cd "$NAS_PATH"
         tar -xzf deploy-package.tar.gz

@@ -32,9 +32,9 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           # Remplace 'ton_hub_id' par ton vrai ID Docker Hub
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pokedec-backend:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/pokedec-backend:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/pokedec-backend:buildcache,mode=max
+          tags: pokedec/pokedec-backend:latest
+          cache-from: type=registry,ref=pokedec/pokedec-backend:buildcache
+          cache-to: type=registry,ref=pokedec/pokedec-backend:buildcache,mode=max
 
       # ==== FRONTEND ====
       - name: Build and push Frontend Image
@@ -44,6 +44,6 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           # Remplace 'ton_hub_id' par ton vrai ID Docker Hub
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/pokedec-frontend:latest
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/pokedec-frontend:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/pokedec-frontend:buildcache,mode=max
+          tags: pokedec/pokedec-frontend:latest
+          cache-from: type=registry,ref=pokedec/pokedec-frontend:buildcache
+          cache-to: type=registry,ref=pokedec/pokedec-frontend:buildcache,mode=max
