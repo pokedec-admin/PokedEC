@@ -117,18 +117,20 @@ if [ "$TARGET_ENV" != "dev" ]; then
 
     # Package & transfer
     echo "📤  Envoi de l'archive…"
-    tar -czf - "$TEMP_COMPOSE" \
-        -C "$PROJECT_ROOT" nginx/ .env.synology | \
+    # Use -C to change directory and relative paths for everything
+    tar -czf - -C "$PROJECT_ROOT" \
+        "$(basename "$TEMP_COMPOSE")" \
+        nginx/ .env.synology | \
         ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
             "$NAS_USER@$NAS_IP" "cat > $NAS_PATH/deploy-package.tar.gz"
 
     rm "$TEMP_COMPOSE"
 
-    # Remote execution
+    # Remote execution - Prefix with env vars and use single quotes around EOF to prevent local expansion
     ssh -tt -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
-        "$NAS_USER@$NAS_IP" "bash -s" <<EOF
+        "$NAS_USER@$NAS_IP" "APP_ENV_VALUE=\"$APP_ENV_VALUE\" NEW_VERSION=\"$NEW_VERSION\" ENV_SUFFIX=\"$ENV_SUFFIX\" TARGET_ENV=\"$TARGET_ENV\" NAS_PATH=\"$NAS_PATH\" DOCKERHUB_USER=\"${DOCKERHUB_USERNAME:-eugenioc}\" bash -s" <<'EOF'
         set -e
-        cd $NAS_PATH
+        cd "$NAS_PATH"
         tar -xzf deploy-package.tar.gz
         mv docker-compose.deploy.yml docker-compose.yml
 
@@ -137,22 +139,24 @@ if [ "$TARGET_ENV" != "dev" ]; then
 APP_ENV=${APP_ENV_VALUE}
 APP_VERSION=${NEW_VERSION}
 ENV_SUFFIX=${ENV_SUFFIX}
-DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME:-eugenioc}
+DOCKERHUB_USERNAME=${DOCKERHUB_USER}
 ENVEOF
 
         if [ "$TARGET_ENV" == "nas" ]; then
             echo "🛑  Arrêt GLOBAL des environnements BLUE et GREEN (Nettoyage pour pokedec-nas)…"
             # Stop BLUE if exists
             if [ -d "/volume1/docker/pokedec-blue" ]; then
+                echo "⏳  Arrêt de BLUE..."
                 cd /volume1/docker/pokedec-blue
                 sudo /usr/local/bin/docker-compose down || true
             fi
             # Stop GREEN if exists
             if [ -d "/volume1/docker/pokedec-green" ]; then
+                echo "⏳  Arrêt de GREEN..."
                 cd /volume1/docker/pokedec-green
                 sudo /usr/local/bin/docker-compose down || true
             fi
-            cd $NAS_PATH
+            cd "$NAS_PATH"
         fi
 
         echo "🛑  Arrêt des containers pokedec-${ENV_SUFFIX}-*…"
