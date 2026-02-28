@@ -132,6 +132,7 @@ if [ "$TARGET_ENV" != "dev" ]; then
         set -e
         cd "$NAS_PATH"
         tar -xzf deploy-package.tar.gz
+        mkdir -p db_data
         mv docker-compose.deploy.yml docker-compose.yml
 
         # Write runtime .env
