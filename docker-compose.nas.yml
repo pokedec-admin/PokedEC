@@ -69,6 +69,7 @@ services:
       - DB_NAME=postgres
       - NODE_ENV=production
       - APP_ENV=NAS
+      - DB_SSL=false
     depends_on:
       - db
     restart: always
