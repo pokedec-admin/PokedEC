@@ -1,22 +1,46 @@
 // Pokemon reference tables models
-// Actual table creation is primarily done via SQL migration files
-// These functions are called by index.js during auto-migration
+const createClassificationsTable = async (pool) => {
+    const query = `
+        CREATE TABLE IF NOT EXISTS classifications (
+            id SERIAL PRIMARY KEY,
+            name_key VARCHAR(50) UNIQUE NOT NULL
+        )
+    `;
+    return pool.query(query);
+};
+
+const createRegionsTable = async (pool) => {
+    const query = `
+        CREATE TABLE IF NOT EXISTS regions (
+            id SERIAL PRIMARY KEY,
+            name_key VARCHAR(50) UNIQUE NOT NULL,
+            name_fr VARCHAR(100),
+            name_en VARCHAR(100),
+            display_order INTEGER DEFAULT 0,
+            is_custom BOOLEAN DEFAULT false
+        )
+    `;
+    return pool.query(query);
+};
+
+const createTypesTable = async (pool) => {
+    const query = `
+        CREATE TABLE IF NOT EXISTS types (
+            id SERIAL PRIMARY KEY,
+            name_key VARCHAR(50) UNIQUE NOT NULL
+        )
+    `;
+    return pool.query(query);
+};
+
+const syncInitialData = async (pool) => {
+    console.log('ℹ️ syncInitialData: No new reference data to sync.');
+    return Promise.resolve();
+};
 
 module.exports = {
-    createClassificationsTable: async (pool) => {
-        // Tables should exist from migrations, but we ensure basic structure if needed
-        return Promise.resolve();
-    },
-    createRegionsTable: async (pool) => {
-        return Promise.resolve();
-    },
-    createTypesTable: async (pool) => {
-        return Promise.resolve();
-    },
-    syncInitialData: async (pool) => {
-        // Placeholder for initial data synchronization
-        // This is called on new installations to populate reference tables
-        console.log('ℹ️ syncInitialData: No new reference data to sync.');
-        return Promise.resolve();
-    }
+    createClassificationsTable,
+    createRegionsTable,
+    createTypesTable,
+    syncInitialData
 };
