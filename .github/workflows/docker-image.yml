@@ -45,5 +45,9 @@ jobs:
           push: true
           # Remplace 'ton_hub_id' par ton vrai ID Docker Hub
           tags: pokedec/pokedec-frontend:latest
+          build-args: |
+            SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+            SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
           cache-from: type=registry,ref=pokedec/pokedec-frontend:buildcache
           cache-to: type=registry,ref=pokedec/pokedec-frontend:buildcache,mode=max
+
