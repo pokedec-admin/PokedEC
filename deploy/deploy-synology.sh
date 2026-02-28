@@ -14,9 +14,9 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 TARGET_ENV="${1:-green}"
 TARGET_ENV=$(echo "$TARGET_ENV" | tr '[:upper:]' '[:lower:]')
 
-if [[ "$TARGET_ENV" != "blue" && "$TARGET_ENV" != "green" && "$TARGET_ENV" != "dev" ]]; then
-    echo "❌ Erreur: Cible invalide. Utilisez 'blue', 'green' ou 'dev'."
-    echo "   Usage: ./deploy-synology.sh [blue|green|dev]"
+if [[ "$TARGET_ENV" != "blue" && "$TARGET_ENV" != "green" && "$TARGET_ENV" != "dev" && "$TARGET_ENV" != "nas" ]]; then
+    echo "❌ Erreur: Cible invalide. Utilisez 'blue', 'green', 'dev' ou 'nas'."
+    echo "   Usage: ./deploy-synology.sh [blue|green|dev|nas]"
     exit 1
 fi
 
@@ -50,6 +50,12 @@ elif [ "$TARGET_ENV" == "green" ]; then
     APP_ENV_VALUE="GREEN"
     ENV_SUFFIX="green"
     echo "🟢  Cible : GREEN →  NAS:${FRONTEND_PORT}  →  ${NAS_PATH}"
+elif [ "$TARGET_ENV" == "nas" ]; then
+    NAS_PATH="/volume1/docker/pokedec-nas"
+    FRONTEND_PORT="8080" # User said "same output port as GREEN"
+    APP_ENV_VALUE="NAS"
+    ENV_SUFFIX="nas"
+    echo "🏗️   Cible : NAS   →  NAS:${FRONTEND_PORT}  →  ${NAS_PATH}"
 else
     FRONTEND_PORT="8081"
     APP_ENV_VALUE="DEV"
@@ -89,7 +95,11 @@ if [ "$TARGET_ENV" != "dev" ]; then
     cd "$PROJECT_ROOT"
 
     # Inject ENV_SUFFIX into the synology compose file via sed (temp file)
-    COMPOSE_SRC="$PROJECT_ROOT/docker-compose.synology.yml"
+    if [ "$TARGET_ENV" == "nas" ]; then
+        COMPOSE_SRC="$PROJECT_ROOT/docker-compose.nas.yml"
+    else
+        COMPOSE_SRC="$PROJECT_ROOT/docker-compose.synology.yml"
+    fi
     TEMP_COMPOSE="$PROJECT_ROOT/docker-compose.deploy.yml"
 
     # Replace port AND inject ENV_SUFFIX literal value (resolves variable at deploy time)
@@ -127,7 +137,23 @@ if [ "$TARGET_ENV" != "dev" ]; then
 APP_ENV=${APP_ENV_VALUE}
 APP_VERSION=${NEW_VERSION}
 ENV_SUFFIX=${ENV_SUFFIX}
+DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME:-eugenioc}
 ENVEOF
+
+        if [ "$TARGET_ENV" == "nas" ]; then
+            echo "🛑  Arrêt GLOBAL des environnements BLUE et GREEN (Nettoyage pour pokedec-nas)…"
+            # Stop BLUE if exists
+            if [ -d "/volume1/docker/pokedec-blue" ]; then
+                cd /volume1/docker/pokedec-blue
+                sudo /usr/local/bin/docker-compose down || true
+            fi
+            # Stop GREEN if exists
+            if [ -d "/volume1/docker/pokedec-green" ]; then
+                cd /volume1/docker/pokedec-green
+                sudo /usr/local/bin/docker-compose down || true
+            fi
+            cd $NAS_PATH
+        fi
 
         echo "🛑  Arrêt des containers pokedec-${ENV_SUFFIX}-*…"
         sudo /usr/local/bin/docker-compose down --remove-orphans || true
@@ -140,8 +166,13 @@ ENVEOF
 
         echo "🗄️   Migration base de données (attente 10s)…"
         sleep 10
+        if [ "$TARGET_ENV" == "nas" ]; then
+            DB_HOST_INTERNAL="db"
+        else
+            DB_HOST_INTERNAL="pokedec-blue-green-db"
+        fi
         sudo /usr/local/bin/docker-compose exec -T backend sh -c \
-            "PGPASSWORD=postgres psql -h pokedec-blue-green-db -U postgres < migrations/migration_MASTER_PROD.sql" || true
+            "PGPASSWORD=postgres psql -h $DB_HOST_INTERNAL -U postgres < migrations/migration_MASTER_PROD.sql" || true
 
         echo "📸  Synchronisation des images Pokémon depuis l'image frontend…"
         sudo docker cp pokedec-${ENV_SUFFIX}-frontend:/usr/share/nginx/html/images/pokemon/. /volume1/docker/pokedec-shared/images/pokemon/ || true

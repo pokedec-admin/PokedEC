@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   # Automatic updates for all containers
   watchtower:
@@ -7,6 +9,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --interval 3600 --cleanup
     restart: always
+
+  db:
+    container_name: pokedec-nas-db
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - pokedec-nas-net
 
   nginx:
     container_name: pokedec-nas-nginx
@@ -20,7 +35,7 @@ services:
       - backend
     restart: always
     networks:
-      - default
+      - pokedec-nas-net
       - pokedec-shared-net
 
   frontend:
@@ -33,6 +48,8 @@ services:
     depends_on:
       - backend
     restart: always
+    networks:
+      - pokedec-nas-net
 
   backend:
     container_name: pokedec-nas-backend
@@ -44,17 +61,21 @@ services:
     env_file:
       - .env.synology
     environment:
-      - DB_HOST=pokedec-blue-green-db # Assuming sharing the same DB container
+      - DB_HOST=db
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
       - NODE_ENV=production
       - APP_ENV=NAS
+    depends_on:
+      - db
     restart: always
     networks:
-      - default
+      - pokedec-nas-net
       - pokedec-shared-net
 
 networks:
+  pokedec-nas-net:
+    driver: bridge
   pokedec-shared-net:
     external: true
