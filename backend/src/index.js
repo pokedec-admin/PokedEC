@@ -11,7 +11,6 @@ const pokemonRoutes = require('./routes/pokedex');
 const systemRoutes = require('./routes/system');
 const { createTrainersTable } = require('./models/trainer');
 const { createPokedexTable } = require('./models/pokedex');
-const { createPokemonNamesTable } = require('./models/pokemon_names');
 const { createSuggestionsTable } = require('./models/suggestions');
 const { createPokemonCategoryAvailabilityTable } = require('./models/pokemon_category_availability');
 const { createClassificationsTable, createRegionsTable, createTypesTable } = require('./models/pokemon_references');
@@ -120,7 +119,6 @@ async function runMigrations() {
     await createTrainersTable(pool);
     await createPokemonMasterTable(pool);
     await createPokedexTable(pool);
-    await createPokemonNamesTable(pool);
     await createSuggestionsTable(pool);
     await createPokemonCategoryAvailabilityTable(pool);
     await createClassificationsTable(pool);
