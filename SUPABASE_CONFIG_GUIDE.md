@@ -78,3 +78,30 @@ Pour renforcer la sécurité de vos utilisateurs, Supabase propose une option po
 4. Cliquez sur **Save**.
 
 Cela ajoutera une couche de protection supplémentaire lors de l'inscription ou du changement de mot de passe.
+
+---
+
+## 7. Configuration du Stockage des Images (Storage)
+Pour stocker les images des Pokémon de manière centralisée et performante, le projet utilise le service Storage de Supabase.
+
+### Création du Bucket
+1. Allez dans **Storage** dans le menu de gauche.
+2. Cliquez sur **New Bucket**.
+3. Nom du bucket : `pokemon` (en minuscules, impératif).
+4. **Public bucket** : Activez cette option (bouton "Make public"). Cela permet aux images d'être accessibles via une URL directe sans authentification.
+5. Cliquez sur **Create bucket**.
+
+### Configuration du Bucket
+1. Une fois le bucket créé, allez dans **Settings** (icône engrenage) à côté du nom du bucket.
+2. **Allowed MIME types** : Vous pouvez restreindre à `image/png, image/jpeg, image/webp` si vous le souhaitez.
+3. **Max file size** : 5MB est généralement suffisant pour des sprites de Pokémon.
+
+### Droits d'accès (Policies)
+Bien que le bucket soit public en lecture, l'upload doit être sécurisé :
+1. Cliquez sur **Policies** sous le menu Storage.
+2. Dans la section "pokemon", cliquez sur **New Policy**.
+3. Choisissez "Get started quickly" ou "Custom".
+4. Pour l'**Upload** : Autorisez uniquement le rôle `service_role` (utilisé par le backend admin) ou les administrateurs authentifiés.
+5. Pour la **Lecture (Select)** : Assurez-vous que l'accès public est autorisé (normalement automatique si le bucket est public).
+
+Le backend de Poked'EC se chargera ensuite d'uploader les images et de générer les URLs publiques automatiquement.
