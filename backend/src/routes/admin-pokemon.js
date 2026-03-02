@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-const { authenticateAdmin } = require('../middleware/auth');
+const { authenticateAdmin, supabase } = require('../middleware/auth');
 
 // ==================== POKEMON MASTER ROUTES ====================
 
@@ -657,34 +657,47 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
         const { pokemon_id, form_name } = req.body;
 
         if (!pokemon_id || !form_name) {
-            // Cleanup temp file
-            if (fs.existsSync(req.file.path)) {
-                fs.unlinkSync(req.file.path);
-            }
+            if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
             return res.status(400).json({ error: 'pokemon_id and form_name are required' });
         }
 
-        // Normalize form name: remove accents, replace spaces with underscores, keep only safe chars
+        // Normalize form name: lowercase, remove accents, replace spaces with underscores
         const normalizeFormName = (name) => {
             return name
-                .normalize('NFD')                          // Decompose accented characters
-                .replace(/[\u0300-\u036f]/g, '')          // Remove diacritics
-                .replace(/ /g, '_')                        // Replace spaces with underscores
-                .replace(/[^a-zA-Z0-9_-]/g, '');          // Keep only alphanumeric, underscore, hyphen
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/ /g, '_')
+                .replace(/[^a-z0-9_-]/g, '');
         };
 
         const safeFormName = normalizeFormName(form_name);
         const ext = path.extname(req.file.originalname).toLowerCase() || '.png';
         const finalFileName = `${pokemon_id}_${safeFormName}${ext}`;
-        const targetPath = path.join(req.file.destination, finalFileName);
 
-        // Move/Rename file (overwrite if exists)
-        fs.renameSync(req.file.path, targetPath);
+        // Upload to Supabase Storage
+        const fileContent = fs.readFileSync(req.file.path);
+        const { data, error } = await supabase.storage
+            .from('pokemon')
+            .upload(finalFileName, fileContent, {
+                contentType: req.file.mimetype,
+                upsert: true
+            });
 
-        // Return the new URL
-        const imageUrl = `/images/pokemon/${finalFileName}`;
+        // Cleanup local temp file
+        if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
 
-        res.json({ imageUrl });
+        if (error) {
+            console.error('Supabase Storage Error:', error);
+            return res.status(500).json({ error: 'Failed to upload to Supabase Storage: ' + error.message });
+        }
+
+        // Get Public URL
+        const { data: { publicUrl } } = supabase.storage
+            .from('pokemon')
+            .getPublicUrl(finalFileName);
+
+        res.json({ imageUrl: publicUrl });
 
     } catch (error) {
         console.error('Error uploading image:', error);

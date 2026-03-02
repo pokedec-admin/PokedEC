@@ -1,78 +1,91 @@
-const { Pool } = require('../backend/node_modules/pg');
-const axios = require('../backend/node_modules/axios').default;
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
+const { Pool } = require('pg');
+const axios = require('axios').default;
+const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config();
 
-// DB Connection
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'postgres',
-    port: 5434,
-});
+// DB Config
+const poolConfig = process.env.DATABASE_URL
+  ? { connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } }
+  : {
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_NAME || 'postgres',
+    password: process.env.DB_PASSWORD || 'postgres',
+    port: process.env.DB_PORT || 5432,
+    ssl: { rejectUnauthorized: false }
+  };
 
-const IMAGE_DIR = path.join(__dirname, '../frontend/public/images/pokemon');
+const pool = new Pool(poolConfig);
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-function downloadImage(url, filepath) {
-    return new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(filepath);
-        https.get(url, (response) => {
-            response.pipe(file);
-            file.on('finish', () => {
-                file.close();
-                resolve();
-            });
-        }).on('error', (err) => {
-            fs.unlink(filepath, () => { });
-            reject(err);
-        });
+const normalizeFileName = (name) => {
+    return name
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/ /g, '_')
+        .replace(/[^a-z0-9_-]/g, '');
+};
+
+async function downloadToBuffer(url) {
+    const response = await axios({
+        url,
+        method: 'GET',
+        responseType: 'arraybuffer'
     });
+    return Buffer.from(response.data);
 }
 
-async function downloadImages() {
-    if (!fs.existsSync(IMAGE_DIR)) {
-        fs.mkdirSync(IMAGE_DIR, { recursive: true });
-    }
-
+async function internalizeImages() {
     const client = await pool.connect();
     try {
         const res = await client.query(`
-      SELECT pokemon_id, form_name, image_url 
-      FROM pokemon_master 
-      WHERE image_url IS NOT NULL 
-      AND image_url LIKE 'http%'
-    `);
+            SELECT id, pokemon_id, form_name, image_url
+            FROM pokemon_master
+            WHERE image_url IS NOT NULL
+            AND (image_url LIKE 'http%' AND image_url NOT LIKE '%supabase.co/storage%')
+        `);
 
-        console.log(`🚀 Found ${res.rows.length} images to download...`);
+        console.log(`🚀 Found ${res.rows.length} images to internalize to Supabase...`);
 
         for (const row of res.rows) {
-            const fileName = `${row.pokemon_id}_${row.form_name.replace(/ /g, '_')}.png`;
-            const filePath = path.join(IMAGE_DIR, fileName);
-            const localUrl = `/images/pokemon/${fileName}`;
+            const safeFormName = normalizeFileName(row.form_name);
+            const fileName = `${row.pokemon_id}_${safeFormName}.png`;
 
             try {
-                console.log(`📥 Downloading ${row.image_url} -> ${fileName}`);
-                await downloadImage(row.image_url, filePath);
+                console.log(`📥 Internalizing ${row.pokemon_id} ${row.form_name} -> ${fileName}`);
+                const buffer = await downloadToBuffer(row.image_url);
+
+                const { error } = await supabase.storage
+                    .from('pokemon')
+                    .upload(fileName, buffer, {
+                        contentType: 'image/png',
+                        upsert: true
+                    });
+
+                if (error) throw error;
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('pokemon')
+                    .getPublicUrl(fileName);
 
                 // Update DB
                 await client.query(
-                    'UPDATE pokemon_master SET image_url = $1 WHERE pokemon_id = $2 AND form_name = $3',
-                    [localUrl, row.pokemon_id, row.form_name]
+                    'UPDATE pokemon_master SET image_url = $1 WHERE id = $2',
+                    [publicUrl, row.id]
                 );
-                console.log(`✅ ${fileName} downloaded and DB updated`);
+                console.log(`✅ ${fileName} internalized and DB updated`);
 
             } catch (err) {
-                console.error(`❌ Failed to download ${fileName}:`, err.message);
+                console.error(`❌ Failed to internalize ${row.pokemon_id}:`, err.message);
             }
         }
 
-        console.log('✅ All images internalized!');
+        console.log('✅ All images internalized to Supabase!');
     } finally {
         client.release();
-        pool.end();
+        await pool.end();
     }
 }
 
-downloadImages();
+internalizeImages();
