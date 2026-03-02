@@ -274,12 +274,16 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
 
                     // Persist the new URL (in case extension changed or it was null)
                     this.save();
+                    // Alert for immediate confirmation as requested by user
+                    alert('Image mise à jour avec succès !');
                 }
                 this.saving = false;
             },
             error: (err) => {
-                this.error = `Erreur upload: ${err.error?.error || err.message}`;
+                const errorMsg = `Erreur upload: ${err.error?.error || err.message}`;
+                this.error = errorMsg;
                 this.saving = false;
+                alert(errorMsg);
             }
         });
     }

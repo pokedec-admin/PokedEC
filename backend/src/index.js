@@ -254,7 +254,7 @@ app.get('/api/health', async (req, res) => {
 });
 
 // Serve static images
-app.use('/images', express.static(path.join(__dirname, '../public/images')));
+app.use('/images', express.static(path.join(__dirname, '../../frontend/public/images')));
 
 app.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
