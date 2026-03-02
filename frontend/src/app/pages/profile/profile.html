@@ -42,6 +42,17 @@
                 <span>{{ user.whatsapp_group || 'Non renseigné' }}</span>
             </div>
             <div class="detail-item">
+                <span class="label">🤝 Échange via:</span>
+                <span class="value">
+                    <ng-container [ngSwitch]="user.trade_preference">
+                        <span *ngSwitchCase="'Campfire'">🔥 Via Campfire</span>
+                        <span *ngSwitchCase="'WhatsApp'">💬 Via WhatsApp</span>
+                        <span *ngSwitchCase="'Event'">📅 Lors du prochain événement</span>
+                        <span *ngSwitchDefault>Non renseigné</span>
+                    </ng-container>
+                </span>
+            </div>
+            <div class="detail-item">
                 <span class="label">🌍 Langue:</span>
                 <span>{{ user.preferred_language === 'fr' ? 'Français' : user.preferred_language === 'en' ?
                     'English' : user.preferred_language === 'de' ? 'Deutsch' : user.preferred_language === 'it' ?
@@ -85,6 +96,15 @@
                     <label for="whatsapp_group">Groupe WhatsApp</label>
                     <input type="text" id="whatsapp_group" [(ngModel)]="user.whatsapp_group"
                         placeholder="Nom de votre groupe WhatsApp">
+                </div>
+                <div class="form-group">
+                    <label for="trade_preference">Préférence d'échange</label>
+                    <select id="trade_preference" [(ngModel)]="user.trade_preference">
+                        <option value="">Choisissez votre préférence</option>
+                        <option value="Campfire">🔥 Via Campfire</option>
+                        <option value="WhatsApp">💬 Via WhatsApp</option>
+                        <option value="Event">📅 Lors du prochain événement</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="language">Langue préférée</label>

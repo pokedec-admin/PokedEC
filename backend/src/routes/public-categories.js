@@ -1,26 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
-const { authenticateToken } = require('../middleware/auth');
-
-const poolConfig = process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-    }
-    : {
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'db',
-        database: process.env.DB_NAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432,
-    };
-
-const pool = new Pool(poolConfig);
+// Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
+const getPool = (req) => req.app.locals.pool;
+const { authenticateToken, authenticateAdmin } = require("../middleware/auth");
 
 // Get global category availability
 router.get('/availability', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         // Fetch all availability settings
         // We only need the boolean flags for each pokemon
         const result = await pool.query(

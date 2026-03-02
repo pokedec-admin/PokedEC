@@ -47,6 +47,7 @@ services:
       - "80"
     volumes:
       - /volume1/docker/pokedec-shared/images:/usr/share/nginx/html/images
+      - /volume1/docker/pokedec-nas/frontend_build:/usr/share/nginx/html:ro
     depends_on:
       - backend
     restart: always
@@ -70,6 +71,7 @@ services:
       - NODE_ENV=production
       - APP_ENV=NAS
       - DB_SSL=false
+      - DATABASE_URL=
     depends_on:
       - db
     restart: always

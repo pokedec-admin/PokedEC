@@ -1,21 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
-
-const poolConfig = process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-    }
-    : {
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'db',
-        database: process.env.DB_NAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432,
-    };
-
-const pool = new Pool(poolConfig);
+// Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
+const getPool = (req) => req.app.locals.pool;
 
 // Middleware to authenticate token (imported from auth.js in index.js, but we need it here if we want to use it directly or assume it's passed)
 // For simplicity, we'll assume the main index.js passes the auth middleware or we re-implement/import it.
@@ -31,6 +17,7 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `INSERT INTO suggestions (user_id, type, content)
              VALUES ($1, $2, $3)
@@ -48,6 +35,7 @@ router.post('/', authenticateToken, async (req, res) => {
 router.get('/', authenticateToken, async (req, res) => {
     const includeArchived = req.query.archived === 'true';
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT * FROM suggestions 
              WHERE user_id = $1 
@@ -66,6 +54,7 @@ router.get('/', authenticateToken, async (req, res) => {
 router.get('/admin', authenticateAdmin, async (req, res) => {
     const includeArchived = req.query.archived === 'true';
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT s.*, u.trainer_name, u.email 
              FROM suggestions s
@@ -86,6 +75,7 @@ router.patch('/admin/:id', authenticateAdmin, async (req, res) => {
     const { status, admin_response } = req.body;
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE suggestions 
              SET status = COALESCE($1, status), 
@@ -112,6 +102,7 @@ router.patch('/:id/read', authenticateToken, async (req, res) => {
     const { id } = req.params;
 
     try {
+        const pool = getPool(req);
         // Toggle the is_read status
         const result = await pool.query(
             `UPDATE suggestions 
@@ -136,6 +127,7 @@ router.patch('/:id/read', authenticateToken, async (req, res) => {
 router.patch('/:id/archive', authenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE suggestions 
              SET archived_user = NOT archived_user, updated_at = CURRENT_TIMESTAMP
@@ -157,6 +149,7 @@ router.patch('/:id/archive', authenticateToken, async (req, res) => {
 router.patch('/admin/:id/archive', authenticateAdmin, async (req, res) => {
     const { id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE suggestions 
              SET archived_admin = NOT archived_admin, updated_at = CURRENT_TIMESTAMP
@@ -178,6 +171,7 @@ router.patch('/admin/:id/archive', authenticateAdmin, async (req, res) => {
 router.delete('/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `DELETE FROM suggestions 
              WHERE id = $1 AND user_id = $2
@@ -198,6 +192,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 router.delete('/admin/:id', authenticateAdmin, async (req, res) => {
     const { id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             'DELETE FROM suggestions WHERE id = $1 RETURNING id',
             [id]

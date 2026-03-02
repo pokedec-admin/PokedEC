@@ -13,6 +13,8 @@ const createTrainersTable = async (pool) => {
       preferred_language VARCHAR(10) DEFAULT 'fr',
       campfire_name VARCHAR(255),
       whatsapp_group VARCHAR(255),
+      trade_preference TEXT,
+      is_active BOOLEAN DEFAULT TRUE,
       supabase_uid VARCHAR(255) UNIQUE,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )

@@ -1,21 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
-
-const poolConfig = process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-    }
-    : {
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'db',
-        database: process.env.DB_NAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432,
-    };
-
-const pool = new Pool(poolConfig);
+// Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
+const getPool = (req) => req.app.locals.pool;
 
 const { authenticateAdmin } = require('../middleware/auth');
 
@@ -25,6 +11,7 @@ router.get('/', authenticateAdmin, async (req, res) => {
     const offset = (page - 1) * limit;
 
     try {
+        const pool = getPool(req);
         // Get total count
         const countResult = await pool.query(
             'SELECT COUNT(*) FROM generate_series(1, 1025) AS pokemon_id'
@@ -86,6 +73,7 @@ router.get('/:pokemon_id', authenticateAdmin, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT 
                 $1 as pokemon_id,
@@ -140,8 +128,10 @@ router.put('/:pokemon_id', authenticateAdmin, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         const client = await pool.connect();
         try {
+            const pool = getPool(req);
             await client.query('BEGIN');
 
             // 1. Update availability
@@ -230,6 +220,7 @@ router.post('/batch', authenticateAdmin, async (req, res) => {
 
     const client = await pool.connect();
     try {
+        const pool = getPool(req);
         await client.query('BEGIN');
 
         for (const update of updates) {

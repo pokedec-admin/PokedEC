@@ -1,23 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
-const { authenticateToken } = require('../middleware/auth');
-
-// Database connection
-const poolConfig = process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-    }
-    : {
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'db',
-        database: process.env.DB_NAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432,
-    };
-
-const pool = new Pool(poolConfig);
+// Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
+const getPool = (req) => req.app.locals.pool;
+const { authenticateToken, authenticateAdmin } = require("../middleware/auth");
 
 
 // Create trade request
@@ -29,6 +14,7 @@ router.post('/request', authenticateToken, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `INSERT INTO trade_requests (requester_id, target_user_id, pokemon_id, status)
              VALUES ($1, $2, $3, 'pending')
@@ -51,6 +37,7 @@ router.post('/request', authenticateToken, async (req, res) => {
 // Get incoming requests (requests sent TO the current user)
 router.get('/requests/incoming', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT tr.*, u.trainer_name as requester_name, u.email as requester_email
              FROM trade_requests tr
@@ -69,6 +56,7 @@ router.get('/requests/incoming', authenticateToken, async (req, res) => {
 // Get outgoing requests (requests sent BY the current user)
 router.get('/requests/outgoing', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT tr.*, u.trainer_name as target_name, u.email as target_email,
                     u.campfire_username, u.whatsapp_group
@@ -95,6 +83,7 @@ router.put('/request/:id/respond', authenticateToken, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE trade_requests 
              SET status = $1, updated_at = CURRENT_TIMESTAMP
@@ -119,6 +108,7 @@ router.delete('/request/:id', authenticateToken, async (req, res) => {
     const { id } = req.params;
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `DELETE FROM trade_requests 
              WHERE id = $1 AND requester_id = $2

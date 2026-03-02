@@ -1,28 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { Pool } = require('pg');
 const { authenticateToken } = require('../middleware/auth');
 
-// Database connection (should ideally be shared/injected)
-const poolConfig = process.env.DATABASE_URL
-    ? {
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-    }
-    : {
-        user: process.env.DB_USER || 'postgres',
-        host: process.env.DB_HOST || 'db',
-        database: process.env.DB_NAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        port: process.env.DB_PORT || 5432,
-    };
-
-const pool = new Pool(poolConfig);
+// Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
+const getPool = (req) => req.app.locals.pool;
 
 
 // Get user's pokedex
 router.get('/', authenticateToken, async (req, res) => {
+    const pool = getPool(req);
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
             SELECT 
                 p.*,
@@ -77,6 +65,7 @@ router.get('/', authenticateToken, async (req, res) => {
 // Get all Pokémon master data (publicly available for all authenticated users)
 router.get('/master-all', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
             SELECT 
                 pm.pokemon_id, pm.form_name, pm.name_fr, pm.name_en, pm.name_de, pm.name_it,
@@ -111,6 +100,7 @@ router.get('/tracking/:category', authenticateToken, async (req, res) => {
     const { category } = req.params;
     console.log('[API] Tracking request for category:', category);
     try {
+        const pool = getPool(req);
         let condition = '';
         switch (category) {
             case 'pokedex':
@@ -201,6 +191,7 @@ router.get('/tracking/:category', authenticateToken, async (req, res) => {
 // Helper route for shiny collection
 router.get('/shiny', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
             SELECT p.*, pm.name_fr, pm.name_en, pm.image_url, pm.region_id, r.name_fr as region_name
             FROM pokedex p
@@ -217,6 +208,7 @@ router.get('/shiny', authenticateToken, async (req, res) => {
 // Helper route for lucky collection
 router.get('/lucky', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
             SELECT p.*, pm.name_fr, pm.name_en, pm.image_url, pm.region_id, r.name_fr as region_name
             FROM pokedex p
@@ -233,6 +225,7 @@ router.get('/lucky', authenticateToken, async (req, res) => {
 // Helper route for forms collection (variants)
 router.get('/forms', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
             SELECT p.*, pm.name_fr, pm.name_en, pm.image_url, pm.region_id, r.name_fr as region_name
             FROM pokedex p
@@ -250,6 +243,7 @@ router.get('/forms', authenticateToken, async (req, res) => {
 // Get user's pokedex stats
 router.get('/stats', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT
                 COUNT(*) FILTER(WHERE p.form_name = 'Normal') as total,
@@ -303,6 +297,7 @@ router.get('/stats', authenticateToken, async (req, res) => {
 // Get recently added Pokemon (for home dashboard) trade from other users (excluding current user)
 router.get('/trade-available', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT p.pokemon_id, p.form_name, pm.name_fr as name, pm.image_url, u.id as user_id, u.trainer_name as username, u.email,
     p.has_trade, p.trade_shiny, p.trade_xxl, p.trade_xxs,
@@ -335,6 +330,7 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 
     try {
+        const pool = getPool(req);
         // Check if Pokemon exists in pokemon_master and is available
         const masterCheck = await pool.query(
             `SELECT pokemon_id, is_available 
@@ -417,6 +413,7 @@ router.delete('/:pokemon_id', authenticateToken, async (req, res) => {
     const form_name = req.query.form || 'Normal';
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             'DELETE FROM pokedex WHERE user_id = $1 AND pokemon_id = $2 AND form_name = $3 RETURNING *',
             [req.user.id, pokemon_id, form_name]
@@ -438,6 +435,7 @@ router.get('/search/:query', authenticateToken, async (req, res) => {
     const query = req.params.query.toLowerCase();
 
     try {
+        const pool = getPool(req);
         // Search in pokemon_master across all language fields and ID
         // This allows finding Pokemon not yet in the user's Pokedex
         const result = await pool.query(
@@ -486,6 +484,7 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
     }
 
     try {
+        const pool = getPool(req);
         // REMOVED: Mutually exclusive categories logic. 
         // Now 'has_normal' is the single source of truth for standard form, regardless of classification.
         // We no longer deactivate 'has_legendary' when 'has_normal' is checked, because 'has_legendary' is deprecated/derived.
@@ -507,11 +506,11 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
         }
 
         const form_name = req.query.form || 'Normal';
-        query = `UPDATE pokedex 
+        const query = `UPDATE pokedex 
                  SET ${field} = NOT ${field} 
                  WHERE user_id = $1 AND pokemon_id = $2 AND form_name = $3
                  RETURNING * `;
-        params = [req.user.id, pokemon_id, form_name];
+        const params = [req.user.id, pokemon_id, form_name];
         // (Unified logic handles all fields)
 
         const result = await pool.query(query, params);
@@ -553,6 +552,7 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
 // Get Pokemon available for trade from other users (excluding current user)
 router.get('/trade-available', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT p.pokemon_id, pm.name_fr as name, pm.image_url, u.id as user_id, u.trainer_name as username, u.email,
     p.has_trade, p.trade_shiny, p.trade_xxl, p.trade_xxs,
@@ -578,6 +578,7 @@ WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR
 // Get recent Pokemon added by other users (last 10)
 router.get('/recent-others', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT p.id, p.pokemon_id, pm.name_fr as name, pm.image_url, p.created_at,
     u.trainer_name as username, u.email,
@@ -602,6 +603,7 @@ router.get('/recent-others', authenticateToken, async (req, res) => {
 // Get user's most recent Pokemon activity
 router.get('/my-recent', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT p.pokemon_id, pm.name_fr as name, pm.image_url, p.created_at,
     p.has_shiny, p.has_lucky, p.has_xxl, p.has_xxs, p.has_gmax, p.has_dynamax,
@@ -627,6 +629,7 @@ router.patch('/:pokemon_id/shiny', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex 
              SET has_shiny = NOT has_shiny 
@@ -651,6 +654,7 @@ router.patch('/:pokemon_id/lucky', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex 
              SET has_lucky = NOT has_lucky 
@@ -674,6 +678,7 @@ RETURNING * `,
 router.patch('/:pokemon_id/trade', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_trade = NOT has_trade WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -690,6 +695,7 @@ router.patch('/:pokemon_id/trade', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/xxl', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_xxl = NOT has_xxl WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -706,6 +712,7 @@ router.patch('/:pokemon_id/xxl', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/xxs', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_xxs = NOT has_xxs WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -722,6 +729,7 @@ router.patch('/:pokemon_id/xxs', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/gmax', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_gmax = NOT has_gmax WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -738,6 +746,7 @@ router.patch('/:pokemon_id/gmax', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/mega', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_mega = NOT has_mega WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -754,6 +763,7 @@ router.patch('/:pokemon_id/mega', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/obscure', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_obscure = NOT has_obscure WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -770,6 +780,7 @@ router.patch('/:pokemon_id/obscure', authenticateToken, async (req, res) => {
 router.patch('/:pokemon_id/purifie', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET has_purifie = NOT has_purifie WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -799,6 +810,7 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
     }
 
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `UPDATE pokedex SET ${field} = NOT ${field} WHERE user_id = $1 AND pokemon_id = $2 RETURNING * `,
             [req.user.id, pokemon_id]
@@ -815,6 +827,7 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
 // Get user's full pokedex (alias endpoint)
 router.get('/my-pokedex', authenticateToken, async (req, res) => {
     try {
+        const pool = getPool(req);
         const result = await pool.query(`
 SELECT
 p.*,
@@ -853,6 +866,7 @@ router.get('/:pokemon_id', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     const form_name = req.query.form || 'Normal';
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT
     p.*,
@@ -943,6 +957,7 @@ router.get('/:pokemon_id', authenticateToken, async (req, res) => {
 router.get('/:pokemon_id/forms', authenticateToken, async (req, res) => {
     const { pokemon_id } = req.params;
     try {
+        const pool = getPool(req);
         const result = await pool.query(
             `SELECT pm.*, 
                     t1.name_fr as type_primary_name, t1.color_hex as type_primary_color,
@@ -1011,6 +1026,7 @@ router.post('/bulk-fill', authenticateToken, async (req, res) => {
 
     const client = await pool.connect();
     try {
+        const pool = getPool(req);
         await client.query('BEGIN');
 
         // Get user's preferred language

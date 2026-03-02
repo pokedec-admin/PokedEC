@@ -140,6 +140,8 @@ async function runMigrations() {
 
     // Add new columns for auth sync if missing
     await runStep('Add supabase_uid to trainers', 'ALTER TABLE trainers ADD COLUMN IF NOT EXISTS supabase_uid VARCHAR(255) UNIQUE');
+    await runStep('Add trade_preference to trainers', 'ALTER TABLE trainers ADD COLUMN IF NOT EXISTS trade_preference TEXT');
+    await runStep('Add is_active to trainers', 'ALTER TABLE trainers ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT true');
 
     // Add indexes for performance
     await runStep('trainers.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_trainers_supabase_uid ON trainers(supabase_uid)');
@@ -186,6 +188,22 @@ async function runMigrations() {
     await runStep('suggestions.archived_user', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_user BOOLEAN DEFAULT false');
     await runStep('suggestions.archived_admin', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_admin BOOLEAN DEFAULT false');
     await runStep('suggestions.is_read', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS is_read BOOLEAN DEFAULT false');
+
+    // Trade requests table
+    await runStep('trade_requests.create', `
+      CREATE TABLE IF NOT EXISTS trade_requests (
+        id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        requester_id INTEGER NOT NULL REFERENCES trainers(id) ON DELETE CASCADE,
+        target_user_id INTEGER NOT NULL REFERENCES trainers(id) ON DELETE CASCADE,
+        pokemon_id INTEGER NOT NULL,
+        status VARCHAR(30) NOT NULL DEFAULT 'pending',
+        created_at TIMESTAMPTZ DEFAULT now(),
+        updated_at TIMESTAMPTZ DEFAULT now(),
+        UNIQUE (requester_id, target_user_id, pokemon_id)
+      )
+    `);
+    await runStep('trade_requests.idx_target', 'CREATE INDEX IF NOT EXISTS idx_trade_requests_target ON trade_requests(target_user_id)');
+    await runStep('trade_requests.idx_requester', 'CREATE INDEX IF NOT EXISTS idx_trade_requests_requester ON trade_requests(requester_id)');
 
     console.log('✅ Auto-migrations completed!');
   } catch (err) {

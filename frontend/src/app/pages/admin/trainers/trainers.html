@@ -28,6 +28,12 @@
                 <option value="Valor">Valor</option>
                 <option value="Instinct">Instinct</option>
             </select>
+            <select [(ngModel)]="newDresseur.trade_preference">
+                <option value="">Préférence d'échange (Optionnel)</option>
+                <option value="Campfire">🔥 Campfire</option>
+                <option value="WhatsApp">💬 WhatsApp</option>
+                <option value="Event">📅 Event</option>
+            </select>
             <label class="checkbox-label">
                 <input type="checkbox" [(ngModel)]="newDresseur.is_admin"> Admin
             </label>
@@ -49,6 +55,7 @@
                     <th>Téléphone</th>
                     <th>Campfire</th>
                     <th>WhatsApp</th>
+                    <th>Échange</th>
                     <th>Email vérifié</th>
                     <th>Actif</th>
                     <th>Admin</th>
@@ -86,6 +93,15 @@
                     <td>
                         <input *ngIf="user.editing" type="text" [(ngModel)]="user.whatsapp_group" class="edit-input">
                         <span *ngIf="!user.editing">{{ user.whatsapp_group || '-' }}</span>
+                    </td>
+                    <td>
+                        <select *ngIf="user.editing" [(ngModel)]="user.trade_preference" class="edit-input">
+                            <option value="">Aucune</option>
+                            <option value="Campfire">🔥 Campfire</option>
+                            <option value="WhatsApp">💬 WhatsApp</option>
+                            <option value="Event">📅 Event</option>
+                        </select>
+                        <span *ngIf="!user.editing">{{ user.trade_preference || '-' }}</span>
                     </td>
                     <td *ngIf="user.editing" class="password-cell">
                         <input type="password" [(ngModel)]="user.newPassword" class="edit-input"

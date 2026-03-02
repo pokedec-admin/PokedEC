@@ -30,6 +30,7 @@ export class AdminTrainersComponent implements OnInit {
         password: '',
         trainer_name: '',
         team: '',
+        trade_preference: '',
         is_admin: false,
         is_active: true
     };
@@ -79,7 +80,8 @@ export class AdminTrainersComponent implements OnInit {
             phone: user.phone,
             email_verified: user.email_verified,
             campfire_name: user.campfire_name,
-            whatsapp_group: user.whatsapp_group
+            whatsapp_group: user.whatsapp_group,
+            trade_preference: user.trade_preference
         };
 
         if (user.newPassword) {
@@ -165,7 +167,7 @@ export class AdminTrainersComponent implements OnInit {
                 this.users.unshift({ ...res.user, editing: false });
                 this.successMessage = 'Dresseur créé avec succès';
                 this.showCreateDresseurForm = false;
-                this.newDresseur = { email: '', password: '', trainer_name: '', team: '', is_admin: false, is_active: true };
+                this.newDresseur = { email: '', password: '', trainer_name: '', team: '', trade_preference: '', is_admin: false, is_active: true };
                 setTimeout(() => this.successMessage = '', 3000);
             },
             error: (err) => this.errorMessage = err.error?.error || 'Erreur lors de la création de l\'dresseur'

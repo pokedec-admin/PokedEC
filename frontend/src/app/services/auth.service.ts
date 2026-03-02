@@ -17,6 +17,7 @@ export interface User {
     preferred_language?: string;
     campfire_name?: string;
     whatsapp_group?: string;
+    trade_preference?: string;
 }
 
 @Injectable({
@@ -182,15 +183,15 @@ export class AuthService {
 
     public refreshUserFromStorage() {
         const user = localStorage.getItem('user');
-        // console.log('[AuthService] Refreshing user from storage. Found:', user ? 'YES' : 'NO');
         if (user) {
             const parsedUser = JSON.parse(user);
             this.currentUserSubject.next(parsedUser);
-            // console.log('[AuthService] User restored:', parsedUser.email);
             this.loadSuggestions();
-            if (this.isAdmin()) {
-                this.loadAdminStats();
-            }
+            // Critical fix: Refresh profile from DB to ensure is_admin and other fields are up to date
+            this.getProfile().subscribe({
+                next: (res) => console.log('[AuthService] Profile synced on startup'),
+                error: (err) => console.error('[AuthService] Profile sync failed', err)
+            });
         }
     }
 
@@ -202,6 +203,8 @@ export class AuthService {
                 data: {
                     trainer_name: data.trainer_name,
                     team: data.team,
+                    phone: data.phone,
+                    trade_preference: data.trade_preference,
                     is_admin: false
                 }
             }

@@ -9,9 +9,7 @@ const { authenticateAdmin } = require('../middleware/auth');
 // Configuration
 const ENV_URLS = {
     DEV: 'http://localhost:3000', // Local backend
-    BLUE: 'http://192.168.1.199:8081', // NAS Blue
-    GREEN: 'http://192.168.1.199:8080', // NAS Green
-    PUBLIC: 'https://poke.fec.ch', // Public URL
+    NAS: 'http://192.168.1.199:8080', // NAS Main
     CLOUD: 'https://www.pokedec.ch' // Production Cloud
 };
 
@@ -44,13 +42,12 @@ router.get('/status', (req, res) => {
 // GET /monitoring - Probes all environments (Admin only)
 router.get('/monitoring', authenticateAdmin, async (req, res) => {
     const results = {};
-    const environments = ['DEV', 'BLUE', 'GREEN', 'PUBLIC', 'CLOUD'];
+    const environments = ['DEV', 'NAS', 'CLOUD'];
 
     const probes = environments.map(async (env) => {
         try {
             const url = ENV_URLS[env];
-            // For public/NAS, we hit the /api/system/status endpoint
-            // Note: Public might need /api prefix depending on Nginx config
+            // For NAS/Cloud, we hit the /api/system/status endpoint
             const statusUrl = `${url}/api/system/status`;
 
             const startTime = Date.now();
@@ -94,11 +91,7 @@ router.post('/deploy', authenticateAdmin, (req, res) => {
         return res.status(403).json({ error: 'Deployment can only be triggered from DEV environment' });
     }
 
-    const { target } = req.body; // 'blue' or 'green'
-
-    if (!['blue', 'green'].includes(target)) {
-        return res.status(400).json({ error: 'Invalid target. Must be "blue" or "green".' });
-    }
+    const target = 'nas'; // Hardcoded to nas since we removed blue/green
 
     // Execute shell script
     // Note: In Docker, we mount deployment assets to /deployment
@@ -118,9 +111,6 @@ router.post('/deploy', authenticateAdmin, (req, res) => {
         });
     }
 
-    // We don't wait for the script to finish, as it might take long
-    // But we should probably spawn it detached or use a queue. 
-    // For simplicity, we exec and log.
     exec(command, (error, stdout, stderr) => {
         if (error) {
             console.error(`❌ Deployment error: ${error.message}`);
@@ -135,32 +125,6 @@ router.post('/deploy', authenticateAdmin, (req, res) => {
     res.json({ message: `Deployment to ${target} started`, command });
 });
 
-// POST /switch - Switch Public Environment (DEV only, Admin only)
-router.post('/switch', authenticateAdmin, (req, res) => {
-    // Only allow switch from DEV environment
-    if (process.env.APP_ENV !== 'DEV') {
-        return res.status(403).json({ error: 'Switching can only be triggered from DEV environment' });
-    }
-
-    const { target } = req.body; // 'blue' or 'green'
-
-    if (!['blue', 'green'].includes(target)) {
-        return res.status(400).json({ error: 'Invalid target. Must be "blue" or "green".' });
-    }
-
-    // Execute shell script
-    const scriptPath = path.join(__dirname, '../../../deploy/switch-env.sh');
-    const command = `${scriptPath} ${target}`;
-
-    console.log(`🔄 Switching public environment to ${target}...`);
-
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`❌ Switch error: ${error.message}`);
-            return res.status(500).json({ error: 'Switch failed', details: error.message });
-        }
-        res.json({ message: `Switched public environment to ${target}`, output: stdout });
-    });
-});
+module.exports = router;
 
 module.exports = router;

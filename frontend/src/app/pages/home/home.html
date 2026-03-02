@@ -24,7 +24,9 @@
                     <input type="password" [(ngModel)]="loginData.password" name="password" placeholder="Mot de passe"
                         required>
                 </div>
-                <button type="submit" class="cta-button primary full-width">Se connecter</button>
+                <button type="submit" class="cta-button primary full-width" [disabled]="loading">
+                    {{ loading ? 'Connexion...' : 'Se connecter' }}
+                </button>
             </form>
             <div class="form-footer">
                 <a (click)="setGuestView('reset')">Mot de passe oublié ?</a>
@@ -38,7 +40,14 @@
             <form (submit)="onSignup(); $event.preventDefault()">
                 <div class="form-group">
                     <input type="text" [(ngModel)]="signupData.trainer_name" name="trainerName"
-                        placeholder="Email ou Nom de dresseur" required>
+                        placeholder="Nom de dresseur Pokémon GO" required>
+                </div>
+                <div class="form-group">
+                    <select [(ngModel)]="signupData.team" name="team">
+                        <option value="Mystic">🔵 Mystic (Bleu)</option>
+                        <option value="Valor">🔴 Valor (Rouge)</option>
+                        <option value="Instinct">🟡 Instinct (Jaune)</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="email" [(ngModel)]="signupData.email" name="email" placeholder="Email" required>
@@ -48,13 +57,19 @@
                         required>
                 </div>
                 <div class="form-group">
-                    <select [(ngModel)]="signupData.team" name="team">
-                        <option value="Mystic">Mystic (Bleu)</option>
-                        <option value="Valor">Valor (Rouge)</option>
-                        <option value="Instinct">Instinct (Jaune)</option>
+                    <input type="tel" [(ngModel)]="signupData.phone" name="phone" placeholder="Téléphone (WhatsApp)">
+                </div>
+                <div class="form-group">
+                    <select [(ngModel)]="signupData.trade_preference" name="trade_preference">
+                        <option value="">Comment s'organiser pour faire un échange ?</option>
+                        <option value="Campfire">🔥 Via Campfire</option>
+                        <option value="WhatsApp">💬 Via WhatsApp</option>
+                        <option value="Event">📅 Lors du prochain événement</option>
                     </select>
                 </div>
-                <button type="submit" class="cta-button primary full-width">S'inscrire</button>
+                <button type="submit" class="cta-button primary full-width" [disabled]="loading">
+                    {{ loading ? 'Inscription...' : "S'inscrire" }}
+                </button>
             </form>
             <div class="form-footer">
                 <button class="text-button" (click)="setGuestView('menu')">Retour</button>
@@ -111,7 +126,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let env of ['DEV', 'BLUE', 'GREEN', 'PUBLIC', 'CLOUD']">
+                        <tr *ngFor="let env of ['DEV', 'NAS', 'CLOUD']">
                             <td><strong>{{ env }}</strong></td>
                             <td><small>{{ monitoringData[env]?.url }}</small></td>
                             <td>
@@ -136,26 +151,9 @@
                 <h3>🚀 Contrôle de Déploiement</h3>
                 <div class="control-actions">
                     <div class="action-group">
-                        <h4>Déployer vers NAS</h4>
-                        <button (click)="deploy('blue')" class="btn-deploy blue"
-                            [disabled]="deployingTarget === 'blue'">
-                            {{ deployingTarget === 'blue' ? 'Déploiement...' : 'Déployer sur BLUE 🔵' }}
-                        </button>
-                        <button (click)="deploy('green')" class="btn-deploy green"
-                            [disabled]="deployingTarget === 'green'">
-                            {{ deployingTarget === 'green' ? 'Déploiement...' : 'Déployer sur GREEN 🟢' }}
-                        </button>
-                    </div>
-
-                    <div class="action-group">
-                        <h4>Basculer Public (Switch)</h4>
-                        <button (click)="switchEnv('blue')" class="btn-switch blue"
-                            [disabled]="switchingTarget === 'blue'">
-                            {{ switchingTarget === 'blue' ? 'Basculement...' : 'Exposer BLUE 🔵' }}
-                        </button>
-                        <button (click)="switchEnv('green')" class="btn-switch green"
-                            [disabled]="switchingTarget === 'green'">
-                            {{ switchingTarget === 'green' ? 'Basculement...' : 'Exposer GREEN 🟢' }}
+                        <h4>Déploiement</h4>
+                        <button (click)="deploy()" class="btn-deploy" [disabled]="deployingTarget">
+                            {{ deployingTarget ? 'Déploiement en cours...' : '🚀 Déployer sur NAS' }}
                         </button>
                     </div>
                 </div>
@@ -448,11 +446,13 @@
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" [checked]="bulkFillCategories.xxl"
-                                (change)="toggleBulkCategory('xxl')"> XXL 📏
+                                (change)="toggleBulkCategory('xxl')">
+                            XXL 📏
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" [checked]="bulkFillCategories.xxs"
-                                (change)="toggleBulkCategory('xxs')"> XXS 🤏
+                                (change)="toggleBulkCategory('xxs')">
+                            XXS 🤏
                         </label>
                         <label class="checkbox-label">
                             <input type="checkbox" [checked]="bulkFillCategories.gmax"

@@ -45,6 +45,16 @@ import { HttpClient } from '@angular/common/http';
           <label for="phone">Téléphone (WhatsApp)</label>
           <input id="phone" type="tel" formControlName="phone" placeholder="+33 6 12 34 56 78">
         </div>
+        
+        <div class="form-group">
+          <label for="trade_preference">Comment s'organiser pour faire un échange ? *</label>
+          <select id="trade_preference" formControlName="trade_preference">
+            <option value="">Choisissez votre préférence</option>
+            <option value="Campfire">🔥 Via Campfire</option>
+            <option value="WhatsApp">💬 Via WhatsApp</option>
+            <option value="Event">📅 Lors du prochain événement</option>
+          </select>
+        </div>
 
         <button type="submit" [disabled]="signupForm.invalid || loading">
           {{ loading ? 'Inscription en cours...' : "S'inscrire" }}
@@ -319,6 +329,7 @@ export class Signup {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       phone: [''],
+      trade_preference: ['', Validators.required],
       campfire_name: [''],
       whatsapp_group: ['']
     });

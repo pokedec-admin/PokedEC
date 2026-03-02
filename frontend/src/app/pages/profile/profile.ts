@@ -89,7 +89,8 @@ export class Profile implements OnInit {
             phone: this.user.phone,
             preferred_language: this.user.preferred_language,
             campfire_name: this.user.campfire_name,
-            whatsapp_group: this.user.whatsapp_group
+            whatsapp_group: this.user.whatsapp_group,
+            trade_preference: this.user.trade_preference
         };
 
         this.http.put('/api/auth/profile', updateData, { headers }).subscribe({

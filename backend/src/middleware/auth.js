@@ -101,21 +101,22 @@ const syncUsers = async (pool) => {
                 if (userRes.rows.length === 0) {
                     console.log(`[Auth Service] Sync: Provisioning missing user ${sbUser.email}`);
                     await pool.query(
-                        "INSERT INTO trainers (email, trainer_name, team, supabase_uid, email_verified, is_admin) VALUES ($1, $2, $3, $4, true, $5)",
+                        "INSERT INTO trainers (email, trainer_name, team, trade_preference, supabase_uid, email_verified, is_admin, is_active) VALUES ($1, $2, $3, $4, $5, true, $6, true)",
                         [
                             sbUser.email,
                             sbUser.user_metadata?.trainer_name || sbUser.email?.split("@")[0] || "User",
                             sbUser.user_metadata?.team || "",
+                            sbUser.user_metadata?.trade_preference || null,
                             sbUser.id,
                             sbUser.user_metadata?.is_admin || false
                         ]
                     );
                 } else {
                     const localUser = userRes.rows[0];
-                    // Update supabase_uid if missing
+                    // Update metadata if missing or changed
                     await pool.query(
-                        "UPDATE trainers SET supabase_uid = $1 WHERE id = $2 AND (supabase_uid IS NULL OR supabase_uid != $1)",
-                        [sbUser.id, localUser.id]
+                        "UPDATE trainers SET supabase_uid = $1, trade_preference = COALESCE(trade_preference, $3) WHERE id = $2",
+                        [sbUser.id, localUser.id, sbUser.user_metadata?.trade_preference || null]
                     );
                 }
             } catch (err) {

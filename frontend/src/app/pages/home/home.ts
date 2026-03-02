@@ -48,11 +48,12 @@ export class Home implements OnInit {
 
     // Guest View State
     guestViewMode: 'menu' | 'login' | 'signup' | 'reset' = 'menu';
+    loading: boolean = false;
     authError: string = '';
     authSuccess: string = '';
 
     loginData = { trainer_name: '', password: '' };
-    signupData = { email: '', password: '', trainer_name: '', team: 'Mystic' };
+    signupData = { email: '', password: '', trainer_name: '', team: 'Mystic', trade_preference: '', phone: '' };
     resetEmail: string = '';
 
     // Auth Methods
@@ -67,11 +68,15 @@ export class Home implements OnInit {
             this.authError = 'Veuillez remplir tous les champs';
             return;
         }
+        this.loading = true;
+        this.authError = '';
         this.authService.login(this.loginData).subscribe({
             next: () => {
+                this.loading = false;
                 // Login successful, state updates automatically via subscription
             },
             error: (err) => {
+                this.loading = false;
                 this.authError = err.error?.error || 'Erreur de connexion';
             }
         });
@@ -82,11 +87,15 @@ export class Home implements OnInit {
             this.authError = 'Veuillez remplir tous les champs obligatoires';
             return;
         }
+        this.loading = true;
+        this.authError = '';
         this.authService.signup(this.signupData).subscribe({
             next: () => {
+                this.loading = false;
                 // Signup successful, auto-login usually happens or user is redirected
             },
             error: (err) => {
+                this.loading = false;
                 this.authError = err.error?.error || 'Erreur d\'inscription';
             }
         });
@@ -162,32 +171,21 @@ export class Home implements OnInit {
         }
     }
 
-    deploy(target: 'blue' | 'green') {
+    deploy() {
         if (this.deployingTarget) return;
 
+        const target = 'nas';
         this.deployingTarget = target;
         this.deploymentTarget = target;
         this.showDeployModal = true;
         this.deploymentStatus = 'running';
-        this.deploymentLogs = [`🚀 Starting deployment to ${target.toUpperCase()}...`, '⏳ Please wait, this may take a few minutes...'];
+        this.deploymentLogs = [`🚀 Starting deployment to NAS...`, '⏳ Please wait, this may take a few minutes...'];
 
         this.systemService.deploy(target).subscribe({
             next: (res: any) => {
                 console.log('Deployment started', res);
-                // Since the API returns immediately with "started", we can't show full logs yet
-                // But the user wants "avancement". 
-                // Actually, my previous fix to system.js made it exec and wait? 
-                // No, system.js uses exec with a callback, but res.json is called immediately?
-                // Wait, let's check system.js again.
-                // It calls exec, and inside the callback it logs. But res.json is called OUTSIDE the callback.
-                // So the response returns immediately "Deployment started".
-                // This means the frontend won't get the logs in the response.
-
-                // To support "avancement", I need to change system.js to wait OR poll.
-                // For now, I will simulate progress steps to keep the user informed that it's running.
-
                 this.deploymentLogs.push('✅ Deployment command sent to backend.');
-                this.deploymentLogs.push('🔄 Deployment is running in background on the server.');
+                this.deploymentLogs.push('🔄 Deployment is running in background on the NAS.');
                 this.deploymentLogs.push('⚠️  Note: Real-time logs are not yet available via API.');
                 this.deploymentLogs.push('👉 Please check the Monitoring Dashboard in a few minutes to see the status change.');
 
@@ -236,22 +234,6 @@ export class Home implements OnInit {
         });
     }
 
-    switchEnv(target: 'blue' | 'green') {
-        if (!confirm(`ATTENTION: Vous allez basculer l'environnement PUBLIC sur ${target.toUpperCase()}. Continuer ?`)) return;
-
-        this.switchingTarget = target;
-        this.systemService.switchEnv(target).subscribe({
-            next: (res) => {
-                alert(`Basculement effectué : ${res.message}\n\nNote: Si le proxy Synology n'est pas automatisé, veuillez le mettre à jour manuellement.`);
-                this.switchingTarget = null;
-                this.loadMonitoring(); // Refresh status
-            },
-            error: (err) => {
-                alert(`Erreur de basculement : ${err.error?.error || err.message}`);
-                this.switchingTarget = null;
-            }
-        });
-    }
 
     loadUserStats() {
         this.pokemonService.getStats().subscribe({

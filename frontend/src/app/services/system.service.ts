@@ -39,11 +39,7 @@ export class SystemService {
         return this.http.get<MonitoringResponse>(`${this.apiUrl}/monitoring`);
     }
 
-    deploy(target: 'blue' | 'green'): Observable<any> {
+    deploy(target: string = 'nas'): Observable<any> {
         return this.http.post(`${this.apiUrl}/deploy`, { target });
-    }
-
-    switchEnv(target: 'blue' | 'green'): Observable<any> {
-        return this.http.post(`${this.apiUrl}/switch`, { target });
     }
 }
