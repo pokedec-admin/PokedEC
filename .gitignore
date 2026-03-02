@@ -9,6 +9,11 @@
 .env.*.local
 .env.synology
 .env.supabase
+.agents/*
+.agents/rules/*
+.agents/tools/*
+.agents/prompts/*
+.agents/memory/*
 *.env
 prod-ca-2021.crt
 
@@ -30,6 +35,7 @@ node_modules/
 .c9/
 *.launch
 .settings/
+.agents/
 *.sublime-workspace
 .vscode/
 archives_obsoletes/

@@ -129,7 +129,7 @@ elif [ "$TARGET_ENV" == "nas" ]; then
     echo "📤  Envoi de l'archive…"
     tar -czf - -C "$PROJECT_ROOT" \
         "$(basename "$TEMP_COMPOSE")" \
-        nginx/ .env.synology | \
+        nginx/ backend/migrations/ .env.synology | \
         ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
             "$NAS_USER@$NAS_IP" "cat > $NAS_PATH/deploy-package.tar.gz"
 
@@ -163,9 +163,9 @@ ENVEOF
 
         echo "🗄️   Migration base de données (attente 10s)…"
         sleep 10
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres < migrations/998_drop_redundant_tables.sql" || true
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres < migrations/migration_MASTER_PROD.sql" || true
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres < migrations/999_cleanup_legacy_users.sql" || true
+        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/998_drop_redundant_tables.sql || true
+        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/migration_MASTER_PROD.sql || true
+        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/999_cleanup_legacy_users.sql || true
 
         echo "📸  Synchronisation des images Pokémon depuis l'image frontend…"
         sudo docker cp pokedec-${ENV_SUFFIX}-frontend:/usr/share/nginx/html/images/pokemon/. /volume1/docker/pokedec-shared/images/pokemon/ || true

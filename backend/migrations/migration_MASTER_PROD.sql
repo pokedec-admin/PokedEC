@@ -262,21 +262,41 @@ VALUES (6, 'Méga-Dracaufeu X', TRUE, TRUE, TRUE), (6, 'Méga-Dracaufeu Y', TRUE
 ON CONFLICT (pokemon_id, form_name) DO UPDATE SET can_be_mega = TRUE, can_be_normal = TRUE;
 
 -- 7. URSHIFU FIXES
-UPDATE pokemon_master SET form_name = 'Style Poing Final', name_fr = 'Shifours (Style Poing Final)', name_en = 'Urshifu (Single Strike Style)' WHERE pokemon_id = 892 AND form_name = 'Normal';
+DO $$
+BEGIN
+    -- Handle Styles (892)
+    IF EXISTS (SELECT 1 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Normal') THEN
+        IF EXISTS (SELECT 1 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Style Poing Final') THEN
+            -- If both exist, just delete Normal (it's a duplicate of Single Strike)
+            DELETE FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Normal';
+        ELSE
+            -- Rename Normal to Single Strike
+            UPDATE pokemon_master SET form_name = 'Style Poing Final', name_fr = 'Shifours (Style Poing Final)', name_en = 'Urshifu (Single Strike Style)' WHERE pokemon_id = 892 AND form_name = 'Normal';
+        END IF;
+    END IF;
 
+    -- Gigamax Style Poing Final
+    IF EXISTS (SELECT 1 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Gigamax') THEN
+        IF EXISTS (SELECT 1 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Gigamax (Style Poing Final)') THEN
+            DELETE FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Gigamax';
+        ELSE
+            UPDATE pokemon_master SET form_name = 'Gigamax (Style Poing Final)', name_fr = 'Shifours Gigamax (Style Poing Final)', name_en = 'Gigantamax Urshifu (Single Strike Style)' WHERE pokemon_id = 892 AND form_name = 'Gigamax';
+        END IF;
+    END IF;
+END $$;
+
+-- Rapid Strike (Mille Poings) - using ON CONFLICT for safety
 INSERT INTO pokemon_master (pokemon_id, form_name, name_fr, name_en, classification_id, region_id, type_primary_id, type_secondary_id, image_url, trade_status, is_available)
 SELECT 892, 'Style Mille Poings', 'Shifours (Style Mille Poings)', 'Urshifu (Rapid Strike Style)', classification_id, region_id, 4, 2, '/images/pokemon/892_Style_Mille_Poings.png', 'YES', TRUE
 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Style Poing Final'
 ON CONFLICT (pokemon_id, form_name) DO NOTHING;
 
--- Gigamax Urshifu
-UPDATE pokemon_master SET form_name = 'Gigamax (Style Poing Final)', name_fr = 'Shifours Gigamax (Style Poing Final)', name_en = 'Gigantamax Urshifu (Single Strike Style)' WHERE pokemon_id = 892 AND form_name = 'Gigamax';
 INSERT INTO pokemon_master (pokemon_id, form_name, name_fr, name_en, classification_id, region_id, type_primary_id, type_secondary_id, image_url, trade_status, is_available)
 SELECT 892, 'Gigamax (Style Mille Poings)', 'Shifours Gigamax (Style Mille Poings)', 'Gigantamax Urshifu (Rapid Strike Style)', classification_id, region_id, 4, 2, '/images/pokemon/892_Gigamax_Style_Mille_Poings.png', 'SPECIAL', TRUE
 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Style Poing Final'
 ON CONFLICT (pokemon_id, form_name) DO NOTHING;
 
--- Dynamax Urshifu
+-- Dynamax Styles
 INSERT INTO pokemon_master (pokemon_id, form_name, name_fr, name_en, classification_id, region_id, type_primary_id, type_secondary_id, image_url, trade_status, is_available)
 SELECT 892, 'Dynamax (Style Poing Final)', 'Shifours Dynamax (Style Poing Final)', 'Dynamax Urshifu (Single Strike Style)', classification_id, region_id, type_primary_id, type_secondary_id, '/images/pokemon/892_Dynamax_Style_Poing_Final.png', 'YES', TRUE
 FROM pokemon_master WHERE pokemon_id = 892 AND form_name = 'Style Poing Final'
