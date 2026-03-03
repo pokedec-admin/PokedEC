@@ -1,8 +1,8 @@
 export const environment = {
     production: true,
-    version: 'V2026.03.02.20',
+    version: 'V2026.03.03.14',
     apiUrl: '/api',
     backupApiUrl: '/api',
-    supabaseUrl: 'https://fkcktcwtnmuflasiueji.supabase.co',
+    supabaseUrl: 'postgresql://postgres.fkcktcwtnmuflasiueji:DanstonCulmapoule@aws-1-eu-central-2.pooler.supabase.com:6543/postgres',
     supabaseKey: 'sb_publishable_x-yC3GJsTNFqVacVzLKl0g_jEWhFOOl'
 };

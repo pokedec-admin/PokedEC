@@ -1,0 +1,39 @@
+--- frontend/src/app/pages/pokemon/detail.html
++++ frontend/src/app/pages/pokemon/detail.html
+@@ -14,14 +14,6 @@
+             <img [src]="userPokemon?.image_url || pokemon.sprites.front_default" [alt]="pokemon.name"
+                 class="pokemon-image">
+
+-            <!-- Forms Selector (Alola, Galar, etc.) -->
+-            <div class="forms-selector" *ngIf="availableForms.length > 1">
+-                <div *ngFor="let f of availableForms" class="form-thumbnail" [class.active]="f.form_name === formName"
+-                    (click)="switchForm(f.form_name)" [title]="f.form_name">
+-                    <img [src]="f.image_url" [alt]="f.form_name">
+-                    <span>{{ f.form_name === 'Normal' ? 'Base' : f.form_name }}</span>
+-                </div>
+-            </div>
+-
+             <button class="nav-btn next" (click)="goToNext()" *ngIf="pokemon.id < 1025" title="Suivant">
+                 &#10095;
+             </button>
+@@ -29,6 +21,15 @@
+
+         <div class="info-section">
+-
+         </div>
+     </div>
+
++    <!-- Form Selection Buttons -->
++    <div class="forms-navigation" *ngIf="availableForms.length > 1">
++        <div class="form-buttons-grid">
++            <button *ngFor="let f of availableForms"
++                class="form-nav-btn"
++                [class.active]="f.form_name === formName"
++                (click)="switchForm(f.form_name)">
++                {{ f.form_name === 'Normal' ? 'Forme de Base' : f.form_name }}
++            </button>
++        </div>
++    </div>
++
+     <!-- Master Data Section -->
+     <div class="master-data-section" *ngIf="userPokemon">
