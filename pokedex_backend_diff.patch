@@ -1,0 +1,16 @@
+<<<<<<< SEARCH
+        const form_name = req.query.form || 'Normal';
+        const query = `UPDATE pokedex
+                 SET ${field} = NOT ${field}
+                 WHERE user_id = $1 AND pokemon_id = $2 AND form_name = $3
+                 RETURNING * `;
+        const params = [req.user.id, pokemon_id, form_name];
+=======
+        const form_name = req.query.form || 'Normal';
+        const query = `INSERT INTO pokedex (user_id, pokemon_id, form_name, ${field})
+                 VALUES ($1, $2, $3, true)
+                 ON CONFLICT (user_id, pokemon_id, form_name)
+                 DO UPDATE SET ${field} = NOT pokedex.${field}
+                 RETURNING *`;
+        const params = [req.user.id, pokemon_id, form_name];
+>>>>>>> REPLACE

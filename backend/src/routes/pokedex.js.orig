@@ -12,12 +12,12 @@ router.get('/', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
         const result = await pool.query(`
-            SELECT 
+            SELECT
                 p.*,
                 pm.name_fr as name,
                 pm.name_fr, pm.name_en, pm.name_de, pm.name_it,
                 pm.image_url,
-                pm.classification_id, pm.region_id, 
+                pm.classification_id, pm.region_id,
                 pm.type_primary_id, pm.type_secondary_id,
                 pm.trade_status as master_trade_status,
                 pm.is_regional, pm.regional_description,
@@ -25,7 +25,7 @@ router.get('/', authenticateToken, async (req, res) => {
                 c.name_key as classification_key,
                 r.name_fr as region_name,
                 r.name_key as region_key,
-                t1.name_fr as type_primary_name, 
+                t1.name_fr as type_primary_name,
                 t1.name_key as type_primary_key,
                 t1.color_hex as type_primary_color,
                 t2.name_fr as type_secondary_name,
@@ -67,7 +67,7 @@ router.get('/master-all', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
         const result = await pool.query(`
-            SELECT 
+            SELECT
                 pm.pokemon_id, pm.form_name, pm.name_fr, pm.name_en, pm.name_de, pm.name_it,
                 COALESCE(pm.image_url, 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' || pm.pokemon_id || '.png') as image_url,
                 pm.classification_id, pm.region_id,
@@ -162,7 +162,7 @@ router.get('/tracking/:category', authenticateToken, async (req, res) => {
         console.log(`[API] Fetching tracking list for user ${req.user.id}, category: ${category}, condition: ${condition}`);
 
         const query = `
-            SELECT 
+            SELECT
                 pm.*,
                 r.name_fr as region_name,
                 p.has_normal, p.has_shiny, p.has_lucky, p.has_xxl, p.has_xxs,
@@ -305,9 +305,9 @@ router.get('/trade-available', authenticateToken, async (req, res) => {
              FROM pokedex p
              JOIN trainers u ON p.user_id = u.id
              INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id AND p.form_name = pm.form_name
-WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR 
-                    p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR 
-                    p.trade_purified = true) 
+WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR
+                    p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR
+                    p.trade_purified = true)
              AND p.user_id != $1
              ORDER BY p.pokemon_id`,
             [req.user.id]
@@ -333,8 +333,8 @@ router.post('/', authenticateToken, async (req, res) => {
         const pool = getPool(req);
         // Check if Pokemon exists in pokemon_master and is available
         const masterCheck = await pool.query(
-            `SELECT pokemon_id, is_available 
-             FROM pokemon_master 
+            `SELECT pokemon_id, is_available
+             FROM pokemon_master
              WHERE pokemon_id = $1 AND form_name = $2`,
             [pokemon_id, form_name]
         );
@@ -364,7 +364,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
         // Return the full object with all joins
         const fullEntry = await pool.query(`
-            SELECT 
+            SELECT
                 p.id, p.user_id, p.pokemon_id, p.form_name,
                 p.has_normal, p.has_shiny, p.has_lucky, p.has_trade, p.has_xxl, p.has_xxs,
                 p.has_gmax, p.has_dynamax, p.has_mega, p.has_obscure, p.has_purifie, p.has_parfait,
@@ -377,17 +377,17 @@ router.post('/', authenticateToken, async (req, res) => {
                 r.name_fr as region_name, r.name_key as region_key,
                 t1.name_fr as type_primary_name, t1.color_hex as type_primary_color,
                 t2.name_fr as type_secondary_name, t2.color_hex as type_secondary_color,
-                COALESCE(pca.can_be_shiny, true) as can_be_shiny, 
-                COALESCE(pca.can_be_lucky, true) as can_be_lucky, 
-                COALESCE(pca.can_be_gmax, false) as can_be_gmax, 
-                COALESCE(pca.can_be_mega, false) as can_be_mega, 
-                COALESCE(pca.can_be_obscure, false) as can_be_obscure, 
-                COALESCE(pca.can_be_purified, false) as can_be_purified, 
-                COALESCE(pca.can_be_xxl, true) as can_be_xxl, 
+                COALESCE(pca.can_be_shiny, true) as can_be_shiny,
+                COALESCE(pca.can_be_lucky, true) as can_be_lucky,
+                COALESCE(pca.can_be_gmax, false) as can_be_gmax,
+                COALESCE(pca.can_be_mega, false) as can_be_mega,
+                COALESCE(pca.can_be_obscure, false) as can_be_obscure,
+                COALESCE(pca.can_be_purified, false) as can_be_purified,
+                COALESCE(pca.can_be_xxl, true) as can_be_xxl,
                 COALESCE(pca.can_be_xxs, true) as can_be_xxs,
-                COALESCE(pca.can_be_legendary, false) as can_be_legendary, 
-                COALESCE(pca.can_be_mythical, false) as can_be_mythical, 
-                COALESCE(pca.can_be_ultra_beast, false) as can_be_ultra_beast, 
+                COALESCE(pca.can_be_legendary, false) as can_be_legendary,
+                COALESCE(pca.can_be_mythical, false) as can_be_mythical,
+                COALESCE(pca.can_be_ultra_beast, false) as can_be_ultra_beast,
                 COALESCE(pca.can_be_normal, true) as can_be_normal
             FROM pokedex p
             INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id AND p.form_name = pm.form_name
@@ -420,7 +420,7 @@ router.delete('/:pokemon_id', authenticateToken, async (req, res) => {
         );
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Failed to toggle pokemon' });
+            return res.status(404).json({ error: 'Pokemon not found in pokedex' });
         }
 
         res.json({ message: 'Pokemon removed from pokedex' });
@@ -439,7 +439,7 @@ router.get('/search/:query', authenticateToken, async (req, res) => {
         // Search in pokemon_master across all language fields and ID
         // This allows finding Pokemon not yet in the user's Pokedex
         const result = await pool.query(
-            `SELECT 
+            `SELECT
                 pm.pokemon_id, pm.form_name,
                 pm.name_fr as name,
                 pm.name_fr, pm.name_en, pm.name_de, pm.name_it,
@@ -447,10 +447,10 @@ router.get('/search/:query', authenticateToken, async (req, res) => {
              FROM pokemon_master pm
              WHERE pm.is_available = true
              AND (
-                 LOWER(pm.name_fr) LIKE $1 OR 
-                 LOWER(pm.name_en) LIKE $1 OR 
-                 LOWER(pm.name_de) LIKE $1 OR 
-                 LOWER(pm.name_it) LIKE $1 OR 
+                 LOWER(pm.name_fr) LIKE $1 OR
+                 LOWER(pm.name_en) LIKE $1 OR
+                 LOWER(pm.name_de) LIKE $1 OR
+                 LOWER(pm.name_it) LIKE $1 OR
                  CAST(pm.pokemon_id AS TEXT) LIKE $1
              )
              ORDER BY pm.pokemon_id ASC, pm.form_name ASC
@@ -485,7 +485,7 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
 
     try {
         const pool = getPool(req);
-        // REMOVED: Mutually exclusive categories logic. 
+        // REMOVED: Mutually exclusive categories logic.
         // Now 'has_normal' is the single source of truth for standard form, regardless of classification.
         // We no longer deactivate 'has_legendary' when 'has_normal' is checked, because 'has_legendary' is deprecated/derived.
 
@@ -506,31 +506,30 @@ router.patch('/:pokemon_id/toggle/:field', authenticateToken, async (req, res) =
         }
 
         const form_name = req.query.form || 'Normal';
-        const query = `INSERT INTO pokedex (user_id, pokemon_id, form_name, ${field})
-                 VALUES ($1, $2, $3, true)
-                 ON CONFLICT (user_id, pokemon_id, form_name)
-                 DO UPDATE SET ${field} = NOT pokedex.${field}
-                 RETURNING *`;
+        const query = `UPDATE pokedex
+                 SET ${field} = NOT ${field}
+                 WHERE user_id = $1 AND pokemon_id = $2 AND form_name = $3
+                 RETURNING * `;
         const params = [req.user.id, pokemon_id, form_name];
         // (Unified logic handles all fields)
 
         const result = await pool.query(query, params);
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Failed to toggle pokemon' });
+            return res.status(404).json({ error: 'Pokemon not found in pokedex' });
         }
 
         // Fetch the full entry with joins to avoid losing data in frontend
         const fullEntry = await pool.query(`
-            SELECT 
-                p.*, 
+            SELECT
+                p.*,
                 pm.name_fr, pm.name_en, pm.image_url, pm.is_regional, pm.regional_description,
                 pm.classification_id, pm.region_id,
                 c.name_fr as classification_name, c.name_key as classification_key,
                 r.name_fr as region_name, r.name_key as region_key,
                 t1.name_fr as type_primary_name, t1.color_hex as type_primary_color,
                 t2.name_fr as type_secondary_name, t2.color_hex as type_secondary_color,
-                pca.can_be_shiny, pca.can_be_lucky, pca.can_be_gmax, pca.can_be_mega, 
+                pca.can_be_shiny, pca.can_be_lucky, pca.can_be_gmax, pca.can_be_mega,
                 pca.can_be_obscure, pca.can_be_purified, pca.can_be_xxl, pca.can_be_xxs,
                 pca.can_be_legendary, pca.can_be_mythical, pca.can_be_ultra_beast, pca.can_be_normal
             FROM pokedex p
@@ -562,9 +561,9 @@ router.get('/trade-available', authenticateToken, async (req, res) => {
              FROM pokedex p
              JOIN trainers u ON p.user_id = u.id
              INNER JOIN pokemon_master pm ON p.pokemon_id = pm.pokemon_id
-WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR 
-                    p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR 
-                    p.trade_purified = true OR p.trade_legendary = true OR p.trade_mythical = true OR p.trade_ultra_beast = true) 
+WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR
+                    p.trade_xxs = true OR p.trade_gmax = true OR p.trade_dynamax = true OR p.trade_mega = true OR
+                    p.trade_purified = true OR p.trade_legendary = true OR p.trade_mythical = true OR p.trade_ultra_beast = true)
              AND p.user_id != $1
              ORDER BY p.pokemon_id`,
             [req.user.id]
@@ -632,15 +631,15 @@ router.patch('/:pokemon_id/shiny', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
         const result = await pool.query(
-            `UPDATE pokedex 
-             SET has_shiny = NOT has_shiny 
+            `UPDATE pokedex
+             SET has_shiny = NOT has_shiny
              WHERE user_id = $1 AND pokemon_id = $2
 RETURNING * `,
             [req.user.id, pokemon_id]
         );
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Failed to toggle pokemon' });
+            return res.status(404).json({ error: 'Pokemon not found in pokedex' });
         }
 
         res.json(result.rows[0]);
@@ -657,15 +656,15 @@ router.patch('/:pokemon_id/lucky', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
         const result = await pool.query(
-            `UPDATE pokedex 
-             SET has_lucky = NOT has_lucky 
+            `UPDATE pokedex
+             SET has_lucky = NOT has_lucky
              WHERE user_id = $1 AND pokemon_id = $2
 RETURNING * `,
             [req.user.id, pokemon_id]
         );
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Failed to toggle pokemon' });
+            return res.status(404).json({ error: 'Pokemon not found in pokedex' });
         }
 
         res.json(result.rows[0]);
@@ -933,7 +932,7 @@ router.get('/:pokemon_id/forms', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
         const result = await pool.query(
-            `SELECT pm.*, 
+            `SELECT pm.*,
                     t1.name_fr as type_primary_name, t1.color_hex as type_primary_color,
                     t2.name_fr as type_secondary_name, t2.color_hex as type_secondary_color,
                     r.name_fr as region_name, r.name_key as region_key,
@@ -1062,7 +1061,7 @@ VALUES(
     $1, $2,
     ${cols.map(_ => 'true').join(', ')}
 )
-                    ON CONFLICT(user_id, pokemon_id) 
+                    ON CONFLICT(user_id, pokemon_id)
                     DO UPDATE SET ${updateCols}
 `, [req.user.id, poke.pokemon_id]);
 
