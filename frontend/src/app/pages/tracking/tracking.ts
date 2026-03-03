@@ -59,9 +59,12 @@ interface RegionGroup {
           <div class="region-pokemon-grid" *ngIf="region.expanded">
             <div *ngFor="let poke of region.pokemon" 
                  class="poke-item" 
-                 [class.not-owned]="!isOwned(poke)"
-                 (click)="goToDetail(poke.pokemon_id, poke.form_name)">
+                 [class.not-owned]="!isOwned(poke)">
               <div class="poke-image-wrapper">
+                <div class="clickable-area" (click)="goToDetail(poke.pokemon_id, poke.form_name)"></div>
+                <div class="quick-add" *ngIf="!isOwned(poke)" (click)="quickAdd($event, poke)" title="Ajouter au Pokédex">
+                  <span class="plus-icon">+</span>
+                </div>
                 <img [src]="poke.image_url" [alt]="poke.name_fr" class="poke-img">
                 <div class="status-overlay" *ngIf="isOwned(poke)">
                   <span class="check-mark">✓</span>
@@ -92,7 +95,7 @@ interface RegionGroup {
       max-width: 1200px;
       margin: 0 auto;
       min-height: 100vh;
-      color: #fff;
+      color: #333;
     }
 
     .header-section {
@@ -101,9 +104,9 @@ interface RegionGroup {
     }
 
     .back-button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
+      background: rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      color: #333;
       padding: 0.6rem 1.2rem;
       border-radius: 50px;
       cursor: pointer;
@@ -114,7 +117,7 @@ interface RegionGroup {
     }
 
     .back-button:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(0, 0, 0, 0.1);
       transform: translateX(-5px);
     }
 
@@ -122,10 +125,8 @@ interface RegionGroup {
       font-size: 3rem;
       font-weight: 800;
       margin-bottom: 1rem;
-      background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      color: rgba(168, 0, 0, 0.8); /* Rouge foncé avec 20% de transparence (max 50% demandé) */
+      text-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .stats-banner {
@@ -135,11 +136,9 @@ interface RegionGroup {
     }
 
     .stat-pill {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(15px);
+      background: #4a4a4a; /* Gris foncé type barre de titre région */
       padding: 1rem 2.5rem;
       border-radius: 100px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -156,12 +155,14 @@ interface RegionGroup {
       font-size: 2rem;
       font-weight: 800;
       letter-spacing: -1px;
+      color: #ffcb05; /* Jaune EC */
     }
 
     .stat-percentage {
       font-size: 1rem;
-      opacity: 0.8;
       font-weight: 600;
+      color: #ffcb05;
+      opacity: 0.9;
     }
 
     .region-card {
@@ -172,6 +173,7 @@ interface RegionGroup {
       border: 1px solid rgba(255, 255, 255, 0.05);
       overflow: hidden;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      color: #fff;
     }
 
     .region-card:hover {
@@ -246,7 +248,6 @@ interface RegionGroup {
       display: flex;
       flex-direction: column;
       align-items: center;
-      cursor: pointer;
       transition: all 0.3s;
       position: relative;
     }
@@ -266,6 +267,46 @@ interface RegionGroup {
       align-items: center;
       justify-content: center;
       margin-bottom: 0.8rem;
+    }
+
+    .clickable-area {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .quick-add {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #cc0000;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(204, 0, 0, 0.4);
+      z-index: 10;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .quick-add:hover {
+      transform: scale(1.2);
+      background: #ff0000;
+    }
+
+    .plus-icon {
+      line-height: 1;
+      margin-top: -2px;
     }
 
     .poke-img {
@@ -322,7 +363,7 @@ interface RegionGroup {
     .loader {
       width: 48px;
       height: 48px;
-      border: 3px solid #fff;
+      border: 3px solid #333;
       border-bottom-color: transparent;
       border-radius: 50%;
       display: inline-block;
@@ -338,7 +379,7 @@ interface RegionGroup {
 
     @media (max-width: 640px) {
       h1 { font-size: 2rem; }
-      .region-pokemon-grid { grid-template-columns: repeat(3, 1fr); padding: 1rem; }
+      .region-pokemon-grid { grid-template-columns: repeat(2, 1fr); padding: 1rem; }
       .stat-pill { padding: 0.8rem 1.5rem; }
       .region-name { font-size: 1.1rem; }
       .mini-progress { display: none; }
@@ -414,9 +455,6 @@ export class TrackingComponent implements OnInit {
       stats: this.pokemonService.getStats()
     }).subscribe({
       next: (data: any) => {
-        console.log('Tracking Category:', this.category);
-        console.log('Tracking Data List:', data.list);
-        console.log('Tracking Data List Length:', data.list.length);
         this.pokemon = data.list;
         this.updateStats(data.stats);
         this.groupByRegion();
@@ -486,6 +524,22 @@ export class TrackingComponent implements OnInit {
     });
 
     this.regions = Object.values(groups).sort((a, b) => a.id - b.id);
+  }
+
+  quickAdd(event: Event, p: PokemonEntry) {
+    event.stopPropagation();
+    const config = this.categoryMap[this.category];
+    const flag = config ? config.flag : 'has_normal';
+
+    this.pokemonService.toggleField(p.pokemon_id, flag, p.form_name).subscribe({
+      next: (updated) => {
+        // Force refresh all data to update stats and groups
+        this.loadData();
+      },
+      error: (err) => {
+        console.error('Failed to quick add pokemon', err);
+      }
+    });
   }
 
   isOwned(p: PokemonEntry): boolean {

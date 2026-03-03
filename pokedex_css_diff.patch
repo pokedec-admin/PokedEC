@@ -1,0 +1,63 @@
+--- frontend/src/app/pages/pokedex/pokedex.css
++++ frontend/src/app/pages/pokedex/pokedex.css
+@@ -194,7 +194,7 @@
+ .cat-toggle {
+     font-size: 0.75rem;
+     padding: 4px 8px;
+-    background: white;
++    background: #e9ecef; /* Light grey for inactive */
+     border: 1px solid #ddd;
+     border-radius: 6px;
+     cursor: pointer;
+@@ -210,34 +210,36 @@
+ }
+
+ .cat-toggle.active {
+-    background: #ffcb05;
+-    border-color: #ffcb05;
++    background: #d4edda; /* Light green for active */
++    border-color: #c3e6cb;
+     color: #333;
+     font-weight: bold;
+ }
+
+ .cat-toggle.shiny.active {
+-    background: linear-gradient(135deg, #ffcb05 0%, #f1c40f 100%);
++    background: #d4edda;
++    border-color: #c3e6cb;
+     color: #333;
+ }
+
+ .cat-toggle.lucky.active {
+-    background: #90ee90;
+-    border-color: #90ee90;
++    background: #d4edda;
++    border-color: #c3e6cb;
+ }
+
+ .cat-toggle.obscure.active {
+-    background: #4b0082;
+-    border-color: #4b0082;
+-    color: white;
++    background: #d4edda;
++    border-color: #c3e6cb;
++    color: #333;
+ }
+
+ .cat-toggle.purified.active {
+-    background: #87ceeb;
+-    border-color: #87ceeb;
+-    color: white;
++    background: #d4edda;
++    border-color: #c3e6cb;
++    color: #333;
+ }
+
+ .cat-toggle.perfect.active {
+-    background: #ff4500;
+-    border-color: #ff4500;
+-    color: white;
++    background: #d4edda;
++    border-color: #c3e6cb;
++    color: #333;
+ }

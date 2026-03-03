@@ -1,43 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
 import { PokemonService } from '../../services/pokemon.service';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PokemonSearchComponent } from '../../components/pokemon-search/pokemon-search.component';
 
-export interface PokemonEntry {
-    id: number | string;
-    user_id: number | string;
+interface PokemonEntry {
+    id: number;
     pokemon_id: number;
     name: string;
+    name_fr: string;
+    name_en: string;
+    form_name: string;
     image_url: string;
-
-    // Master Data
-    name_fr?: string;
-    name_en?: string;
-    region_name?: string;
-    type_primary_name?: string;
-    type_primary_color?: string;
-    type_secondary_name?: string;
-    type_secondary_color?: string;
-
-    // Availability (Master)
-    can_be_normal?: boolean;
-    can_be_shiny?: boolean;
-    can_be_lucky?: boolean;
-    can_be_xxl?: boolean;
-    can_be_xxs?: boolean;
-    can_be_gmax?: boolean;
-    can_be_dynamax?: boolean;
-    can_be_mega?: boolean;
-    can_be_obscure?: boolean;
-    can_be_purified?: boolean;
-    can_be_perfect?: boolean;
-    can_be_legendary?: boolean;
-    can_be_mythical?: boolean;
-    can_be_ultra_beast?: boolean;
-
-    // User State
+    region_id: number;
+    region_name: string;
+    type_primary_name: string;
+    type_primary_color: string;
+    type_secondary_name: string;
+    type_secondary_color: string;
     has_normal: boolean;
     has_shiny: boolean;
     has_lucky: boolean;
@@ -49,27 +30,30 @@ export interface PokemonEntry {
     has_obscure: boolean;
     has_purifie: boolean;
     has_parfait: boolean;
-    has_legendary: boolean;
-    has_mythical: boolean;
-    has_ultra_beast: boolean;
-
-    // Trade State
     has_trade: boolean;
-    trade_shiny: boolean;
-    trade_xxl: boolean;
-    trade_xxs: boolean;
-    trade_gmax: boolean;
-    trade_dynamax: boolean;
-    trade_mega: boolean;
-    trade_purified: boolean;
-    trade_legendary: boolean;
-    trade_mythical: boolean;
-    trade_ultra_beast: boolean;
+    can_be_normal: boolean;
+    can_be_shiny: boolean;
+    can_be_lucky: boolean;
+    can_be_xxl: boolean;
+    can_be_xxs: boolean;
+    can_be_gmax: boolean;
+    can_be_dynamax: boolean;
+    can_be_mega: boolean;
+    can_be_obscure: boolean;
+    can_be_purified: boolean;
+    can_be_perfect: boolean;
+    can_be_legendary: boolean;
+    can_be_mythical: boolean;
+    can_be_ultra_beast: boolean;
+    is_regional: boolean;
+    regional_description: string;
+}
 
-    master_trade_status?: string;
-    is_regional?: boolean;
-    regional_description?: string;
-    form_name: string;
+interface RegionGroup {
+    name: string;
+    id: number;
+    pokemon: PokemonEntry[];
+    expanded: boolean;
 }
 
 @Component({
@@ -77,42 +61,26 @@ export interface PokemonEntry {
     standalone: true,
     imports: [CommonModule, FormsModule, PokemonSearchComponent],
     templateUrl: './pokedex.html',
-    styleUrls: ['./pokedex.css'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./pokedex.css']
 })
 export class Pokedex implements OnInit {
-    // Data Source
     allPokemon: PokemonEntry[] = [];
     filteredPokemon: PokemonEntry[] = [];
-    displayedPokemon: PokemonEntry[] = [];
+    regions: RegionGroup[] = [];
+    isLoading = true;
+    showAddSearch = false;
 
-    // Filter Models
-    searchQuery: string = '';
-    selectedRegion: string = '';
-    selectedType: string = '';
-    selectedFormType: string = ''; // '', 'normal', 'variant'
+    // Filters
+    searchQuery = '';
+    selectedRegion = '';
+    selectedType = '';
+    selectedClassification = '';
+    selectedCategory = '';
+    selectedFormType = '';
 
-    selectedClassification: string = ''; // normal, legendary...
-    selectedCategory: string = ''; // shiny, lucky...
-
-    // UI State
-    isLoading: boolean = true;
-    displayLimit: number = 50;
-
-    showAddSearch: boolean = false; // Toggle for global search
-
-    // Options
+    // Options for filters
     availableRegions: string[] = [];
     availableTypes: string[] = [];
-
-    formTypes = [
-        { value: '', label: 'Toutes les formes' },
-        { value: 'normal', label: 'Formes de base uniquement' },
-        { value: 'variant', label: 'Formes spéciales (Alola, Galar, etc.)' },
-        { value: 'mega', label: 'Méga / Primo' },
-        { value: 'gmax', label: 'Gigamax' },
-        { value: 'dynamax', label: 'Dynamax' }
-    ];
 
     classifications = [
         { value: '', label: 'Toutes les classifications' },
@@ -137,6 +105,15 @@ export class Pokedex implements OnInit {
         { value: 'trade', label: 'Disponible à l\'échange' },
         { value: 'regional', label: '📍 Régional' },
         { value: 'missing', label: 'Manquants (Non capturés)' }
+    ];
+
+    formTypes = [
+        { value: '', label: 'Toutes les formes' },
+        { value: 'normal', label: 'Formes Normales' },
+        { value: 'variant', label: 'Variantes (Alola, Galar, etc)' },
+        { value: 'mega', label: 'Méga-Évolutions' },
+        { value: 'gmax', label: 'Gigamax' },
+        { value: 'dynamax', label: 'Dynamax' }
     ];
 
     constructor(
@@ -187,11 +164,9 @@ export class Pokedex implements OnInit {
         this.showAddSearch = !this.showAddSearch;
     }
 
-    // --- Filtering Logic ---
     applyFilters() {
         let temp = this.allPokemon;
 
-        // Search (Name or ID)
         if (this.searchQuery) {
             const q = this.searchQuery.toLowerCase().trim();
             temp = temp.filter(p =>
@@ -202,12 +177,10 @@ export class Pokedex implements OnInit {
             );
         }
 
-        // Region
         if (this.selectedRegion) {
             temp = temp.filter(p => p.region_name === this.selectedRegion);
         }
 
-        // Type
         if (this.selectedType) {
             temp = temp.filter(p =>
                 p.type_primary_name === this.selectedType ||
@@ -215,7 +188,6 @@ export class Pokedex implements OnInit {
             );
         }
 
-        // Form Type
         if (this.selectedFormType) {
             if (this.selectedFormType === 'normal') {
                 temp = temp.filter(p => p.form_name === 'Normal');
@@ -235,7 +207,6 @@ export class Pokedex implements OnInit {
             }
         }
 
-        // Classification (Legendary, etc.)
         if (this.selectedClassification) {
             switch (this.selectedClassification) {
                 case 'legendary':
@@ -255,7 +226,6 @@ export class Pokedex implements OnInit {
             }
         }
 
-        // Category (Status)
         if (this.selectedCategory) {
             switch (this.selectedCategory) {
                 case 'shiny': temp = temp.filter(p => p.has_shiny); break;
@@ -271,106 +241,63 @@ export class Pokedex implements OnInit {
                 case 'trade': temp = temp.filter(p => p.has_trade); break;
                 case 'regional': temp = temp.filter(p => p.is_regional); break;
                 case 'missing':
-                    // Missing standard form
-                    temp = temp.filter(p => !this.isStandardCaught(p));
+                    temp = temp.filter(p => !p.has_normal);
                     break;
             }
         }
 
         this.filteredPokemon = temp;
-        this.displayLimit = 50;
-        this.updateDisplayed();
-    }
-
-    updateDisplayed() {
-        this.displayedPokemon = this.filteredPokemon.slice(0, this.displayLimit);
+        this.groupByRegion();
         this.cd.markForCheck();
     }
 
+    groupByRegion() {
+        const groups: { [key: number]: RegionGroup } = {};
+
+        this.filteredPokemon.forEach(p => {
+            const regionId = p.region_id || 11;
+            const regionName = p.region_name || 'Inconnue';
+
+            if (!groups[regionId]) {
+                groups[regionId] = {
+                    id: regionId,
+                    name: regionName,
+                    pokemon: [],
+                    expanded: true
+                };
+            }
+            groups[regionId].pokemon.push(p);
+        });
+
+        this.regions = Object.values(groups).sort((a, b) => a.id - b.id);
+    }
+
+    toggleRegion(region: RegionGroup) {
+        region.expanded = !region.expanded;
+    }
+
     trackById(index: number, item: PokemonEntry) {
-        return item.pokemon_id;
+        return `${item.pokemon_id}-${item.form_name}`;
     }
-
-    showMore() {
-        this.displayLimit += 50;
-        this.updateDisplayed();
-    }
-
-    // --- Actions ---
 
     goToDetail(id: number, form: string = 'Normal') {
         this.router.navigate(['/pokedex', id], { queryParams: { form: form } });
     }
 
-    handleToggleSuccess(pokemon: PokemonEntry, updated: any, field: keyof PokemonEntry) {
-        // Find existing index
-        const index = this.allPokemon.findIndex(p => p.pokemon_id === pokemon.pokemon_id && p.form_name === pokemon.form_name);
-        if (index !== -1) {
-            // Update the object in allPokemon
-            this.allPokemon[index] = { ...this.allPokemon[index], ...updated };
-
-            // Re-apply filters to sync displayed list
-            this.applyFilters();
-            this.cd.markForCheck();
-        }
-    }
-
-    toggleNormal(p: PokemonEntry) {
-        this.pokemonService.toggleNormal(p.pokemon_id, p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_normal'),
+    toggleField(p: PokemonEntry, field: string) {
+        this.pokemonService.toggleField(p.pokemon_id, field, p.form_name).subscribe({
+            next: (updated) => {
+                const index = this.allPokemon.findIndex(x => x.pokemon_id === p.pokemon_id && x.form_name === p.form_name);
+                if (index !== -1) {
+                    this.allPokemon[index] = { ...this.allPokemon[index], ...updated };
+                    this.applyFilters();
+                }
+            },
             error: (err) => console.error(err)
         });
     }
 
-    toggleShiny(p: PokemonEntry) {
-        this.pokemonService.toggleShiny(p.pokemon_id, p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_shiny'),
-            error: (err) => console.error(err)
-        });
-    }
-
-    toggleLucky(p: PokemonEntry) {
-        this.pokemonService.toggleLucky(p.pokemon_id, p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_lucky'),
-            error: (err) => console.error(err)
-        });
-    }
-
-    toggleXXL(p: PokemonEntry) {
-        this.pokemonService.toggleField(p.pokemon_id, 'has_xxl', p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_xxl'),
-            error: (err) => console.error(err)
-        });
-    }
-
-    toggleXXS(p: PokemonEntry) {
-        this.pokemonService.toggleField(p.pokemon_id, 'has_xxs', p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_xxs'),
-            error: (err) => console.error(err)
-        });
-    }
-
-    toggleStandard(p: PokemonEntry) {
-        // Unified toggle: Always toggle 'has_normal' for standard form,
-        // regardless of classification (Legendary, Mythical, etc.)
-        this.pokemonService.toggleNormal(p.pokemon_id, p.form_name).subscribe({
-            next: (res) => this.handleToggleSuccess(p, res, 'has_normal'),
-            error: (err) => console.error(err)
-        });
-    }
-
-    getStandardLabel(p: PokemonEntry): string {
-        // Label remains useful for tooltip, but action is always "Standard"
-        if (p.can_be_legendary) return 'Légendaire (Standard)';
-        if (p.can_be_mythical) return 'Fabuleux (Standard)';
-        if (p.can_be_ultra_beast) return 'Ultra-Chimère (Standard)';
-        return 'Normal (Standard)';
-    }
-
-    isStandardCaught(p: PokemonEntry): boolean {
-        // Single source of truth is now has_normal
+    isOwned(p: PokemonEntry): boolean {
         return p.has_normal;
-        // Legacy fallback (optional): || p.has_legendary || p.has_mythical... 
-        // But since we migrate data, has_normal should be enough.
     }
 }

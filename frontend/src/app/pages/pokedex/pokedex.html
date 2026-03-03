@@ -1,22 +1,20 @@
 <div class="pokedex-container">
     <div class="header-section">
-        <h2>Mon Pokédex</h2>
-        <button class="btn-text-action" (click)="toggleAddSearch()">
-            {{ showAddSearch ? 'Masquer l\'ajout' : '+ Ajouter un Pokémon (Recherche Globale)' }}
-        </button>
-
-        <!-- Global Add Search (Hidden by default) -->
-        <div class="global-search-wrapper" *ngIf="showAddSearch">
-            <app-pokemon-search [navigateToDetail]="true" placeholder="🔍 Rechercher & Ajouter..."></app-pokemon-search>
+        <h1>📖 Mon Pokédex</h1>
+        <div class="global-search-wrapper">
+            <app-pokemon-search (pokemonSelected)="goToDetail($event.pokemon_id)"></app-pokemon-search>
         </div>
+        <button class="btn-text-action" (click)="toggleAddSearch()">
+            {{ showAddSearch ? 'Fermer la recherche rapide' : 'Ajouter rapidement un Pokémon' }}
+        </button>
     </div>
 
-    <!-- Filter Bar (Sticky) -->
+    <!-- Filters Bar -->
     <div class="filters-bar">
         <div class="search-input-group">
-            <span class="search-icon">🔍</span>
-            <input type="text" [(ngModel)]="searchQuery" (input)="applyFilters()"
-                placeholder="Rechercher (Nom ou #ID)..." class="filter-input">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" [(ngModel)]="searchQuery" (input)="applyFilters()" placeholder="Nom ou #ID..."
+                class="filter-input">
         </div>
 
         <div class="select-group">
@@ -30,17 +28,14 @@
                 <option *ngFor="let t of availableTypes" [value]="t">{{ t }}</option>
             </select>
 
-            <!-- Classifications (Legendaire, etc) -->
             <select [(ngModel)]="selectedClassification" (change)="applyFilters()" class="filter-select">
                 <option *ngFor="let c of classifications" [value]="c.value">{{ c.label }}</option>
             </select>
 
-            <!-- Categories (Shiny, etc) -->
             <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
                 <option *ngFor="let c of categories" [value]="c.value">{{ c.label }}</option>
             </select>
 
-            <!-- Forms (Normal, Variant) -->
             <select [(ngModel)]="selectedFormType" (change)="applyFilters()" class="filter-select">
                 <option *ngFor="let f of formTypes" [value]="f.value">{{ f.label }}</option>
             </select>
@@ -57,73 +52,88 @@
         <p>Chargement de la collection...</p>
     </div>
 
-    <!-- Grid -->
-    <div class="pokemon-grid" *ngIf="!isLoading">
-        <div *ngFor="let p of displayedPokemon; trackBy: trackById" class="pokemon-card"
-            [class.caught]="isStandardCaught(p)">
-
-            <!-- Card Header (Click to Detail) -->
-            <div class="card-top" (click)="goToDetail(p.pokemon_id, p.form_name)">
-                <span class="poke-id">#{{ p.pokemon_id }}</span>
-                <img [src]="p.image_url" loading="lazy" class="poke-img">
-                <div class="poke-info">
-                    <span class="poke-name">{{ (p.name_fr || p.name) + (p.form_name !== 'Normal' ? ' (' + p.form_name +
-                        ')' : '') }}</span>
-                    <div class="badges">
-                        <span class="badge region">{{ p.region_name }}</span>
-                        <span class="badge regional-badge" *ngIf="p.is_regional"
-                            [title]="p.regional_description || ''">📍 Régional</span>
-                        <span class="badge type" *ngIf="p.type_primary_name"
-                            [style.background-color]="p.type_primary_color">{{ p.type_primary_name }}</span>
-                    </div>
+    <!-- Regions Grid -->
+    <div class="content-grid" *ngIf="!isLoading">
+        <div *ngFor="let region of regions" class="region-card">
+            <div class="region-header" (click)="toggleRegion(region)">
+                <div class="region-info">
+                    <span class="region-toggle">{{ region.expanded ? '▼' : '▶' }}</span>
+                    <span class="region-name">{{ region.name }}</span>
+                </div>
+                <div class="region-stats">
+                    <span class="count-text">{{ region.pokemon.length }} Pokémon affichés</span>
                 </div>
             </div>
 
-            <!-- Toggles Section -->
-            <div class="card-toggles">
-                <!-- Standard (Normal/Legendary/etc) -->
-                <div class="toggle-item" [title]="getStandardLabel(p)">
-                    <input type="checkbox" [checked]="isStandardCaught(p)" (change)="toggleStandard(p)"
-                        id="std-{{p.id}}">
-                    <label for="std-{{p.id}}">
-                        <span *ngIf="p.can_be_normal">Normal</span>
-                        <span *ngIf="p.can_be_legendary" class="legendary-text">Légen.</span>
-                        <span *ngIf="p.can_be_mythical" class="mythical-text">Fabuleux</span>
-                        <span *ngIf="p.can_be_ultra_beast" class="ub-text">U-Chim.</span>
-                    </label>
-                </div>
+            <div class="region-pokemon-grid" *ngIf="region.expanded">
+                <div *ngFor="let p of region.pokemon; trackBy: trackById" class="poke-card"
+                    [class.not-owned]="!isOwned(p)">
 
-                <!-- Shiny -->
-                <div class="toggle-item" *ngIf="p.can_be_shiny" title="Shiny">
-                    <input type="checkbox" [checked]="p.has_shiny" (change)="toggleShiny(p)" id="shy-{{p.id}}">
-                    <label for="shy-{{p.id}}">✨ Shiny</label>
-                </div>
-
-                <!-- Lucky -->
-                <div class="toggle-item" *ngIf="p.can_be_lucky" title="Chanceux">
-                    <input type="checkbox" [checked]="p.has_lucky" (change)="toggleLucky(p)" id="lck-{{p.id}}">
-                    <label for="lck-{{p.id}}">🍀 Lucky</label>
-                </div>
-
-                <!-- XXS/XXL (Compact) -->
-                <div class="toggle-row-mini">
-                    <div class="toggle-item mini" *ngIf="p.can_be_xxs" title="XXS">
-                        <input type="checkbox" [checked]="p.has_xxs" (change)="toggleXXS(p)" id="xxs-{{p.id}}">
-                        <label for="xxs-{{p.id}}">XXS</label>
+                    <div class="poke-main-info" (click)="goToDetail(p.pokemon_id, p.form_name)">
+                        <div class="poke-img-wrapper">
+                            <img [src]="p.image_url" loading="lazy" class="poke-img">
+                            <div class="status-overlay" *ngIf="isOwned(p)">
+                                <span class="check-mark">✓</span>
+                            </div>
+                        </div>
+                        <div class="poke-text">
+                            <span class="poke-id">#{{ p.pokemon_id }}</span>
+                            <span class="poke-name">{{ p.name_fr || p.name }}</span>
+                            <span class="poke-form" *ngIf="p.form_name !== 'Normal'">{{ p.form_name }}</span>
+                        </div>
                     </div>
-                    <div class="toggle-item mini" *ngIf="p.can_be_xxl" title="XXL">
-                        <input type="checkbox" [checked]="p.has_xxl" (change)="toggleXXL(p)" id="xxl-{{p.id}}">
-                        <label for="xxl-{{p.id}}">XXL</label>
+
+                    <div class="poke-categories-toggles">
+                        <!-- Standard -->
+                        <div class="cat-toggle" *ngIf="p.can_be_normal || p.can_be_legendary || p.can_be_mythical || p.can_be_ultra_beast"
+                            [class.active]="p.has_normal" (click)="toggleField(p, 'has_normal')" title="Standard">
+                            <span *ngIf="p.can_be_legendary">Légen.</span>
+                            <span *ngIf="p.can_be_mythical">Fabul.</span>
+                            <span *ngIf="p.can_be_ultra_beast">U-Chim.</span>
+                            <span *ngIf="!p.can_be_legendary && !p.can_be_mythical && !p.can_be_ultra_beast">Base</span>
+                        </div>
+
+                        <!-- Shiny -->
+                        <div class="cat-toggle shiny" *ngIf="p.can_be_shiny" [class.active]="p.has_shiny" (click)="toggleField(p, 'has_shiny')" title="Shiny">
+                            ✨
+                        </div>
+
+                        <!-- Lucky -->
+                        <div class="cat-toggle lucky" *ngIf="p.can_be_lucky" [class.active]="p.has_lucky" (click)="toggleField(p, 'has_lucky')" title="Lucky">
+                            🍀
+                        </div>
+
+                        <!-- XXL -->
+                        <div class="cat-toggle" *ngIf="p.can_be_xxl" [class.active]="p.has_xxl" (click)="toggleField(p, 'has_xxl')" title="XXL">
+                            XXL
+                        </div>
+
+                        <!-- XXS -->
+                        <div class="cat-toggle" *ngIf="p.can_be_xxs" [class.active]="p.has_xxs" (click)="toggleField(p, 'has_xxs')" title="XXS">
+                            XXS
+                        </div>
+
+                        <!-- Obscure -->
+                        <div class="cat-toggle obscure" *ngIf="p.can_be_obscure" [class.active]="p.has_obscure" (click)="toggleField(p, 'has_obscure')" title="Obscur">
+                            🌑
+                        </div>
+
+                        <!-- Purified -->
+                        <div class="cat-toggle purified" *ngIf="p.can_be_purified" [class.active]="p.has_purifie" (click)="toggleField(p, 'has_purifie')" title="Purifié">
+                            ☀️
+                        </div>
+
+                        <!-- Perfect -->
+                        <div class="cat-toggle perfect" *ngIf="p.can_be_perfect" [class.active]="p.has_parfait" (click)="toggleField(p, 'has_parfait')" title="Parfait">
+                            💯
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Show More -->
-    <div class="load-more-container" *ngIf="filteredPokemon.length > displayedPokemon.length">
-        <button class="btn btn-primary" (click)="showMore()">
-            Afficher plus ({{ displayedPokemon.length }} / {{ filteredPokemon.length }})
-        </button>
+        <div *ngIf="regions.length === 0" class="empty-state">
+            <p>Aucun Pokémon trouvé avec les filtres actuels.</p>
+        </div>
     </div>
 </div>
