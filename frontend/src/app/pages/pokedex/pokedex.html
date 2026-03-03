@@ -2,7 +2,7 @@
     <div class="header-section">
         <h1>📖 Mon Pokédex</h1>
         <div class="global-search-wrapper">
-            <app-pokemon-search (selected)="goToDetail($event.id)"></app-pokemon-search>
+            <app-pokemon-search (pokemonSelected)="goToDetail($event.pokemon_id)"></app-pokemon-search>
         </div>
         <button class="btn-text-action" (click)="toggleAddSearch()">
             {{ showAddSearch ? 'Fermer la recherche rapide' : 'Ajouter rapidement un Pokémon' }}

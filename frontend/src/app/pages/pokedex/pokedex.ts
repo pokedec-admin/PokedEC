@@ -63,7 +63,7 @@ interface RegionGroup {
     templateUrl: './pokedex.html',
     styleUrls: ['./pokedex.css']
 })
-export class PokedexComponent implements OnInit {
+export class Pokedex implements OnInit {
     allPokemon: PokemonEntry[] = [];
     filteredPokemon: PokemonEntry[] = [];
     regions: RegionGroup[] = [];
