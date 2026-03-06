@@ -795,7 +795,6 @@ router.patch('/:pokemon_id/purifie', authenticateToken, async (req, res) => {
 });
 
 // Generic toggle endpoint for any boolean field
-});
 
 // IMPORTANT: Specific routes MUST come before parametrized routes (:pokemon_id)
 // Get user's full pokedex (alias endpoint)
