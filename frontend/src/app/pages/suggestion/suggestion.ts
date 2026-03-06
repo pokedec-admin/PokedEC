@@ -95,15 +95,19 @@ import { Router } from '@angular/router';
 export class Suggestion {
     type: 'suggestion' | 'bug' = 'suggestion';
     content: string = '';
+    email: string = '';
     errorMessage: string = '';
     successMessage: string = '';
     isSubmitting: boolean = false;
+    isLoggedIn: boolean = false;
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router) {
+        this.isLoggedIn = !!localStorage.getItem('token');
+    }
 
     onSubmit() {
-        if (!this.content.trim()) {
-            this.errorMessage = 'Veuillez décrire votre suggestion ou le bug rencontré.';
+        if (!this.isLoggedIn && !this.email.trim()) {
+            this.errorMessage = 'Veuillez renseigner votre email pour que nous puissions vous répondre.';
             return;
         }
 
@@ -111,9 +115,15 @@ export class Suggestion {
         this.errorMessage = '';
 
         const token = localStorage.getItem('token');
-        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        const headers = token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : new HttpHeaders();
 
-        this.http.post('/api/suggestions', { type: this.type, content: this.content }, { headers })
+        const payload = {
+            type: this.type,
+            content: this.content,
+            email: this.isLoggedIn ? null : this.email
+        };
+
+        this.http.post('/api/suggestions', payload, { headers })
             .subscribe({
                 next: () => {
                     this.successMessage = 'Merci ! Votre retour a bien été enregistré.';

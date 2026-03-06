@@ -8,9 +8,9 @@ const { authenticateAdmin } = require('../middleware/auth');
 
 // Configuration
 const ENV_URLS = {
-    DEV: 'http://localhost:3000', // Local backend
-    NAS: 'http://192.168.1.199:8080', // NAS Main
-    CLOUD: 'https://www.pokedec.ch' // Production Cloud
+    DEV: 'http://localhost:8080', // Local backend
+    NAS: 'https://back.pokedec.ch', // NAS Main (internal: http://192.168.1.199:8080)
+    CLOUD: 'https://pokedec-backend.onrender.com' // Production Cloud backend
 };
 
 // Helper to read version
@@ -56,7 +56,7 @@ router.get('/monitoring', authenticateAdmin, async (req, res) => {
 
             return {
                 env,
-                url: env === 'DEV' ? 'http://localhost:8081' : url,
+                url: url,
                 status: 'ONLINE',
                 version: response.data.version,
                 activeEnv: response.data.env,
@@ -65,7 +65,7 @@ router.get('/monitoring', authenticateAdmin, async (req, res) => {
         } catch (error) {
             return {
                 env,
-                url: env === 'DEV' ? 'http://localhost:8081' : ENV_URLS[env],
+                url: ENV_URLS[env],
                 status: 'OFFLINE',
                 error: error.message
             };

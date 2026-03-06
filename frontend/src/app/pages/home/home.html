@@ -132,7 +132,7 @@
                             <td>
                                 <span class="status-badge" [class.online]="monitoringData[env]?.status === 'ONLINE'"
                                     [class.offline]="monitoringData[env]?.status !== 'ONLINE'">
-                                    {{ monitoringData[env]?.status }}
+                                    {{ monitoringData[env]?.status || 'OFFLINE' }}
                                 </span>
                             </td>
                             <td>{{ monitoringData[env]?.version || '-' }}</td>

@@ -14,6 +14,12 @@
                 </select>
             </div>
 
+            <div class="form-group" *ngIf="!isLoggedIn">
+                <label for="email">Votre Email (pour vous répondre)</label>
+                <input type="email" id="email" [(ngModel)]="email" name="email"
+                    placeholder="votre@email.com" class="form-input" required>
+            </div>
+
             <div class="form-group">
                 <label for="content">Description</label>
                 <textarea id="content" [(ngModel)]="content" name="content"

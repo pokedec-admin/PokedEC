@@ -6,28 +6,44 @@ const getPool = (req) => req.app.locals.pool;
 // Middleware to authenticate token (imported from auth.js in index.js, but we need it here if we want to use it directly or assume it's passed)
 // For simplicity, we'll assume the main index.js passes the auth middleware or we re-implement/import it.
 // Better approach: Export authenticateToken from auth.js and use it here.
-const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
+const { authenticateToken, authenticateAdmin, verifyToken } = require('../middleware/auth');
 
-// Create a suggestion
-router.post('/', authenticateToken, async (req, res) => {
-    const { type, content } = req.body;
+// Create suggestion
+router.post('/', async (req, res) => {
+    const { type, content, email } = req.body;
+    let userId = null;
+
+    // Check if user is authenticated
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        try {
+            const token = authHeader.split(' ')[1];
+            if (token && token !== 'null' && token !== 'undefined') {
+                const decoded = verifyToken(token);
+                userId = decoded.id;
+            }
+        } catch (err) {
+            console.error('Invalid token, processing as guest if email provided');
+        }
+    }
 
     if (!type || !content) {
-        return res.status(400).json({ error: 'Type and content are required' });
+        return res.status(400).json({ error: 'Missing required fields: type and content' });
+    }
+
+    // Require email for non-authenticated users
+    if (!userId && !email) {
+        return res.status(401).json({ error: 'Authentication required, or provide an email for guest suggestions' });
     }
 
     try {
-        const pool = getPool(req);
-        const result = await pool.query(
-            `INSERT INTO suggestions (user_id, type, content)
-             VALUES ($1, $2, $3)
-             RETURNING *`,
-            [req.user.id, type, content]
+        const result = await req.app.locals.pool.query(
+            'INSERT INTO suggestions (user_id, type, content, email) VALUES ($1, $2, $3, $4) RETURNING *',
+            [userId, type, content, email]
         );
         res.status(201).json(result.rows[0]);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
+        res.status(500).json({ error: err.message });
     }
 });
 

@@ -186,6 +186,7 @@ async function runMigrations() {
     await runStep('suggestions.archived_user', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_user BOOLEAN DEFAULT false');
     await runStep('suggestions.archived_admin', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS archived_admin BOOLEAN DEFAULT false');
     await runStep('suggestions.is_read', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS is_read BOOLEAN DEFAULT false');
+    await runStep('suggestions.email', 'ALTER TABLE suggestions ADD COLUMN IF NOT EXISTS email VARCHAR(255)');
 
     // Trade requests table
     await runStep('trade_requests.create', `

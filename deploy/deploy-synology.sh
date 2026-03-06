@@ -49,7 +49,7 @@ elif [ "$TARGET_ENV" == "nas" ]; then
     ENV_SUFFIX="nas"
     echo "🏗️   Cible : NAS   →  NAS:${FRONTEND_PORT}  →  ${NAS_PATH}"
 else
-    FRONTEND_PORT="8081"
+    FRONTEND_PORT="8080"
     APP_ENV_VALUE="DEV"
     ENV_SUFFIX="dev"
     echo "🟠  Cible : DEV   →  localhost:${FRONTEND_PORT}"

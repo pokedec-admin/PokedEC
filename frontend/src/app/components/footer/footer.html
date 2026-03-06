@@ -1,6 +1,6 @@
-<footer *ngIf="isLoggedIn">
+<footer>
 
-    <div class="footer-line">
+    <div class="footer-line" *ngIf="isLoggedIn">
         Une suggestion ? Un bug ?
         <a routerLink="/suggestion">Dites-nous tout !</a>
     </div>
@@ -10,7 +10,7 @@
             <span class="separator">•</span>
             <a routerLink="/credits" class="footer-link">✨ Crédits & Remerciements</a>
         </div>
-        <p class="copyright">© 2025 Poked'EC. {{ version }} faite avec ❤️ pour la communauté.</p>
+        <p class="copyright">© 2026 Poked'EC {{ currentEnv }} ({{ version }}). Faite avec ❤️ pour la communauté.</p>
     </div>
 
 </footer>

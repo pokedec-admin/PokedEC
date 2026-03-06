@@ -3,7 +3,7 @@ services:
     container_name: pokedec-dev-frontend
     build: ./frontend
     ports:
-      - "8081:80"
+      - "8080:80"
     volumes:
       - ./frontend/public/images:/usr/share/nginx/html/images:ro
     depends_on:
@@ -38,7 +38,7 @@ services:
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
       - APP_ENV=DEV # Explicitly set DEV environment
-      - APP_VERSION=V2026.03.06.1 # DEV version
+      - APP_VERSION=V2026.03.06.4 # DEV version
       - PROD_DB_HOST=192.168.1.199
       - PROD_DB_PORT=5433
     depends_on:

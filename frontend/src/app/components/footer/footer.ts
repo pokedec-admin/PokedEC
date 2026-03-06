@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { SystemService } from '../../services/system.service';
 import { environment } from '../../../environments/environment';
 
 interface Suggestion {
@@ -20,6 +21,7 @@ interface Suggestion {
 })
 export class Footer implements OnInit {
     version = environment.version;
+    currentEnv = 'UNKNOWN';
     isLoggedIn = false;
     currentUser: any = null;
     suggestions: Suggestion[] = [];
@@ -27,7 +29,8 @@ export class Footer implements OnInit {
     constructor(
         private authService: AuthService,
         private http: HttpClient,
-        private router: Router
+        private router: Router,
+        private systemService: SystemService
     ) {
         this.authService.currentUser$.subscribe(user => {
             this.isLoggedIn = !!user;
@@ -41,7 +44,12 @@ export class Footer implements OnInit {
     }
 
     ngOnInit() {
-        // No need to call loadSuggestions here, AuthService handles it
+        this.systemService.getStatus().subscribe({
+            next: (status) => {
+                this.currentEnv = status.env;
+            },
+            error: (err) => console.error('Failed to load system status in footer', err)
+        });
     }
 
     get hasNewResponses(): boolean {
