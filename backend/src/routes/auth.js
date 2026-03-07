@@ -172,9 +172,30 @@ router.post('/signup', authLimiter, async (req, res) => {
 });
 
 router.post('/login', authLimiter, async (req, res) => {
-    const { email, password } = req.body;
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) return res.status(error.status || 400).json({ error: error.message });
+    let { email, trainer_name, password } = req.body;
+    let loginEmail = email || trainer_name;
+
+    if (!loginEmail) {
+        return res.status(400).json({ error: 'Email or trainer name is required' });
+    }
+
+    // If the user entered a trainer name (no @ symbol), look up their email
+    if (!loginEmail.includes('@')) {
+        try {
+            const userResult = await getPool(req).query('SELECT email FROM trainers WHERE trainer_name = $1', [loginEmail]);
+            if (userResult.rows.length === 0) {
+                return res.status(400).json({ error: 'Invalid login credentials' });
+            }
+            loginEmail = userResult.rows[0].email;
+        } catch (dbErr) {
+            console.error('Database error during login email lookup:', dbErr);
+            return res.status(500).json({ error: 'Internal server error during login' });
+        }
+    }
+
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail, password });
+        if (error) return res.status(error.status || 400).json({ error: error.message });
 
     let userResult = await getPool(req).query('SELECT * FROM trainers WHERE supabase_uid = $1 OR email = $2', [data.user.id, data.user.email]);
     let backendUser = userResult.rows[0];
@@ -221,6 +242,10 @@ router.post('/login', authLimiter, async (req, res) => {
         refresh_token: data.session.refresh_token,
         user: { ...data.user, ...backendUser } 
     });
+    } catch (authErr) {
+        console.error('Supabase auth error:', authErr);
+        return res.status(500).json({ error: 'Internal server error during authentication' });
+    }
 });
 
 router.post('/refresh', async (req, res) => {
