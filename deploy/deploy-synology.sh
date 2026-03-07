@@ -121,25 +121,44 @@ elif [ "$TARGET_ENV" == "nas" ]; then
     echo ""
     echo "🚀  Transfert vers NAS ($NAS_USER@$NAS_IP:$NAS_PATH)…"
 
+    # Function to run ssh with sshpass if NAS_PASSWORD is set
+    run_ssh() {
+        if [ -n "$NAS_PASSWORD" ] && command -v sshpass >/dev/null 2>&1; then
+            sshpass -p "$NAS_PASSWORD" ssh "$@"
+        else
+            ssh "$@"
+        fi
+    }
+
     # Create remote directory
-    ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
+    echo "📂  Création du répertoire distant..."
+    run_ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
         "$NAS_USER@$NAS_IP" "mkdir -p $NAS_PATH"
 
     # Package & transfer
-    echo "📤  Envoi de l'archive…"
-    tar -czf - -C "$PROJECT_ROOT" \
+    echo "📤  Envoi de l'archive (en excluant les métadonnées macOS)..."
+    tar --exclude='._*' -czf - -C "$PROJECT_ROOT" \
         "$(basename "$TEMP_COMPOSE")" \
         nginx/ backend/migrations/ .env.synology | \
-        ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
+        run_ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
             "$NAS_USER@$NAS_IP" "cat > $NAS_PATH/deploy-package.tar.gz"
 
     rm "$TEMP_COMPOSE"
 
     # Remote execution
-    ssh -tt -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
-        "$NAS_USER@$NAS_IP" "APP_ENV_VALUE=\"$APP_ENV_VALUE\" NEW_VERSION=\"$NEW_VERSION\" ENV_SUFFIX=\"$ENV_SUFFIX\" TARGET_ENV=\"$TARGET_ENV\" NAS_PATH=\"$NAS_PATH\" DOCKERHUB_USER=\"${DOCKERHUB_USERNAME:-pokedec}\" bash -s" <<'EOF'
+    run_ssh -tt -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
+        "$NAS_USER@$NAS_IP" "NAS_PASSWORD=\"$NAS_PASSWORD\" APP_ENV_VALUE=\"$APP_ENV_VALUE\" NEW_VERSION=\"$NEW_VERSION\" ENV_SUFFIX=\"$ENV_SUFFIX\" TARGET_ENV=\"$TARGET_ENV\" NAS_PATH=\"$NAS_PATH\" DOCKERHUB_USER=\"${DOCKERHUB_USERNAME:-pokedec}\" bash -s" <<'EOF'
         set -e
         cd "$NAS_PATH"
+        
+        # Cleanup old files before extraction to avoid permission issues
+        echo "🧹  Nettoyage des anciens fichiers..."
+        if [ -n "$NAS_PASSWORD" ]; then
+            echo "$NAS_PASSWORD" | sudo -S rm -rf nginx backend/migrations .env.synology docker-compose.yml 2>/dev/null || true
+        else
+            rm -rf nginx backend/migrations .env.synology docker-compose.yml 2>/dev/null || true
+        fi
+        
         tar -xzf deploy-package.tar.gz
         mkdir -p db_data
         mv docker-compose.deploy.yml docker-compose.yml
@@ -152,33 +171,42 @@ ENV_SUFFIX=${ENV_SUFFIX}
 DOCKERHUB_USERNAME=${DOCKERHUB_USER}
 ENVEOF
 
+        # Helper for sudo with password
+        run_sudo() {
+            if [ -n "$NAS_PASSWORD" ]; then
+                echo "$NAS_PASSWORD" | sudo -S "$@"
+            else
+                sudo "$@"
+            fi
+        }
+
         echo "🛑  Arrêt des containers pokedec-${ENV_SUFFIX}-*…"
-        sudo /usr/local/bin/docker-compose down --remove-orphans || true
+        run_sudo /usr/local/bin/docker-compose down --remove-orphans || true
 
         echo "📥   Pull des nouvelles images DockerHub…"
-        sudo /usr/local/bin/docker-compose pull
+        run_sudo /usr/local/bin/docker-compose pull
 
         echo "🏗️   Démarrage des containers…"
-        sudo /usr/local/bin/docker-compose up -d --remove-orphans
+        run_sudo /usr/local/bin/docker-compose up -d --remove-orphans
 
         echo "🗄️   Migration base de données (attente 10s)…"
         sleep 10
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/998_drop_redundant_tables.sql || true
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/migration_MASTER_PROD.sql || true
-        sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/999_cleanup_legacy_users.sql || true
+        run_sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/998_drop_redundant_tables.sql || true
+        run_sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/migration_MASTER_PROD.sql || true
+        run_sudo /usr/local/bin/docker-compose exec -T backend sh -c "PGPASSWORD=postgres psql -h db -U postgres" < backend/migrations/999_cleanup_legacy_users.sql || true
 
         echo "📸  Synchronisation des images Pokémon depuis l'image frontend…"
-        sudo docker cp pokedec-${ENV_SUFFIX}-frontend:/usr/share/nginx/html/images/pokemon/. /volume1/docker/pokedec-shared/images/pokemon/ || true
-        sudo /usr/local/bin/docker-compose exec -T backend chmod -R 777 /frontend/public/images || true
-        sudo /usr/local/bin/docker-compose exec -T backend node scripts/normalize-filenames.js || true
+        run_sudo docker cp pokedec-${ENV_SUFFIX}-frontend:/usr/share/nginx/html/images/pokemon/. /volume1/docker/pokedec-shared/images/pokemon/ || true
+        run_sudo /usr/local/bin/docker-compose exec -T backend chmod -R 777 /frontend/public/images || true
+        run_sudo /usr/local/bin/docker-compose exec -T backend node scripts/normalize-filenames.js || true
 
         echo ""
         echo "🧹  Nettoyage des images Docker orphelines…"
-        sudo docker image prune -f || true
+        run_sudo /usr/local/bin/docker image prune -f || true
 
         echo ""
         echo "📊  Containers actifs (pokedec-${ENV_SUFFIX}-*):"
-        sudo docker ps --filter "name=pokedec-${ENV_SUFFIX}" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+        run_sudo /usr/local/bin/docker ps --filter "name=pokedec-${ENV_SUFFIX}" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 EOF
 
     echo ""
