@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 declare global {
   interface Window {
@@ -13,7 +14,7 @@ declare global {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
   template: `
     <div class="login-container">
       <img src="/Logo_Pokedec.png" alt="Logo" class="login-logo">
@@ -23,7 +24,7 @@ declare global {
       
       <div class="divider">OR</div>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form *ngIf="!show2FA" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="trainer_name">Email / Nom de dresseur</label>
           <input id="trainer_name" type="text" formControlName="trainer_name" placeholder="votre@email.com">
@@ -35,8 +36,19 @@ declare global {
         <button type="submit" [disabled]="loginForm.invalid">Login</button>
       </form>
 
-      <p>Don't have an account? <a routerLink="/signup">Sign up here</a></p>
-      <p><a routerLink="/forgot-password">Mot de passe oublié ?</a></p>
+      <div *ngIf="show2FA" class="2fa-section">
+        <h3>Two-Factor Authentication</h3>
+        <p>Entrez le code de votre application d'authentification.</p>
+        <div class="form-group">
+          <label for="otp">Code de sécurité</label>
+          <input id="otp" type="text" [(ngModel)]="otpCode" placeholder="000000" maxlength="6">
+        </div>
+        <button (click)="onVerify2FA()" [disabled]="!otpCode">Vérifier</button>
+        <button class="btn-link" (click)="show2FA = false">Retour</button>
+      </div>
+
+      <p *ngIf="!show2FA">Don't have an account? <a routerLink="/signup">Sign up here</a></p>
+      <p *ngIf="!show2FA"><a routerLink="/forgot-password">Mot de passe oublié ?</a></p>
       <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
     </div>
   `,
@@ -45,9 +57,11 @@ declare global {
       max-width: 400px;
       margin: 50px auto;
       padding: 20px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
       border-radius: 8px;
       text-align: center;
+      color: var(--text-color);
     }
     .login-logo {
       width: 200px;
@@ -60,11 +74,16 @@ declare global {
     label {
       display: block;
       margin-bottom: 5px;
+      color: var(--text-color);
     }
     input {
       width: 100%;
       padding: 8px;
       box-sizing: border-box;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
     }
     button {
       width: 100%;
@@ -91,11 +110,26 @@ declare global {
       justify-content: center;
       margin-bottom: 20px;
     }
+    .btn-link {
+      background: none;
+      border: none;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    .2fa-section h3 {
+      margin-top: 0;
+    }
   `]
 })
 export class Login {
   loginForm: FormGroup;
   errorMessage: string = '';
+  show2FA: boolean = false;
+  preAuthToken: string = '';
+  otpCode: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -142,10 +176,29 @@ export class Login {
     if (this.loginForm.valid) {
       this.errorMessage = '';
       this.authService.login(this.loginForm.value).subscribe({
-        next: () => this.router.navigate(['/']),
+        next: (res) => {
+          if (res.require_2fa) {
+            this.show2FA = true;
+            this.preAuthToken = res.preAuthToken;
+          } else {
+            this.router.navigate(['/']);
+          }
+        },
         error: (err) => {
           console.error('[Login] Error:', err);
-          this.errorMessage = err.message || 'Login failed. Please check your credentials.';
+          this.errorMessage = err.error?.error || err.message || 'Login failed. Please check your credentials.';
+        }
+      });
+    }
+  }
+
+  onVerify2FA() {
+    if (this.otpCode) {
+      this.errorMessage = '';
+      this.authService.verify2FA(this.preAuthToken, this.otpCode).subscribe({
+        next: () => this.router.navigate(['/']),
+        error: (err) => {
+          this.errorMessage = err.error?.error || 'Code invalide.';
         }
       });
     }

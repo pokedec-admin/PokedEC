@@ -1,4 +1,8 @@
 const express = require('express');
+const Sentry = require('@sentry/node');
+const { nodeProfilingIntegration } = require('@sentry/profiling-node');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 const { Pool } = require('pg');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -12,6 +16,7 @@ const systemRoutes = require('./routes/system');
 const { createTrainersTable } = require('./models/trainer');
 const { createPokedexTable } = require('./models/pokedex');
 const { createSuggestionsTable } = require('./models/suggestions');
+const { createAuditLogsTable, createAuditTriggerFunction, applyAuditTriggerToPokedex } = require('./models/audit');
 const { createPokemonCategoryAvailabilityTable } = require('./models/pokemon_category_availability');
 const { createClassificationsTable, createRegionsTable, createTypesTable } = require('./models/pokemon_references');
 const { createPokemonMasterTable } = require('./models/pokemon_master');
@@ -19,10 +24,85 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
+
+// Sentry Initialization
+Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    integrations: [
+        nodeProfilingIntegration(),
+    ],
+    // Performance Monitoring
+    tracesSampleRate: 1.0, //  Capture 100% of the transactions
+    // Set sampling rate for profiling - this is relative to tracesSampleRate
+    profilesSampleRate: 1.0,
+});
+
+// Swagger Configuration
+
+// Swagger Configuration
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: "Poked'EC API",
+            version: '1.0.0',
+            description: 'API for PokedEC application',
+        },
+        servers: [
+            { url: process.env.BACKEND_URL || 'http://localhost:8080' }
+        ],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                }
+            }
+        },
+        security: [{
+            bearerAuth: []
+        }]
+    },
+    apis: ['./src/routes/*.js'], // Path to the API docs
+};
+
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// The error handler must be after all controllers but before any other error middleware
+Sentry.setupExpressErrorHandler(app);
+
+// Custom error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        error: 'Something went wrong!',
+        message: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
+});
+
 const PORT = process.env.PORT || 3000;
 
 // Security Middleware
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://fkcktcwtnmuflasiueji.supabase.co"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      imgSrc: ["'self'", "data:", "https://fkcktcwtnmuflasiueji.supabase.co", "https://*.supabase.co"],
+      connectSrc: ["'self'", "https://fkcktcwtnmuflasiueji.supabase.co", "https://*.supabase.co", "https://pokedec-backend.onrender.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      objectSrc: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true
+  }
+}));
 
 // CORS Configuration
 const allowedOrigins = [
@@ -145,6 +225,16 @@ async function runMigrations() {
     await runStep('trainers.idx_supabase_uid', 'CREATE INDEX IF NOT EXISTS idx_trainers_supabase_uid ON trainers(supabase_uid)');
     await runStep('trainers.idx_email', 'CREATE INDEX IF NOT EXISTS idx_trainers_email ON trainers(email)');
 
+    console.log('🛡️ Setting up Audit Logs...');
+    await createAuditLogsTable(pool);
+    await createAuditTriggerFunction(pool);
+    await applyAuditTriggerToPokedex(pool);
+
+    console.log('🔍 Enabling Search Optimizations...');
+    await runStep('pg_trgm', 'CREATE EXTENSION IF NOT EXISTS pg_trgm');
+    await runStep('pokemon_master.idx_name_fr_trgm', 'CREATE INDEX IF NOT EXISTS idx_pm_name_fr_trgm ON pokemon_master USING gin (name_fr gin_trgm_ops)');
+    await runStep('pokemon_master.idx_name_en_trgm', 'CREATE INDEX IF NOT EXISTS idx_pm_name_en_trgm ON pokemon_master USING gin (name_en gin_trgm_ops)');
+
     // Migrate data from supabase_id to supabase_uid if needed
     try {
       const checkCol = await pool.query("SELECT column_name FROM information_schema.columns WHERE table_name='trainers' AND column_name='supabase_id'");
@@ -203,6 +293,15 @@ async function runMigrations() {
     `);
     await runStep('trade_requests.idx_target', 'CREATE INDEX IF NOT EXISTS idx_trade_requests_target ON trade_requests(target_user_id)');
     await runStep('trade_requests.idx_requester', 'CREATE INDEX IF NOT EXISTS idx_trade_requests_requester ON trade_requests(requester_id)');
+
+    console.log('📈 Adding performance optimization indexes...');
+    // Optimization indexes for pokedex
+    await runStep('pokedex.idx_user_pokemon', 'CREATE INDEX IF NOT EXISTS idx_pokedex_user_pokemon ON pokedex(user_id, pokemon_id)');
+    await runStep('pokedex.idx_variants', 'CREATE INDEX IF NOT EXISTS idx_pokedex_variants ON pokedex(has_shiny, has_lucky, has_xxl)');
+    
+    // Optimization indexes for suggestions
+    await runStep('suggestions.idx_email', 'CREATE INDEX IF NOT EXISTS idx_suggestions_email ON suggestions(email)');
+    await runStep('suggestions.idx_is_read', 'CREATE INDEX IF NOT EXISTS idx_suggestions_is_read ON suggestions(is_read)');
 
     console.log('✅ Auto-migrations completed!');
   } catch (err) {

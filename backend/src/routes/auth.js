@@ -1,7 +1,27 @@
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
 const { createClient } = require('@supabase/supabase-js');
 const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
+const { generate2FASecret, verify2FAToken } = require('../utils/twoFactor');
+const jwt = require('jsonwebtoken');
+
+// Rate limiters
+const standardLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per window
+    message: { error: 'Too many requests from this IP, please try again after 15 minutes' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const authLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 1 hour
+    max: 10, // Limit each IP to 10 auth attempts per hour
+    message: { error: 'Too many authentication attempts from this IP, please try again after an hour' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 // Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
 const getPool = (req) => req.app.locals.pool;
@@ -11,8 +31,36 @@ const supabase = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-key'
 );
 
-// Identify Route
-router.post('/identify', async (req, res) => {
+/**
+ * @openapi
+ * /api/auth/identify:
+ *   post:
+ *     summary: Identify a user by email or trainer name
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               identifier:
+ *                 type: string
+ *                 example: ash@pallet.com
+ *     responses:
+ *       200:
+ *         description: User found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 email:
+ *                   type: string
+ *       404:
+ *         description: User not found
+ */
+router.post('/identify', standardLimiter, async (req, res) => {
     const { identifier } = req.body;
     if (!identifier) return res.status(400).json({ error: 'Identifier required' });
 
@@ -30,6 +78,20 @@ router.post('/identify', async (req, res) => {
 });
 
 // Profile Routes
+/**
+ * @openapi
+ * /api/auth/profile:
+ *   get:
+ *     summary: Get current user profile
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User profile returned
+ *       401:
+ *         description: Unauthorized
+ */
 router.get('/profile', authenticateToken, async (req, res) => {
     try {
         const pool = getPool(req);
@@ -86,7 +148,7 @@ router.put('/profile', authenticateToken, async (req, res) => {
 });
 
 // Signup/Login/Forgot Password (Supabase Proxy) - Kept for compatibility but might be bypassed by frontend
-router.post('/signup', async (req, res) => {
+router.post('/signup', authLimiter, async (req, res) => {
     const { email, password, trainer_name, team, trade_preference } = req.body;
     const { data, error } = await supabase.auth.signUp({
         email,
@@ -109,7 +171,7 @@ router.post('/signup', async (req, res) => {
     res.status(201).json({ user: data.user, session: data.session });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', authLimiter, async (req, res) => {
     const { email, password } = req.body;
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return res.status(error.status || 400).json({ error: error.message });
@@ -131,10 +193,138 @@ router.post('/login', async (req, res) => {
         }
     }
 
-    res.json({ token: data.session.access_token, user: { ...data.user, ...backendUser } });
+    // Check if 2FA is enabled
+    if (backendUser.two_factor_enabled && backendUser.two_factor_secret) {
+        // Issue a temporary pre-auth token
+        const preAuthToken = jwt.sign(
+            { 
+                action: '2fa_challenge', 
+                userId: backendUser.id,
+                supabase_session: data.session
+            },
+            process.env.JWT_SECRET || 'your-secret-key',
+            { expiresIn: '5m' }
+        );
+        return res.json({ 
+            require_2fa: true, 
+            preAuthToken,
+            user: { 
+                id: backendUser.id, 
+                trainer_name: backendUser.trainer_name,
+                email: backendUser.email
+            } 
+        });
+    }
+
+    res.json({ 
+        token: data.session.access_token, 
+        refresh_token: data.session.refresh_token,
+        user: { ...data.user, ...backendUser } 
+    });
 });
 
-router.post('/forgot-password', async (req, res) => {
+router.post('/refresh', async (req, res) => {
+    const { refresh_token } = req.body;
+    if (!refresh_token) return res.status(400).json({ error: 'Refresh token required' });
+
+    const { data, error } = await supabase.auth.refreshSession({ refresh_token });
+    if (error) return res.status(error.status || 401).json({ error: error.message });
+
+    res.json({ 
+        token: data.session.access_token, 
+        refresh_token: data.session.refresh_token,
+        user: data.user
+    });
+});
+
+// 2FA Endpoints
+router.get('/2fa/setup', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const { secret, qrCodeDataUrl } = await generate2FASecret(req.user.email);
+        
+        // Temporarily store the secret in the DB (but not enabled yet)
+        await pool.query('UPDATE trainers SET two_factor_secret = $1 WHERE id = $2', [secret, req.user.id]);
+        
+        res.json({ qrCode: qrCodeDataUrl });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to setup 2FA' });
+    }
+});
+
+router.post('/2fa/enable', authenticateToken, async (req, res) => {
+    const { token } = req.body;
+    try {
+        const pool = getPool(req);
+        const userRes = await pool.query('SELECT two_factor_secret FROM trainers WHERE id = $1', [req.user.id]);
+        const secret = userRes.rows[0].two_factor_secret;
+
+        if (!secret) return res.status(400).json({ error: '2FA not setup' });
+
+        const isValid = verify2FAToken(token, secret);
+        if (!isValid) return res.status(400).json({ error: 'Invalid token' });
+
+        await pool.query('UPDATE trainers SET two_factor_enabled = true WHERE id = $1', [req.user.id]);
+        res.json({ message: '2FA enabled successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to enable 2FA' });
+    }
+});
+
+router.post('/2fa/disable', authenticateToken, async (req, res) => {
+    const { token } = req.body;
+    try {
+        const pool = getPool(req);
+        const userRes = await pool.query('SELECT two_factor_secret, two_factor_enabled FROM trainers WHERE id = $1', [req.user.id]);
+        const { two_factor_secret, two_factor_enabled } = userRes.rows[0];
+
+        if (!two_factor_enabled) return res.status(400).json({ error: '2FA is not enabled' });
+
+        const isValid = verify2FAToken(token, two_factor_secret);
+        if (!isValid) return res.status(400).json({ error: 'Invalid token' });
+
+        await pool.query('UPDATE trainers SET two_factor_enabled = false, two_factor_secret = NULL WHERE id = $1', [req.user.id]);
+        res.json({ message: '2FA disabled successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to disable 2FA' });
+    }
+});
+
+router.post('/2fa/verify', authLimiter, async (req, res) => {
+    const { preAuthToken, token } = req.body;
+    try {
+        const decoded = jwt.verify(preAuthToken, process.env.JWT_SECRET || 'your-secret-key');
+        if (decoded.action !== '2fa_challenge') {
+            return res.status(401).json({ error: 'Invalid pre-auth token' });
+        }
+
+        const pool = getPool(req);
+        const userRes = await pool.query('SELECT * FROM trainers WHERE id = $1', [decoded.userId]);
+        const backendUser = userRes.rows[0];
+
+        if (!backendUser || !backendUser.two_factor_enabled || !backendUser.two_factor_secret) {
+            return res.status(401).json({ error: '2FA not active for this user' });
+        }
+
+        const isValid = verify2FAToken(token, backendUser.two_factor_secret);
+        if (!isValid) return res.status(401).json({ error: 'Invalid 2FA token' });
+
+        const session = decoded.supabase_session;
+        res.json({ 
+            token: session.access_token, 
+            refresh_token: session.refresh_token,
+            user: { ...backendUser } 
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(401).json({ error: 'Invalid or expired pre-auth token' });
+    }
+});
+
+router.post('/forgot-password', authLimiter, async (req, res) => {
     const { email } = req.body;
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${process.env.FRONTEND_URL || 'http://localhost:4200'}/auth/callback`

@@ -6,10 +6,11 @@
 
 .search-section {
     margin-bottom: 30px;
-    background: white;
+    background: var(--card-bg);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .search-box-container {
@@ -91,7 +92,7 @@
 
 .welcome-section p {
     font-size: 1.3rem;
-    color: #666;
+    color: var(--nav-text);
     margin-bottom: 30px;
 }
 
@@ -117,7 +118,7 @@
 }
 
 .cta-button.secondary {
-    background-color: white;
+    background-color: var(--card-bg);
     color: #e74c3c;
     border: 2px solid #e74c3c;
 }
@@ -141,15 +142,16 @@
 .auth-form-container {
     max-width: 400px;
     margin: 0 auto;
-    background: white;
+    background: var(--card-bg);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
     animation: fadeIn 0.3s ease-in;
 }
 
 .auth-form-container h2 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 20px;
 }
 
@@ -161,10 +163,12 @@
 .form-group select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #eee;
+    border: 2px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
     box-sizing: border-box;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .form-group input:focus,
@@ -365,21 +369,22 @@
 }
 
 .dashboard-grid {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 30px;
 }
 
 .dashboard h1 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 30px;
 }
 
 .dashboard-section {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
 }
 
 .dashboard-section h2 {
@@ -389,7 +394,7 @@
 }
 
 .section-subtitle {
-    color: #7f8c8d;
+    color: var(--nav-text);
     margin-bottom: 20px;
     font-size: 0.95rem;
 }
@@ -409,7 +414,8 @@
 }
 
 .pokemon-card {
-    border: 2px solid #ecf0f1;
+    border: 2px solid var(--border-color);
+    background: var(--bg-color);
     border-radius: 10px;
     padding: 15px;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -458,14 +464,14 @@
 }
 
 .pokemon-info h3 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin: 10px 0 5px;
     text-align: center;
 }
 
 .pokemon-id {
     text-align: center;
-    color: #7f8c8d;
+    color: var(--nav-text);
     font-size: 0.9rem;
     margin-bottom: 10px;
 }
@@ -473,7 +479,7 @@
 .users-list {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px solid #ecf0f1;
+    border-top: 1px solid var(--border-color);
 }
 
 .users-label {
@@ -508,11 +514,14 @@
 .activity-item {
     display: flex;
     align-items: center;
-    background: #f8f9fa;
+    background: var(--bg-color);
     border-radius: 10px;
     padding: 15px;
     border-left: 4px solid #3498db;
     transition: background 0.2s;
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .activity-item:hover {
@@ -530,7 +539,7 @@
 }
 
 .activity-info h4 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin: 0 0 5px;
 }
 
@@ -649,13 +658,14 @@
 }
 
 .modal-content {
-    background: white;
+    background: var(--card-bg);
     border-radius: 15px;
     width: 90%;
     max-width: 600px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--border-color);
     animation: slideUp 0.3s ease-out;
 }
 
@@ -673,17 +683,17 @@
 
 .modal-header {
     padding: 20px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #f8f9fa;
+    background: var(--bg-color);
     border-radius: 15px 15px 0 0;
 }
 
 .modal-header h2 {
     margin: 0;
-    color: #2c3e50;
+    color: var(--text-color);
     font-size: 1.5rem;
 }
 
@@ -736,12 +746,13 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background: white;
+    background: var(--card-bg);
     padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid #bbdefb;
+    border: 1px solid var(--border-color);
     transition: all 0.2s;
     font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 .checkbox-label:hover {

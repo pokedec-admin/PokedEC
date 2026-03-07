@@ -47,6 +47,9 @@ export class Footer implements OnInit {
         this.systemService.getStatus().subscribe({
             next: (status) => {
                 this.currentEnv = status.env;
+                if (status.version) {
+                    this.version = status.version;
+                }
             },
             error: (err) => console.error('Failed to load system status in footer', err)
         });

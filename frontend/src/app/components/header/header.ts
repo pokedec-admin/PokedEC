@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 interface Suggestion {
     id: number;
@@ -28,7 +29,8 @@ export class Header implements OnInit {
 
     constructor(
         private authService: AuthService,
-        private router: Router
+        private router: Router,
+        public themeService: ThemeService
     ) {
         // Subscribe to auth state changes
         this.authService.currentUser$.subscribe(user => {
@@ -71,6 +73,10 @@ export class Header implements OnInit {
 
     toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;
+    }
+
+    toggleTheme() {
+        this.themeService.toggleTheme();
     }
 
     closeMenu() {

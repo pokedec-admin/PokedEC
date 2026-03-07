@@ -220,37 +220,45 @@ export class AuthService {
     }
 
     login(data: any): Observable<any> {
-        const identifier = data.email || data.trainer_name;
-
-        if (identifier && !identifier.includes('@')) {
-            return this.http.post<any>(`${this.apiUrl}/identify`, { identifier }).pipe(
-                map((res: any) => res.email || identifier),
-                switchMap((email: string) => from(this.supabase.auth.signInWithPassword({
-                    email: email,
-                    password: data.password
-                }))),
-                map(res => {
-                    if (res.error) throw res.error;
-                    if (res.data?.session?.access_token) {
-                        localStorage.setItem('token', res.data.session.access_token);
-                    }
-                    return res.data;
-                })
-            );
-        }
-
-        return from(this.supabase.auth.signInWithPassword({
-            email: identifier,
-            password: data.password
-        })).pipe(
-            map(res => {
-                if (res.error) throw res.error;
-                if (res.data?.session?.access_token) {
-                    localStorage.setItem('token', res.data.session.access_token);
+        return this.http.post<any>(`${this.apiUrl}/login`, data).pipe(
+            tap(res => {
+                if (res.token && !res.require_2fa) {
+                    this.setSession(res);
                 }
-                return res.data;
             })
         );
+    }
+
+    verify2FA(preAuthToken: string, token: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/2fa/verify`, { preAuthToken, token }).pipe(
+            tap(res => {
+                if (res.token) {
+                    this.setSession(res);
+                }
+            })
+        );
+    }
+
+    setup2FA(): Observable<{ qrCode: string }> {
+        return this.http.get<{ qrCode: string }>(`${this.apiUrl}/2fa/setup`, { headers: this.getAuthHeaders() });
+    }
+
+    enable2FA(token: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/2fa/enable`, { token }, { headers: this.getAuthHeaders() });
+    }
+
+    disable2FA(token: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/2fa/disable`, { token }, { headers: this.getAuthHeaders() });
+    }
+
+    private setSession(res: any) {
+        localStorage.setItem('token', res.token);
+        if (res.refresh_token) {
+            localStorage.setItem('refresh_token', res.refresh_token);
+        }
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.currentUserSubject.next(res.user);
+        this.loadSuggestions();
     }
 
     googleLogin(token: string, user: any): Observable<any> {

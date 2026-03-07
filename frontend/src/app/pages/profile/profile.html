@@ -239,6 +239,45 @@
             </div>
         </div>
 
+        <!-- Security (2FA) Section for Admins -->
+        <div class="advanced-section security-section" *ngIf="user.is_admin">
+            <h3>🔐 Sécurité (2FA)</h3>
+            <div class="two-fa-container">
+                <p>Priorité à la sécurité ! Activez l'authentification à deux facteurs pour protéger votre accès administrateur.</p>
+                
+                <div *ngIf="twoFactorError" class="error-message">{{ twoFactorError }}</div>
+                <div *ngIf="twoFactorSuccess" class="success-message">{{ twoFactorSuccess }}</div>
+
+                <div *ngIf="!user.two_factor_enabled && !show2FASetup" class="two-fa-off">
+                    <span class="status-badge status-closed">Désactivé</span>
+                    <button class="btn-bulk-fill" (click)="$event.preventDefault(); init2FASetup()">Configurer la 2FA</button>
+                </div>
+
+                <div *ngIf="show2FASetup" class="two-fa-setup-wizard">
+                    <h4>📝 Étape de configuration</h4>
+                    <p>1. Scannez ce QR Code avec Google Authenticator ou Authy :</p>
+                    <div class="qr-code-wrapper">
+                        <img [src]="qrCode" alt="QR Code 2FA" *ngIf="qrCode">
+                        <div *ngIf="!qrCode" class="qr-loading">Génération du code...</div>
+                    </div>
+                    <p>2. Entrez le code à 6 chiffres affiché sur votre application :</p>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="otpCode" placeholder="000000" maxlength="6" class="otp-input">
+                    </div>
+                    <div class="actions">
+                        <button class="btn-save" (click)="enable2FA()" [disabled]="!otpCode">Activer maintenant</button>
+                        <button class="btn-cancel" (click)="show2FASetup = false">Annuler</button>
+                    </div>
+                </div>
+
+                <div *ngIf="user.two_factor_enabled" class="two-fa-on">
+                    <span class="status-badge status-resolved">Activé ✅</span>
+                    <p>Votre compte est actuellement protégé par une double authentification.</p>
+                    <button class="btn-delete" (click)="disable2FA()">Désactiver la protection</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Advanced Section -->
         <div class="advanced-section">
             <h3>🚀 Avancé</h3>

@@ -205,7 +205,17 @@ export class PokemonService {
         return this.http.put(`${environment.apiUrl}/trade/request/${requestId}/respond`, { status }, this.getAuthHeaders());
     }
 
+    // Trade Matches and Mutual Matches
+    getTradeMatches(): Observable<any[]> {
+        return this.http.get<any[]>(`${environment.apiUrl}/trade/matches`, this.getAuthHeaders());
+    }
+
+    getMutualMatches(): Observable<any[]> {
+        return this.http.get<any[]>(`${environment.apiUrl}/trade/matches/mutual`, this.getAuthHeaders());
+    }
+
     private getAuthHeaders() {
+
         const token = localStorage.getItem('token');
         if (!token) {
             console.warn('No auth token found in localStorage (PokemonService)');

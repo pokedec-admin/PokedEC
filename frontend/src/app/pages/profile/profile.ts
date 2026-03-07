@@ -33,6 +33,13 @@ export class Profile implements OnInit {
     successMessage = '';
     suggestions: Suggestion[] = [];
     showArchivedSuggestions = false;
+    
+    // 2FA properties
+    show2FASetup = false;
+    qrCode = '';
+    otpCode = '';
+    twoFactorError = '';
+    twoFactorSuccess = '';
 
     constructor(
         private authService: AuthService,
@@ -310,6 +317,57 @@ export class Profile implements OnInit {
             }
         });
     }
+
+    // 2FA Methods
+    init2FASetup() {
+        this.twoFactorError = '';
+        this.authService.setup2FA().subscribe({
+            next: (res) => {
+                this.qrCode = res.qrCode;
+                this.show2FASetup = true;
+            },
+            error: (err) => {
+                this.twoFactorError = 'Erreur lors de la configuration 2FA';
+            }
+        });
+    }
+
+    enable2FA() {
+        this.twoFactorError = '';
+        this.authService.enable2FA(this.otpCode).subscribe({
+            next: () => {
+                this.user.two_factor_enabled = true;
+                this.show2FASetup = false;
+                this.qrCode = '';
+                this.otpCode = '';
+                this.twoFactorSuccess = 'Authentification 2FA activée avec succès !';
+                setTimeout(() => this.twoFactorSuccess = '', 5000);
+            },
+            error: (err) => {
+                this.twoFactorError = err.error?.error || 'Code invalide';
+            }
+        });
+    }
+
+    disable2FA() {
+        if (!confirm('Êtes-vous sûr de vouloir désactiver la protection 2FA ?')) return;
+        
+        const code = prompt('Entrez votre code 2FA actuel pour confirmer la désactivation :');
+        if (!code) return;
+
+        this.twoFactorError = '';
+        this.authService.disable2FA(code).subscribe({
+            next: () => {
+                this.user.two_factor_enabled = false;
+                this.twoFactorSuccess = 'Authentification 2FA désactivée.';
+                setTimeout(() => this.twoFactorSuccess = '', 5000);
+            },
+            error: (err) => {
+                this.twoFactorError = err.error?.error || 'Code invalide';
+            }
+        });
+    }
+
     bulkFillPokedex() {
         const selectedCategories = Object.keys(this.bulkFillCategories)
             .filter(key => this.bulkFillCategories[key as keyof typeof this.bulkFillCategories]);

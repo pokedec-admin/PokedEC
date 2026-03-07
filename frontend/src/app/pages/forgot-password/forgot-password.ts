@@ -42,9 +42,10 @@ import { AuthService } from '../../services/auth.service';
       margin: 80px auto;
       padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      background: white;
+      box-shadow: 0 4px 20px var(--shadow-color);
+      background: var(--card-bg);
       text-align: center;
+      border: 1px solid var(--border-color);
     }
     .logo {
       width: 180px;
@@ -52,10 +53,10 @@ import { AuthService } from '../../services/auth.service';
     }
     h2 {
       margin-bottom: 10px;
-      color: #2c3e50;
+      color: var(--text-color);
     }
     p {
-      color: #7f8c8d;
+      color: var(--nav-text);
       margin-bottom: 25px;
     }
     .form-group {
@@ -66,18 +67,21 @@ import { AuthService } from '../../services/auth.service';
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
+      color: var(--text-color);
     }
     .form-control {
       width: 100%;
       padding: 12px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       box-sizing: border-box;
+      background: var(--bg-color);
+      color: var(--text-color);
     }
     .btn-submit {
       width: 100%;
       padding: 12px;
-      background-color: #3498db;
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 6px;
@@ -97,16 +101,17 @@ import { AuthService } from '../../services/auth.service';
       margin-top: 15px;
     }
     .success-message {
-      background-color: #d5f4e6;
+      background-color: rgba(39, 174, 96, 0.1);
       padding: 15px;
       border-radius: 6px;
       color: #27ae60;
+      border: 1px solid rgba(39, 174, 96, 0.2);
     }
     .links {
       margin-top: 25px;
     }
     a {
-      color: #3498db;
+      color: var(--primary-color);
       text-decoration: none;
     }
     a:hover {

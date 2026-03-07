@@ -294,6 +294,36 @@ router.get('/stats', authenticateToken, async (req, res) => {
     }
 });
 
+// Get regional completion stats
+router.get('/stats/regions', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const result = await pool.query(
+            `SELECT 
+                r.id as region_id,
+                r.name_fr as region_name,
+                r.name_key as region_key,
+                COUNT(pm.pokemon_id) as total_pokemon,
+                COUNT(p.id) FILTER (WHERE p.has_normal) as caught_normal,
+                COUNT(p.id) FILTER (WHERE p.has_shiny) as caught_shiny,
+                COUNT(p.id) FILTER (WHERE p.has_lucky) as caught_lucky,
+                ROUND(COUNT(p.id) FILTER (WHERE p.has_normal)::numeric / NULLIF(COUNT(pm.pokemon_id), 0) * 100, 2) as completion_percentage
+             FROM regions r
+             JOIN pokemon_master pm ON r.id = pm.region_id
+             LEFT JOIN pokedex p ON pm.pokemon_id = p.pokemon_id AND pm.form_name = p.form_name AND p.user_id = $1
+             WHERE pm.form_name = 'Normal' AND pm.is_available = true
+             GROUP BY r.id, r.name_fr, r.name_key
+             ORDER BY r.id ASC`,
+            [req.user.id]
+        );
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
 // Get recently added Pokemon (for home dashboard) trade from other users (excluding current user)
 router.get('/trade-available', authenticateToken, async (req, res) => {
     try {

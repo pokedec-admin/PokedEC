@@ -125,7 +125,82 @@ const generateVerificationCode = () => {
     return Math.floor(1000 + Math.random() * 9000).toString();
 };
 
+/**
+ * Send trade match notification email
+ * @param {string} email - Recipient email address
+ * @param {string} username - Recipient username
+ * @param {Array} matches - List of matching Pokémon
+ */
+const sendTradeMatchNotification = async (email, username, matches) => {
+    const transporter = createTransporter();
+    const fromName = process.env.SMTP_FROM_NAME || "PokedEC - Communauté Pokémon GO";
+    const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER;
+
+    const matchItemsHtml = matches.map(m => `
+        <li style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+            <strong>${m.pokemon_name}</strong> (${m.match_category})<br/>
+            <small>Disponible chez le dresseur <strong>${m.trader_username}</strong></small>
+        </li>
+    `).join('');
+
+    const mailOptions = {
+        from: `"${fromName}" <${fromEmail}>`,
+        to: email,
+        subject: '🤝 Nouveaux échanges possibles sur PokedEC !',
+        html: `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+                    .header { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+                    .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+                    .match-list { background: white; padding: 20px; list-style: none; margin: 20px 0; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+                    .footer { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
+                    .button { display: inline-block; background: #10b981; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <div class="header">
+                        <h1>🤝 Des Pokémon vous attendent !</h1>
+                    </div>
+                    <div class="content">
+                        <p>Bonjour <strong>${username}</strong>,</p>
+                        <p>De nouvelles opportunités d'échange ont été détectées sur PokedEC par rapport à vos Pokémon manquants :</p>
+                        
+                        <ul class="match-list">
+                            ${matchItemsHtml}
+                        </ul>
+                        
+                        <p style="text-align: center;">
+                            <a href="${process.env.FRONTEND_URL}/trade" class="button">Voir mes échanges</a>
+                        </p>
+                        
+                        <div class="footer">
+                            <p>Vous recevez cet email car vous êtes inscrit sur PokedEC.</p>
+                            <p>© ${new Date().getFullYear()} PokedEC - Communauté Pokémon GO</p>
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `
+    };
+
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log(`[Email Service] Trade matches sent to ${email}: ${info.messageId}`);
+        return info;
+    } catch (error) {
+        console.error(`[Email Service] Failed to send trade matches to ${email}:`, error);
+    }
+};
+
 module.exports = {
     sendVerificationCode,
-    generateVerificationCode
+    generateVerificationCode,
+    sendTradeMatchNotification
 };

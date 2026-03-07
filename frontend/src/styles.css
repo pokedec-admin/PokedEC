@@ -66,6 +66,24 @@
     --transition-bounce: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* --- Dark Mode Overrides --- */
+.dark {
+    --bg-color: #0f172a; /* Slate-950 */
+    --bg-secondary: #1e293b; /* Slate-800 */
+    --card-bg: #1e293b; /* Slate-800 */
+    --card-border: rgba(255, 255, 255, 0.1);
+    
+    --text-color: #f1f5f9; /* Slate-100 */
+    --text-muted: #94a3b8; /* Slate-400 */
+    --text-light: #64748b; /* Slate-500 */
+    
+    --primary-color: #60a5fa; /* Blue-400 (plus clair pour sombre) */
+    --header-bg: #1e1b4b; /* Indigo très sombre */
+    
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
 body {
     background-color: var(--bg-color);
     margin: 0;

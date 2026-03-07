@@ -3,6 +3,7 @@ const router = express.Router();
 // Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
 const getPool = (req) => req.app.locals.pool;
 const { authenticateToken, authenticateAdmin } = require("../middleware/auth");
+const { findMatchesForUser, findMutualMatches } = require('../services/trade-engine');
 
 
 // Create trade request
@@ -121,6 +122,30 @@ router.delete('/request/:id', authenticateToken, async (req, res) => {
         }
 
         res.json({ message: 'Request dismissed' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Get predicted matches for current user (What others have that you want)
+router.get('/matches', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const matches = await findMatchesForUser(pool, req.user.id);
+        res.json(matches);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Get mutual matches (Double cross-matches)
+router.get('/matches/mutual', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const matches = await findMutualMatches(pool, req.user.id);
+        res.json(matches);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Server error' });

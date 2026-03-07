@@ -4,6 +4,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const { authenticateAdmin, supabase } = require('../middleware/auth');
+const sharp = require('sharp');
+const fileType = require('file-type');
 
 // ==================== POKEMON MASTER ROUTES ====================
 
@@ -661,6 +663,28 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
             return res.status(400).json({ error: 'pokemon_id and form_name are required' });
         }
 
+        // 1. Read file buffer for validation and processing
+        const fileBuffer = fs.readFileSync(req.file.path);
+
+        // 2. MIME Validation using file-type
+        const type = await fileType.fromBuffer(fileBuffer);
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        
+        if (!type || !allowedTypes.includes(type.mime)) {
+            if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+            return res.status(400).json({ error: 'Invalid file type. Only JPEG, PNG, WEBP and GIF are allowed.' });
+        }
+
+        // 3. Image Processing using sharp
+        // We will resize to a max of 400x400 while maintaining aspect ratio, and convert to png for consistency
+        const processedBuffer = await sharp(fileBuffer)
+            .resize(400, 400, {
+                fit: 'inside',
+                withoutEnlargement: true
+            })
+            .png({ quality: 80, compressionLevel: 9 })
+            .toBuffer();
+
         // Normalize form name: lowercase, remove accents, replace spaces with underscores
         const normalizeFormName = (name) => {
             return name
@@ -672,15 +696,13 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
         };
 
         const safeFormName = normalizeFormName(form_name);
-        const ext = path.extname(req.file.originalname).toLowerCase() || '.png';
-        const finalFileName = `${pokemon_id}_${safeFormName}${ext}`;
+        const finalFileName = `${pokemon_id}_${safeFormName}.png`; // Always .png after sharp processing
 
-        // Upload to Supabase Storage
-        const fileContent = fs.readFileSync(req.file.path);
+        // 4. Upload to Supabase Storage
         const { data, error } = await supabase.storage
             .from('pokemon')
-            .upload(finalFileName, fileContent, {
-                contentType: req.file.mimetype,
+            .upload(finalFileName, processedBuffer, {
+                contentType: 'image/png',
                 upsert: true
             });
 

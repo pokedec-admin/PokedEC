@@ -72,10 +72,11 @@ import { HttpClient } from '@angular/common/http';
       max-width: 500px;
       margin: 50px auto;
       padding: 30px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 12px;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px var(--shadow-color);
+      color: var(--text-color);
     }
     .signup-logo {
       display: block;
@@ -83,41 +84,43 @@ import { HttpClient } from '@angular/common/http';
       margin: 0 auto 20px auto;
     }
     h2 {
-      color: #2c3e50;
+      color: var(--text-color);
       margin-bottom: 25px;
       text-align: center;
     }
     .form-group {
       margin-bottom: 20px;
+      text-align: left;
     }
     label {
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
-      color: #34495e;
+      color: var(--text-color);
     }
     input, select {
       width: 100%;
       padding: 10px;
       box-sizing: border-box;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       font-size: 14px;
+      background-color: var(--bg-color);
+      color: var(--text-color);
     }
     select {
       cursor: pointer;
-      background-color: white;
     }
     input:focus, select:focus {
       outline: none;
-      border-color: #3498db;
+      border-color: var(--primary-color);
       box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
     }
     .help-text {
       display: block;
       margin-top: 5px;
       font-size: 0.85rem;
-      color: #7f8c8d;
+      color: var(--nav-text);
       font-style: italic;
     }
     button {
@@ -143,10 +146,10 @@ import { HttpClient } from '@angular/common/http';
     p {
       text-align: center;
       margin-top: 20px;
-      color: #7f8c8d;
+      color: var(--nav-text);
     }
     a {
-      color: #3498db;
+      color: var(--primary-color);
       text-decoration: none;
       font-weight: 600;
     }
@@ -155,17 +158,19 @@ import { HttpClient } from '@angular/common/http';
     }
     .error {
       color: #e74c3c;
-      background: #fadbd8;
+      background: rgba(231, 76, 60, 0.1);
       padding: 10px;
       border-radius: 6px;
       font-weight: 500;
+      border: 1px solid rgba(231, 76, 60, 0.2);
     }
     .success {
       color: #27ae60;
-      background: #d5f4e6;
+      background: rgba(39, 174, 96, 0.1);
       padding: 10px;
       border-radius: 6px;
       font-weight: 500;
+      border: 1px solid rgba(39, 174, 96, 0.2);
     }
 
     /* Verification Screen Styles */

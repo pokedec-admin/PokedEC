@@ -14,6 +14,10 @@
                         {{ openSuggestionsCount }}
                   </a>
             </div>
+            
+            <button class="theme-toggle" (click)="toggleTheme()" [title]="themeService.isDarkMode() ? 'Passer au mode clair' : 'Passer au mode sombre'">
+                  {{ themeService.isDarkMode() ? '☀️' : '🌙' }}
+            </button>
             <div class="menu-backdrop" [class.open]="isMenuOpen" (click)="closeMenu()"></div>
             <button class="hamburger text-white" (click)="toggleMenu()" [class.active]="isMenuOpen">
                   <span></span>

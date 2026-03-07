@@ -8,9 +8,9 @@ const { authenticateAdmin } = require('../middleware/auth');
 
 // Configuration
 const ENV_URLS = {
-    DEV: 'http://localhost:8080', // Local backend
-    NAS: 'https://back.pokedec.ch', // NAS Main (internal: http://192.168.1.199:8080)
-    CLOUD: 'https://pokedec-backend.onrender.com' // Production Cloud backend
+    DEV: 'http://localhost:8080',
+    NAS: 'https://back.pokedec.ch',
+    CLOUD: 'https://pokedec-backend.onrender.com'
 };
 
 // Helper to read version
@@ -19,9 +19,9 @@ function getVersion() {
     if (process.env.APP_VERSION) return process.env.APP_VERSION;
     try {
         const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
-        return pkg.version || '0.8.0';
+        return pkg.version || 'V2026.03.07.1';
     } catch (e) {
-        return '0.8.0';
+        return 'V2026.03.07.1';
     }
 }
 
@@ -45,13 +45,24 @@ router.get('/monitoring', authenticateAdmin, async (req, res) => {
     const environments = ['DEV', 'NAS', 'CLOUD'];
 
     const probes = environments.map(async (env) => {
+        // If it's the current environment, return status directly
+        if (env === (process.env.APP_ENV || 'UNKNOWN')) {
+            return {
+                env,
+                url: ENV_URLS[env],
+                status: 'ONLINE',
+                version: getVersion(),
+                activeEnv: process.env.APP_ENV || 'UNKNOWN',
+                responseTime: '0ms (self)'
+            };
+        }
+
         try {
             const url = ENV_URLS[env];
-            // For NAS/Cloud, we hit the /api/system/status endpoint
             const statusUrl = `${url}/api/system/status`;
 
             const startTime = Date.now();
-            const response = await axios.get(statusUrl, { timeout: 2000 });
+            const response = await axios.get(statusUrl, { timeout: 3000 });
             const responseTime = Date.now() - startTime;
 
             return {

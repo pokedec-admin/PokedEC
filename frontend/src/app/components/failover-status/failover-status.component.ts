@@ -40,11 +40,12 @@ import { FailoverService } from '../../services/failover.service';
   `,
     styles: [`
     .failover-status-widget {
-      background: white;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px var(--shadow-color);
       margin-bottom: 20px;
+      border: 1px solid var(--border-color);
     }
 
     .status-header {
@@ -56,7 +57,7 @@ import { FailoverService } from '../../services/failover.service';
 
     .status-header h3 {
       margin: 0;
-      color: #2c3e50;
+      color: var(--text-color);
       font-size: 1.2rem;
     }
 
@@ -84,15 +85,15 @@ import { FailoverService } from '../../services/failover.service';
     }
 
     .status-message.success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
+      background: rgba(39, 174, 96, 0.1);
+      color: #27ae60;
+      border: 1px solid rgba(39, 174, 96, 0.2);
     }
 
     .status-message.warning {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffeeba;
+      background: rgba(243, 156, 18, 0.1);
+      color: #f39c12;
+      border: 1px solid rgba(243, 156, 18, 0.2);
     }
 
     .actions {
@@ -109,7 +110,7 @@ import { FailoverService } from '../../services/failover.service';
     }
 
     .btn-primary {
-      background: #3498db;
+      background: var(--primary-color);
       color: white;
     }
 
@@ -119,18 +120,19 @@ import { FailoverService } from '../../services/failover.service';
     }
 
     .btn-secondary {
-      background: #95a5a6;
+      background: var(--nav-text);
       color: white;
+      opacity: 0.8;
     }
 
     .btn-secondary:hover {
-      background: #7f8c8d;
+      opacity: 1;
     }
 
     .hint {
       margin-top: 8px;
       font-size: 12px;
-      color: #7f8c8d;
+      color: var(--nav-text);
       font-style: italic;
     }
   `]

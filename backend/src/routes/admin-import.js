@@ -3,8 +3,15 @@ const { Pool } = require('pg');
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
 const router = express.Router();
 const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
+
+// Initialize Supabase Client
+const supabase = createClient(
+    process.env.SUPABASE_URL || 'https://placeholder.supabase.co',
+    process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-key'
+);
 
 // Create a separate pool for PROD database
 let prodPool = null;
@@ -257,7 +264,7 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
         // 1. Fetch all users from PROD
         console.log(`📥 Fetching users from PROD (table: ${userTableName})...`);
         const usersResult = await prodPool.query(`
-            SELECT id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team
+            SELECT id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team, supabase_uid
             FROM ${userTableName}
             ORDER BY id
         `);
@@ -352,8 +359,8 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
         console.log('📤 Importing users to DEV...');
         for (const user of users) {
             await localPool.query(`
-        INSERT INTO trainers (id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        INSERT INTO trainers (id, email, trainer_name, password, is_admin, created_at, google_id, phone, preferred_language, campfire_name, whatsapp_group, email_verified, team, supabase_uid)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
         ON CONFLICT (id) DO UPDATE 
         SET email = EXCLUDED.email,
             trainer_name = EXCLUDED.trainer_name,
@@ -366,8 +373,9 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
             campfire_name = EXCLUDED.campfire_name,
             whatsapp_group = EXCLUDED.whatsapp_group,
             email_verified = EXCLUDED.email_verified,
-            team = EXCLUDED.team
-      `, [user.id, user.email, user.trainer_name, user.password, user.is_admin, user.created_at, user.google_id, user.phone, user.preferred_language, user.campfire_name, user.whatsapp_group, user.email_verified, user.team]);
+            team = EXCLUDED.team,
+            supabase_uid = EXCLUDED.supabase_uid
+      `, [user.id, user.email, user.trainer_name, user.password, user.is_admin, user.created_at, user.google_id, user.phone, user.preferred_language, user.campfire_name, user.whatsapp_group, user.email_verified, user.team, user.supabase_uid]);
         }
         console.log(`  ✅ Imported ${users.length} users`);
 
@@ -454,6 +462,64 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
             }
         }
         console.log(`  ✅ Image sync completed: ${syncedCount} downloaded, ${skippedCount} skipped, ${errorCount} errors`);
+
+        // 5cd. Sync images from SUPABASE BUCKET ( pokemon )
+        console.log('🖼️  Syncing images from SUPABASE bucket (pokemon)...');
+        try {
+            const { data: files, error: listError } = await supabase.storage
+                .from('pokemon')
+                .list('', { limit: 10000 });
+
+            if (listError) {
+                console.error('  ❌ Failed to list Supabase bucket files:', listError.message);
+            } else if (files && files.length > 0) {
+                console.log(`  ℹ️  Found ${files.length} files in Supabase 'pokemon' bucket.`);
+                let sbSyncedCount = 0;
+                let sbSkippedCount = 0;
+                let sbErrorCount = 0;
+
+                for (const file of files) {
+                    const fileName = file.name;
+                    // Skip folders (placeholders)
+                    if (fileName.endsWith('/') || !fileName.includes('.')) continue;
+                    
+                    const localPath = path.join(localImagesDir, fileName);
+
+                    // Re-download even if exists if it seems corrupted (very small) or by force?
+                    // For now, let's just download if missing to be safe and fast
+                    if (!fs.existsSync(localPath)) {
+                        try {
+                            console.log(`  📥 Downloading ${fileName} from SUPABASE...`);
+                            const { data: blob, error: downloadError } = await supabase.storage
+                                .from('pokemon')
+                                .download(fileName);
+
+                            if (downloadError) throw downloadError;
+
+                            const buffer = Buffer.from(await blob.arrayBuffer());
+                            fs.writeFileSync(localPath, buffer);
+                            sbSyncedCount++;
+                        } catch (err) {
+                            console.error(`  ❌ Failed to download ${fileName} from Supabase:`, err.message);
+                            sbErrorCount++;
+                        }
+                    } else {
+                        sbSkippedCount++;
+                    }
+                }
+                console.log(`  ✅ Supabase sync completed: ${sbSyncedCount} downloaded, ${sbSkippedCount} skipped, ${sbErrorCount} errors`);
+                
+                // Add to stats
+                if (!res.locals) res.locals = {};
+                res.locals.supabaseImages = {
+                    synced: sbSyncedCount,
+                    skipped: sbSkippedCount,
+                    errors: sbErrorCount
+                };
+            }
+        } catch (sbError) {
+            console.error('  ❌ Supabase storage sync failed:', sbError.message);
+        }
 
         // 5d. Import suggestions to DEV
         console.log('📤 Importing suggestions to DEV...');
@@ -610,7 +676,8 @@ router.post('/import-prod-data', syncAuthMiddleware, async (req, res) => {
                     synced: syncedCount,
                     skipped: skippedCount,
                     errors: errorCount
-                }
+                },
+                supabase_images: res.locals?.supabaseImages || { synced: 0, skipped: 0, errors: 0 }
             }
         });
 

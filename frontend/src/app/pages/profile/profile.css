@@ -13,17 +13,18 @@ h1 {
 }
 
 .profile-card {
-    background: white;
+    background: var(--card-bg);
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .profile-header {
     text-align: center;
     margin-bottom: 2rem;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--border-color);
     padding-bottom: 2rem;
 }
 
@@ -34,11 +35,11 @@ h1 {
 
 .profile-header h2 {
     margin: 0.5rem 0;
-    color: #333;
+    color: var(--text-color);
 }
 
 .email {
-    color: #666;
+    color: var(--nav-text);
     margin-bottom: 0.5rem;
 }
 
@@ -70,17 +71,18 @@ h1 {
 }
 
 .edit-subsection {
-    background: #f9f9f9;
+    background: var(--bg-color);
     padding: 1.5rem;
     border-radius: 12px;
     margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
 }
 
 .edit-subsection h4 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e0e0e0;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .password-subsection {
@@ -92,7 +94,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     padding: 1rem 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .detail-item:last-child {
@@ -101,11 +103,11 @@ h1 {
 
 .label {
     font-weight: bold;
-    color: #555;
+    color: var(--nav-text);
 }
 
 .value {
-    color: #333;
+    color: var(--text-color);
 }
 
 .form-group {
@@ -116,16 +118,18 @@ h1 {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
-    color: #555;
+    color: var(--nav-text);
 }
 
 .form-group input,
 .form-group select {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .password-input {
@@ -154,10 +158,11 @@ h1 {
 }
 
 .password-requirements {
-    background: #f9f9f9;
+    background: var(--bg-color);
     padding: 1rem;
     border-radius: 8px;
     margin: 1rem 0;
+    border: 1px solid var(--border-color);
 }
 
 .password-requirements p {
@@ -262,8 +267,8 @@ button {
 }
 
 .btn-cancel {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--border-color);
+    color: var(--text-color);
 }
 
 .btn-cancel:hover {
@@ -329,7 +334,7 @@ button {
 .suggestions-section {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 2px solid #f0f0f0;
+    border-top: 2px solid var(--border-color);
 }
 
 .suggestions-section h3 {
@@ -375,10 +380,13 @@ button {
 }
 
 .suggestion-card {
-    background: #f9f9f9;
+    background: var(--bg-color);
     border-radius: 12px;
     padding: 1.5rem;
     border-left: 4px solid #3498db;
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .suggestion-header {
@@ -456,7 +464,7 @@ button {
 }
 
 .suggestion-footer small {
-    color: #666;
+    color: var(--nav-text);
 }
 
 .btn-close-suggestion {
@@ -474,7 +482,7 @@ button {
 .advanced-section {
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 2px solid #f0f0f0;
+    border-top: 2px solid var(--border-color);
 }
 
 .advanced-section h3 {
@@ -506,11 +514,12 @@ button {
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    background: white;
+    background: var(--card-bg);
     padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid #bbdefb;
+    border: 1px solid var(--border-color);
     transition: all 0.2s;
+    color: var(--text-color);
 }
 
 .checkbox-label:hover {
@@ -577,4 +586,65 @@ button {
 
 .btn-archive:hover {
     background: #bdc3c7;
+}
+
+/* 2FA Styles */
+.security-section {
+    background-color: #fdfdfd;
+}
+
+.two-fa-container {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.qr-code-wrapper {
+    display: flex;
+    justify-content: center;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 1.5rem auto;
+    width: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.qr-code-wrapper img {
+    max-width: 200px;
+}
+
+.qr-loading {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+.otp-input {
+    text-align: center;
+    font-size: 1.5rem !important;
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
+.two-fa-setup-wizard {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.two-fa-on {
+    text-align: center;
+}
+
+.two-fa-off {
+    text-align: center;
+    padding: 1rem 0;
 }
