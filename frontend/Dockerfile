@@ -8,7 +8,10 @@ COPY . .
 ARG SUPABASE_URL
 ARG SUPABASE_ANON_KEY
 ARG API_URL=/api
-RUN echo "Environment variables passed to builder (URL: ${SUPABASE_URL})"
+RUN if [ -n "${SUPABASE_URL}" ]; then sed -i "s|supabaseUrl: '.*'|supabaseUrl: '${SUPABASE_URL}'|g" src/environments/environment.prod.ts; fi && \
+    if [ -n "${SUPABASE_ANON_KEY}" ]; then sed -i "s|supabaseKey: '.*'|supabaseKey: '${SUPABASE_ANON_KEY}'|g" src/environments/environment.prod.ts; fi && \
+    if [ -n "${API_URL}" ] && [ "${API_URL}" != "/api" ]; then sed -i "s|apiUrl: '.*'|apiUrl: '${API_URL}'|g" src/environments/environment.prod.ts; fi && \
+    echo "=== environment.prod.ts after patch ===" && cat src/environments/environment.prod.ts
 
 RUN npm run build -- --configuration production
 # Normalize output directory: if 'browser' folder exists, move contents up
