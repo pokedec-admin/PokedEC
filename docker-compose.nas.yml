@@ -46,8 +46,8 @@ services:
     expose:
       - "80"
     volumes:
-      - /volume1/docker/pokedec-shared/images:/usr/share/nginx/html/images
-      - /volume1/docker/pokedec-nas/frontend_build:/usr/share/nginx/html:ro
+      # Images Pokémon partagées — montées dans un sous-dossier pour ne pas écraser le build Angular
+      - /volume1/docker/pokedec-shared/images/pokemon:/usr/share/nginx/html/images/pokemon
     depends_on:
       - backend
     restart: always
