@@ -175,32 +175,46 @@ router.post('/login', authLimiter, async (req, res) => {
     let { email, trainer_name, password } = req.body;
     let loginEmail = email || trainer_name;
 
+    console.log(`[Login] Attempt for identifier: ${loginEmail}`);
+
     if (!loginEmail) {
+        console.warn('[Login] Missing identifier');
         return res.status(400).json({ error: 'Email or trainer name is required' });
     }
 
     // If the user entered a trainer name (no @ symbol), look up their email
     if (!loginEmail.includes('@')) {
         try {
+            console.log(`[Login] Looking up email for trainer_name: ${loginEmail}`);
             const userResult = await getPool(req).query('SELECT email FROM trainers WHERE trainer_name = $1', [loginEmail]);
             if (userResult.rows.length === 0) {
+                console.warn(`[Login] Trainer name not found: ${loginEmail}`);
                 return res.status(400).json({ error: 'Invalid login credentials' });
             }
             loginEmail = userResult.rows[0].email;
+            console.log(`[Login] Resolved email: ${loginEmail}`);
         } catch (dbErr) {
-            console.error('Database error during login email lookup:', dbErr);
+            console.error('[Login] Database error during login email lookup:', dbErr);
             return res.status(500).json({ error: 'Internal server error during login' });
         }
     }
 
     try {
+        console.log(`[Login] Calling Supabase signInWithPassword for: ${loginEmail}`);
         const { data, error } = await supabase.auth.signInWithPassword({ email: loginEmail, password });
-        if (error) return res.status(error.status || 400).json({ error: error.message });
+
+        if (error) {
+            console.error('[Login] Supabase Auth Error:', JSON.stringify(error, null, 2));
+            return res.status(error.status || 400).json({ error: error.message });
+        }
+
+        console.log(`[Login] Supabase success for UID: ${data.user.id}`);
 
     let userResult = await getPool(req).query('SELECT * FROM trainers WHERE supabase_uid = $1 OR email = $2', [data.user.id, data.user.email]);
     let backendUser = userResult.rows[0];
 
     if (!backendUser) {
+        console.log(`[Login] User not found in local DB, auto-provisioning: ${data.user.email}`);
         // Auto-provision if missing during login too
         try {
             const pool = getPool(req);
@@ -209,11 +223,11 @@ router.post('/login', authLimiter, async (req, res) => {
                 [data.user.email, data.user.user_metadata?.trainer_name || data.user.email.split('@')[0], data.user.user_metadata?.team || '', data.user.id]
             );
             backendUser = insertResult.rows[0];
+            console.log(`[Login] Auto-provisioned user: ${backendUser.id}`);
         } catch (e) {
             console.error('[Login Sync] Failed to auto-provision:', e);
         }
     }
-
     // Check if 2FA is enabled
     if (backendUser.two_factor_enabled && backendUser.two_factor_secret) {
         // Issue a temporary pre-auth token
