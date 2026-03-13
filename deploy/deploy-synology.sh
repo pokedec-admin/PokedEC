@@ -137,7 +137,7 @@ elif [ "$TARGET_ENV" == "nas" ]; then
 
     # Package & transfer
     echo "📤  Envoi de l'archive (en excluant les métadonnées macOS)..."
-    tar --exclude='._*' -czf - -C "$PROJECT_ROOT" \
+    env COPYFILE_DISABLE=1 tar --exclude='._*' -czf - -C "$PROJECT_ROOT" \
         "$(basename "$TEMP_COMPOSE")" \
         nginx/ backend/migrations/ .env.synology | \
         run_ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 -p "$NAS_PORT" \
