@@ -1,0 +1,64 @@
+{
+  "$schema": "./node_modules/@angular/service-worker/config/schema.json",
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app-shell",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/manifest.webmanifest",
+          "/*.css",
+          "/*.js"
+        ]
+      }
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/Logo_Pokedec.png",
+          "/Logo_Pokedec.ico",
+          "/**/*.png",
+          "/**/*.jpg",
+          "/**/*.svg",
+          "/**/*.webp",
+          "/**/*.woff2",
+          "/**/*.woff"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-freshness",
+      "urls": [
+        "https://pokedec-backend.onrender.com/api/**",
+        "/api/**"
+      ],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 100,
+        "maxAge": "24h",
+        "timeout": "5s"
+      }
+    },
+    {
+      "name": "pokemon-sprites",
+      "urls": [
+        "https://raw.githubusercontent.com/**",
+        "https://assets.pokemon.com/**"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 500,
+        "maxAge": "7d"
+      }
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { ThemeService } from '../../services/theme.service';
+import { NetworkStatusService } from '../../services/network-status.service';
 
 interface Suggestion {
     id: number;
@@ -30,7 +31,8 @@ export class Header implements OnInit {
     constructor(
         private authService: AuthService,
         private router: Router,
-        public themeService: ThemeService
+        public themeService: ThemeService,
+        public networkStatus: NetworkStatusService
     ) {
         // Subscribe to auth state changes
         this.authService.currentUser$.subscribe(user => {

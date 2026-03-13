@@ -15,6 +15,20 @@
                   </a>
             </div>
             
+            <!-- Indicateur réseau (caché quand online) -->
+            <div class="network-badge network-badge--backend"
+                 *ngIf="(networkStatus.status$ | async) === 'backend-offline'"
+                 title="Le backend est en cours de démarrage (cold start Render)">
+                  <span class="network-badge__dot"></span>
+                  <span class="network-badge__label">⚡ Connexion...</span>
+            </div>
+            <div class="network-badge network-badge--offline"
+                 *ngIf="(networkStatus.status$ | async) === 'offline'"
+                 title="Vous êtes hors ligne">
+                  <span class="network-badge__dot"></span>
+                  <span class="network-badge__label">📡 Hors ligne</span>
+            </div>
+
             <button class="theme-toggle" (click)="toggleTheme()" [title]="themeService.isDarkMode() ? 'Passer au mode clair' : 'Passer au mode sombre'">
                   {{ themeService.isDarkMode() ? '☀️' : '🌙' }}
             </button>

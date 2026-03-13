@@ -38,7 +38,7 @@ services:
       - DB_PASSWORD=postgres
       - DB_NAME=postgres
       - APP_ENV=DEV # Explicitly set DEV environment
-      - APP_VERSION=V2026.03.07.2 # DEV version
+      - APP_VERSION=V2026.03.08.3 # DEV version
       - PROD_DB_HOST=192.168.1.199
       - PROD_DB_PORT=5433
     depends_on:

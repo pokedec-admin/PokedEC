@@ -36,7 +36,7 @@ declare global {
         <button type="submit" [disabled]="loginForm.invalid">Login</button>
       </form>
 
-      <div *ngIf="show2FA" class="2fa-section">
+      <div *ngIf="show2FA" class="two-fa-section">
         <h3>Two-Factor Authentication</h3>
         <p>Entrez le code de votre application d'authentification.</p>
         <div class="form-group">
@@ -119,7 +119,7 @@ declare global {
       margin-top: 10px;
       font-size: 0.9em;
     }
-    .2fa-section h3 {
+    .two-fa-section h3 {
       margin-top: 0;
     }
   `]

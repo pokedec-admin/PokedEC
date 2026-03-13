@@ -1,0 +1,37 @@
+{
+  "name": "Poked'EC",
+  "short_name": "PokédEC",
+  "description": "Votre Pokédex personnel – suivez vos Pokémon et échangez avec d'autres dresseurs !",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#e63946",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "/Logo_Pokedec.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/Logo_Pokedec.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "shortcuts": [
+    {
+      "name": "Mon Pokédex",
+      "url": "/pokedex",
+      "description": "Accéder à mon Pokédex"
+    },
+    {
+      "name": "Échange",
+      "url": "/trade",
+      "description": "Voir les échanges disponibles"
+    }
+  ]
+}

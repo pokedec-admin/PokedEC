@@ -317,3 +317,70 @@ a.active {
     opacity: 0.7;
   }
 }
+
+/* --- Indicateur réseau --- */
+.network-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  animation: fadeInBadge 0.3s ease;
+  white-space: nowrap;
+}
+
+.network-badge--backend {
+  background: rgba(255, 193, 7, 0.2);
+  border: 1px solid rgba(255, 193, 7, 0.5);
+  color: #ffc107;
+}
+
+.network-badge--offline {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid rgba(220, 53, 69, 0.5);
+  color: #ff6b6b;
+}
+
+.network-badge__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.network-badge--backend .network-badge__dot {
+  background: #ffc107;
+}
+
+.network-badge--offline .network-badge__dot {
+  background: #ff6b6b;
+}
+
+.network-badge__label {
+  line-height: 1;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+@keyframes fadeInBadge {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Mobile : badge compact --- */
+@media (max-width: 768px) {
+  .network-badge__label {
+    display: none;
+  }
+  .network-badge {
+    padding: 5px;
+    border-radius: 50%;
+  }
+}
