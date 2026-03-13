@@ -285,7 +285,7 @@ interface ExportPreset {
   styles: [`
     :host { --accent: #ef4444; --glass: rgba(255, 255, 255, 0.8); --text: #1e293b; }
 
-    .wanted-container { padding: 40px; max-width: 1600px; margin: 0 auto; color: var(--text); background: #f1f5f9; min-height: 100vh; }
+    .wanted-container { padding: 40px; max-width: 1600px; margin: 0 auto; color: var(--text-color); background: var(--bg-color); min-height: 100vh; }
     
     .hero-section { margin-bottom: 40px; }
     .hero-section h1 { font-size: 3rem; font-weight: 800; margin-bottom: 8px; color: #0f172a; }
@@ -303,20 +303,20 @@ interface ExportPreset {
     .config-group { margin-bottom: 24px; }
     .config-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
     
-    .input-wrapper input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: white; font-family: monospace; font-size: 1rem; transition: all 0.2s; }
+    .input-wrapper input { width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); font-family: monospace; font-size: 1rem; transition: all 0.2s; }
     .input-wrapper input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
     
     .help-text { display: block; margin-top: 6px; font-size: 0.75rem; color: #94a3b8; }
-    .help-text code { padding: 2px 4px; background: #e2e8f0; border-radius: 4px; color: #475569; }
+    .help-text code { padding: 2px 4px; background: var(--border-color); border-radius: 4px; color: var(--text-color); }
 
     .bulk-actions { margin-bottom: 12px; display: flex; gap: 12px; }
     .text-link { background: none; border: none; font-size: 0.75rem; font-weight: 600; color: var(--accent); cursor: pointer; padding: 0; }
     .text-link:hover { text-decoration: underline; }
 
     .categories-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .cat-pill { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; background: white; border: 1px solid #e2e8f0; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .cat-pill { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-color); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
     .cat-pill:hover { border-color: var(--accent); }
-    .cat-pill.active { background: #fef2f2; border-color: var(--accent); color: var(--accent); }
+    .cat-pill.active { background: rgba(239, 68, 68, 0.1); border-color: var(--accent); color: var(--accent); }
     .cat-pill input { display: none; }
 
     .border-top { border-top: 1px solid #e2e8f0; padding-top: 24px; }
@@ -340,14 +340,14 @@ interface ExportPreset {
 
     /* Content Area Styles */
     .stats-overview { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
-    .stat-bubble { background: white; padding: 12px 20px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; min-width: 100px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+    .stat-bubble { background: var(--card-bg); padding: 12px 20px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; min-width: 100px; border: 1px solid var(--border-color); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
     .stat-bubble.total { background: var(--accent); color: white; border: none; }
     .bubble-val { font-size: 1.5rem; font-weight: 800; }
     .bubble-lab { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; }
 
-    .region-section { background: white; border-radius: 20px; margin-bottom: 20px; border: 1px solid #e2e8f0; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .region-section { background: var(--card-bg); border-radius: 20px; margin-bottom: 20px; border: 1px solid var(--border-color); overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
     .region-header { padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
-    .region-header:hover { background: #f8fafc; }
+    .region-header:hover { background: rgba(128, 128, 128, 0.1); }
     
     .region-info { display: flex; align-items: center; gap: 20px; }
     .region-info h2 { font-size: 1.5rem; font-weight: 700; color: #1e293b; margin: 0; }
@@ -355,15 +355,15 @@ interface ExportPreset {
     .toggle-chevron { width: 12px; height: 12px; border-right: 3px solid #64748b; border-bottom: 3px solid #64748b; transform: rotate(45deg); transition: transform 0.3s; margin-top: -6px; pointer-events: none; }
     .collapsed .toggle-chevron { transform: rotate(-45deg); margin-top: 0; }
     
-    .region-badge { background: #f1f5f9; padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; color: #475569; }
+    .region-badge { background: var(--bg-color); padding: 6px 16px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; color: var(--text-color); border: 1px solid var(--border-color); }
 
     .region-content { max-height: 5000px; transition: all 0.5s ease-in-out; }
     .collapsed .region-content { max-height: 0; padding-bottom: 0; visibility: hidden; }
 
     .pokemon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; padding: 0 32px 32px; }
     
-    .poke-row-card { background: #f8fafc; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 16px; border: 1px solid #e2e8f0; cursor: pointer; transition: all 0.2s; }
-    .poke-row-card:hover { transform: translateY(-3px); border-color: var(--accent); background: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .poke-row-card { background: var(--bg-color); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--border-color); cursor: pointer; transition: all 0.2s; color: var(--text-color); }
+    .poke-row-card:hover { transform: translateY(-3px); border-color: var(--accent); background: var(--card-bg); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     
     .poke-main { display: flex; align-items: center; gap: 16px; }
     .poke-img { width: 60px; height: 60px; object-fit: contain; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
@@ -372,8 +372,8 @@ interface ExportPreset {
     .poke-id { font-size: 0.8rem; font-weight: 600; color: #94a3b8; }
 
     .poke-tags { display: flex; gap: 8px; flex-wrap: wrap; }
-    .wanted-tag { background: white; border: 1px solid #e2e8f0; padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: #64748b; position: relative; }
-    .wanted-tag.available { background: #f0fdf4; border-color: #bbf7d0; color: #16a34a; }
+    .wanted-tag { background: var(--bg-color); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 700; color: var(--text-color); position: relative; }
+    .wanted-tag.available { background: rgba(22, 163, 74, 0.1); border-color: rgba(22, 163, 74, 0.3); color: #2ecc71; }
     
     .tag-hover { visibility: hidden; opacity: 0; position: absolute; bottom: 100%; left: 0; transform: translateY(-8px); width: 200px; padding: 12px; background: #1e293b; color: white; border-radius: 12px; font-size: 0.7rem; line-height: 1.4; z-index: 100; transition: all 0.2s; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); pointer-events: none; }
     .tag-hover span { display: block; margin-bottom: 4px; }
@@ -395,8 +395,8 @@ interface ExportPreset {
     .save-btn:disabled { background: #94a3b8; cursor: not-allowed; }
     
     .presets-list { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; padding-right: 4px; }
-    .preset-item { display: flex; align-items: center; background: white; padding: 8px 12px; border-radius: 10px; border: 1px solid #e2e8f0; transition: all 0.2s; }
-    .preset-item:hover { border-color: #3b82f6; background: #f0f7ff; }
+    .preset-item { display: flex; align-items: center; background: var(--card-bg); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border-color); color: var(--text-color); transition: all 0.2s; }
+    .preset-item:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
     .preset-info { flex: 1; cursor: pointer; }
     .preset-name { font-size: 0.85rem; font-weight: 600; color: #475569; }
     .delete-btn { background: none; border: none; padding: 4px; cursor: pointer; opacity: 0.4; transition: opacity 0.2s; }

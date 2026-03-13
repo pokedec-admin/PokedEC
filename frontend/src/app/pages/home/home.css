@@ -820,12 +820,13 @@
 
 /* --- Admin Monitoring --- */
 .admin-monitoring {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid #2c3e50;
+    border-left: 5px solid #3498db;
+    color: var(--text-color);
 }
 
 .monitoring-header {
@@ -842,8 +843,9 @@
 }
 
 .btn-refresh {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
     padding: 8px 15px;
     border-radius: 6px;
     cursor: pointer;
@@ -851,7 +853,7 @@
 }
 
 .btn-refresh:hover:not(:disabled) {
-    background: #e9ecef;
+    background: var(--card-bg);
 }
 
 /* Monitoring Table */
@@ -869,8 +871,8 @@
 }
 
 .monitoring-table th {
-    background-color: #f8f9fa;
-    color: #7f8c8d;
+    background-color: var(--bg-color);
+    color: var(--nav-text);
     font-weight: 600;
 }
 
@@ -976,7 +978,7 @@
 }
 
 .modal-content {
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: 8px;
     width: 90%;
     max-width: 600px;
@@ -984,6 +986,7 @@
     display: flex;
     flex-direction: column;
     max-height: 80vh;
+    border: 1px solid var(--border-color);
 }
 
 .modal-header {
@@ -993,7 +996,7 @@
 
 .modal-header h3 {
     margin: 0;
-    color: #2c3e50;
+    color: var(--text-color);
 }
 
 .modal-body {

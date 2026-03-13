@@ -491,10 +491,10 @@ button {
 }
 
 .bulk-fill-container {
-    background: #e3f2fd;
+    background: rgba(33, 150, 243, 0.1);
     border-radius: 12px;
     padding: 1.5rem;
-    border: 1px solid #bbdefb;
+    border: 1px solid var(--border-color);
 }
 
 .bulk-fill-container h4 {
@@ -523,7 +523,7 @@ button {
 }
 
 .checkbox-label:hover {
-    background: #f1f8ff;
+    background: rgba(33, 150, 243, 0.1);
     border-color: #2196f3;
 }
 

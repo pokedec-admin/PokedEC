@@ -111,7 +111,9 @@ const allowedOrigins = [
   'http://localhost:4200',
   'http://localhost:4201',
   'http://localhost:8080',
-  'http://localhost:8081'
+  'http://localhost:8081',
+  'http://192.168.1.199:8080',
+  'http://192.168.1.199:8081'
 ].filter(Boolean);
 
 app.use(cors({
@@ -132,7 +134,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -266,7 +269,14 @@ async function runMigrations() {
     await runStep('pokedex.form_col', 'ALTER TABLE pokedex ADD COLUMN IF NOT EXISTS form VARCHAR(50) DEFAULT NULL, ADD COLUMN IF NOT EXISTS form_name VARCHAR(50) DEFAULT \'Normal\'');
 
     // Relax NOT NULL on name since it's now redundant (moved to master)
-    await runStep('pokedex.relax_name', 'ALTER TABLE pokedex ALTER COLUMN name DROP NOT NULL');
+    await runStep('pokedex.relax_name', `
+      DO $$ 
+      BEGIN 
+        IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='pokedex' AND column_name='name') THEN 
+          ALTER TABLE pokedex ALTER COLUMN name DROP NOT NULL; 
+        END IF; 
+      END $$;
+    `);
 
     await runStep('pokedex.deduplicate', "DELETE FROM pokedex p1 WHERE p1.id < ANY (SELECT p2.id FROM pokedex p2 WHERE p1.user_id = p2.user_id AND p1.pokemon_id = p2.pokemon_id AND COALESCE(p1.form_name, '') = COALESCE(p2.form_name, '') AND p1.id <> p2.id)");
     await runStep('pokedex.drop_old_unique', 'ALTER TABLE pokedex DROP CONSTRAINT IF EXISTS pokedex_user_id_pokemon_id_key');

@@ -295,7 +295,7 @@ h2 {
     color: #e74c3c;
     margin: 10px 0;
     padding: 10px;
-    background: #fce4e4;
+    background: rgba(231, 76, 60, 0.1);
     border-radius: 4px;
 }
 
@@ -306,32 +306,32 @@ h2 {
 }
 
 .detail-keep {
-    background: #d4edda;
+    background: rgba(40, 167, 69, 0.1);
     border-left: 4px solid #28a745;
 }
 
 .detail-delete {
-    background: #f8d7da;
+    background: rgba(220, 53, 69, 0.1);
     border-left: 4px solid #dc3545;
 }
 
 .detail-replace {
-    background: #d1ecf1;
+    background: rgba(23, 162, 184, 0.1);
     border-left: 4px solid #17a2b8;
 }
 
 .detail-warning {
-    background: #fff3cd;
+    background: rgba(255, 193, 7, 0.1);
     border-left: 4px solid #ffc107;
 }
 
 .loss-list li {
-    background: #ffe5e5;
+    background: rgba(231, 76, 60, 0.1);
     border-left: 4px solid #e74c3c;
 }
 
 .import-source {
-    background: #e8f4f8;
+    background: rgba(52, 152, 219, 0.1);
     padding: 15px;
     border-radius: 8px;
     border-left: 4px solid #3498db;
@@ -756,7 +756,7 @@ h2 {
 }
 
 .help-card {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.05) 0%, rgba(33, 150, 243, 0.1) 100%);
     border-style: dashed;
 }
 
@@ -815,7 +815,7 @@ h2 {
 
 /* ==================== FILTER PANEL ==================== */
 .filter-panel {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 30px;
@@ -832,10 +832,12 @@ h2 {
 .search-input {
     flex: 1;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--border-color);
     border-radius: 8px;
     font-size: 16px;
     transition: all 0.3s;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .search-input:focus {
@@ -853,10 +855,11 @@ h2 {
 .filter-select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 14px;
-    background-color: #f9f9f9;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     cursor: pointer;
 }
 

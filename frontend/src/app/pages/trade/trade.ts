@@ -179,14 +179,14 @@ interface RegionGroup {
     }
     .region-header:hover { color: #2ecc71; background: #f0f9f4; }
     .toggle-icon { margin-right: 15px; font-weight: bold; }
-    .pokemon-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .pokemon-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: var(--card-bg); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
     .pokemon-table th { background-color: #27ae60; color: white; padding: 12px; text-align: left; font-weight: bold; }
     .pokemon-table td { padding: 12px; border-bottom: 1px solid #eee; }
     .clickable-row { cursor: pointer; transition: background 0.2s; }
-    .clickable-row:hover { background-color: #eafaf1; }
+    .clickable-row:hover { background-color: rgba(46, 204, 113, 0.1); }
     .pokemon-img { width: 50px; height: 50px; object-fit: contain; }
     .empty-region { color: #999; font-style: italic; padding: 10px; }
-    .no-pokemon { text-align: center; color: #999; font-size: 1.2rem; margin-top: 50px; padding: 40px; background: #f9f9f9; border-radius: 12px; }
+    .no-pokemon { text-align: center; color: var(--nav-text); font-size: 1.2rem; margin-top: 50px; padding: 40px; background: var(--bg-color); border-radius: 12px; border: 1px solid var(--border-color); }
     .badges-cell { display: flex; gap: 5px; flex-wrap: wrap; }
     .badge { padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; color: white; font-weight: bold; }
     .badge-normal { background-color: #95a5a6; }
@@ -208,12 +208,12 @@ interface RegionGroup {
     .tabs button:hover:not(.active) { background: #f0f0f0; }
     .count-badge { background: #e74c3c; color: white; border-radius: 50%; padding: 2px 7px; font-size: 0.75rem; margin-left: 5px; }
 
-    .match-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 5px solid #27ae60; }
+    .match-card { background: var(--card-bg); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-left: 5px solid #27ae60; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
     .match-header { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
     .match-badge { background: #27ae60; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
     .match-body { display: flex; align-items: center; justify-content: space-around; gap: 20px; padding: 10px 0; }
     .match-column { text-align: center; flex: 1; }
-    .pokemon-mini { display: flex; flex-direction: column; align-items: center; gap: 10px; background: #fdfdfd; padding: 10px; border-radius: 10px; border: 1px solid #f0f0f0; }
+    .pokemon-mini { display: flex; flex-direction: column; align-items: center; gap: 10px; background: var(--bg-color); padding: 10px; border-radius: 10px; border: 1px solid var(--border-color); }
     .pokemon-mini img { width: 85px; height: 85px; object-fit: contain; }
     .pokemon-mini span { font-weight: bold; color: #333; }
     .match-arrow { font-size: 2rem; color: #27ae60; }
@@ -221,12 +221,12 @@ interface RegionGroup {
     .btn-contact { background: #27ae60; color: white; border: none; padding: 10px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; transition: 0.3s; }
     .btn-contact:hover { background: #2ecc71; transform: scale(1.05); }
 
-    .match-row { display: flex; align-items: center; justify-content: space-between; background: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #3498db; }
-    .pokemon-tag { display: inline-flex; align-items: center; gap: 8px; background: #ebf5fb; padding: 5px 12px; border-radius: 20px; font-weight: 500; }
+    .match-row { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 15px 25px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 4px solid #3498db; border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
+    .pokemon-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(52, 152, 219, 0.1); padding: 5px 12px; border-radius: 20px; font-weight: 500; border: 1px solid rgba(52, 152, 219, 0.2); }
     .tiny-img { width: 35px; height: 35px; object-fit: contain; }
     .btn-view { background: #3498db; color: white; border: none; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; }
 
-    .no-data { text-align: center; padding: 60px 20px; background: #fff; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .no-data { text-align: center; padding: 60px 20px; background: var(--bg-color); border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); }
     .hint { color: #888; font-size: 0.9rem; margin-top: 10px; }
     .btn-action { background: #27ae60; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; margin-top: 20px; cursor: pointer; }
     

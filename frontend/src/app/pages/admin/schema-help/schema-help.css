@@ -2,7 +2,7 @@
     padding: 30px;
     max-width: 1400px;
     margin: 0 auto;
-    background: #f8f9fa;
+    background: var(--bg-color);
     min-height: 100vh;
 }
 
@@ -12,14 +12,14 @@
     align-items: center;
     margin-bottom: 30px;
     padding: 20px;
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .page-header h1 {
     margin: 0;
-    color: #2c3e50;
+    color: var(--text-color);
     font-size: 1.8rem;
 }
 
@@ -60,7 +60,7 @@
 
 /* ERD Section */
 .erd-section {
-    background: white;
+    background: var(--card-bg);
     padding: 25px;
     border-radius: 12px;
     margin-bottom: 30px;
@@ -76,11 +76,11 @@
 }
 
 .mermaid {
-    background: #fafafa;
+    background: var(--bg-color);
     padding: 20px;
     border-radius: 8px;
     overflow-x: auto;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
 }
 
 /* Sections */
@@ -91,7 +91,7 @@
 }
 
 .section-wrapper {
-    background: white;
+    background: var(--card-bg);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -141,12 +141,12 @@
 }
 
 .content {
-    color: #2c3e50;
+    color: var(--text-color);
 }
 
 .description {
     font-size: 1.05rem;
-    color: #555;
+    color: var(--nav-text);
     margin-bottom: 20px;
     font-style: italic;
 }
@@ -161,7 +161,7 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 0.95rem;
-    background: white;
+    background: var(--card-bg);
 }
 
 .attr-table thead {
@@ -178,25 +178,25 @@
 
 .attr-table td {
     padding: 12px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
 }
 
 .attr-table tbody tr:nth-child(even) {
-    background: #f8f9fa;
+    background: var(--bg-color);
 }
 
 .attr-table tbody tr:hover {
-    background: #e8f4f8;
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .category-row {
-    background: #fff3cd !important;
+    background: rgba(255, 193, 7, 0.2) !important;
     font-weight: bold;
 }
 
 .category-row td {
     padding: 10px !important;
-    color: #856404;
+    color: var(--text-color);
     border-top: 2px solid #ffc107 !important;
     border-bottom: 2px solid #ffc107 !important;
 }
@@ -210,7 +210,7 @@
 .simple-table td,
 .simple-table th {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     text-align: left;
 }
 
@@ -220,40 +220,40 @@
 }
 
 .simple-table tbody tr:nth-child(even) {
-    background: #f8f9fa;
+    background: var(--bg-color);
 }
 
 /* Code elements */
 code {
-    background: #f4f4f4;
+    background: var(--bg-color);
     padding: 2px 6px;
     border-radius: 4px;
     font-family: 'Courier New', monospace;
-    color: #e83e8c;
+    color: #d81b60;
     font-size: 0.9em;
 }
 
 .file-ref {
     margin: 15px 0 5px 0;
     padding: 10px;
-    background: #e8f4f8;
+    background: rgba(102, 126, 234, 0.1);
     border-left: 4px solid #667eea;
     border-radius: 4px;
     font-size: 0.95rem;
 }
 
 .alert-box {
-    background: #fff3cd;
+    background: rgba(255, 193, 7, 0.1);
     border: 1px solid #ffc107;
     border-left: 4px solid #ffc107;
     padding: 15px;
     border-radius: 6px;
     margin: 15px 0;
-    color: #856404;
+    color: var(--text-color);
 }
 
 .alert-box strong {
-    color: #533f03;
+    color: var(--text-color);
 }
 
 /* Lists */
@@ -275,7 +275,7 @@ code {
 .file-list li {
     padding: 8px 12px;
     margin: 5px 0;
-    background: #f8f9fa;
+    background: var(--card-bg);
     border-radius: 6px;
     border-left: 3px solid #667eea;
 }
