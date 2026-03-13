@@ -165,6 +165,13 @@ export class HelpComponent {
             link: '/profile',
             icon: '👤',
             color: '#6366f1' // Indigo
+        },
+        {
+            title: 'Performance & Offline',
+            description: 'L\'application fonctionne hors ligne grâce à son Service Worker. Un indicateur réseau dans le header vous informe en temps réel de votre état de connexion.',
+            link: '/help',
+            icon: '⚡',
+            color: '#fbbf24' // Yellow/Amber
         }
     ];
 }

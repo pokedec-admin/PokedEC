@@ -53,9 +53,12 @@ L'application offre une interface intuitive pour marquer les Pokémon capturés 
 L'architecture est pensée pour la résilience et la haute disponibilité :
 
 - **Frontend** : [Angular 18](https://angular.io/) (SPA) hébergé sur **Vercel**.
+- **PWA & Offline** : Service Worker Angular pour le cache des ressources et des données API (Pokedex, images).
 - **Backend** : [Node.js](https://nodejs.org/) / [Express](https://expressjs.com/) hébergé sur **Render**.
+- **Performance** : Système de *Keep-alive* via GitHub Actions pour éliminer le cold start des services gratuits Render.
 - **Base de données** : [PostgreSQL](https://www.postgresql.org/) managé par [Supabase](https://supabase.com/).
-- **Failover Intelligent** : Système de basculement automatique entre un serveur primaire (ex: NAS local / Synology) et un serveur de backup cloud (Supabase) via un intercepteur HTTP côté frontend.
+- **Failover Intelligent** : Système de basculement automatique entre un serveur primaire (ex: NAS local / Synology) et un serveur de backup cloud (Supabase).
+- **Indicateur Réseau** : Badge visuel dynamique dans l'UI informant de l'état de la connexion (Online / Offline / Backend Issue).
 
 ### Flux de données & Failover
 (Voir `ARCHITECTURE_OVERVIEW.md` pour plus de détails)

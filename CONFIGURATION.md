@@ -37,7 +37,7 @@ Ce projet utilise des fichiers `.env` pour gérer les configurations sensibles.
 
 ## 📖 Documentation Complète
 
-Voir [`walkthrough.md`](file:///.gemini/antigravity/brain/40b4f808-ee0f-4aa5-a63e-dd5ac7c95d9d/walkthrough.md) pour la documentation détaillée du système de configuration.
+Voir [`CONFIGURATION_WALKTHROUGH.md`](./CONFIGURATION_WALKTHROUGH.md) pour la documentation détaillée du système de configuration.
 
 ## ⚠️ Sécurité
 
