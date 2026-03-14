@@ -54,10 +54,9 @@ L'architecture est pensée pour la résilience et la haute disponibilité :
 
 - **Frontend** : [Angular 18](https://angular.io/) (SPA) hébergé sur **Vercel**.
 - **PWA & Offline** : Service Worker Angular pour le cache des ressources et des données API (Pokedex, images).
-- **Backend** : [Node.js](https://nodejs.org/) / [Express](https://expressjs.com/) hébergé sur **Render**.
-- **Performance** : Système de *Keep-alive* via GitHub Actions pour éliminer le cold start des services gratuits Render.
-- **Base de données** : [PostgreSQL](https://www.postgresql.org/) managé par [Supabase](https://supabase.com/).
+- **Observabilité** : Système de logging robuste avec [Winston](https://github.com/winstonjs/winston) et monitoring des requêtes HTTP avec [Morgan].
 - **Failover Intelligent** : Système de basculement automatique entre un serveur primaire (ex: NAS local / Synology) et un serveur de backup cloud (Supabase).
+- **Versioning Automatisé** : Gestion automatique des versions et tags Git lors de chaque déploiement.
 - **Indicateur Réseau** : Badge visuel dynamique dans l'UI informant de l'état de la connexion (Online / Offline / Backend Issue).
 
 ### Flux de données & Failover
@@ -111,7 +110,8 @@ Le projet inclut des fichiers `docker-compose.yml` pour un déploiement simplifi
 
 La sécurité est une priorité du projet. Un audit complet a été réalisé :
 - **Protection des Données** : Utilisation de `helmet` pour sécuriser les headers HTTP et de `cors` avec une whitelist stricte.
-- **Zéro Secret en Dur** : Toutes les clés d'API (Supabase, Render, JWT) sont gérées via des variables d'environnement. Les anciennes clés exposées ont été révoquées.
+- **Zéro Secret en Dur** : Toutes les clés d'API (Supabase, Render, JWT) sont gérées via des variables d'environnement.
+- **Journalisation Sécurisée** : Les logs techniques sont gérés centralement par Winston, évitant l'exposition d'informations sensibles via `console.log`.
 - **Authentification Robuste** : Utilisation de JWT avec une expiration définie et hashage des mots de passe via `bcryptjs`.
 - **Validation & Sanity** : Requêtes SQL paramétrées pour prévenir les injections.
 

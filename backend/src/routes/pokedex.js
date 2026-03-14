@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware/auth');
+const Joi = require('joi');
+const { validateBody } = require('../middleware/validation');
+
 
 // Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
 const getPool = (req) => req.app.locals.pool;
@@ -352,8 +355,14 @@ WHERE(p.has_trade = true OR p.trade_shiny = true OR p.trade_xxl = true OR
 
 
 // Add pokemon to pokedex
-router.post('/', authenticateToken, async (req, res) => {
+const addPokemonSchema = Joi.object({
+    pokemon_id: Joi.number().integer().positive().required(),
+    form_name: Joi.string().default('Normal')
+});
+
+router.post('/', authenticateToken, validateBody(addPokemonSchema), async (req, res) => {
     const { pokemon_id, form_name = 'Normal' } = req.body;
+
 
     if (!pokemon_id) {
         return res.status(400).json({ error: 'Pokemon ID is required' });
