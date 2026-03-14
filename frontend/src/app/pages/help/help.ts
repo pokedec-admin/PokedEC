@@ -172,6 +172,13 @@ export class HelpComponent {
             link: '/help',
             icon: '⚡',
             color: '#fbbf24' // Yellow/Amber
+        },
+        {
+            title: 'Monitoring & Logs',
+            description: 'Le système utilise Winston et Morgan pour une journalisation structurée, permettant aux administrateurs de diagnostiquer rapidement tout incident technique.',
+            link: '/help',
+            icon: '📊',
+            color: '#64748b' // Slate/Gray
         }
     ];
 }
