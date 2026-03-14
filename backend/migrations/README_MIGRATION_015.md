@@ -85,7 +85,7 @@ ssh -p 596 eugenio@192.168.1.199 "sudo docker exec pokedec-blue-green-db psql -U
 
 # 5. Redéployer le code mis à jour (BLUE ou GREEN selon environnement actif)
 cd deploy
-bash deploy-synology.sh
+bash deploy/deploy.sh nas
 ```
 
 ## ✅ Tests de validation
