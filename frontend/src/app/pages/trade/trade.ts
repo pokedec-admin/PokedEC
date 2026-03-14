@@ -56,6 +56,9 @@ interface RegionGroup {
         <button [class.active]="activeTab === 'all'" (click)="setTab('all')">
           🔍 Toutes les Propositions ({{ allMatches.length }})
         </button>
+        <button [class.active]="activeTab === 'history'" (click)="setTab('history')">
+          🕒 Historique
+        </button>
       </div>
 
       <!-- MY OFFERS TAB -->
@@ -160,6 +163,27 @@ interface RegionGroup {
           <p>Aucune proposition d'échange correspondante trouvée.</p>
         </div>
       </div>
+
+      <!-- HISTORY TAB -->
+      <div *ngIf="activeTab === 'history'" class="tab-content animate-in">
+        <div class="matches-list" *ngIf="tradeHistory.length > 0">
+          <div *ngFor="let item of tradeHistory" class="match-row" [style.border-left-color]="item.status === 'rejected' ? '#e74c3c' : '#2ecc71'">
+            <div class="trainer-info">
+              <span class="date">{{ item.updated_at | date:'short' }}</span>
+              <span class="user-name">👤 {{ item.requester_id === currentUserId ? item.target_name : item.requester_name }}</span>
+            </div>
+            <div class="pokes-info">
+              <span class="pokemon-tag">{{ item.pokemon_name }}</span>
+              <span class="status-text" [style.color]="item.status === 'rejected' ? '#e74c3c' : '#27ae60'">
+                {{ item.status === 'rejected' ? 'Refusé' : 'Accepté/Contacté' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="tradeHistory.length === 0" class="no-data">
+          <p>Aucun historique d'échange.</p>
+        </div>
+      </div>
     </div>
 
   `,
@@ -232,16 +256,20 @@ interface RegionGroup {
     
     .loading { text-align: center; padding: 50px; font-size: 1.2rem; color: #666; font-style: italic; }
     .animate-in { animation: fadeIn 0.4s ease-out; }
+    .date { font-size: 0.8rem; color: #999; display: block; }
+    .status-text { font-weight: bold; margin-left: 10px; font-size: 0.9rem; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
   `]
 })
 export class Trade implements OnInit {
   myPokemon: PokemonEntry[] = [];
   regions: RegionGroup[] = [];
-  activeTab: 'mine' | 'mutual' | 'all' = 'mine';
+  activeTab: 'mine' | 'mutual' | 'all' | 'history' = 'mine';
   mutualMatches: any[] = [];
   allMatches: any[] = [];
+  tradeHistory: any[] = [];
   isLoadingMatches = false;
+  currentUserId: number | null = null;
 
   constructor(
     private pokemonService: PokemonService,
@@ -250,8 +278,12 @@ export class Trade implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.currentUser$.subscribe(user => {
+      if (user) this.currentUserId = user.id;
+    });
     this.loadMyPokemon();
     this.loadMatches();
+    this.loadHistory();
   }
 
   loadMyPokemon() {
@@ -289,7 +321,14 @@ export class Trade implements OnInit {
     });
   }
 
-  setTab(tab: 'mine' | 'mutual' | 'all') {
+  loadHistory() {
+    this.pokemonService.getTradeHistory().subscribe({
+      next: (data) => this.tradeHistory = data,
+      error: (err) => console.error('Failed to load trade history', err)
+    });
+  }
+
+  setTab(tab: 'mine' | 'mutual' | 'all' | 'history') {
     this.activeTab = tab;
   }
 

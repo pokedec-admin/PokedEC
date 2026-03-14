@@ -28,6 +28,22 @@ router.post('/request', authenticateToken, async (req, res) => {
             return res.status(409).json({ error: 'Request already exists' });
         }
 
+        // Trigger notification for the target user
+        try {
+            await pool.query(
+                `INSERT INTO notifications (user_id, type, title, message, link)
+                 VALUES ($1, 'trade_request', 'Nouvelle demande d’échange', $2, $3)`,
+                [
+                    target_user_id,
+                    `${req.user.trainer_name} souhaite échanger un Pokémon avec vous !`,
+                    '/trading'
+                ]
+            );
+        } catch (notifierr) {
+            console.error('[Notification Error] Failed to create trade notification:', notifierr);
+            // Don't fail the request if notification fails
+        }
+
         res.status(201).json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -97,6 +113,21 @@ router.put('/request/:id/respond', authenticateToken, async (req, res) => {
             return res.status(404).json({ error: 'Request not found or unauthorized' });
         }
 
+        // Trigger notification for the requester
+        try {
+            await pool.query(
+                `INSERT INTO notifications (user_id, type, title, message, link)
+                 VALUES ($1, 'trade_response', 'Réponse à votre demande d’échange', $2, $3)`,
+                [
+                    result.rows[0].requester_id,
+                    `${req.user.trainer_name} a ${status === 'rejected' ? 'refusé' : 'accepté'} votre trajet.`,
+                    '/trading'
+                ]
+            );
+        } catch (notifierr) {
+            console.error('[Notification Error] Failed to create trade response notification:', notifierr);
+        }
+
         res.json(result.rows[0]);
     } catch (err) {
         console.error(err);
@@ -148,6 +179,32 @@ router.get('/matches/mutual', authenticateToken, async (req, res) => {
         res.json(matches);
     } catch (err) {
         console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Get trade history (resolved requests)
+router.get('/history', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const result = await pool.query(
+            `SELECT tr.*, 
+                    u_requester.trainer_name as requester_name,
+                    u_target.trainer_name as target_name,
+                    pm.name_fr as pokemon_name
+             FROM trade_requests tr
+             JOIN trainers u_requester ON tr.requester_id = u_requester.id
+             JOIN trainers u_target ON tr.target_user_id = u_target.id
+             JOIN pokemon_master pm ON tr.pokemon_id = pm.pokemon_id
+             WHERE (tr.requester_id = $1 OR tr.target_user_id = $1) 
+               AND tr.status != 'pending'
+             ORDER BY tr.updated_at DESC
+             LIMIT 50`,
+            [req.user.id]
+        );
+        res.json(result.rows);
+    } catch (err) {
+        console.error('[Trade History] error:', err);
         res.status(500).json({ error: 'Server error' });
     }
 });

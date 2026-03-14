@@ -214,6 +214,18 @@ export class PokemonService {
         return this.http.get<any[]>(`${environment.apiUrl}/trade/matches/mutual`, this.getAuthHeaders());
     }
 
+    getTradeHistory(): Observable<any[]> {
+        return this.http.get<any[]>(`${environment.apiUrl}/trade/history`, this.getAuthHeaders());
+    }
+
+    // Export Pokédex to CSV
+    exportPokedexCsv(): Observable<Blob> {
+        return this.http.get(`${environment.apiUrl}/export/pokedex/csv`, {
+            ...this.getAuthHeaders() as any,
+            responseType: 'blob'
+        }) as any;
+    }
+
     private getAuthHeaders() {
 
         const token = localStorage.getItem('token');

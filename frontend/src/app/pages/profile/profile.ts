@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
+import { PokemonService } from '../../services/pokemon.service';
 
 interface Suggestion {
     id: number;
@@ -43,6 +44,7 @@ export class Profile implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private pokemonService: PokemonService,
         private http: HttpClient,
         private router: Router
     ) { }
@@ -401,6 +403,26 @@ export class Profile implements OnInit {
                 console.error('Bulk fill failed', err);
                 this.bulkFillError = 'Erreur lors du remplissage automatique.';
                 this.bulkFillLoading = false;
+            }
+        });
+    }
+
+    exportPokedex() {
+        this.pokemonService.exportPokedexCsv().subscribe({
+            next: (blob: Blob) => {
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `pokedec_export_${new Date().toISOString().split('T')[0]}.csv`;
+                link.click();
+                window.URL.revokeObjectURL(url);
+                this.successMessage = 'Exportation réussie !';
+                setTimeout(() => this.successMessage = '', 3000);
+            },
+            error: (err) => {
+                console.error('Export failed', err);
+                this.errorMessage = 'Erreur lors de l\'exportation';
+                setTimeout(() => this.errorMessage = '', 3000);
             }
         });
     }

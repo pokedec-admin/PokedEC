@@ -4,6 +4,7 @@ import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 
 import { AuthService } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,5 +15,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './app.css'
 })
 export class App {
-  constructor(public authService: AuthService) { }
+  constructor(
+    public authService: AuthService,
+    private notificationService: NotificationService
+  ) { }
 }
