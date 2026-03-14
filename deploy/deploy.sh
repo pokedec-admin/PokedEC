@@ -74,30 +74,49 @@ fi
 echo "🔖  Version : ${CURRENT_VERSION} → ${NEW_VERSION}"
 
 # Update both environment files
-sed -i '' "s/version: '.*'/version: '$NEW_VERSION'/" "$ENV_FILE"
-sed -i '' "s/version: '.*'/version: '$NEW_VERSION'/" "$ENV_DEV_FILE"
+sed -i '' "s/version: '.*/version: '$NEW_VERSION'/" "$ENV_FILE"
+sed -i '' "s/version: '.*/version: '$NEW_VERSION'/" "$ENV_DEV_FILE"
+
+# Bump version in package.json files without creating a git commit yet
+echo "📦  Mise à jour des package.json..."
+(cd "$PROJECT_ROOT/frontend" && npm version "$NEW_VERSION" --no-git-tag-version)
+(cd "$PROJECT_ROOT/backend" && npm version "$NEW_VERSION" --no-git-tag-version)
 
 # ============================================================
-#   DÉPLOIEMENT CLOUD (GITHUB)
+#   GÉNÉRATION DU TAG ET DE LA BRANCHE (TOUS ENVIRONNEMENTS)
 # ============================================================
-if [ "$TARGET_ENV" == "cloud" ]; then
+echo ""
+echo "☁️   Sauvegarde et synchronisation GitHub…"
+cd "$PROJECT_ROOT"
+
+# S'assurer que les fichiers de version sont inclus
+git add frontend/package.json backend/package.json
+git add frontend/src/environments/environment.ts frontend/src/environments/environment.prod.ts
+
+# Créer une nouvelle branche de release
+RELEASE_BRANCH="release/${NEW_VERSION}"
+echo "🌿  Création de la branche de release: $RELEASE_BRANCH"
+git checkout -b "$RELEASE_BRANCH" 2>/dev/null || git checkout "$RELEASE_BRANCH"
+
+if git diff --cached --quiet; then
+    echo "⚠️  Aucun changement détecté pour la version."
+else
+    echo "📤  Commit de la nouvelle version et création du tag Git..."
+    git commit -m "🔖 Deploy $NEW_VERSION"
+    git tag -a "$NEW_VERSION" -m "Déploiement version $NEW_VERSION"
+    
+    echo "☁️  Poussée de la branche et du tag vers origin..."
+    git push -u origin "$RELEASE_BRANCH"
+    git push origin "$NEW_VERSION"
+    
     echo ""
-    echo "☁️   Sauvegarde et Déploiement sur GitHub (CLOUD)…"
-    cd "$PROJECT_ROOT"
-    
-    # S'assurer que les fichiers de version sont inclus
-    git add .
-    
-    if git diff --cached --quiet; then
-        echo "⚠️  Aucun changement détecté à pousser sur GitHub."
-    else
-        echo "📤  Envoi vers GitHub : $NEW_VERSION"
-        git commit -m "🔖 Deploy $NEW_VERSION"
-        git push origin main
-        echo ""
-        echo "✅  GitHub mis à jour avec succès !"
-        echo "🚀  Le build Cloud est lancé (Vercel / Render / GitHub Actions)."
-    fi
+    echo "✅  GitHub mis à jour avec le nouveau tag : $NEW_VERSION"
+fi
+
+if [ "$TARGET_ENV" == "cloud" ]; then
+    echo "🚀  Pour lancer la CI/CD CLOUD vers la production, veuillez fusionner (Pull Request) la branche '$RELEASE_BRANCH' vers 'main'."
+    echo ""
+    echo "✅  Déploiement ${TARGET_ENV^^} terminé ! (En attente de la PR)"
 
 # ============================================================
 #   DÉPLOIEMENT NAS

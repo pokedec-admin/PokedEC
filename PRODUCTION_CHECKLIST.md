@@ -123,7 +123,7 @@ npm run build -- --configuration production
 
 ### 6.1 Déploiement sur BLUE
 ```bash
-./deploy/deploy-synology.sh blue
+./deploy/deploy.sh nas
 ```
 
 - [ ] Tests backend passés
@@ -133,7 +133,7 @@ npm run build -- --configuration production
 
 ### 6.2 Déploiement sur GREEN
 ```bash
-./deploy/deploy-synology.sh green
+./deploy/deploy.sh nas
 ```
 
 - [ ] Tests passés
@@ -264,7 +264,7 @@ Si quelque chose ne va pas :
 localStorage.removeItem('pokedec_use_backup');
 
 # Ou revenir à la version précédente
-./deploy/deploy-synology.sh blue  # ou green
+./deploy/deploy.sh nas
 ```
 
 ### Support

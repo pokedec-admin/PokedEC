@@ -32,7 +32,7 @@ Ce projet utilise des fichiers `.env` pour gérer les configurations sensibles.
 
 2. **Déployer** :
    ```bash
-   ./deploy/deploy-synology.sh
+   ./deploy/deploy.sh
    ```
 
 ## 📖 Documentation Complète
