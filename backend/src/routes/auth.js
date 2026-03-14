@@ -5,6 +5,9 @@ const { createClient } = require('@supabase/supabase-js');
 const { authenticateToken, authenticateAdmin } = require('../middleware/auth');
 const { generate2FASecret, verify2FAToken } = require('../utils/twoFactor');
 const jwt = require('jsonwebtoken');
+const Joi = require('joi');
+const { validateBody } = require('../middleware/validation');
+
 
 // Rate limiters
 const standardLimiter = rateLimit({
@@ -60,8 +63,13 @@ const supabase = createClient(
  *       404:
  *         description: User not found
  */
-router.post('/identify', standardLimiter, async (req, res) => {
+const identifySchema = Joi.object({
+    identifier: Joi.string().required()
+});
+
+router.post('/identify', standardLimiter, validateBody(identifySchema), async (req, res) => {
     const { identifier } = req.body;
+
     if (!identifier) return res.status(400).json({ error: 'Identifier required' });
 
     try {
@@ -106,8 +114,19 @@ router.get('/profile', authenticateToken, async (req, res) => {
     }
 });
 
-router.put('/profile', authenticateToken, async (req, res) => {
+const profileUpdateSchema = Joi.object({
+    trainer_name: Joi.string().allow('', null),
+    team: Joi.string().allow('', null),
+    phone: Joi.string().allow('', null),
+    preferred_language: Joi.string().length(2).allow('', null),
+    campfire_name: Joi.string().allow('', null),
+    whatsapp_group: Joi.boolean().allow(null),
+    trade_preference: Joi.string().allow('', null)
+});
+
+router.put('/profile', authenticateToken, validateBody(profileUpdateSchema), async (req, res) => {
     const { trainer_name, team, phone, preferred_language, campfire_name, whatsapp_group, trade_preference } = req.body;
+
     try {
         const pool = getPool(req);
         const result = await pool.query(
@@ -148,8 +167,17 @@ router.put('/profile', authenticateToken, async (req, res) => {
 });
 
 // Signup/Login/Forgot Password (Supabase Proxy) - Kept for compatibility but might be bypassed by frontend
-router.post('/signup', authLimiter, async (req, res) => {
+const signupSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+    trainer_name: Joi.string().required(),
+    team: Joi.string().allow(''),
+    trade_preference: Joi.string().allow('')
+});
+
+router.post('/signup', authLimiter, validateBody(signupSchema), async (req, res) => {
     const { email, password, trainer_name, team, trade_preference } = req.body;
+
     const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -171,8 +199,15 @@ router.post('/signup', authLimiter, async (req, res) => {
     res.status(201).json({ user: data.user, session: data.session });
 });
 
-router.post('/login', authLimiter, async (req, res) => {
+const loginSchema = Joi.object({
+    email: Joi.string().allow(''),
+    trainer_name: Joi.string().allow(''),
+    password: Joi.string().required()
+}).or('email', 'trainer_name');
+
+router.post('/login', authLimiter, validateBody(loginSchema), async (req, res) => {
     let { email, trainer_name, password } = req.body;
+
     let loginEmail = email || trainer_name;
 
     console.log(`[Login] Attempt for identifier: ${loginEmail}`);
