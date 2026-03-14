@@ -3,6 +3,8 @@ const router = express.Router();
 const { authenticateToken } = require('../middleware/auth');
 const Joi = require('joi');
 const { validateBody } = require('../middleware/validation');
+const redis = require('../config/redis');
+const logger = require('../utils/logger');
 
 
 // Pool is obtained from app.locals (set up in index.js) to ensure correct DB per environment
@@ -65,9 +67,19 @@ router.get('/', authenticateToken, async (req, res) => {
     }
 });
 
-// Get all Pokémon master data (publicly available for all authenticated users)
+// Get all Pokémon master data with Redis caching
 router.get('/master-all', authenticateToken, async (req, res) => {
+    const cacheKey = 'pokemon:master:all';
+    
     try {
+        // Try to get from cache
+        const cachedData = await redis.get(cacheKey);
+        if (cachedData) {
+            logger.info(`[Cache] Hit for ${cacheKey}`);
+            return res.json(JSON.parse(cachedData));
+        }
+
+        logger.info(`[Cache] Miss for ${cacheKey}. Fetching from DB.`);
         const pool = getPool(req);
         const result = await pool.query(`
             SELECT 
@@ -91,9 +103,13 @@ router.get('/master-all', authenticateToken, async (req, res) => {
             WHERE pm.is_available = true
             ORDER BY pm.pokemon_id ASC, pm.form_name ASC
         `);
+        
+        // Cache the result for 24 hours
+        await redis.setex(cacheKey, 86400, JSON.stringify(result.rows));
+        
         res.json(result.rows);
     } catch (err) {
-        console.error(err);
+        logger.error(`[API/Pokedex] master-all error: ${err.message}`, { stack: err.stack });
         res.status(500).json({ error: 'Server error' });
     }
 });
