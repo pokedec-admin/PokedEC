@@ -147,6 +147,7 @@ app.use('/api/admin/pokemon-categories', require('./routes/pokemon-categories'))
 // General Admin routes
 app.use('/api/admin', adminRoutes);
 app.use('/api/admin', require('./routes/admin-pokemon')); // Pokemon master data management
+app.use('/api/export', require('./routes/export'));
 
 // Other routes
 app.use('/api/pokemon', pokemonRoutes);

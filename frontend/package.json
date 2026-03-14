@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "0.8.1",
+  "version": "V2026.03.14.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -30,7 +30,7 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@angular/service-worker": "^18.2.14",
-    "@supabase/supabase-js": "^2.97.0",
+    "@supabase/supabase-js": "^2.99.1",
     "mermaid": "^11.12.1",
     "ngx-toastr": "^19.1.0",
     "rxjs": "~7.8.0",
