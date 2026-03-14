@@ -37,7 +37,32 @@ if [ "$TARGET_ENV" != "dev" ]; then
     fi
 fi
 
-# --- 3. Set per-environment configuration ---
+# --- 3. Prep Work (Git Sync) ---
+if [ "$TARGET_ENV" == "cloud" ] || [ "$TARGET_ENV" == "nas" ]; then
+    echo "🔄  Synchronisation avec GitHub..."
+    git fetch origin
+    # Save current branch to return to it if needed
+    CURRENT_GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    
+    echo "🌿  Passage sur 'main' pour assurer une base propre..."
+    git checkout main
+    
+    # Handle dirty state for rebase
+    HAS_DIRTY_FILES=$(git status --porcelain)
+    if [ -n "$HAS_DIRTY_FILES" ]; then
+        echo "📦  Stashing local changes before pull..."
+        git stash
+    fi
+    
+    git pull origin main --rebase
+    
+    if [ -n "$HAS_DIRTY_FILES" ]; then
+        echo "📦  Restoring local changes..."
+        git stash pop || true
+    fi
+fi
+
+# --- 4. Set per-environment configuration ---
 if [ "$TARGET_ENV" == "cloud" ]; then
     APP_ENV_VALUE="CLOUD"
     ENV_SUFFIX="cloud"
@@ -55,7 +80,7 @@ else
     echo "🟠  Cible : DEV   →  localhost:${FRONTEND_PORT}"
 fi
 
-# --- 4. Auto-Increment Version ---
+# --- 5. Auto-Increment Version ---
 ENV_FILE="$PROJECT_ROOT/frontend/src/environments/environment.prod.ts"
 ENV_DEV_FILE="$PROJECT_ROOT/frontend/src/environments/environment.ts"
 DATE=$(date +%Y.%m.%d)
@@ -73,17 +98,22 @@ fi
 
 echo "🔖  Version : ${CURRENT_VERSION} → ${NEW_VERSION}"
 
-# Update both environment files
-sed -i '' "s/version: '.*/version: '$NEW_VERSION'/" "$ENV_FILE"
-sed -i '' "s/version: '.*/version: '$NEW_VERSION'/" "$ENV_DEV_FILE"
+# Create release branch BEFORE bumping files to keep main protected
+RELEASE_BRANCH="release/${NEW_VERSION}"
+echo "🌿  Création de la branche de release: $RELEASE_BRANCH"
+git checkout -b "$RELEASE_BRANCH"
 
-# Bump version in package.json files without creating a git commit yet
+# Update both environment files
+sed -i '' "s/version: '[^']*'/version: '$NEW_VERSION'/" "$ENV_FILE"
+sed -i '' "s/version: '[^']*'/version: '$NEW_VERSION'/" "$ENV_DEV_FILE"
+
+# Bump version in package.json files manually (since we use a 4-part non-semver version)
 echo "📦  Mise à jour des package.json..."
-(cd "$PROJECT_ROOT/frontend" && npm version "$NEW_VERSION" --no-git-tag-version)
-(cd "$PROJECT_ROOT/backend" && npm version "$NEW_VERSION" --no-git-tag-version)
+sed -i '' "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" "$PROJECT_ROOT/frontend/package.json"
+sed -i '' "s/\"version\": \".*\"/\"version\": \"$NEW_VERSION\"/" "$PROJECT_ROOT/backend/package.json"
 
 # ============================================================
-#   GÉNÉRATION DU TAG ET DE LA BRANCHE (TOUS ENVIRONNEMENTS)
+#   GÉNÉRATION DU TAG ET PUSH (TOUS ENVIRONNEMENTS)
 # ============================================================
 echo ""
 echo "☁️   Sauvegarde et synchronisation GitHub…"
@@ -92,11 +122,6 @@ cd "$PROJECT_ROOT"
 # S'assurer que les fichiers de version sont inclus
 git add frontend/package.json backend/package.json
 git add frontend/src/environments/environment.ts frontend/src/environments/environment.prod.ts
-
-# Créer une nouvelle branche de release
-RELEASE_BRANCH="release/${NEW_VERSION}"
-echo "🌿  Création de la branche de release: $RELEASE_BRANCH"
-git checkout -b "$RELEASE_BRANCH" 2>/dev/null || git checkout "$RELEASE_BRANCH"
 
 if git diff --cached --quiet; then
     echo "⚠️  Aucun changement détecté pour la version."
@@ -115,8 +140,8 @@ fi
 
 if [ "$TARGET_ENV" == "cloud" ]; then
     echo "🚀  Pour lancer la CI/CD CLOUD vers la production, veuillez fusionner (Pull Request) la branche '$RELEASE_BRANCH' vers 'main'."
-    echo ""
-    echo "✅  Déploiement ${TARGET_ENV^^} terminé ! (En attente de la PR)"
+    TARGET_ENV_UPPER=$(echo "$TARGET_ENV" | tr '[:upper:]' '[:lower:]' | tr '[:lower:]' '[:upper:]')
+    echo "✅  Déploiement ${TARGET_ENV_UPPER} terminé ! (En attente de la PR)"
 
 # ============================================================
 #   DÉPLOIEMENT NAS
