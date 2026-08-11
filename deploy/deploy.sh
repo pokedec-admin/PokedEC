@@ -101,7 +101,7 @@ echo "🔖  Version : ${CURRENT_VERSION} → ${NEW_VERSION}"
 # Create release branch BEFORE bumping files to keep main protected
 RELEASE_BRANCH="release/${NEW_VERSION}"
 echo "🌿  Création de la branche de release: $RELEASE_BRANCH"
-git checkout -b "$RELEASE_BRANCH"
+git checkout -B "$RELEASE_BRANCH"
 
 # Update both environment files
 sed -i '' "s/version: '[^']*'/version: '$NEW_VERSION'/" "$ENV_FILE"

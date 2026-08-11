@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const { authenticateAdmin, supabase } = require('../middleware/auth');
 const sharp = require('sharp');
 const fileType = require('file-type');
@@ -629,21 +630,17 @@ router.delete('/form-names/:id', authenticateAdmin, async (req, res) => {
 
 // ==================== IMAGE UPLOAD ====================
 
-// Configure upload storage
+// Configure upload storage — use os.tmpdir() for cross-environment compatibility
+// (Render only deploys the backend, so paths relative to frontend don't exist)
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Path relative to backend/src/routes/ -> ../../../frontend/public/images/pokemon
-        const uploadPath = path.join(__dirname, '../../../frontend/public/images/pokemon');
-        // Ensure directory exists
-        if (!fs.existsSync(uploadPath)) {
-            fs.mkdirSync(uploadPath, { recursive: true });
-        }
-        cb(null, uploadPath);
+        // Use system temp directory — always available on all environments (DEV, Render, Docker)
+        cb(null, os.tmpdir());
     },
     filename: (req, file, cb) => {
-        // Use temp name, renamed in controller
+        // Use temp name with unique suffix
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'temp-' + uniqueSuffix + path.extname(file.originalname));
+        cb(null, 'pokedec-upload-' + uniqueSuffix + path.extname(file.originalname));
     }
 });
 
@@ -653,7 +650,19 @@ const upload = multer({
 });
 
 // POST /api/admin/pokemon/upload-image
-router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), async (req, res) => {
+router.post('/pokemon/upload-image', authenticateAdmin, (req, res, next) => {
+    // Wrap multer to catch its errors and return proper JSON responses
+    upload.single('image')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            console.error('Multer error:', err);
+            return res.status(400).json({ error: `Upload error: ${err.message}` });
+        } else if (err) {
+            console.error('Unknown upload error:', err);
+            return res.status(500).json({ error: 'Upload failed: ' + err.message });
+        }
+        next();
+    });
+}, async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No image file provided' });
@@ -662,7 +671,7 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
         const { pokemon_id, form_name } = req.body;
 
         if (!pokemon_id || !form_name) {
-            if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+            if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
             return res.status(400).json({ error: 'pokemon_id and form_name are required' });
         }
 
@@ -702,6 +711,7 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
         const finalFileName = `${pokemon_id}_${safeFormName}.png`; // Always .png after sharp processing
 
         // 4. Upload to Supabase Storage
+        console.log(`[Upload] Uploading ${finalFileName} to Supabase Storage bucket 'pokemon'...`);
         const { data, error } = await supabase.storage
             .from('pokemon')
             .upload(finalFileName, processedBuffer, {
@@ -710,12 +720,16 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
             });
 
         // Cleanup local temp file
-        if (fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+        if (req.file && fs.existsSync(req.file.path)) {
+            try { fs.unlinkSync(req.file.path); } catch (e) { }
+        }
 
         if (error) {
             console.error('Supabase Storage Error:', error);
             return res.status(500).json({ error: 'Failed to upload to Supabase Storage: ' + error.message });
         }
+
+        console.log(`[Upload] Successfully uploaded ${finalFileName}`);
 
         // Get Public URL
         const { data: { publicUrl } } = supabase.storage
@@ -729,7 +743,7 @@ router.post('/pokemon/upload-image', authenticateAdmin, upload.single('image'), 
         if (req.file && fs.existsSync(req.file.path)) {
             try { fs.unlinkSync(req.file.path); } catch (e) { }
         }
-        res.status(500).json({ error: 'Failed to upload image' });
+        res.status(500).json({ error: 'Failed to upload image: ' + error.message });
     }
 });
 
