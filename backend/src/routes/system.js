@@ -13,16 +13,28 @@ const ENV_URLS = {
     CLOUD: 'https://pokedec-backend.onrender.com'
 };
 
+// Helper to determine active environment
+function getEnvironment() {
+    if (process.env.APP_ENV) return process.env.APP_ENV;
+    if (process.env.RENDER || process.env.RENDER_SERVICE_ID) return 'CLOUD';
+    if (process.env.NODE_ENV === 'production') return 'CLOUD';
+    return 'DEV';
+}
+
 // Helper to read version
 function getVersion() {
     // Priority: Env Var > Package.json > Default
     if (process.env.APP_VERSION) return process.env.APP_VERSION;
     try {
-        const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '../../package.json'), 'utf8'));
-        return pkg.version || 'V2026.03.07.1';
+        const pkgPath = path.join(__dirname, '../../package.json');
+        if (fs.existsSync(pkgPath)) {
+            const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+            if (pkg.version) return pkg.version;
+        }
     } catch (e) {
-        return 'V2026.03.07.1';
+        console.error('Error reading package.json version:', e);
     }
+    return 'V2026.08.11.2';
 }
 
 // GET /health - For Render monitoring
@@ -33,7 +45,7 @@ router.get('/health', (req, res) => {
 // GET /status - Returns current instance info
 router.get('/status', (req, res) => {
     res.json({
-        env: process.env.APP_ENV || 'UNKNOWN',
+        env: getEnvironment(),
         version: getVersion(),
         timestamp: new Date().toISOString()
     });
@@ -43,16 +55,17 @@ router.get('/status', (req, res) => {
 router.get('/monitoring', authenticateAdmin, async (req, res) => {
     const results = {};
     const environments = ['DEV', 'NAS', 'CLOUD'];
+    const currentEnv = getEnvironment();
 
     const probes = environments.map(async (env) => {
         // If it's the current environment, return status directly
-        if (env === (process.env.APP_ENV || 'UNKNOWN')) {
+        if (env === currentEnv) {
             return {
                 env,
                 url: ENV_URLS[env],
                 status: 'ONLINE',
                 version: getVersion(),
-                activeEnv: process.env.APP_ENV || 'UNKNOWN',
+                activeEnv: currentEnv,
                 responseTime: '0ms (self)'
             };
         }
@@ -97,8 +110,9 @@ router.get('/monitoring', authenticateAdmin, async (req, res) => {
 
 // POST /deploy - Trigger deployment (DEV only, Admin only)
 router.post('/deploy', authenticateAdmin, (req, res) => {
+    const currentEnv = getEnvironment();
     // Only allow deployment from DEV environment
-    if (process.env.APP_ENV !== 'DEV') {
+    if (currentEnv !== 'DEV') {
         return res.status(403).json({ error: 'Deployment can only be triggered from DEV environment' });
     }
 
@@ -135,7 +149,5 @@ router.post('/deploy', authenticateAdmin, (req, res) => {
 
     res.json({ message: `Deployment to ${target} started`, command });
 });
-
-module.exports = router;
 
 module.exports = router;
