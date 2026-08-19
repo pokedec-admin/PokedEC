@@ -13,6 +13,7 @@ router.get('/availability', authenticateToken, async (req, res) => {
         const result = await pool.query(
             `SELECT 
                 pokemon_id,
+                COALESCE(form_name, 'Normal') as form_name,
                 COALESCE(can_be_normal, true) as can_be_normal,
                 COALESCE(can_be_legendary, false) as can_be_legendary,
                 COALESCE(can_be_mythical, false) as can_be_mythical,
@@ -31,10 +32,14 @@ router.get('/availability', authenticateToken, async (req, res) => {
         );
 
         // Convert array to a map for faster lookup on frontend
-        // Map<pokemon_id, availability_object>
+        // Key by `${pokemon_id}_${form_name}` and fallback to `pokemon_id`
         const availabilityMap = {};
         result.rows.forEach(row => {
-            availabilityMap[row.pokemon_id] = row;
+            const form = row.form_name || 'Normal';
+            availabilityMap[`${row.pokemon_id}_${form}`] = row;
+            if (!availabilityMap[row.pokemon_id] || form === 'Normal') {
+                availabilityMap[row.pokemon_id] = row;
+            }
         });
 
         res.json(availabilityMap);

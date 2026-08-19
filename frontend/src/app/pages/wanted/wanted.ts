@@ -257,7 +257,7 @@ interface ExportPreset {
                       </div>
                     </div>
                     <div class="poke-tags">
-                      <div *ngFor="let item of poke.missing" 
+                      <div *ngFor="let item of getVisibleMissing(poke)" 
                            class="wanted-tag" 
                            [class.available]="item.availableFrom.length > 0">
                         {{ item.tag }}
@@ -408,6 +408,7 @@ interface ExportPreset {
 export class Wanted implements OnInit {
   wantedPokemon: WantedPokemon[] = [];
   pokemonMasterList: any[] = [];
+  myPokedex: PokemonEntry[] = [];
   regions: RegionGroup[] = [];
   filteredRegions: RegionGroup[] = [];
   tradeAvailableMap: Map<string, TradeAvailable[]> = new Map();
@@ -420,7 +421,7 @@ export class Wanted implements OnInit {
   includeSpecialForms: boolean = true;
   includeCategoryKeywords: boolean = true;
 
-  categoryAvailability: { [key: number]: any } = {};
+  categoryAvailability: { [key: string]: any } = {};
   globalStats: any = { total: 0 };
   copySuccess: boolean = false;
   generatedSearchString: string = '';
@@ -467,12 +468,11 @@ export class Wanted implements OnInit {
       allPokemon: this.pokemonService.getAllPokemonMaster()
     }).subscribe({
       next: (data) => {
+        this.myPokedex = data.myPokedex || [];
         this.categoryAvailability = data.availability || {};
         this.pokemonMasterList = data.allPokemon || [];
         this.buildTradeAvailableMap(data.tradeAvailable || []);
-        this.calculateWantedPokemon(data.myPokedex || []);
-        this.groupByRegion();
-        this.applyFilters();
+        this.recalculateAndApply();
       },
       error: (err) => console.error('Error loading wanted data:', err)
     });
@@ -497,7 +497,7 @@ export class Wanted implements OnInit {
       const missing: { tag: string; availableFrom: string[] }[] = [];
 
       this.categories.forEach(cat => {
-        if (!this.isCategoryAvailable(id, this.mapTagToKey(cat.tag))) return;
+        if (!this.isCategoryAvailable(id, this.mapTagToKey(cat.tag), master)) return;
 
         let isMissing = false;
         if (cat.tag === 'Pokédex') {
@@ -571,17 +571,32 @@ export class Wanted implements OnInit {
     return map[tag];
   }
 
-  isCategoryAvailable(id: number, key: string): boolean {
+  isCategoryAvailable(id: number, key: string, master?: any): boolean {
     if (this.includeUnavailable) return true;
-    const entry = this.categoryAvailability[id];
+    const form = master?.form_name || 'Normal';
+    const entry = this.categoryAvailability[`${id}_${form}`] || this.categoryAvailability[id];
     if (entry) {
       const fieldName = `can_be_${key === 'parfait' ? 'perfect' : key}`;
       if (entry[fieldName] !== undefined && entry[fieldName] !== null) {
         return Boolean(entry[fieldName]);
       }
     }
-    const standardKeys = ['normal', 'shiny', 'lucky', 'xxl', 'xxs', 'obscure', 'purified', 'parfait', 'regional', 'forms'];
-    return standardKeys.includes(key);
+    // Intelligent fallback using master data if category availability row is missing
+    if (key === 'legendary') return master?.classification_key === 'legendary';
+    if (key === 'mythical') return master?.classification_key === 'mythical';
+    if (key === 'ultra_beast') return master?.classification_key === 'ultra_beast';
+    if (key === 'gmax') return Boolean(master?.is_gmax);
+    if (key === 'dynamax') return Boolean(master?.is_dynamax);
+    if (key === 'mega') return Boolean(master?.is_mega);
+    if (key === 'regional') return Boolean(master?.is_regional);
+    if (key === 'forms') return Boolean(master?.form_name && master?.form_name !== 'Normal');
+
+    return true;
+  }
+
+  getVisibleMissing(poke: WantedPokemon): { tag: string; availableFrom: string[] }[] {
+    const selectedTags = new Set(this.categories.filter(c => c.selected).map(c => c.tag));
+    return poke.missing.filter(m => selectedTags.has(m.tag));
   }
 
   groupByRegion() {
@@ -598,6 +613,13 @@ export class Wanted implements OnInit {
       return idA - idB;
     });
     this.regions = sortedGroups;
+  }
+
+  recalculateAndApply() {
+    if (this.pokemonMasterList.length === 0) return;
+    this.calculateWantedPokemon(this.myPokedex);
+    this.groupByRegion();
+    this.applyFilters();
   }
 
   applyFilters() {
@@ -705,7 +727,7 @@ export class Wanted implements OnInit {
   toggleRegion(r: RegionGroup) { r.expanded = !r.expanded; }
   
   onFilterChange() {
-    this.applyFilters();
+    this.recalculateAndApply();
     this.saveUserFiltersToDB();
   }
   
@@ -730,13 +752,13 @@ export class Wanted implements OnInit {
           this.loadFiltersFromLocalStorage();
           this.loadPresetsFromLocalStorage();
         }
-        this.applyFilters();
+        this.recalculateAndApply();
       },
       error: (err) => {
         console.error('Error loading filters from DB, falling back to local storage', err);
         this.loadFiltersFromLocalStorage();
         this.loadPresetsFromLocalStorage();
-        this.applyFilters();
+        this.recalculateAndApply();
       }
     });
   }
