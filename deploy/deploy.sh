@@ -226,6 +226,8 @@ ENVEOF
 
         echo "🛑  Arrêt des containers pokedec-${ENV_SUFFIX}-*…"
         run_sudo /usr/local/bin/docker-compose down --remove-orphans || true
+        run_sudo docker stop pokedec-blue-db pokedec-nas-db 2>/dev/null || true
+        run_sudo docker rm pokedec-blue-db pokedec-nas-db 2>/dev/null || true
 
         echo "📥   Pull des nouvelles images DockerHub…"
         run_sudo /usr/local/bin/docker-compose pull
