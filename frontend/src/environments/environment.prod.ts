@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    version: 'V2026.08.19.21',
+    version: 'V2026.08.19.22',
     apiUrl: '/api',
     backupApiUrl: '/api',
     supabaseUrl: 'https://fkcktcwtnmuflasiueji.supabase.co',
