@@ -79,17 +79,17 @@ export class PokemonService {
 
     // Get user's pokedex from backend
     getMyPokedex(): Observable<any[]> {
-        return this.http.get<any[]>(this.backendUrl);
+        return this.http.get<any[]>(this.backendUrl, this.getAuthHeaders());
     }
 
     // Get specific pokemon from user's pokedex
     getUserPokemon(pokemonId: number, formName: string = 'Normal'): Observable<any> {
-        return this.http.get<any>(`${this.backendUrl}/${pokemonId}?form=${encodeURIComponent(formName)}`);
+        return this.http.get<any>(`${this.backendUrl}/${pokemonId}?form=${encodeURIComponent(formName)}`, this.getAuthHeaders());
     }
 
     // Search Pokemon in user's pokedex by name in any language
     searchPokemonMultilingual(query: string): Observable<any[]> {
-        return this.http.get<any[]>(`${this.backendUrl}/search/${encodeURIComponent(query)}`);
+        return this.http.get<any[]>(`${this.backendUrl}/search/${encodeURIComponent(query)}`, this.getAuthHeaders());
     }
 
     // Add pokemon to backend
@@ -100,18 +100,18 @@ export class PokemonService {
             image_url: pokemon.sprites?.front_default || pokemon.image_url,
             form_name: formName
         };
-        return this.http.post(this.backendUrl, body);
+        return this.http.post(this.backendUrl, body, this.getAuthHeaders());
     }
 
     // Remove pokemon from backend
     removeFromPokedex(pokemonId: number, formName: string = 'Normal'): Observable<any> {
-        return this.http.delete(`${this.backendUrl}/${pokemonId}?form=${encodeURIComponent(formName)}`);
+        return this.http.delete(`${this.backendUrl}/${pokemonId}?form=${encodeURIComponent(formName)}`, this.getAuthHeaders());
     }
 
 
     // Get Pokemon available for trade from other users
     getTradeAvailable(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.backendUrl}/trade-available`);
+        return this.http.get<any[]>(`${this.backendUrl}/trade-available`, this.getAuthHeaders());
     }
 
     // Get recent Pokemon added by other users
@@ -184,12 +184,21 @@ export class PokemonService {
 
     // Get global category availability
     getCategoryAvailability(): Observable<any> {
-        return this.http.get<any>(`${environment.apiUrl}/pokemon-categories/availability`);
+        return this.http.get<any>(`${environment.apiUrl}/pokemon-categories/availability`, this.getAuthHeaders());
     }
 
-    // Get all Pokemon master data (public)
+    // Get all Pokemon master data (public/authenticated)
     getAllPokemonMaster(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.backendUrl}/master-all`);
+        return this.http.get<any[]>(`${this.backendUrl}/master-all`, this.getAuthHeaders());
+    }
+
+    // User Search Filters & Presets Persistence
+    getUserFilters(): Observable<any> {
+        return this.http.get<any>(`${this.backendUrl}/user-filters`, this.getAuthHeaders());
+    }
+
+    saveUserFilters(filtersData: { wanted_filters?: any; wanted_presets?: any[]; pokedex_filters?: any }): Observable<any> {
+        return this.http.put<any>(`${this.backendUrl}/user-filters`, filtersData, this.getAuthHeaders());
     }
 
     // Trade Requests

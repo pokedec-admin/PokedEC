@@ -40,13 +40,14 @@ L'application offre une interface intuitive pour marquer les Pokémon capturés 
   - 🧬 **Méga & G-Max**
   - 👻 **Obscures & Purifiés**
   - 💯 **Parfaits** (IV 100%)
-- **Gestion des Échanges** : Marquez vos doubles comme "Disponibles à l'échange" et listez vos "Recherchés".
+- **Gestion des Échanges & Listes d'Export** : Marquez vos doubles comme "Disponibles à l'échange" et générez vos listes de "Recherchés" avec filtres avancés et préréglages d'export pour Pokémon GO.
+- **Persistance des Filtres Multi-Appareils** : Enregistrement de vos filtres de recherche actifs et de vos préréglages d'export en base de données (PostgreSQL / Supabase) pour une expérience synchronisée sur tous vos appareils.
 - **Social** : Visualisez les profils des autres dresseurs et leurs listes d'échanges.
 
 ### 🛡️ Pour les Administrateurs
 - **Gestion des Utilisateurs** : Modération et activation des comptes.
 - **Configuration Globale** : Définition des règles de disponibilité des variantes pour chaque Pokémon (ex: "est-ce que ce Pokémon peut être Shiny ?").
-- **Import de Données** : Outils pour maintenir la base de données à jour avec les dernières nouveautés de Pokémon GO.
+- **Import & Synchronisation de Données** : Outils complets pour la synchronisation globale (DEV ↔ PROD / Cloud / NAS) incluant les utilisateurs, le Pokédex, la disponibilité des catégories, les suggestions et les filtres utilisateur.
 
 ## 🏗️ Architecture & Tech Stack
 

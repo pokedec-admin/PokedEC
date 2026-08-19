@@ -20,6 +20,7 @@ const { createAuditLogsTable, createAuditTriggerFunction, applyAuditTriggerToPok
 const { createPokemonCategoryAvailabilityTable } = require('./models/pokemon_category_availability');
 const { createClassificationsTable, createRegionsTable, createTypesTable } = require('./models/pokemon_references');
 const { createPokemonMasterTable } = require('./models/pokemon_master');
+const { createUserSearchFiltersTable } = require('./models/user_search_filters');
 const fs = require('fs');
 const path = require('path');
 
@@ -206,6 +207,7 @@ async function runMigrations() {
     await createPokedexTable(pool);
     await createSuggestionsTable(pool);
     await createPokemonCategoryAvailabilityTable(pool);
+    await createUserSearchFiltersTable(pool);
     await createClassificationsTable(pool);
     await createRegionsTable(pool);
     await createTypesTable(pool);

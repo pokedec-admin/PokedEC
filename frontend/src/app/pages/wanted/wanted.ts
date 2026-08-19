@@ -456,7 +456,7 @@ export class Wanted implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    this.loadPresets();
+    this.loadUserFiltersAndPresets();
   }
 
   loadData() {
@@ -467,13 +467,14 @@ export class Wanted implements OnInit {
       allPokemon: this.pokemonService.getAllPokemonMaster()
     }).subscribe({
       next: (data) => {
-        this.categoryAvailability = data.availability;
-        this.pokemonMasterList = data.allPokemon;
-        this.buildTradeAvailableMap(data.tradeAvailable);
-        this.calculateWantedPokemon(data.myPokedex);
+        this.categoryAvailability = data.availability || {};
+        this.pokemonMasterList = data.allPokemon || [];
+        this.buildTradeAvailableMap(data.tradeAvailable || []);
+        this.calculateWantedPokemon(data.myPokedex || []);
         this.groupByRegion();
         this.applyFilters();
-      }
+      },
+      error: (err) => console.error('Error loading wanted data:', err)
     });
   }
 
@@ -503,22 +504,22 @@ export class Wanted implements OnInit {
           if (form === 'Normal' && (!existing || !existing.has_normal)) isMissing = true;
         } else if (cat.tag === 'Formes') {
           if (form !== 'Normal' && (!existing || !existing.has_normal)) isMissing = true;
+        } else if (cat.tag === 'Régional') {
+          if (master.is_regional && (!existing || !existing.has_normal)) isMissing = true;
         } else {
-          if (!existing) isMissing = true;
-          else if (cat.tag === 'Légendaire' && !existing.has_legendary) isMissing = true;
-          else if (cat.tag === 'Fabuleux' && !existing.has_mythical) isMissing = true;
-          else if (cat.tag === 'Ultra-Chimères' && !existing.has_ultra_beast) isMissing = true;
-          else if (cat.tag === 'Shiny' && !existing.has_shiny) isMissing = true;
-          else if (cat.tag === 'Lucky' && !existing.has_lucky) isMissing = true;
-          else if (cat.tag === 'XXL' && !existing.has_xxl) isMissing = true;
-          else if (cat.tag === 'XXS' && !existing.has_xxs) isMissing = true;
-          else if (cat.tag === 'Gigamax' && !existing.has_gmax) isMissing = true;
-          else if (cat.tag === 'Dynamax' && !existing.has_dynamax) isMissing = true;
-          else if (cat.tag === 'Méga' && !existing.has_mega) isMissing = true;
-          else if (cat.tag === 'Obscure' && !existing.has_obscure) isMissing = true;
-          else if (cat.tag === 'Purifié' && !existing.has_purifie) isMissing = true;
-          else if (cat.tag === 'Parfait' && !existing.has_parfait) isMissing = true;
-          else if (cat.tag === 'Régional' && master.is_regional && (!existing || !existing.has_normal)) isMissing = true;
+          if (cat.tag === 'Légendaire' && (!existing || !existing.has_legendary)) isMissing = true;
+          else if (cat.tag === 'Fabuleux' && (!existing || !existing.has_mythical)) isMissing = true;
+          else if (cat.tag === 'Ultra-Chimères' && (!existing || !existing.has_ultra_beast)) isMissing = true;
+          else if (cat.tag === 'Shiny' && (!existing || !existing.has_shiny)) isMissing = true;
+          else if (cat.tag === 'Lucky' && (!existing || !existing.has_lucky)) isMissing = true;
+          else if (cat.tag === 'XXL' && (!existing || !existing.has_xxl)) isMissing = true;
+          else if (cat.tag === 'XXS' && (!existing || !existing.has_xxs)) isMissing = true;
+          else if (cat.tag === 'Gigamax' && (!existing || !existing.has_gmax)) isMissing = true;
+          else if (cat.tag === 'Dynamax' && (!existing || !existing.has_dynamax)) isMissing = true;
+          else if (cat.tag === 'Méga' && (!existing || !existing.has_mega)) isMissing = true;
+          else if (cat.tag === 'Obscure' && (!existing || !existing.has_obscure)) isMissing = true;
+          else if (cat.tag === 'Purifié' && (!existing || !existing.has_purifie)) isMissing = true;
+          else if (cat.tag === 'Parfait' && (!existing || !existing.has_parfait)) isMissing = true;
         }
 
         if (isMissing) {
@@ -575,9 +576,12 @@ export class Wanted implements OnInit {
     const entry = this.categoryAvailability[id];
     if (entry) {
       const fieldName = `can_be_${key === 'parfait' ? 'perfect' : key}`;
-      return entry[fieldName];
+      if (entry[fieldName] !== undefined && entry[fieldName] !== null) {
+        return Boolean(entry[fieldName]);
+      }
     }
-    return ['regional', 'forms', 'normal'].includes(key);
+    const standardKeys = ['normal', 'shiny', 'lucky', 'xxl', 'xxs', 'obscure', 'purified', 'parfait', 'regional', 'forms'];
+    return standardKeys.includes(key);
   }
 
   groupByRegion() {
@@ -632,7 +636,7 @@ export class Wanted implements OnInit {
 
   toggleAllCategories(val: boolean) {
     this.categories.forEach(c => c.selected = val);
-    this.applyFilters();
+    this.onFilterChange();
   }
 
   updateExportString() {
@@ -699,24 +703,102 @@ export class Wanted implements OnInit {
   }
 
   toggleRegion(r: RegionGroup) { r.expanded = !r.expanded; }
-  onFilterChange() { this.applyFilters(); }
+  
+  onFilterChange() {
+    this.applyFilters();
+    this.saveUserFiltersToDB();
+  }
+  
   goToDetail(id: number) { this.router.navigate(['/pokedex', id]); }
 
-  // Preset Methods
-  loadPresets() {
+  // Filter & Preset Persistence Methods
+  loadUserFiltersAndPresets() {
+    this.pokemonService.getUserFilters().subscribe({
+      next: (res) => {
+        let loadedFromDB = false;
+        if (res) {
+          if (res.wanted_filters && Object.keys(res.wanted_filters).length > 0) {
+            this.applyLoadedFilters(res.wanted_filters);
+            loadedFromDB = true;
+          }
+          if (Array.isArray(res.wanted_presets) && res.wanted_presets.length > 0) {
+            this.presets = res.wanted_presets;
+            loadedFromDB = true;
+          }
+        }
+        if (!loadedFromDB) {
+          this.loadFiltersFromLocalStorage();
+          this.loadPresetsFromLocalStorage();
+        }
+        this.applyFilters();
+      },
+      error: (err) => {
+        console.error('Error loading filters from DB, falling back to local storage', err);
+        this.loadFiltersFromLocalStorage();
+        this.loadPresetsFromLocalStorage();
+        this.applyFilters();
+      }
+    });
+  }
+
+  applyLoadedFilters(f: any) {
+    if (f.exportPrefix !== undefined) this.exportPrefix = f.exportPrefix;
+    if (f.exportSuffix !== undefined) this.exportSuffix = f.exportSuffix;
+    if (f.includeSpecialForms !== undefined) this.includeSpecialForms = f.includeSpecialForms;
+    if (f.includeCategoryKeywords !== undefined) this.includeCategoryKeywords = f.includeCategoryKeywords;
+    if (f.includeUnavailable !== undefined) this.includeUnavailable = f.includeUnavailable;
+    if (f.showOnlyAvailableForTrade !== undefined) this.showOnlyAvailableForTrade = f.showOnlyAvailableForTrade;
+
+    if (Array.isArray(f.selectedCategories)) {
+      this.categories.forEach(cat => {
+        cat.selected = f.selectedCategories.includes(cat.tag);
+      });
+    }
+  }
+
+  loadFiltersFromLocalStorage() {
+    const saved = localStorage.getItem('pokedec-wanted-filters');
+    if (saved) {
+      try {
+        this.applyLoadedFilters(JSON.parse(saved));
+      } catch (e) {
+        console.error('Error loading filters from localStorage', e);
+      }
+    }
+  }
+
+  loadPresetsFromLocalStorage() {
     const saved = localStorage.getItem('pokedec-wanted-presets');
     if (saved) {
       try {
         this.presets = JSON.parse(saved);
       } catch (e) {
-        console.error('Error loading presets', e);
+        console.error('Error loading presets from localStorage', e);
         this.presets = [];
       }
     }
   }
 
-  savePresetsToStorage() {
+  saveUserFiltersToDB() {
+    const activeFilters = {
+      exportPrefix: this.exportPrefix,
+      exportSuffix: this.exportSuffix,
+      includeSpecialForms: this.includeSpecialForms,
+      includeCategoryKeywords: this.includeCategoryKeywords,
+      includeUnavailable: this.includeUnavailable,
+      showOnlyAvailableForTrade: this.showOnlyAvailableForTrade,
+      selectedCategories: this.categories.filter(c => c.selected).map(c => c.tag)
+    };
+
+    localStorage.setItem('pokedec-wanted-filters', JSON.stringify(activeFilters));
     localStorage.setItem('pokedec-wanted-presets', JSON.stringify(this.presets));
+
+    this.pokemonService.saveUserFilters({
+      wanted_filters: activeFilters,
+      wanted_presets: this.presets
+    }).subscribe({
+      error: (err) => console.error('Error saving user filters to DB:', err)
+    });
   }
 
   savePreset() {
@@ -735,7 +817,7 @@ export class Wanted implements OnInit {
     };
 
     this.presets.push(newPreset);
-    this.savePresetsToStorage();
+    this.saveUserFiltersToDB();
     this.newPresetName = '';
   }
 
@@ -751,11 +833,11 @@ export class Wanted implements OnInit {
       cat.selected = p.selectedCategories.includes(cat.tag);
     });
 
-    this.applyFilters();
+    this.onFilterChange();
   }
 
   deletePreset(id: string) {
     this.presets = this.presets.filter(p => p.id !== id);
-    this.savePresetsToStorage();
+    this.saveUserFiltersToDB();
   }
 }

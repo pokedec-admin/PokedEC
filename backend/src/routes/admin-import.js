@@ -61,6 +61,7 @@ router.get('/export-all', authenticateToken, authenticateAdmin, async (req, res)
         const types = (await localPool.query('SELECT * FROM types')).rows;
         const master = (await localPool.query('SELECT * FROM pokemon_master')).rows;
         const suggestions = (await localPool.query('SELECT * FROM suggestions')).rows;
+        const userFilters = (await localPool.query('SELECT * FROM user_search_filters')).rows;
 
         res.json({
             trainers: users,
@@ -70,7 +71,8 @@ router.get('/export-all', authenticateToken, authenticateAdmin, async (req, res)
             regions: regions,
             types: types,
             pokemon_master: master,
-            suggestions: suggestions
+            suggestions: suggestions,
+            user_search_filters: userFilters
         });
     } catch (error) {
         console.error('❌ Export error:', error);
@@ -98,6 +100,7 @@ router.post('/import-all', authenticateToken, authenticateAdmin, async (req, res
         await localPool.query('TRUNCATE TABLE regions CASCADE');
         await localPool.query('TRUNCATE TABLE types CASCADE');
         await localPool.query('TRUNCATE TABLE suggestions RESTART IDENTITY CASCADE');
+        await localPool.query('TRUNCATE TABLE user_search_filters CASCADE');
 
         // Reference Tables
         if (data.classifications) {
@@ -201,6 +204,27 @@ router.post('/import-all', authenticateToken, authenticateAdmin, async (req, res
                 entry.has_obscure, entry.has_purifie, entry.has_parfait, entry.has_trade, entry.trade_shiny,
                 entry.trade_xxl, entry.trade_xxs, entry.trade_gmax, entry.trade_dynamax,
                 entry.trade_mega, entry.trade_purified, entry.trade_perfect]);
+            }
+        }
+
+        // User Search Filters
+        if (data.user_search_filters) {
+            for (const f of data.user_search_filters) {
+                await localPool.query(`
+                    INSERT INTO user_search_filters (user_id, wanted_filters, wanted_presets, pokedex_filters, updated_at)
+                    VALUES ($1, $2, $3, $4, $5)
+                    ON CONFLICT (user_id) DO UPDATE SET
+                        wanted_filters = EXCLUDED.wanted_filters,
+                        wanted_presets = EXCLUDED.wanted_presets,
+                        pokedex_filters = EXCLUDED.pokedex_filters,
+                        updated_at = EXCLUDED.updated_at
+                `, [
+                    f.user_id,
+                    JSON.stringify(f.wanted_filters || {}),
+                    JSON.stringify(f.wanted_presets || []),
+                    JSON.stringify(f.pokedex_filters || {}),
+                    f.updated_at || new Date()
+                ]);
             }
         }
 
@@ -708,6 +732,7 @@ router.post('/push-local-to-prod', syncAuthMiddleware, async (req, res) => {
         const types = (await localPool.query('SELECT * FROM types ORDER BY id')).rows;
         const master = (await localPool.query('SELECT * FROM pokemon_master ORDER BY pokemon_id, form_name')).rows;
         const suggestions = (await localPool.query('SELECT * FROM suggestions ORDER BY id')).rows;
+        const userFilters = (await localPool.query('SELECT * FROM user_search_filters')).rows;
 
         // 2. Clear PROD data (EXTREMELY DESTRUCTIVE!)
         console.log('🗑️   Clearing PROD data...');
@@ -724,6 +749,18 @@ router.post('/push-local-to-prod', syncAuthMiddleware, async (req, res) => {
         await prodPool.query('TRUNCATE TABLE regions CASCADE');
         await prodPool.query('TRUNCATE TABLE types CASCADE');
         await prodPool.query('TRUNCATE TABLE suggestions RESTART IDENTITY CASCADE');
+
+        // Ensure user_search_filters table exists on PROD
+        await prodPool.query(`
+            CREATE TABLE IF NOT EXISTS user_search_filters (
+                user_id INTEGER PRIMARY KEY REFERENCES ${userTableName}(id) ON DELETE CASCADE,
+                wanted_filters JSONB DEFAULT '{}'::jsonb,
+                wanted_presets JSONB DEFAULT '[]'::jsonb,
+                pokedex_filters JSONB DEFAULT '{}'::jsonb,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        await prodPool.query('TRUNCATE TABLE user_search_filters CASCADE');
 
         // 3. Import to PROD
         console.log(`📤 Pushing ${users.length} users to ${userTableName}...`);
@@ -801,6 +838,25 @@ router.post('/push-local-to-prod', syncAuthMiddleware, async (req, res) => {
                 INSERT INTO suggestions (id, user_id, type, content, status, admin_response, created_at, updated_at, is_read, archived_user, archived_admin)
                 VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
             `, [s.id, s.user_id, s.type, s.content, s.status, s.admin_response, s.created_at, s.updated_at, s.is_read || false, s.archived_user || false, s.archived_admin || false]);
+        }
+
+        console.log(`📤 Pushing ${userFilters.length} user search filters...`);
+        for (const f of userFilters) {
+            await prodPool.query(`
+                INSERT INTO user_search_filters (user_id, wanted_filters, wanted_presets, pokedex_filters, updated_at)
+                VALUES ($1, $2, $3, $4, $5)
+                ON CONFLICT (user_id) DO UPDATE SET
+                    wanted_filters = EXCLUDED.wanted_filters,
+                    wanted_presets = EXCLUDED.wanted_presets,
+                    pokedex_filters = EXCLUDED.pokedex_filters,
+                    updated_at = EXCLUDED.updated_at
+            `, [
+                f.user_id,
+                JSON.stringify(f.wanted_filters || {}),
+                JSON.stringify(f.wanted_presets || []),
+                JSON.stringify(f.pokedex_filters || {}),
+                f.updated_at || new Date()
+            ]);
         }
 
         console.log('✅ PUSH DEV → PROD completed successfully!');

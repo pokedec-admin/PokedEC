@@ -851,7 +851,56 @@ router.patch('/:pokemon_id/purifie', authenticateToken, async (req, res) => {
 
 // Generic toggle endpoint for any boolean field
 
-// IMPORTANT: Specific routes MUST come before parametrized routes (:pokemon_id)
+// Get user search filters & presets
+router.get('/user-filters', authenticateToken, async (req, res) => {
+    try {
+        const pool = getPool(req);
+        const result = await pool.query(
+            `SELECT wanted_filters, wanted_presets, pokedex_filters FROM user_search_filters WHERE user_id = $1`,
+            [req.user.id]
+        );
+        if (result.rows.length === 0) {
+            return res.json({
+                wanted_filters: {},
+                wanted_presets: [],
+                pokedex_filters: {}
+            });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error fetching user filters:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+// Update user search filters & presets
+router.put('/user-filters', authenticateToken, async (req, res) => {
+    const { wanted_filters, wanted_presets, pokedex_filters } = req.body;
+    try {
+        const pool = getPool(req);
+        const result = await pool.query(
+            `INSERT INTO user_search_filters (user_id, wanted_filters, wanted_presets, pokedex_filters, updated_at)
+             VALUES ($1, COALESCE($2::jsonb, '{}'::jsonb), COALESCE($3::jsonb, '[]'::jsonb), COALESCE($4::jsonb, '{}'::jsonb), CURRENT_TIMESTAMP)
+             ON CONFLICT (user_id) DO UPDATE SET
+                wanted_filters = CASE WHEN $2 IS NOT NULL THEN $2::jsonb ELSE user_search_filters.wanted_filters END,
+                wanted_presets = CASE WHEN $3 IS NOT NULL THEN $3::jsonb ELSE user_search_filters.wanted_presets END,
+                pokedex_filters = CASE WHEN $4 IS NOT NULL THEN $4::jsonb ELSE user_search_filters.pokedex_filters END,
+                updated_at = CURRENT_TIMESTAMP
+             RETURNING wanted_filters, wanted_presets, pokedex_filters`,
+            [
+                req.user.id,
+                wanted_filters ? JSON.stringify(wanted_filters) : null,
+                wanted_presets ? JSON.stringify(wanted_presets) : null,
+                pokedex_filters ? JSON.stringify(pokedex_filters) : null
+            ]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error saving user filters:', err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 // Get user's full pokedex (alias endpoint)
 router.get('/my-pokedex', authenticateToken, async (req, res) => {
     try {
